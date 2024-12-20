@@ -5,10 +5,11 @@
     "build": "react-router build",
     "dev": "react-router dev",
     "start": "wrangler dev",
+    "preview": "npm run build && wrangler dev",
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
-    "@react-router/node": "*",
+    "@react-router/cloudflare": "^7.0.2",
     "@react-router/serve": "*",
     "isbot": "^5.1.17",
     "react": "^19.0.0",
