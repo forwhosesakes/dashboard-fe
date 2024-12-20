@@ -1,49 +1,49 @@
-import { vitePluginViteNodeMiniflare } from "@hiogawa/vite-node-miniflare";
 import { reactRouter } from "@react-router/dev/vite";
-import autoprefixer from "autoprefixer";
-import tailwindcss from "tailwindcss";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
-export default defineConfig(({ isSsrBuild }) => ({
-  build: {
-    rollupOptions: isSsrBuild
-      ? {
-          input: "./functions/app.ts",
-        }
-      : undefined,
+
+declare module "@react-router/cloudflare" {
+  interface Future {
+    v3_singleFetch: true;
+  }
+}
+
+export default defineConfig({
+  plugins: [
+    reactRouter(),
+    
+    tsconfigPaths(),
+  ],
+  optimizeDeps: {
+    include: [
+  
+    ],
+    // exclude: ["@remix-run/dev"],
   },
-  css: {
-    postcss: {
-      plugins: [tailwindcss, autoprefixer],
+  build: {
+    rollupOptions: {
+      // external: [/node:.*/, '@remix-run/dev', '@remix-run/server-runtime'],
+      output: {
+        manualChunks: {
+  
+          // 'email': ['@react-email/components','@react-email/render'],
+        },
+      },
+    },
+    sourcemap: true,
+    target: 'esnext',
+    minify: 'esbuild',
+  },
+  server: {
+    fs: {
+      allow: ['..'],
     },
   },
   ssr: {
-    target: "webworker",
-    noExternal: true,
-    resolve: {
-      conditions: ["workerd", "browser"],
-    },
-    optimizeDeps: {
-      include: [
-        "react",
-        "react/jsx-runtime",
-        "react/jsx-dev-runtime",
-        "react-dom",
-        "react-dom/server",
-        "react-router",
-      ],
-    },
-  },
-  plugins: [
-    vitePluginViteNodeMiniflare({
-      entry: "./functions/app.ts",
-      miniflareOptions: (options) => {
-        options.compatibilityDate = "2024-11-18";
-        options.compatibilityFlags = ["nodejs_compat"];
-      },
-    }),
-    reactRouter(),
-    tsconfigPaths(),
-  ],
-}));
+    noExternal: [
+    
+    ],
+  
+},
+});

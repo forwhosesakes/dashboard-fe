@@ -4,8 +4,8 @@
   "scripts": {
     "build": "react-router build",
     "dev": "react-router dev",
-    "start": "wrangler dev",
-    "preview": "npm run build && wrangler dev",
+    "start": "wrangler pages dev",
+    "preview": "npm run build && wrangler pages dev",
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
