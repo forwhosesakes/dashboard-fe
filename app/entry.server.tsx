@@ -1,6 +1,9 @@
 import { isbot } from 'isbot'
-import pkg from 'react-dom/server';
-const {renderToReadableStream} = pkg;
+//@ts-ignore
+// import pkg from 'react-dom/server';
+// const { renderToReadableStream } = pkg
+
+import { renderToReadableStream } from 'react-dom/server.edge'
 import type { AppLoadContext, EntryContext } from 'react-router'
 import { ServerRouter } from 'react-router'
 
@@ -14,6 +17,8 @@ export default async function handleRequest(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   loadContext: AppLoadContext,
 ) {
+
+
   let statusCode = responseStatusCode
   const body = await renderToReadableStream(
     <ServerRouter context={remixContext} url={request.url} />,
