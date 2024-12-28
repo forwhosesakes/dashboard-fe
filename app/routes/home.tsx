@@ -1,5 +1,7 @@
+import { useEffect } from "react";
 import type { Route } from "./+types/home";
 import { LineChart, Line,XAxis,YAxis,CartesianGrid, Tooltip } from 'recharts';
+import { toasts } from "~/lib/utils/toast"
 
 
 export function meta({}: Route.MetaArgs) {
@@ -40,12 +42,28 @@ const renderCustomAxisTick = ({ x, y, payload }) => {
 };
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-return <LineChart width={600} height={300} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+
+  const showToast = ()=>{
+    toasts.success({
+      message:"test",
+      description:"test toast"
+    })
+    
+  }
+return<>
+
+<LineChart width={600} height={300} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
 <Line type="monotone" dataKey="uv" stroke="#8884d8" />
 <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
 <XAxis dataKey="name" tick={renderCustomAxisTick} />
 <YAxis />
 <Tooltip />
 </LineChart>
+<button className="border-red-700 border-2" onClick={showToast}>
+  toast
+
+</button>
+</> 
+
    
 }
