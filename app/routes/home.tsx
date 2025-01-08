@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import type { Route } from "./+types/home";
 import { LineChart, Line,XAxis,YAxis,CartesianGrid, Tooltip } from 'recharts';
 import { toasts } from "~/lib/utils/toast"
@@ -43,6 +43,23 @@ const renderCustomAxisTick = ({ x, y, payload }) => {
 
 export default function Home({ loaderData }: Route.ComponentProps) {
 
+  const [theme,setTheme]=useState<"light"|"dark">(()=>{
+    if(typeof window !== 'undefined'){
+      return localStorage.getItem("theme") as "light"|"dark"||
+      (window.matchMedia('(prefers-color-scheme:dark').matches?"dark":"light")
+    }
+    return"light"
+  })
+  useEffect(()=>{
+    const root = window.document.documentElement
+    root.classList.remove("light","dark");
+    root.classList.add(theme);
+    localStorage.setItem("theme",theme)
+  },[theme])
+  const toggleTheme=()=>{
+    setTheme(prev=>prev==="light"?"dark":"light")
+  }
+
   const showToast = ()=>{
     toasts.success({
       message:"test",
@@ -59,8 +76,16 @@ return<>
 <YAxis />
 <Tooltip />
 </LineChart>
-<button className="border-red-700 border-2" onClick={showToast}>
+<button className=" bg-secondary mr-5 border-2 w-52 h-52" onClick={showToast}>
   toast
+
+</button>
+
+<button
+onClick={toggleTheme}
+className="bg-secondary text-primary-foreground hover:bg-secondary-700  transition-colors"
+>
+  change theme
 
 </button>
 </> 

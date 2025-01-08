@@ -2,9 +2,13 @@ import type { Config } from "tailwindcss";
 
 export default {
     darkMode: ["class"],
-    content: ["./app/**/{**,.client,.server}/**/*.{js,jsx,ts,tsx}"],
+	content: [
+		"./app/**/*.{js,jsx,ts,tsx}",
+		"./app/**/**/*.{js,jsx,ts,tsx}",
+	],
   theme: {
   	extend: {
+
   		fontFamily: {
   			sans: [
   				'Inter"',
@@ -23,8 +27,36 @@ export default {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		colors: {
-  			background: 'hsl(var(--background))',
-  			foreground: 'hsl(var(--foreground))',
+			background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        primary: {
+          DEFAULT: 'hsl(var(--primary))',
+          50: 'hsl(var(--primary-50))',
+          100: 'hsl(var(--primary-100))',
+          200: 'hsl(var(--primary-200))',
+          300: 'hsl(var(--primary-300))',
+          400: 'hsl(var(--primary-400))',
+          500: 'hsl(var(--primary-500))',
+          600: 'hsl(var(--primary-600))',
+          700: 'hsl(var(--primary-700))',
+          800: 'hsl(var(--primary-800))',
+          900: 'hsl(var(--primary-900))',
+          foreground: 'hsl(var(--primary-foreground))',
+        },
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          50: 'hsl(var(--secondary-50))',
+          100: 'hsl(var(--secondary-100))',
+          200: 'hsl(var(--secondary-200))',
+          300: 'hsl(var(--secondary-300))',
+          400: 'hsl(var(--secondary-400))',
+          500: 'hsl(var(--secondary-500))',
+          600: 'hsl(var(--secondary-600))',
+          700: 'hsl(var(--secondary-700))',
+          800: 'hsl(var(--secondary-800))',
+          900: 'hsl(var(--secondary-900))',
+          foreground: 'hsl(var(--secondary-foreground))',
+        },
   			card: {
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))'
@@ -32,14 +64,6 @@ export default {
   			popover: {
   				DEFAULT: 'hsl(var(--popover))',
   				foreground: 'hsl(var(--popover-foreground))'
-  			},
-  			primary: {
-  				DEFAULT: 'hsl(var(--primary))',
-  				foreground: 'hsl(var(--primary-foreground))'
-  			},
-  			secondary: {
-  				DEFAULT: 'hsl(var(--secondary))',
-  				foreground: 'hsl(var(--secondary-foreground))'
   			},
   			muted: {
   				DEFAULT: 'hsl(var(--muted))',

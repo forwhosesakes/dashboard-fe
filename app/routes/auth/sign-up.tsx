@@ -32,6 +32,10 @@ const SignUp = ()=>{
       {errors.email && <span>This field is required</span>}
 
       <input type="submit" />
+
+      <div className="w-52 h-52 bg-primary-500 border-2">
+        hi
+      </div>
     </form>
 
     </section>
