@@ -8,19 +8,9 @@ export default {
 	],
   theme: {
   	extend: {
-
-  		fontFamily: {
-  			sans: [
-  				'Inter"',
-  				'ui-sans-serif',
-  				'system-ui',
-  				'sans-serif',
-  				'Apple Color Emoji"',
-  				'Segoe UI Emoji"',
-  				'Segoe UI Symbol"',
-  				'Noto Color Emoji"'
-  			]
-  		},
+		fontFamily: {
+			primary: 'PingARLT'
+		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',

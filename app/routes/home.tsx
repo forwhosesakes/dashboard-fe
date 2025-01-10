@@ -76,6 +76,8 @@ return<>
 <YAxis />
 <Tooltip />
 </LineChart>
+<h1>هاي احمد</h1>
+
 <button className=" bg-secondary mr-5 border-2 w-52 h-52" onClick={showToast}>
   toast
 

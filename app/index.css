@@ -12,7 +12,54 @@ body {
 }
 
 @layer base {
+  h1 {
+    @apply text-3xl font-semibold  md:text-6xl text-primary;
+  }
+  h2 {
+    @apply text-2xl font-semibold  md:text-5xl text-primary;
+  }
+  h3 {
+    @apply text-xl  md:text-[40px] font-bold text-primary;
+  }
+  h4 {
+    @apply text-lg md:text-3xl font-medium;
+  }
+  h5 {
+    @apply text-[10px]  md:text-sm lg:text-2xl font-medium;
+  }
+  h6 {
+    @apply text-[8px] md:text-xl font-medium;
+  }
+
+  p {
+    @apply leading-loose  font-medium md:text-xl text-sm;
+  }
+
+  @font-face {
+    font-family: "PingARLT";
+    src: url("/app/assets/fonts/PingARLT-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "PingARLT";
+    src: url("/app/assets/fonts/PingARLT-Medium.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "PingARLT";
+    src: url("/app/assets/fonts/PingARLT-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
   :root {
+    font-family: PingARLT;
     /* Base colors as specified */
     --background: 0 0% 100%; /* #FFFFFF - primary background */
     --foreground: 224 25% 12%; /* #181D27 - primary text */
