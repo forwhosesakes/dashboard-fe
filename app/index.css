@@ -5,6 +5,7 @@
 html,
 body {
   @apply bg-primary  dark:bg-gray-950;
+  
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
@@ -32,7 +33,7 @@ body {
   }
 
   p {
-    @apply leading-loose  font-medium md:text-xl text-sm;
+    @apply leading-loose   md:text-sm text-xs;
   }
 
   @font-face {
@@ -92,6 +93,22 @@ body {
     --secondary-900: 165 100% 10%;
     --secondary-foreground: 0 0% 100%; /* #FFFFFF */
 
+
+
+        /* tertiary Colors (based on # #535862) */
+        --tertiary: 220 8% 35%; /* #535862 */
+        --tertiary-50: 165 100% 95%;
+        --tertiary-100: 165 100% 90%;
+        --tertiary-200: 165 100% 80%;
+        --tertiary-300: 165 100% 70%;
+        --tertiary-400: 165 100% 60%;
+        --tertiary-500: 165 100% 50%;
+        --tertiary-600: 165 100% 40%;
+        --tertiary-700: 165 100% 30%;
+        --tertiary-800: 165 100% 20%;
+        --tertiary-900: 165 100% 10%;
+        --tertiary-foreground: 0 0% 100%; /* #FFFFFF */
+
     /* UI colors */
     --card: 0 0% 100%;
     --card-foreground: 224 25% 12%;
@@ -103,7 +120,7 @@ body {
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 90%;
+    --border: 210 5% 92%;
     --input: 0 0% 90%;
     --ring: 165 100% 34%;
 
