@@ -14,7 +14,7 @@ export function meta({}: Route.MetaArgs) {
 export function loader({ context }: Route.LoaderArgs) {
 
 
-  console.log("context", context);
+  // console.log("context", context);
   
   return { message: context.VALUE_FROM_CLOUDFLARE };
 }

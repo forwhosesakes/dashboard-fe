@@ -2,12 +2,15 @@ import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { cloudflareDevProxy } from "@react-router/dev/vite/cloudflare"
-import { getLoadContext } from "./load-context"
 import svgr from "vite-plugin-svgr";
 
 export default defineConfig({
   plugins: [
-    cloudflareDevProxy({ getLoadContext }),
+    cloudflareDevProxy({
+      getLoadContext({ context }) {
+        return { cloudflare: context.cloudflare };
+      },
+    }),
     
 
     reactRouter(),
