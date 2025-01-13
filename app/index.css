@@ -32,9 +32,15 @@ body {
     @apply text-[8px] md:text-xl font-medium;
   }
 
-  p {
+  p ,a{
     @apply leading-loose   md:text-sm text-xs;
   }
+
+
+  label {
+    @apply leading-loose text-primary-500  md:text-sm text-xs;
+  }
+
 
   @font-face {
     font-family: "PingARLT";
@@ -103,7 +109,8 @@ body {
         --tertiary-300: 165 100% 70%;
         --tertiary-400: 165 100% 60%;
         --tertiary-500: 165 100% 50%;
-        --tertiary-600: 165 100% 40%;
+        --tertiary-600: 220 8% 35%;
+        ;
         --tertiary-700: 165 100% 30%;
         --tertiary-800: 165 100% 20%;
         --tertiary-900: 165 100% 10%;
@@ -115,7 +122,7 @@ body {
     --popover: 0 0% 100%;
     --popover-foreground: 224 25% 12%;
     --muted: 0 0% 96%;
-    --muted-foreground: 224 25% 40%;
+    --muted-foreground: 220 6.2% 47.3;
     --accent: 165 100% 34%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
