@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { Route } from "./+types/home";
 import { LineChart, Line,XAxis,YAxis,CartesianGrid, Tooltip } from 'recharts';
 import { toasts } from "~/lib/utils/toast"
+import { AppLayout } from "~/components/app-sidebar";
 
 
 export function meta({}: Route.MetaArgs) {
@@ -68,6 +69,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     
   }
 return<>
+{/* Do not freak out, i know this should not be here its just for lazy testing*/}
+<AppLayout >
 
 <LineChart width={600} height={300} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
 <Line type="monotone" dataKey="uv" stroke="#8884d8" />
@@ -90,6 +93,8 @@ className="bg-secondary text-primary-foreground hover:bg-secondary-700  transiti
   change theme
 
 </button>
+
+</AppLayout>
 </> 
 
    
