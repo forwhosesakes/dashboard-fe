@@ -36,7 +36,14 @@ const Login = () => {
 
  
   const onSubmit: SubmitHandler<Inputs> = async () => {
+    
     setLoading(true);
+    if(email===""||password===""){
+      setLoginError("يرجى إدخال البريد الإلكتروني وكلمة المرور")
+      setLoading(false)
+      return;
+    }
+  
 
     const res = await authClient(serverUrl).signIn.email({email,password,rememberMe})
     
@@ -49,6 +56,7 @@ const Login = () => {
       } else {
         setLoginError(glossary.login.errors.generic);
       }
+      setLoading(false)
       return;
     }
     setLoading(false);
