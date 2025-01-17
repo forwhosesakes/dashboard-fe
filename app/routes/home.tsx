@@ -501,7 +501,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           </div>
         </div>
 
-        <div className="w-2/12 mt-12 flex flex-col">
+        <div className="w-2/12 min-w-56 mt-12 flex flex-col">
           <p className="text-sm text-primary-foreground my-5">
             الجمعيات المضافة حديثاً
           </p>
