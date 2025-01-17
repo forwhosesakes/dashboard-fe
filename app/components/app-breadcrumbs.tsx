@@ -7,6 +7,7 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator,
   } from "~/components/ui/breadcrumbs";
+  import { ChevronLeft } from "lucide-react"
  
   
   interface BreadcrumbsProps {
@@ -29,7 +30,7 @@ import {
                   <BreadcrumbLink asChild>
                     <Link to={item.href ?? '#'}>{item.label}</Link>
                   </BreadcrumbLink>
-                  <BreadcrumbSeparator />
+                  <ChevronLeft  className="max-w-4 max-h-4"/>
                 </>
               )}
             </BreadcrumbItem>
