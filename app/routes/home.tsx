@@ -90,16 +90,49 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   ];
 
   const recentCharity = [
-    {name:"", month:"", year:"", tags:["أوقاف","رعاية الأيتام","ملابس"]},
-    {name:"", month:"", year:"", tags:["أوقاف","رعاية الأيتام","ملابس"]},
-    {name:"", month:"", year:"", tags:["أوقاف","رعاية الأيتام","ملابس"]},
-    {name:"", month:"", year:"", tags:["أوقاف","رعاية الأيتام","ملابس"]},
-    {name:"", month:"", year:"", tags:["أوقاف","رعاية الأيتام","ملابس"]},
-    {name:"", month:"", year:"", tags:["أوقاف","رعاية الأيتام","ملابس"]},
-    {name:"", month:"", year:"", tags:["أوقاف","رعاية الأيتام","ملابس"]},
-
-  ]
-
+    {
+      name: "جمعية البر بأبها",
+      month: "فبراير",
+      year: "2025",
+      tags: [{name:"أوقاف", theme:{bg:"bg-[#eef4ff]",text:"text-[#3538cd]",border:"border-[#c6d7fe]"}}, {name:"رعاية الأيتام",theme:{bg:"bg-[#eff8ff]",text:"text-[#175cd3]",border:"border-[#b2ddff]"}}, {name:"ملابس",theme:{bg:"bg-[#f9f5ff]",text:"text-[#6941c6]",border:"border-[#e9d7fe]"}}],
+    },
+    {
+      name: "جمعية قيم بالخفجي",
+      month: "يناير",
+      year: "2025",
+      tags: [{name:"أوقاف", theme:{bg:"bg-[#eef4ff]",text:"text-[#3538cd]",border:"border-[#c6d7fe]"}}, {name:"رعاية الأيتام",theme:{bg:"bg-[#eff8ff]",text:"text-[#175cd3]",border:"border-[#b2ddff]"}}, {name:"ملابس",theme:{bg:"bg-[#f9f5ff]",text:"text-[#6941c6]",border:"border-[#e9d7fe]"}}],
+    },
+    {
+      name: "جمعية البر بعنيزة",
+      month: "مارس",
+      year: "2025",
+      tags: [{name:"أوقاف", theme:{bg:"bg-[#eef4ff]",text:"text-[#3538cd]",border:"border-[#c6d7fe]"}}, {name:"رعاية الأيتام",theme:{bg:"bg-[#eff8ff]",text:"text-[#175cd3]",border:"border-[#b2ddff]"}}, {name:"ملابس",theme:{bg:"bg-[#f9f5ff]",text:"text-[#6941c6]",border:"border-[#e9d7fe]"}}],
+    },
+    {
+      name: "جمعية الزكاة بالرياض",
+      month: "أبريل",
+      year: "2025",
+      tags: [{name:"أوقاف", theme:{bg:"bg-[#eef4ff]",text:"text-[#3538cd]",border:"border-[#c6d7fe]"}}, {name:"رعاية الأيتام",theme:{bg:"bg-[#eff8ff]",text:"text-[#175cd3]",border:"border-[#b2ddff]"}}, {name:"ملابس",theme:{bg:"bg-[#f9f5ff]",text:"text-[#6941c6]",border:"border-[#e9d7fe]"}}],
+    },
+    {
+      name: "جمعية الإحسان بالدمام",
+      month: "مايو",
+      year: "2025",
+      tags: [{name:"أوقاف", theme:{bg:"bg-[#eef4ff]",text:"text-[#3538cd]",border:"border-[#c6d7fe]"}}, {name:"رعاية الأيتام",theme:{bg:"bg-[#eff8ff]",text:"text-[#175cd3]",border:"border-[#b2ddff]"}}, {name:"ملابس",theme:{bg:"bg-[#f9f5ff]",text:"text-[#6941c6]",border:"border-[#e9d7fe]"}}],
+    },
+    {
+      name: "جمعية الرحمة بجدة",
+      month: "يونيو",
+      year: "2025",
+      tags: [{name:"أوقاف", theme:{bg:"bg-[#eef4ff]",text:"text-[#3538cd]",border:"border-[#c6d7fe]"}}, {name:"رعاية الأيتام",theme:{bg:"bg-[#eff8ff]",text:"text-[#175cd3]",border:"border-[#b2ddff]"}}, {name:"ملابس",theme:{bg:"bg-[#f9f5ff]",text:"text-[#6941c6]",border:"border-[#e9d7fe]"}}],
+    },
+    {
+      name: "جمعية السلام بحائل",
+      month: "يوليو",
+      year: "2025",
+      tags: [{name:"أوقاف", theme:{bg:"bg-[#eef4ff]",text:"text-[#3538cd]",border:"border-[#c6d7fe]"}}, {name:"رعاية الأيتام",theme:{bg:"bg-[#eff8ff]",text:"text-[#175cd3]",border:"border-[#b2ddff]"}}, {name:"ملابس",theme:{bg:"bg-[#f9f5ff]",text:"text-[#6941c6]",border:"border-[#e9d7fe]"}}],
+    },
+  ];
 const navigate = useNavigate()
   const [theme, setTheme] = useState<"light" | "dark">(() => {
 
@@ -356,7 +389,7 @@ const navigate = useNavigate()
       </div>
 
       <div className="mt-5  flex gap-5 w-full">
-        <div className="w-9/12">
+        <div className="w-10/12 ">
           <h5 className="text-primary-foreground my-5">
             ابدأ في إنشاء مستخدمين
           </h5>
@@ -392,10 +425,10 @@ const navigate = useNavigate()
             </div>
           </div>
 
-          <div className="w-11/12 h-44 mx-auto">
+          <div className="w-11/12 mx-auto">
             <h5 className="text-primary-foreground my-5">العملاء</h5>
             <Tabs defaultValue="overview" dir="rtl" className="w-full">
-              <TabsList className="w-full justify-start gap-1 bg-primary">
+              <TabsList className="w-full border-b justify-start rounded-none gap-1 bg-primary">
                 <TabsTrigger value="custom">مخصص</TabsTrigger>
                 <TabsTrigger value="segment">شريحة</TabsTrigger>
                 <TabsTrigger value="list">عرض القائمة</TabsTrigger>
@@ -408,7 +441,7 @@ const navigate = useNavigate()
               <TabsContent value="list">محتوى القائمة</TabsContent>
               <TabsContent value="table">محتوى الجدول</TabsContent>
 
-              <TabsContent className="flex border-t gap-4" value="overview">
+              <TabsContent className="flex gap-4 pt-4" value="overview">
                 <div className="flex justify-between border w-1/3 rounded-lg">
                   <div className="flex gap-2 flex-col p-2">
                     <img src={ActiveNow} className="w-12 h-12" />
@@ -470,13 +503,32 @@ const navigate = useNavigate()
           </div>
         </div>
 
-        <div className="w-3/12 mt-12 border flex">
+        <div className="w-2/12 mt-12 flex flex-col">
           <p className="text-sm text-primary-foreground my-5">
             الجمعيات المضافة حديثاً
           </p>
-
-
-
+          <div className="my-1 flex flex-col gap-2">
+            {recentCharity.map((charity) => (
+              <div className="flex gap-2">
+                <img className="w-10 h-10" src={DefaultUserImg} alt="" />
+                <div className="flex flex-col">
+                  <p>{charity.name}</p>
+                  <p className="text-primary-foreground/60">
+                    عضو منذ {charity.month} 
+                    {" "}
+                    {charity.year}
+                  </p>
+                  <div className="flex gap-1">
+                    {charity.tags.map((tag) => (
+                      <div className={`border rounded-xl p-0.5 px-1.5 text-xs ${tag.theme.bg} ${tag.theme.text} ${tag.theme.border}`}>
+                        {tag.name}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
