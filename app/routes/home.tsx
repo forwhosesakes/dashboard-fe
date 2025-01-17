@@ -365,7 +365,7 @@ const navigate = useNavigate()
               <div className="p-2 bg-primary border w-fit rounded-lg flex items-center justify-center">
                 <UserRoundPlus className="h-6 w-6" />
               </div>
-              <div onClick={()=>navigate("/cp/users/new-client")} className="mx-2 cursor-pointer flex flex-col">
+              <div onClick={()=>navigate("/cp/users/client")} className="mx-2 cursor-pointer flex flex-col">
                 <p className="text-primary font-bold text-base">
                   أضف مستخدم جديد
                 </p>
@@ -476,7 +476,7 @@ const navigate = useNavigate()
           </p>
 
 
-          
+
         </div>
       </div>
     </div>

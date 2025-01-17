@@ -13,7 +13,7 @@ export default [
             // index("routes/dashboard/index.tsx"),
             ...prefix("users",[
         route("client/:id?", "routes/cp/users/create-edit-client.tsx"),
-        route("new-client", "routes/cp/users/create-edit-client.tsx"),
+        // route("new-client", "routes/cp/users/create-edit-client.tsx"),
         index("routes/cp/users/users.tsx"),
 
     
