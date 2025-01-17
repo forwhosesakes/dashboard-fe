@@ -31,7 +31,7 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
       headers: {
         Cookie: cookieHeader || "",
       },
-      credentials: "include",
+      // credentials: "include",
     },
   });
   const session = res.data?.session;
