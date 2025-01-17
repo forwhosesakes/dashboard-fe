@@ -43,7 +43,6 @@ export default defineConfig({
     },
   },
   ssr: {
-    
-  
+    noExternal: ['lucide-react', 'react-dropzone'],
 },
 });

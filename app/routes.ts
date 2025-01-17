@@ -8,7 +8,21 @@ export default [
         route("reset-password", "routes/auth/reset-password/reset-password.tsx"),
         route("signup", "routes/auth/sign-up.tsx"),
         route("login", "routes/auth/login.tsx"),
-        route("dashboard","routes/dashboard/dashboard.tsx")
+        route("dashboard","routes/dashboard/dashboard.tsx"),
+         ...prefix("cp",[
+            // index("routes/dashboard/index.tsx"),
+            ...prefix("users",[
+        route("client/:id?", "routes/cp/users/create-edit-client.tsx"),
+        // route("new-client", "routes/cp/users/create-edit-client.tsx"),
+        index("routes/cp/users/users.tsx"),
+
+    
+
+            
+
+            ])
+        ])
+
 
         // ...prefix("dashboard",[
         //     index("routes/dashboard/index.tsx")

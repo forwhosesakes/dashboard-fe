@@ -38,7 +38,7 @@ body {
 
 
   label {
-    @apply leading-loose text-primary-500  md:text-sm text-xs;
+    @apply leading-loose text-tertiary-700 font-bold  md:text-sm text-xs;
   }
 
 
@@ -108,10 +108,10 @@ body {
         --tertiary-200: 165 100% 80%;
         --tertiary-300: 165 100% 70%;
         --tertiary-400: 165 100% 60%;
-        --tertiary-500: 165 100% 50%;
+        --tertiary-500: 220 5% 92%;
         --tertiary-600: 220 8% 35%;
         ;
-        --tertiary-700: 165 100% 30%;
+        --tertiary-700: 220 11% 29%;
         --tertiary-800: 165 100% 20%;
         --tertiary-900: 165 100% 10%;
         --tertiary-foreground: 0 0% 100%; /* #FFFFFF */

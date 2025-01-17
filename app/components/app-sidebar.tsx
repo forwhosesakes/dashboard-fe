@@ -44,7 +44,7 @@ const generalNavigation = [
     href: "/dashboard",
     isNested: true,
   },
-  { name: "المستخدمين", icon: Users, href: "/users", isNested: false },
+  { name: "المستخدمين", icon: Users, href: "/cp/users", isNested: false },
   { name: "المستندات", icon: Files, href: "/documents", isNested: false },
   { name: "الإعدادات", icon: Settings, href: "/settings", isNested: false },
 ];

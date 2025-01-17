@@ -29,6 +29,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "~/components/ui/tabs";
 import ActiveNow from "~/assets/icons/active-now.svg";
 import Members from "~/assets/icons/members-icon.svg";
 import TotalMembers from "~/assets/icons/total-members.svg";
+import { useNavigate } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -132,16 +133,17 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       tags: [{name:"أوقاف", theme:{bg:"bg-[#eef4ff]",text:"text-[#3538cd]",border:"border-[#c6d7fe]"}}, {name:"رعاية الأيتام",theme:{bg:"bg-[#eff8ff]",text:"text-[#175cd3]",border:"border-[#b2ddff]"}}, {name:"ملابس",theme:{bg:"bg-[#f9f5ff]",text:"text-[#6941c6]",border:"border-[#e9d7fe]"}}],
     },
   ];
-
+const navigate = useNavigate()
   const [theme, setTheme] = useState<"light" | "dark">(() => {
-    if (typeof window !== "undefined") {
-      return (
-        (localStorage.getItem("theme") as "light" | "dark") ||
-        (window.matchMedia("(prefers-color-scheme:dark").matches
-          ? "dark"
-          : "light")
-      );
-    }
+
+    // if (typeof window !== "undefined") {
+    //   return (
+    //     (localStorage.getItem("theme") as "light" | "dark") ||
+    //     (window.matchMedia("(prefers-color-scheme:dark").matches
+    //       ? "dark"
+    //       : "light")
+    //   );
+    // }
     return "light";
   });
   useEffect(() => {
@@ -396,7 +398,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
               <div className="p-2 bg-primary border w-fit rounded-lg flex items-center justify-center">
                 <UserRoundPlus className="h-6 w-6" />
               </div>
-              <div className="mx-2 flex flex-col">
+              <div onClick={()=>navigate("/cp/users/client")} className="mx-2 cursor-pointer flex flex-col">
                 <p className="text-primary font-bold text-base">
                   أضف مستخدم جديد
                 </p>
