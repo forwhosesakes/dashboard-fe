@@ -3,13 +3,58 @@ import {
   Links,
   Meta,
   Outlet,
+  redirect,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
+  useLocation,
+  type LoaderFunctionArgs,
 } from "react-router";
 
 import type { Route } from "./+types/root";
 import stylesheet from "./index.css?url";
-import { Toaster } from "sonner"
+import { Toaster } from "sonner";
+import { AppLayout } from "~/components/app-sidebar";
+import { authClient } from "./lib/auth-client";
+
+export async function loader({ request, context }: LoaderFunctionArgs) {
+  const serverUrl = context.cloudflare.env.BASE_URL;
+
+  const url = new URL(request.url);
+
+  const publicRoutes = [
+    "/login",
+    "/signup",
+    "/forgot-password",
+    "/reset-password",
+  ];
+
+  if (publicRoutes.includes(url.pathname)) {
+    return { serverUrl };
+  }
+
+  const cookieHeader = request.headers.get("Cookie");
+
+
+  const res = await authClient(serverUrl).getSession({
+    fetchOptions: {
+      headers: {
+        Cookie: cookieHeader || "",
+      },
+      credentials: "include",
+    },
+  });
+
+  const session = res.data?.session;
+
+  if (!session) {
+    return redirect("/login");
+  }
+
+  const user = res.data?.user;
+
+  return { serverUrl, user };
+}
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -26,8 +71,20 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+
+  const location = useLocation();
+  const { user } = useLoaderData<typeof loader>();
+
+  const noSidebarRoutes = [
+    "/login",
+    "/singup",
+    "/forgot-password",
+    "/reset-password",
+  ];
+  const shouldShowSidebar = !noSidebarRoutes.includes(location.pathname);
+
   return (
-    <html dir="rtl" lang="en">
+    <html dir="rtl" lang="ar">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -35,7 +92,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        {shouldShowSidebar ? <AppLayout user={user} >{children}</AppLayout> : children}
         <Toaster richColors position="bottom-right" />
         <ScrollRestoration />
         <Scripts />

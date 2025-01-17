@@ -6,9 +6,9 @@ import TextFormField from "../components/text-form-field"
 const RepEntries  = (props:IStepComponentProps<UseFormReturn<TFormDataInput, any, undefined>>)=>{
 
     return <>
-    <h4>{STEPS.REP_ENTRIES.title}</h4>
+    <h6>{STEPS.REP_ENTRIES.title}</h6>
     <p>{STEPS.REP_ENTRIES.description}</p>
-    <hr/>
+    <hr className="my-4"/>
     <div>
       {STEPS.REP_ENTRIES.fields.map((field)=><TextFormField field={field}
       key={field.label}

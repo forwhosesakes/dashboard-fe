@@ -10,25 +10,25 @@ import SettingsEntries from "../client-form-steps/settings-entries";
 export const STEPS: TSteps = {
   MAIN_ENTRIES: {
       fields: [
-          { label: "name", type: "TEXT", placeholder: "" },
-          { label: "phoneNumber", type: "TEXT", },
-          { label: "email", type: "EMAIL", },
-          { label: "type", type: "TEXT", },
-          { label: "licenseNumber", type: "TEXT" },
-          { label: "website", type: "TEXT" },
+          { label: "name", type: "TEXT", placeholder: "اسم الجمعية" },
+          { label: "phoneNumber", type: "TEXT",placeholder:"+966 (555) 000-0000" },
+          { label: "email", type: "EMAIL",placeholder:"Kmsalms@gmail.com" },
+          { label: "type", type: "TEXT",placeholder:"اختر تصنيف الجمعية" },
+          { label: "licenseNumber", type: "TEXT",placeholder:"رقم الترخيص" },
+          { label: "website", type: "TEXT" ,placeholder:"www.untitledui.com"},
       ],
       title: "بيانات الجمعية",
       description: "بيانات الجمعية الأساسية",
       component: MainEntries,
-      status: "IDLE"
+      status: "CURRENT"
   },
   LOCATION_ENTRIES: {
       fields: [
-          { label: "address", type: "TEXT" },
-          { label: "city", type: "TEXT" },
-          { label: "neighbor", type: "TEXT" },
-          { label: "street", type: "TEXT" },
-          { label: "map", type: "TEXT" },
+          { label: "address", type: "TEXT" ,placeholder:"العنوان الوطني"},
+          { label: "city", type: "TEXT" ,placeholder:"اختار المدينة"},
+          { label: "neighbor", type: "TEXT" ,placeholder:"الحي"},
+          { label: "street", type: "TEXT" ,placeholder:"الشارع"},
+          { label: "map", type: "TEXT",placeholder:"خارطة الجمعية" },
       ],
       title: "موقع الجمعية",
       description: "البيانات الديموغرافية  ",
@@ -39,15 +39,18 @@ export const STEPS: TSteps = {
       fields: [
           {
               label: "repName",
-              type: "TEXT"
+              type: "TEXT",
+              placeholder:"اسم الممثل"
           },
           {
               label: "repPhoneNumber",
-              type: "TEXT"
+              type: "TEXT",
+              placeholder:"+966 (555) 000-0000"
           },
           {
               label: "repEmail",
-              type: "TEXT"
+              type: "TEXT",
+              placeholder:"Kmsalms@gmail.com"
           },
       ],
       title: "ممثل الجمعية",

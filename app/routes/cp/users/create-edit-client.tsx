@@ -39,7 +39,26 @@ console.log("form state ::", formHook.formState);
   };
   const onMovingToNextStep = (
     prevStep: StepsEnum,
-    currentStep: null | StepsEnum
+    currentStep: null | StepsEnum,
+  ) => {
+    const statusForNextStep = isThisFormSectionValid(prevStep);
+
+    setFormSteps((prev) => {
+      let newst = {
+        ...prev,
+        [prevStep]: { ...prev[prevStep], status: statusForNextStep },
+      };
+      if (currentStep)
+        newst[currentStep] = { ...newst[currentStep], status: "CURRENT" };
+
+      return newst;
+    });
+  };
+
+//todo: properly implement this 
+  const onMovingToPrevStep = (
+    prevStep: StepsEnum,
+    currentStep: null | StepsEnum,
   ) => {
     const statusForNextStep = isThisFormSectionValid(prevStep);
 
