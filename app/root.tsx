@@ -41,7 +41,7 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
       headers: {
         Cookie: cookieHeader || "",
       },
-      credentials: "include",
+      // credentials: "include",
     },
   });
 
