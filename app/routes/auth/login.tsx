@@ -2,8 +2,15 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { authClient } from "~/lib/auth-client";
 import LoadingOverlay from "~/components/loading-overlay";
 import Logo from "~/assets/images/logo.svg";
-import { useState } from "react";
-import { useNavigation, Form, Link, useNavigate, useLoaderData } from "react-router";
+import { useEffect, useState } from "react";
+import {
+  useNavigation,
+  Form,
+  Link,
+  useNavigate,
+  useLoaderData,
+  redirect,
+} from "react-router";
 import LoginShapeImg from "~/assets/images/login-img.png";
 import WhiteLogo from "~/assets/images/logo-white.png";
 import { Checkbox } from "~/components/ui/checkbox";
@@ -15,10 +22,24 @@ type Inputs = {
   password: string;
 };
 
+export async function loader({ request, context }: LoaderFunctionArgs) {
+  const serverUrl = context.cloudflare.env.BASE_URL;
 
-export async function loader({context}:LoaderFunctionArgs){
-  const serverUrl = context.cloudflare.env.BASE_URL
-  return{serverUrl}
+  const cookieHeader = request.headers.get("Cookie");
+  const res = await authClient(serverUrl).getSession({
+    fetchOptions: {
+      headers: {
+        Cookie: cookieHeader || "",
+      },
+      credentials: "include",
+    },
+  });
+  const session = res.data?.session;
+
+  if (session) return redirect("/");
+  
+
+  return { serverUrl };
 }
 
 const Login = () => {
@@ -32,21 +53,30 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const isSubmitting = navigation.state === "submitting";
 
-  const { serverUrl } = useLoaderData<typeof loader>()
+  const { serverUrl } = useLoaderData<typeof loader>();
 
- 
   const onSubmit: SubmitHandler<Inputs> = async () => {
-    
     setLoading(true);
-    if(email===""||password===""){
-      setLoginError("يرجى إدخال البريد الإلكتروني وكلمة المرور")
-      setLoading(false)
+    if (email === "" || password === "") {
+      setLoginError("يرجى إدخال البريد الإلكتروني وكلمة المرور");
+      setLoading(false);
       return;
     }
-  
 
-    const res = await authClient(serverUrl).signIn.email({email,password,rememberMe})
-    
+    const res = await authClient(serverUrl).signIn.email({
+      email,
+      password,
+      rememberMe,
+      fetchOptions: {
+        onSuccess: (data) => {
+          console.log("success yaaaaay", data);
+        },
+        onError: (e) => {
+          console.log("error", e);
+        },
+      },
+    });
+
     if (res?.error) {
       const error = res?.error;
       if (error.message?.toLowerCase().includes("invalid")) {
@@ -56,7 +86,7 @@ const Login = () => {
       } else {
         setLoginError(glossary.login.errors.generic);
       }
-      setLoading(false)
+      setLoading(false);
       return;
     }
     setLoading(false);
