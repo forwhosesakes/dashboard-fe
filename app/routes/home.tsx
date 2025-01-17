@@ -38,11 +38,11 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export function loader({ context }: Route.LoaderArgs) {
-  // console.log("context", context);
+// export function loader({ context }: Route.LoaderArgs) {
+//   // console.log("context", context);
 
-  return { message: context.VALUE_FROM_CLOUDFLARE };
-}
+//   return { message: context.VALUE_FROM_CLOUDFLARE };
+// }
 const data = [
   { name: "Page A", uv: 400, pv: 2400, amt: 2400 },
   { name: "Page A", uv: 200, pv: 2400, amt: 2400 },

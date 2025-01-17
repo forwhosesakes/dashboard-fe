@@ -18,42 +18,52 @@ import { AppLayout } from "~/components/app-sidebar";
 import { authClient } from "./lib/auth-client";
 
 export async function loader({ request, context }: LoaderFunctionArgs) {
+
   const serverUrl = context.cloudflare.env.BASE_URL;
-
-  const url = new URL(request.url);
-
-  const publicRoutes = [
-    "/login",
-    "/signup",
-    "/forgot-password",
-    "/reset-password",
-  ];
-
-  if (publicRoutes.includes(url.pathname)) {
-    return { serverUrl };
+  return{
+    serverUrl,
+    user:{
+      id:"1",
+      name:"أحمد",
+      email:"test@example.com",
+      role:"مسؤول النظام"
+    }
   }
 
-  const cookieHeader = request.headers.get("Cookie");
+  // const url = new URL(request.url);
+
+  // const publicRoutes = [
+  //   "/login",
+  //   "/signup",
+  //   "/forgot-password",
+  //   "/reset-password",
+  // ];
+
+  // if (publicRoutes.includes(url.pathname)) {
+  //   return { serverUrl };
+  // }
+
+  // const cookieHeader = request.headers.get("Cookie");
 
 
-  const res = await authClient(serverUrl).getSession({
-    fetchOptions: {
-      headers: {
-        Cookie: cookieHeader || "",
-      },
-      credentials: "include",
-    },
-  });
+  // const res = await authClient(serverUrl).getSession({
+  //   fetchOptions: {
+  //     headers: {
+  //       Cookie: cookieHeader || "",
+  //     },
+  //     credentials: "include",
+  //   },
+  // });
 
-  const session = res.data?.session;
+  // const session = res.data?.session;
 
-  if (!session) {
-    return redirect("/login");
-  }
+  // if (!session) {
+  //   return redirect("/login");
+  // }
 
-  const user = res.data?.user;
+  // const user = res.data?.user;
 
-  return { serverUrl, user };
+  // return { serverUrl, user };
 }
 
 export const links: Route.LinksFunction = () => [
