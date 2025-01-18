@@ -1,3 +1,12 @@
+import type { DashboardEnum } from "./dashboard.types";
+
+export type TClientOverview = {
+  id: string;
+  name: string;
+  email: string;
+  dashboards: DashboardEnum[];
+};
+
 export type TFormDataInput = {
   name: string;
   phoneNumber: string;

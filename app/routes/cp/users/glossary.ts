@@ -3,6 +3,12 @@ export const USER_MGMT = {
   PAGE_DESCRIPTION: "قم بإدارة أعضاء فريقك وأذونات حساباتهم هنا.",
   CREATE_CLIENT: "إضافة جمعية جديدة",
   EDIT_CLIENT: "تعديل بيانات الجمعية",
+  DASHBOARD_TYPE:{
+    FINANCIAL_DASHBOARD:"مالية",
+    CORPORATE_DASHBOARD:"مؤسسية",
+    OPERATIONAL_DASHBOARD:"تشغيلية",
+    GENERAL_DASHBOARD:"عامة"
+  },
   FORM_FIELDS: {
     name: "اسم الجمعية",
     phoneNumber: "رقم الجوال",
