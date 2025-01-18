@@ -20,6 +20,10 @@ export default [
 
             
 
+            ]),
+            ...prefix("members",[
+                // route("",""),
+                index("routes/cp/members/members.tsx")
             ])
         ])
 
