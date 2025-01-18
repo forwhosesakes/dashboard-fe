@@ -41,6 +41,11 @@ body {
     @apply leading-loose text-tertiary-700 font-bold  md:text-sm text-xs;
   }
 
+  .test {
+    @apply leading-loose text-tertiary-700 font-bold  md:text-sm text-xs;
+
+  }
+
 
   @font-face {
     font-family: "PingARLT";
