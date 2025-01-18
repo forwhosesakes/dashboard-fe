@@ -509,7 +509,7 @@ const navigate = useNavigate()
           </p>
           <div className="my-1 flex flex-col gap-2">
             {recentCharity.map((charity) => (
-              <div className="flex gap-2">
+              <div className="flex  flex-wrap gap-2">
                 <img className="w-10 h-10" src={DefaultUserImg} alt="" />
                 <div className="flex flex-col">
                   <p>{charity.name}</p>
