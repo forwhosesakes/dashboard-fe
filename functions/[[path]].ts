@@ -20,7 +20,7 @@ export async function onRequest(context) {
       headers: {
         // Allow specific origin (your frontend URL)
         // TODO: Update this for different environments (dev/prod)
-        "Access-Control-Allow-Origin": "http://localhost:5173",
+        "Access-Control-Allow-Origin": "https://dev.dashboard-fe-aa2.pages.dev",
 
         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
 
@@ -44,7 +44,7 @@ export async function onRequest(context) {
     const corsHeaders = new Headers(response.headers);
 
     // Add CORS headers to the response
-    corsHeaders.set("Access-Control-Allow-Origin", "http://localhost:5173");
+    corsHeaders.set("Access-Control-Allow-Origin", "https://dev.dashboard-fe-aa2.pages.dev");
     corsHeaders.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
     corsHeaders.set("Access-Control-Allow-Headers", [
       "Content-Type",
@@ -72,7 +72,7 @@ export async function onRequest(context) {
         status: 500,
         headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "http://localhost:5173",
+          "Access-Control-Allow-Origin": "https://dev.dashboard-fe-aa2.pages.dev",
           "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
           "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, Cookie",
           "Access-Control-Allow-Credentials": "true"
