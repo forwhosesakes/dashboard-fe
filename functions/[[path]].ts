@@ -7,4 +7,77 @@ import { createPagesFunctionHandler } from "@react-router/cloudflare";
 import * as build from "../build/server";
 import { getLoadContext } from "../load-context";
 
-export const onRequest = createPagesFunctionHandler({ build, getLoadContext });
+// Create the base handler from React Router
+const handler = createPagesFunctionHandler({ 
+  build, 
+  getLoadContext 
+});
+
+export async function onRequest(context) {
+  // Handle preflight requests (OPTIONS)
+  if (context.request.method === "OPTIONS") {
+    return new Response(null, {
+      headers: {
+        // Allow specific origin (your frontend URL)
+        // TODO: Update this for different environments (dev/prod)
+        "Access-Control-Allow-Origin": "http://localhost:5173",
+
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+
+        "Access-Control-Allow-Headers": [
+          "Content-Type",
+          "Authorization",
+          "X-Requested-With",
+          "Cookie"  
+        ].join(", "),
+
+        "Access-Control-Max-Age": "86400",
+
+        "Access-Control-Allow-Credentials": "true"
+      },
+    });
+  }
+
+  try {
+    const response = await handler(context);
+
+    const corsHeaders = new Headers(response.headers);
+
+    // Add CORS headers to the response
+    corsHeaders.set("Access-Control-Allow-Origin", "http://localhost:5173");
+    corsHeaders.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    corsHeaders.set("Access-Control-Allow-Headers", [
+      "Content-Type",
+      "Authorization",
+      "X-Requested-With",
+      "Cookie"
+    ].join(", "));
+    corsHeaders.set("Access-Control-Allow-Credentials", "true");
+
+    return new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers: corsHeaders
+    });
+
+  } catch (error) {
+    console.error("Error in request handler:", error);
+
+    return new Response(
+      JSON.stringify({ 
+        error: "Internal Server Error",
+        message: error.message 
+      }), 
+      {
+        status: 500,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "http://localhost:5173",
+          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, Cookie",
+          "Access-Control-Allow-Credentials": "true"
+        }
+      }
+    );
+  }
+}
