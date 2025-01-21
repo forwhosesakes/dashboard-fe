@@ -1,5 +1,5 @@
 import type { UseFormReturn } from "react-hook-form"
-import type { IStepComponentProps, StepData, TFormDataInput } from "~/types/users.types"
+import type { IStepComponentProps, TFormDataInput } from "~/types/users.types"
 import { STEPS } from "../constants/steps"
 import FileFormField from "../components/file-form-field"
 
@@ -17,7 +17,7 @@ const AttachmentsEntries = (props:IStepComponentProps<UseFormReturn<TFormDataInp
 
       getFieldState={props.additionalProps.getFieldState}
       
-      register={props.additionalProps.register}/>)
+      control={props.additionalProps.control}/>)
       }
     </div>
     

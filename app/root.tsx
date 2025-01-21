@@ -16,55 +16,80 @@ import stylesheet from "./index.css?url";
 import { Toaster } from "sonner";
 import { AppLayout } from "~/components/app-sidebar";
 import { authClient } from "./lib/auth-client";
+import { getToast } from "~/lib/toast.server";
+import { useToast } from "./hooks/use-toast";
+
+
 
 export async function loader({ request, context }: LoaderFunctionArgs) {
-
   const serverUrl = context.cloudflare.env.BASE_URL;
-  // return{
-  //   serverUrl,
-  //   user:{
-  //     id:"1",
-  //     name:"أحمد",
-  //     email:"test@example.com",
-  //     role:"مسؤول النظام"
-  //   }
-  // }
-
   const url = new URL(request.url);
-
   const publicRoutes = [
     "/login",
     "/signup",
     "/forgot-password",
     "/reset-password",
   ];
-
-  if (publicRoutes.includes(url.pathname)) {
-    return { serverUrl };
-  }
-
+  try {
   const cookieHeader = request.headers.get("Cookie");
 
+    const [sessionResponse, toastResponse] = await Promise.all([
+      authClient(serverUrl).getSession({
+        fetchOptions: {
+          headers: {
+            Cookie: cookieHeader || "",
+          },
+          // credentials: "include",
+        },
+      }),
+      getToast(request, context.cloudflare.env.SESSION_SECRET),
+    ]);
+    if (publicRoutes.includes(url.pathname)) {
+      return { serverUrl };
+    }
+    const session = sessionResponse.data?.session;
 
-  const res = await authClient(serverUrl).getSession({
-    fetchOptions: {
-      headers: {
-        Cookie: cookieHeader || "",
-      },
-      // credentials: "include",
-    },
-  });
+    if (!session) {
+      return redirect("/login");
+    }
 
-  const session = res.data?.session;
-
-  if (!session) {
-    return redirect("/login");
+    const user = sessionResponse.data?.user;
+    return Response.json(
+      { 
+        serverUrl,
+        toast: toastResponse.toast, 
+        user,
+      }, 
+      { 
+        headers: toastResponse.headers || undefined 
+      }
+    );
+  } catch (error) {
+    return Response.json(
+      { 
+        serverUrl,
+        toast: null, 
+        user: null 
+      }, 
+      { 
+        headers: undefined 
+      }
+    );
   }
+ 
 
-  const user = res.data?.user;
 
-  return { serverUrl, user };
+
+
+
+
+
+
+  
+
 }
+
+
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -83,7 +108,10 @@ export const links: Route.LinksFunction = () => [
 export function Layout({ children }: { children: React.ReactNode }) {
 
   const location = useLocation();
-  const { user } = useLoaderData<typeof loader>();
+  // @ts-ignore
+  //TODO: proper typing later
+  const { user , toast} = useLoaderData<typeof loader>();
+  useToast(toast);
 
   const noSidebarRoutes = [
     "/login",

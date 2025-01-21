@@ -35,6 +35,8 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
     },
   });
   const session = res.data?.session;
+  
+  
 
   if (session) return redirect("/");
   
@@ -68,6 +70,7 @@ const Login = () => {
       password,
       rememberMe,
       fetchOptions: {
+        
         onSuccess: (data) => {
           console.log("success yaaaaay", data);
         },
@@ -89,6 +92,8 @@ const Login = () => {
       setLoading(false);
       return;
     }
+    // console.log("hi");
+    
     setLoading(false);
     navigate("/");
   };

@@ -8,11 +8,21 @@ export default [
         route("reset-password", "routes/auth/reset-password/reset-password.tsx"),
         route("signup", "routes/auth/sign-up.tsx"),
         route("login", "routes/auth/login.tsx"),
-        route("dashboard","routes/dashboard/dashboard.tsx"),
          ...prefix("cp",[
             // index("routes/dashboard/index.tsx"),
             ...prefix("users",[
-        route("client/:id?", "routes/cp/users/create-edit-client.tsx"),
+        ...prefix("org",[
+        route("create-edit/:id?", "routes/cp/users/create-edit-client.tsx"),
+        ...prefix("/:id",[
+        index( "routes/cp/users/view-client.tsx"),
+        route( "dashboard","routes/cp/users/dashboard/dashboard.tsx"),
+
+
+        ])
+
+
+
+        ]),
         // route("new-client", "routes/cp/users/create-edit-client.tsx"),
         index("routes/cp/users/users.tsx"),
 
@@ -20,6 +30,10 @@ export default [
 
             
 
+            ]),
+            ...prefix("members",[
+                // route("",""),
+                index("routes/cp/members/members.tsx")
             ])
         ])
 

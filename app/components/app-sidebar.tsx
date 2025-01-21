@@ -131,40 +131,7 @@ export function AppLayout({ children, user }: AppLayoutProps) {
                 ))}
               </SidebarMenu>
             </SidebarGroup>
-            <SidebarGroup>
-              <SidebarGroupLabel className="text-xs text-primary-foreground/70">
-                واجهة مستخدم بدون عنوان
-              </SidebarGroupLabel>
 
-              <SidebarMenu>
-                {secondaryNavigation.map((item) => (
-                  <SidebarMenuItem
-                    key={item.href}
-                    className="flex hover:bg-secondary/10 rounded-lg justify-center items-center"
-                  >
-                    <div
-                      className={`${
-                        location.pathname === item.href ? "" : "hidden"
-                      } min-w-2 min-h-2 h-2 w-2 flex-shrink-0 rounded-full border bg-green-600`}
-                    ></div>
-                    <SidebarMenuButton className="" asChild tooltip={item.name}>
-                      <Link to={item.href}>
-                        <item.icon className="h-4 w-4" />
-                        <span>{item.name}</span>
-                      </Link>
-                    </SidebarMenuButton>
-                    {item.stat && (
-                      <span className="border text-xs py-[4px] px-[7px] rounded-xl text-primary-foreground mx-2">
-                        {item.stat}
-                      </span>
-                    )}
-                    {item.isNested && (
-                      <ChevronDown className="min-w-4 min-h-4 h-4 w-4 text-primary-foreground/60" />
-                    )}
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroup>
             <SidebarGroup>
               <SidebarGroupLabel> التصنيفات </SidebarGroupLabel>
               <SidebarMenu>

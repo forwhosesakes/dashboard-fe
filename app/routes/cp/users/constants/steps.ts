@@ -14,6 +14,8 @@ export const STEPS: TSteps = {
           { label: "phoneNumber", type: "TEXT",placeholder:"+966 (555) 000-0000" },
           { label: "email", type: "EMAIL",placeholder:"Kmsalms@gmail.com" },
           { label: "type", type: "TEXT",placeholder:"اختر تصنيف الجمعية" },
+          { label: "category", type: "TEXT",placeholder:"اختر تخصص الجمعية" },
+
           { label: "licenseNumber", type: "TEXT",placeholder:"رقم الترخيص" },
           { label: "website", type: "TEXT" ,placeholder:"www.untitledui.com"},
       ],

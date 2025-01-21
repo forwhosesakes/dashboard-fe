@@ -12,6 +12,7 @@ export type TFormDataInput = {
   phoneNumber: string;
   email: string;
   type: "technical" | "waqfi";
+  category: "mosque" | "orphans" | string;
   licenseNumber: string;
   website: string;
   address: string;
@@ -23,16 +24,45 @@ export type TFormDataInput = {
   repPhoneNumber: string;
   repEmail: string;
   logo: File;
-  officialDocs: FileList;
+  officialDocs: File;
   operationalPlanImage: File;
   repSpeach: File;
   licenseImage: File;
   contractImage: File;
-  additionalDocs: FileList;
+  additionalDocs: File;
   financialIndicatorsSetting: number | false;
   operationalIndicatorsSetting: number | false;
   corporateIndicatorsSetting: number | false;
   generalndicatorsSetting: number | false;
+};
+//todo: idk remove this?
+export type TOrganization = {
+  name: string;
+  phoneNumber: string;
+  email: string;
+  type: "technical" | "waqfi";
+  category: "mosque" | "orphans" | string;
+  licenseNumber: string;
+  website: string;
+  address: string;
+  city: string;
+  neighbor: string;
+  street: string;
+  map: string;
+  repName: string;
+  repPhoneNumber: string;
+  repEmail: string;
+  logo: string;
+  officialDocs: string[];
+  operationalPlanImage: string;
+  repSpeach: string;
+  licenseImage: string;
+  contractImage: string;
+  additionalDocs: string;
+  financialIndicatorsSetting: number;
+  operationalIndicatorsSetting: number;
+  corporateIndicatorsSetting: number;
+  generalndicatorsSetting: number;
 };
 
 export type FieldType =
@@ -53,7 +83,7 @@ export type TField = {
 };
 
 export interface IStepComponentProps<T> {
-  stepData: StepData;
+  // stepData: StepData;
   additionalProps: T;
 }
 
@@ -79,3 +109,13 @@ export type StepData = {
   component: React.FC<IStepComponentProps<any>>;
 };
 export type TSteps = { [key in StepsEnum]: StepData };
+
+export type LoaderData =
+  | {
+      status: "success";
+      data: TOrganization;
+    }
+  | {
+      status: "error";
+      message: string;
+    };
