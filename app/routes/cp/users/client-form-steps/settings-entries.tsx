@@ -13,11 +13,12 @@ const SettingsEntries = (props:IStepComponentProps<UseFormReturn<TFormDataInput,
     <div className="p-5">
       {/* <p>{JSON.stringify(props.additionalProps.formState.touchedFields)}</p> */}
       {STEPS.SETTINGS_ENTRIES.fields.map((field)=><SliderFormField field={field} 
+      hasSlider={field.label != "generalndicatorsSetting"}
       key={field.label}
 
       getFieldState={props.additionalProps.getFieldState}
       
-      register={props.additionalProps.register}/>)
+      control={props.additionalProps.control}/>)
       }
     </div>
     

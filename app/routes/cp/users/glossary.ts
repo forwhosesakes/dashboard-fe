@@ -1,6 +1,6 @@
 export const USER_MGMT = {
-  PAGE_TITLE: "إدارة المستخدمين",
-  PAGE_DESCRIPTION: "قم بإدارة أعضاء فريقك وأذونات حساباتهم هنا.",
+  PAGE_TITLE: "إدارة الجمعيات",
+  PAGE_DESCRIPTION: "قم بإدارة بيانات الجمعيات ولوح المعلومات المرتبطة.",
   CREATE_CLIENT: "إضافة جمعية جديدة",
   EDIT_CLIENT: "تعديل بيانات الجمعية",
   DASHBOARD_TYPE:{
@@ -14,6 +14,7 @@ export const USER_MGMT = {
     phoneNumber: "رقم الجوال",
     email: "البريد الإلكتروني",
     type: "تصنيف الجمعية",
+    category:"تخصص الجمعية",
     licenseNumber: "رقم الترخيص",
     website: "الموقع الإلكتروني",
     address: "العنوان الوطني",
