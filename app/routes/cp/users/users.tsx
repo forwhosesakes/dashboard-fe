@@ -17,7 +17,7 @@ import {
   type RowSelectionState,
 } from "@tanstack/react-table";
 import { useEffect, useMemo, useRef, useState, type HTMLProps } from "react";
-import { useNavigate } from "react-router";
+import { useLoaderData, useNavigate, type LoaderFunctionArgs } from "react-router";
 import Badge from "~/components/ui/badge";
 import EditIcon from "~/assets/icons/edit.svg?react";
 import RemoveIcon from "~/assets/icons/remove.svg?react";
@@ -25,6 +25,8 @@ import { Button } from "~/components/ui/button";
 import { DashboardEnum } from "~/types/dashboard.types";
 import type { TClientOverview } from "~/types/users.types";
 import DeleteUserDialog from "./components/deleteUserDialog";
+import { OrganizationsAPI } from "~/services/org";
+import { APIError } from "~/lib/utils/error";
 
 const DashboardBadgeColor: {
   [key in DashboardEnum]: "mauv" | "red" | "blue" | "green";
@@ -35,162 +37,84 @@ const DashboardBadgeColor: {
   [DashboardEnum.GENERAL_DASHBOARD]: "mauv",
 };
 
-const clients = [
-  {
-    id: "1",
-    name: "جمعية مكار الأخلاق",
-    email: "olivia@untitledui.com",
-    dashboards: [
-      DashboardEnum.CORPORATE_DASHBOARD,
-      DashboardEnum.FINANCIAL_DASHBOARD,
-    ],
-  },
-  {
-    id: "2",
-    name: " جمعية حفظ النعمة ",
-    email: "phoenix@untitledui.com",
-    dashboards: [
-      DashboardEnum.CORPORATE_DASHBOARD,
-      DashboardEnum.OPERATIONAL_DASHBOARD,
-    ],
-  },
-  {
-    id: "4",
-    name: " جمعية الخير الدائم  ",
-    email: "phoenix@untitledui.com",
-    dashboards: [
-      DashboardEnum.CORPORATE_DASHBOARD,
-      DashboardEnum.OPERATIONAL_DASHBOARD,
-      DashboardEnum.FINANCIAL_DASHBOARD,
-      DashboardEnum.GENERAL_DASHBOARD,
-    ],
-  },
-  {
-    id: "5",
-    name: " جمعية الخير الدائم  ",
-    email: "phoenix@untitledui.com",
-    dashboards: [
-      DashboardEnum.CORPORATE_DASHBOARD,
-      DashboardEnum.OPERATIONAL_DASHBOARD,
-      DashboardEnum.FINANCIAL_DASHBOARD,
-      DashboardEnum.GENERAL_DASHBOARD,
-    ],
-  },
-  {
-    id: "6",
-    name: " جمعية الخير الدائم  ",
-    email: "phoenix@untitledui.com",
-    dashboards: [
-      DashboardEnum.CORPORATE_DASHBOARD,
-      DashboardEnum.OPERATIONAL_DASHBOARD,
-      DashboardEnum.FINANCIAL_DASHBOARD,
-      DashboardEnum.GENERAL_DASHBOARD,
-    ],
-  },
-  {
-    id: "7",
-    name: " جمعية الخير الدائم  ",
-    email: "phoenix@untitledui.com",
-    dashboards: [
-      DashboardEnum.CORPORATE_DASHBOARD,
-      DashboardEnum.OPERATIONAL_DASHBOARD,
-      DashboardEnum.FINANCIAL_DASHBOARD,
-      DashboardEnum.GENERAL_DASHBOARD,
-    ],
-  },
-  {
-    id: "8",
-    name: " جمعية الخير الدائم  ",
-    email: "phoenix@untitledui.com",
-    dashboards: [
-      DashboardEnum.CORPORATE_DASHBOARD,
-      DashboardEnum.OPERATIONAL_DASHBOARD,
-      DashboardEnum.FINANCIAL_DASHBOARD,
-      DashboardEnum.GENERAL_DASHBOARD,
-    ],
-  },
-  {
-    id: "9",
-    name: " جمعية الخير الدائم  ",
-    email: "phoenix@untitledui.com",
-    dashboards: [
-      DashboardEnum.CORPORATE_DASHBOARD,
-      DashboardEnum.OPERATIONAL_DASHBOARD,
-      DashboardEnum.FINANCIAL_DASHBOARD,
-      DashboardEnum.GENERAL_DASHBOARD,
-    ],
-  },
-  {
-    id: "12",
-    name: " جمعية الخير الدائم  ",
-    email: "phoenix@untitledui.com",
-    dashboards: [
-      DashboardEnum.CORPORATE_DASHBOARD,
-      DashboardEnum.OPERATIONAL_DASHBOARD,
-      DashboardEnum.FINANCIAL_DASHBOARD,
-      DashboardEnum.GENERAL_DASHBOARD,
-    ],
-  },
-  {
-    id: "33",
-    name: " جمعية الخير الدائم  ",
-    email: "phoenix@untitledui.com",
-    dashboards: [
-      DashboardEnum.CORPORATE_DASHBOARD,
-      DashboardEnum.OPERATIONAL_DASHBOARD,
-      DashboardEnum.FINANCIAL_DASHBOARD,
-      DashboardEnum.GENERAL_DASHBOARD,
-    ],
-  },
-  {
-    id: "23",
-    name: " جمعية الخير الدائم  ",
-    email: "phoenix@untitledui.com",
-    dashboards: [
-      DashboardEnum.CORPORATE_DASHBOARD,
-      DashboardEnum.OPERATIONAL_DASHBOARD,
-      DashboardEnum.FINANCIAL_DASHBOARD,
-      DashboardEnum.GENERAL_DASHBOARD,
-    ],
-  },
-  {
-    id: "54",
-    name: " جمعية الخير الدائم  ",
-    email: "phoenix@untitledui.com",
-    dashboards: [
-      DashboardEnum.CORPORATE_DASHBOARD,
-      DashboardEnum.OPERATIONAL_DASHBOARD,
-      DashboardEnum.FINANCIAL_DASHBOARD,
-      DashboardEnum.GENERAL_DASHBOARD,
-    ],
-  },
-  {
-    id: "43",
-    name: " جمعية الخير الدائم  ",
-    email: "phoenix@untitledui.com",
-    dashboards: [
-      DashboardEnum.CORPORATE_DASHBOARD,
-      DashboardEnum.OPERATIONAL_DASHBOARD,
-      DashboardEnum.FINANCIAL_DASHBOARD,
-      DashboardEnum.GENERAL_DASHBOARD,
-    ],
-  },
-];
+
+type LoaderData = 
+  | {
+      status: "success";
+      data: TClientOverview[];
+      pagination: {
+        total: number;
+        currentPage: number;
+        totalPages: number;
+        hasMore: boolean;
+      };
+    }
+  | {
+      status: "error";
+      message: string;
+    };
+
+
+export async function loader({request,context}:LoaderFunctionArgs){
+    const serverUrl = context.cloudflare.env.BASE_URL
+    const url = new URL(request.url);
+    const page = parseInt(url.searchParams.get("page") || "1");
+  
+
+    try {
+        // Call the API
+        const response = await OrganizationsAPI.getOverview({ page }, serverUrl);
+    
+        // Check for API-level errors
+        if (response.status !== "success") {
+          throw new Error(response.message);
+        }
+    
+        // Return successful response
+        return Response.json({
+          status: "success" as const,
+          data: response.data,
+          pagination: response.pagination
+        });
+      } catch (error) {
+        // Handle different types of errors
+        if (error instanceof APIError) {
+          return Response.json({
+            status: "error" as const,
+            message: error.response.message || "API Error",
+          }, { status: 400 });
+        }
+    
+        // Handle unexpected errors
+        console.error("Unexpected error in organizations loader:", error);
+        return Response.json({
+          status: "error" as const,
+          message: "An unexpected error occurred",
+        }, { status: 500 });
+      }
+    }
+    
 const columnHelper = createColumnHelper<TClientOverview>();
 
 const Users = () => {
+    const loaderData = useLoaderData<typeof loader>() as unknown as LoaderData;
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   const [userToDelete, setUserToDelete] = useState<TClientOverview | null>(
     null
   );
   const navigate = useNavigate();
-
-  const handleEditUserClick = (user: TClientOverview, e: any) => {
-    navigate("client/" + user.id);
+  const handlePageChange = (newPage: number) => {
+    const searchParams = new URLSearchParams(window.location.search);
+    searchParams.set("page", newPage.toString());
+    navigate(`?${searchParams.toString()}`);
   };
 
-  const deleteUser = () => {
+  const handleEditUserClick = (user: TClientOverview, e: any) => {
+    navigate("prg/" + user.id);
+  };
+
+  const deleteUser = (userId:string) => {
     console.log("click user delete");
   };
 
@@ -276,7 +200,7 @@ const Users = () => {
   );
 
   const table = useReactTable<TClientOverview>({
-    data: clients,
+    data: loaderData.status==="success"?loaderData.data:[],
     columns,
     getCoreRowModel: getCoreRowModel(),
     enableMultiRowSelection: true,
@@ -314,7 +238,7 @@ const Users = () => {
             {table.getRowModel().rows.map((row) => (
               <TableRow
                 className="cursor-pointer"
-                onClick={() => navigate("client/" + row.original.id)}
+                onClick={() => navigate("org/" + row.original.id)}
                 key={row.id}
               >
                 {row.getVisibleCells().map((cell) => (
@@ -333,7 +257,7 @@ const Users = () => {
           isOpen={userToDelete !== null}
           onClose={() => setUserToDelete(null)}
           onConfirm={() => {
-            deleteUser(userToDelete.id);
+            deleteUser(userToDelete?.id);
             setUserToDelete(null);
           }}
           user={userToDelete}

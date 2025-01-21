@@ -13,6 +13,7 @@ const RepEntries  = (props:IStepComponentProps<UseFormReturn<TFormDataInput, any
       {STEPS.REP_ENTRIES.fields.map((field)=><TextFormField field={field}
       key={field.label}
       register={props.additionalProps.register} 
+      error={props.additionalProps.formState.errors[field.label]&&props.additionalProps.formState.errors[field.label]?.message}
     
       getFieldState={props.additionalProps.getFieldState}
       

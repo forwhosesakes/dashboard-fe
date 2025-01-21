@@ -2,4 +2,6 @@
 
 interface Env {
 	BASE_URL: string;
+	SESSION_SECRET: string;
+	KEDAN_DASHBOARD_BUCKET: R2Bucket;
 }

@@ -48,7 +48,6 @@ const Passcode = (props: IProps) => {
       return newPasscode;
     });
     if (index < props.noDigits - 1) {
-      console.log("yaaaay");
       itemsRef.current[index + 1]?.focus();
     }
   };

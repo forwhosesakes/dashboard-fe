@@ -14,6 +14,7 @@ const MainEntries = (props:IStepComponentProps<UseFormReturn<TFormDataInput, any
       key={field.label}
 
       getFieldState={props.additionalProps.getFieldState}
+      error={props.additionalProps.formState.errors[field.label]&&props.additionalProps.formState.errors[field.label]?.message}
       
       register={props.additionalProps.register}/>)
       }
