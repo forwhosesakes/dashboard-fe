@@ -8,9 +8,11 @@ declare global {
       image: any;
       createdAt: Date;
       updatedAt: Date;
-      role: string;
+      role: "admin"|"user";
+      subRole:"admin"|"dataEntry"|"org";
       banned: any;
       banExpires: any;
+
     }
   
   }
