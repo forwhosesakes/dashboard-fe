@@ -8,6 +8,7 @@ export default [
         route("reset-password", "routes/auth/reset-password/reset-password.tsx"),
         route("signup", "routes/auth/sign-up.tsx"),
         route("login", "routes/auth/login.tsx"),
+        route("download/:file", "routes/download.tsx"),
          ...prefix("cp",[
             // index("routes/dashboard/index.tsx"),
             ...prefix("users",[
