@@ -33,9 +33,9 @@ export function UserSidebarCard({ user, toggle = true }: UserDropdownProps) {
               <div className="absolute bottom-0 -right-1 h-3 w-3 bg-green-500 rounded-full border" />
             </div>
             <div className="flex flex-col">
-              <span className="text-sm font-medium">{user.name}</span>
+              <span className="text-sm font-medium">{user?.name}</span>
               <span className="text-xs text-muted-foreground">
-                {user.role}
+                {user?.role}
               </span>
             </div>
           </div>

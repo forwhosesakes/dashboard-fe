@@ -22,6 +22,7 @@ const { serverUrl } = useLoaderData<typeof loader>();
         formState: { errors },
       } = useForm<Inputs>()
       const onSubmit: SubmitHandler<Inputs> = (data) => {
+        console.log("submit");
         
         authClient(serverUrl).signUp.email({email:data.email, password:data.password,name:"user_test"})
     
@@ -34,10 +35,10 @@ const { serverUrl } = useLoaderData<typeof loader>();
 
             <form onSubmit={handleSubmit(onSubmit)}>
       {/* register your input into the hook by invoking the "register" function */}
-      <input className="bg-white text-black" defaultValue="email" {...register("email")} />
+      <input className="border bg-white text-black" defaultValue="email" {...register("email")} />
 
       {/* include validation with required or other standard HTML validation rules */}
-      <input className="bg-white text-black" {...register("password", { required: true })} />
+      <input className="border bg-white text-black" {...register("password", { required: true })} />
       {/* errors will return when field validation fails  */}
       {errors.email && <span>This field is required</span>}
 
