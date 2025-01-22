@@ -47,6 +47,7 @@ const generalNavigation = [
   { name: "المستخدمين", icon: Users, href: "/cp/users", isNested: false },
   { name: "المستندات", icon: Files, href: "/documents", isNested: false },
   { name: "الإعدادات", icon: Settings, href: "/settings", isNested: false },
+  {name:"الأعضاء", icon:Users,href:"/cp/members",isNested:false}
 ];
 
 const secondaryNavigation = [

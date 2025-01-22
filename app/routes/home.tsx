@@ -509,7 +509,7 @@ const navigate = useNavigate()
           </p>
           <div className="my-1 flex flex-col gap-2">
             {recentCharity.map((charity) => (
-              <div className="flex  flex-wrap gap-2">
+              <div key={charity.name} className="flex  flex-wrap gap-2">
                 <img className="w-10 h-10" src={DefaultUserImg} alt="" />
                 <div className="flex flex-col">
                   <p>{charity.name}</p>
@@ -520,7 +520,7 @@ const navigate = useNavigate()
                   </p>
                   <div className="flex gap-1">
                     {charity.tags.map((tag) => (
-                      <div className={`border rounded-xl p-0.5 px-1.5 text-xs ${tag.theme.bg} ${tag.theme.text} ${tag.theme.border}`}>
+                      <div key={tag.name} className={`border rounded-xl p-0.5 px-1.5 text-xs ${tag.theme.bg} ${tag.theme.text} ${tag.theme.border}`}>
                         {tag.name}
                       </div>
                     ))}

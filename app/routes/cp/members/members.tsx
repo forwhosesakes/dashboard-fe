@@ -15,108 +15,70 @@ import {
   type RowSelectionState,
 } from "@tanstack/react-table";
 import { useEffect, useMemo, useRef, useState, type HTMLProps } from "react";
-import { useNavigate } from "react-router";
+import {
+  useLoaderData,
+  useNavigate,
+  type LoaderFunctionArgs,
+} from "react-router";
 import EditIcon from "~/assets/icons/edit.svg?react";
 import RemoveIcon from "~/assets/icons/remove.svg?react";
 import { Button } from "~/components/ui/button";
 import { Plus } from "lucide-react";
 import DeleteMemberDialog from "./components/deleteMemberDialog";
 import InviteMemberDialog from "./components/inviteMemberDialog";
+import EditMemberDialog from "./components/editMemberDialog";
+import { authClient } from "~/lib/auth-client";
+import { toast } from "sonner";
 
+export async function loader({ request, context }: LoaderFunctionArgs) {
+  const serverUrl = context.cloudflare.env.BASE_URL;
+
+  try {
+    const cookieHeader = request.headers.get("Cookie");
+
+    const res = await authClient(serverUrl).admin.listUsers({
+      query: {
+        filterField: "role",
+        filterOperator: "eq",
+        filterValue: "admin",
+      },
+      fetchOptions: {
+        headers: {
+          Cookie: cookieHeader || "",
+        },
+      },
+    });
+
+    const currentUser = await authClient(serverUrl).getSession({
+      fetchOptions: {
+        headers: {
+          Cookie: cookieHeader || "",
+        },
+      },
+    });
+    const isAdmin = currentUser.data?.user.subRole === "admin";
+
+    return { users: res?.data?.users, serverUrl, isAdmin };
+  } catch (error) {
+    console.error("Failed to fetch users:", error);
+    return {
+      users: [],
+      isAdmin: false,
+      error: "Failed to fetch users",
+      stats: 500,
+    };
+  }
+}
 
 // Define the type for a member
 export type MemberType = {
   id: string;
   name: string;
   email: string;
-  lastActivity: string;
-  addedDate: string;
+  createdAt: string;
   role: "admin" | "user";
+  subRole: "org" | "dataEntry" | "admin";
 };
-
-// Sample data with roles
-const members: MemberType[] = [
-  {
-    id: "1",
-    name: "أحمد محمد",
-    email: "ahmed@example.com",
-    lastActivity: "2024-03-15",
-    addedDate: "2024-01-01",
-    role: "admin",
-  },
-  {
-    id: "2",
-    name: "فاطمة علي",
-    email: "fatima@example.com",
-    lastActivity: "2024-03-18",
-    addedDate: "2023-12-15",
-    role: "admin",
-  },
-  {
-    id: "3",
-    name: "عمر خالد",
-    email: "omar@example.com",
-    lastActivity: "2024-03-10",
-    addedDate: "2024-02-20",
-    role: "admin",
-  },
-  {
-    id: "4",
-    name: "نورة سعيد",
-    email: "noura@example.com",
-    lastActivity: "2024-03-17",
-    addedDate: "2024-01-15",
-    role: "admin",
-  },
-  {
-    id: "5",
-    name: "محمد عبدالله",
-    email: "mohammed@example.com",
-    lastActivity: "2024-03-16",
-    addedDate: "2023-11-30",
-    role: "admin",
-  },
-  {
-    id: "6",
-    name: "سارة أحمد",
-    email: "sara@example.com",
-    lastActivity: "2024-03-14",
-    addedDate: "2024-02-01",
-    role: "user",
-  },
-  {
-    id: "7",
-    name: "يوسف إبراهيم",
-    email: "yousef@example.com",
-    lastActivity: "2024-03-18",
-    addedDate: "2024-01-20",
-    role: "user",
-  },
-  {
-    id: "8",
-    name: "ليلى حسن",
-    email: "layla@example.com",
-    lastActivity: "2024-03-12",
-    addedDate: "2023-12-25",
-    role: "user",
-  },
-  {
-    id: "9",
-    name: "خالد عمر",
-    email: "khaled@example.com",
-    lastActivity: "2024-03-17",
-    addedDate: "2024-02-15",
-    role: "user",
-  },
-  {
-    id: "10",
-    name: "رنا محمد",
-    email: "rana@example.com",
-    lastActivity: "2024-03-15",
-    addedDate: "2024-01-10",
-    role: "user",
-  },
-];
 
 const MembersTable = ({
   data,
@@ -127,25 +89,70 @@ const MembersTable = ({
   title: string;
   description: string;
 }) => {
+  const [memberToEdit, setMemberToEdit] = useState<MemberType | null>(null);
+  const { isAdmin, serverUrl } = useLoaderData();
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
-  const [memberToDelete, seMemberToDeleteType] = useState<MemberType | null>(null);
+  const [memberToDelete, setMemberToDeleteType] = useState<MemberType | null>(
+    null
+  );
   const navigate = useNavigate();
   const columnHelper = createColumnHelper<MemberType>();
 
   const handleEdiMemberClickType = (member: MemberType, e: any) => {
     e.stopPropagation();
-    navigate(`member/${member.id}`);
+    setMemberToEdit(member)
+    // navigate(`member/${member.id}`);
   };
 
   const handleRemoveMemberClick = (member: MemberType, e: any) => {
     e.preventDefault();
     e.stopPropagation();
-    seMemberToDeleteType(member);
+    setMemberToDeleteType(member);
   };
 
-  const deleteMember = (id: string) => {
-    console.log("Deleting member:", id);
-    // Implement delete logic
+  const editMember = async (member: MemberType,newRole:string) => {
+    try {
+      if (memberToEdit){
+        
+        const response = await fetch(`${serverUrl}/users/updateSubRole`,{
+            method:"POST",
+            headers:{
+                "content-Type":"application/json",
+                Cookie:document.cookie || "",
+            },
+            body:JSON.stringify({
+                id:member.id,
+                subRole:newRole
+            }),
+            credentials:'include'
+        })
+        console.log("response is ", response);
+        
+        if(!response.ok){
+            const error = await response.json();
+            throw new Error(error.message || "Failed to update user");
+        }
+        toast.success("تم تحديث العضو "+member.name+" بنجاح")
+
+      }
+      
+    } catch (error) {
+      console.error(error);
+    //   toast.error("فشل تحديث العضو " + member?.name);
+    }
+  };
+
+  const deleteMember = async (id: string) => {
+    try {
+      await authClient(serverUrl).admin.removeUser({
+        userId: id,
+      });
+
+      toast.success("تم حذف العضو بنجاح");
+    } catch (error) {
+      console.error("Failed to delete member:", error);
+      toast.error("فشل حذف العضو");
+    }
   };
 
   const columns = useMemo(
@@ -182,31 +189,34 @@ const MembersTable = ({
         header: () => "البريد الإلكتروني",
         cell: (info) => info.getValue(),
       }),
-      columnHelper.accessor("lastActivity", {
-        header: () => "آخر نشاط",
-        cell: (info) => new Date(info.getValue()).toLocaleDateString("ar-SA"),
-      }),
-      columnHelper.accessor("addedDate", {
+
+      columnHelper.accessor("createdAt", {
         header: () => "تاريخ الإضافة",
         cell: (info) => new Date(info.getValue()).toLocaleDateString("ar-SA"),
       }),
+
       {
         id: "actions",
         header: () => "الإجراءات",
+
         cell: ({ row }: any) => {
           return (
-            <div className="flex w-fit gap-x-2">
+            <div className="flex w-full justify-center items-center">
               <Button
                 onClick={(e) => handleEdiMemberClickType(row.original, e)}
                 variant={"ghost"}
+                disabled={!isAdmin}
+                className="w-fit"
               >
                 <EditIcon />
               </Button>
               <Button
                 onClick={(e) => handleRemoveMemberClick(row.original, e)}
                 variant={"ghost"}
+                disabled={!isAdmin}
+                className="w-fit"
               >
-                <RemoveIcon />
+                <RemoveIcon className="text-red-600" />
               </Button>
             </div>
           );
@@ -239,7 +249,7 @@ const MembersTable = ({
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <TableHead className="text-right" key={header.id}>
+                  <TableHead className="text-center" key={header.id}>
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -254,8 +264,10 @@ const MembersTable = ({
           <TableBody>
             {table.getRowModel().rows.map((row) => (
               <TableRow
-                className="cursor-pointer"
-                onClick={() => navigate(`member/${row.original.id}`)}
+                className="cursor-pointer text-center items-center"
+                onClick={() => {
+                  isAdmin && navigate(`member/${row.original.id}`);
+                }}
                 key={row.id}
               >
                 {row.getVisibleCells().map((cell) => (
@@ -272,12 +284,25 @@ const MembersTable = ({
       {memberToDelete && (
         <DeleteMemberDialog
           isOpen={memberToDelete !== null}
-          onClose={() => seMemberToDeleteType(null)}
+          onClose={() => setMemberToDeleteType(null)}
           onConfirm={() => {
             deleteMember(memberToDelete.id);
-            seMemberToDeleteType(null);
+            setMemberToDeleteType(null);
           }}
           member={memberToDelete}
+        />
+      )}
+      {memberToEdit && (
+        <EditMemberDialog
+          isOpen={memberToEdit !== null}
+          onClose={() => setMemberToEdit(null)}
+          onConfirm={(v) => {
+            
+            editMember(memberToEdit,v)
+            setMemberToEdit(null)
+          }}
+          member={memberToEdit}
+
         />
       )}
     </div>
@@ -285,19 +310,14 @@ const MembersTable = ({
 };
 
 const Members = () => {
-  const admins = members.filter((member) => member.role === "admin");
-  const users = members.filter((member) => member.role === "user");
+  const { users, serverUrl, isAdmin } = useLoaderData();
+  console.log("users:", users, "serverUrl:", serverUrl);
+
+  const admins = users?.filter((member) => member?.subRole === "admin");
+  const dataEntries = users?.filter(
+    (member) => member?.subRole === "dataEntry"
+  );
   const [showInviteDialog, setShowInviteDialog] = useState(false);
-
-  const handleSendInvite = async ({email,role}:{email:string, role:MemberType["role"]})=>{
-    try{
-        console.log("send invite to: ",email,"with role:", role);
-        //TODO: implement the rest
-    } catch(error){
-        console.error("failed to send invite:",error)
-    }
-
-  }
 
   return (
     <section className="p-4 flex flex-col  gap-12">
@@ -310,16 +330,18 @@ const Members = () => {
         </div>
 
         <div className="w-3/12 flex items-end">
-            <Button className="w-fit border"
-            onClick={()=>setShowInviteDialog(true)}
-            >
-                إضافة عضو في الفريق
-                <Plus/>
-            </Button>
+          <Button
+            className="w-fit border hover:text-primary hover:bg-accent"
+            onClick={() => setShowInviteDialog(true)}
+            disabled={!isAdmin}
+          >
+            إضافة عضو في الفريق
+            <Plus />
+          </Button>
         </div>
       </div>
 
-      <div className="flex flex-col  gap-8">
+      <div className="flex flex-col border  gap-8">
         <MembersTable
           data={admins}
           title="المستخدمون الإداريون"
@@ -329,7 +351,7 @@ const Members = () => {
         <hr className="my-4" />
 
         <MembersTable
-          data={users}
+          data={dataEntries}
           title="مستخدمو الحساب"
           description="يمكن لمستخدمي الحساب تقييم ومراجعة المخاطر والاستبيانات وتسريبات البيانات وتحديد الانتهاكات."
         />
@@ -337,7 +359,9 @@ const Members = () => {
       <InviteMemberDialog
         isOpen={showInviteDialog}
         onClose={() => setShowInviteDialog(false)}
-        onSendInvite={handleSendInvite}
+        closeDialog={setShowInviteDialog}
+        serverUrl={serverUrl}
+        isAdmin={isAdmin}
       />
     </section>
   );
