@@ -14,13 +14,10 @@ interface IProps<T> {
   children?: React.ReactNode;
   onComplete: any;
   cancelStepper: any;
-  completeDisable:boolean;
+  completeDisable: boolean;
   canMoveToNextPage?: any;
-  onReachFinalStep?:any;
-  onStepChange: (
-    prevStep: StepsEnum,
-    currentStep: StepsEnum | null
-  ) => void;
+  onReachFinalStep?: any;
+  onStepChange: (prevStep: StepsEnum, currentStep: StepsEnum | null) => void;
   steps: TSteps;
   additionalProps: T;
 }
@@ -29,8 +26,7 @@ export default function Stepper<T>(props: IProps<T>) {
   const CurrentComponent = props.steps[stepsIndex[currentStep]].component;
 
   const moveToNextPage = () => {
-    if(currentStep===stepsIndex.length-2){
- 
+    if (currentStep === stepsIndex.length - 2) {
       // props.onReachFinalStep()
     }
     props.onStepChange(
@@ -63,38 +59,41 @@ export default function Stepper<T>(props: IProps<T>) {
         />
       }
 
-      <div className="stepper-action float-end w-1/5 flex gap-x-4">
-        <Button
-          variant={"outline"}
-          onClick={props.cancelStepper}
-          loading={false}
-        >
-          إلغاء
-        </Button>
-
+      <div className="stepper-action float-end w-2/5 flex gap-x-4">
         {currentStep < stepsIndex.length - 1 ? (
+          <>
+            <Button
+              type="button"
+              variant={"secondary"}
+              onClick={moveToNextPage}
+              loading={false}
+            >
+              التالي
+            </Button>
+            <Button
+              type="submit"
+              variant={"secondary"}
+              disabled={props.completeDisable}
+              onClick={props.onComplete}
+              loading={false}
+            >
+              حفظ
+            </Button>
+          </>
+        ) : (
           <Button
-          type="button"
-
+            type="submit"
             variant={"secondary"}
-            onClick={moveToNextPage}
+            disabled={props.completeDisable}
+            onClick={props.onComplete}
             loading={false}
           >
-            التالي
-          </Button>
-        ) : (
-          <Button 
-          type="submit"
-          variant={"secondary"}
-          disabled={props.completeDisable}
-          
-          onClick={props.onComplete} loading={false}>
             حفظ
           </Button>
         )}
         {currentStep > 0 && (
           <Button
-          type="button"
+            type="button"
             variant={"outline"}
             onClick={moveToPrevPage}
             loading={false}

@@ -404,7 +404,7 @@ const navigate = useNavigate()
               </div>
             </div>
 
-            <div className=" w-1/2 border p-3 rounded-lg flex">
+            {/* <div className=" w-1/2 border p-3 rounded-lg flex">
               <div className="p-2 bg-primary border w-fit rounded-lg flex items-center justify-center">
                 <PenLine className="h-6 w-6" />
               </div>
@@ -417,7 +417,7 @@ const navigate = useNavigate()
                   اغمر في المحرر وابدأ في الإنشاء
                 </p>
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className="w-11/12 mx-auto">

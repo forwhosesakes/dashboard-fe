@@ -22,13 +22,13 @@ const TextFormField = ({ field,error, getFieldState, register, ...rest }: IProps
       <label className="max-w-72  min-w-52 flex-[1_0_0]">
         *{USER_MGMT.FORM_FIELDS[field.label]}
       </label>
-      <InputField
+    {  <InputField
         error={error}
         className="flex-[1_0_0]"
         {...rest}
         placeholder={field.placeholder}
         {...register(field.label)}
-      />
+      />}
     </div>
   );
 };

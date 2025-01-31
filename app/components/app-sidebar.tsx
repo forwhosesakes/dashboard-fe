@@ -38,15 +38,15 @@ import { UserSidebarCard } from "~/components/user-sidebar-card";
 
 const generalNavigation = [
   { name: "لوحة التحكم", icon: Home, href: "/", isNested: true, stat: 10 },
-  {
-    name: "لوحة البيانات",
-    icon: BarChart4Icon,
-    href: "/dashboard",
-    isNested: true,
-  },
+  // {
+  //   name: "لوحة البيانات",
+  //   icon: BarChart4Icon,
+  //   href: "/dashboard",
+  //   isNested: true,
+  // },
   { name: "المستخدمين", icon: Users, href: "/cp/users", isNested: false },
-  { name: "المستندات", icon: Files, href: "/documents", isNested: false },
-  { name: "الإعدادات", icon: Settings, href: "/settings", isNested: false },
+  // { name: "المستندات", icon: Files, href: "/documents", isNested: false },
+  // { name: "الإعدادات", icon: Settings, href: "/settings", isNested: false },
   {name:"الأعضاء", icon:Users,href:"/cp/members",isNested:false}
 ];
 
@@ -64,8 +64,8 @@ const secondaryNavigation = [
 const categories = [
   { name: "رعاية المساجد", stat: 3 },
   { name: "رعاية الأيتام", icon: Baby, stat: 7 },
-  { name: "سقيا الماء", icon: Droplet, stat: 3 },
-  { name: "توزيع الملابس", icon: Shirt, stat: 4 },
+  // { name: "سقيا الماء", icon: Droplet, stat: 3 },
+  // { name: "توزيع الملابس", icon: Shirt, stat: 4 },
 ];
 
 interface AppLayoutProps {
@@ -120,11 +120,11 @@ export function AppLayout({ children, user }: AppLayoutProps) {
                         <span>{item.name}</span>
                       </Link>
                     </SidebarMenuButton>
-                    {item.stat && (
+                    {/* {item.stat && (
                       <span className="border text-xs py-[4px] px-[7px] rounded-2xl text-primary-foreground mx-2">
                         {item.stat}
                       </span>
-                    )}
+                    )} */}
                     {item.isNested && (
                       <ChevronDown className="min-w-4 min-h-4 h-4 w-4 text-primary-foreground/60" />
                     )}
@@ -158,12 +158,12 @@ export function AppLayout({ children, user }: AppLayoutProps) {
                       </Link>
                     </SidebarMenuButton>
 
-                    {item.stat && (
+                    {/* {item.stat && (
                       <div className="border flex gap-[2px] text-xs py-[4px] px-[7px] rounded-2xl text-primary-foreground mx-2">
                         <p className="text-xs ">{item.stat}</p>
                         <Command className="w-3 h-3 my-auto " />
                       </div>
-                    )}
+                    )} */}
                     <ChevronLeft className="min-w-4 min-h-4 h-4 w-4 text-primary-foreground/60" />
                   </SidebarMenuItem>
                 ))}

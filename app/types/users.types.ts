@@ -67,6 +67,7 @@ export type TOrganization = {
 
 export type FieldType =
   | "TEXT"
+  | "DROPDOWN"
   | "FILE"
   | "IMAGE"
   | "TOGGLE"

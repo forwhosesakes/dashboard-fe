@@ -13,8 +13,8 @@ export const STEPS: TSteps = {
           { label: "name", type: "TEXT", placeholder: "اسم الجمعية" },
           { label: "phoneNumber", type: "TEXT",placeholder:"+966 (555) 000-0000" },
           { label: "email", type: "EMAIL",placeholder:"Kmsalms@gmail.com" },
-          { label: "type", type: "TEXT",placeholder:"اختر تصنيف الجمعية" },
-          { label: "category", type: "TEXT",placeholder:"اختر تخصص الجمعية" },
+          { label: "type", type: "DROPDOWN",placeholder:"اختر تصنيف الجمعية" },
+          { label: "category", type: "DROPDOWN",placeholder:"اختر تخصص الجمعية" },
 
           { label: "licenseNumber", type: "TEXT",placeholder:"رقم الترخيص" },
           { label: "website", type: "TEXT" ,placeholder:"www.untitledui.com"},
