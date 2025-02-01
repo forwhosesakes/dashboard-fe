@@ -5,7 +5,7 @@
  const dashboardStatusMap={
     NOT_STARTED:"لم يتم البدء",
     IN_PROGRESS:"قيد التنفيذ",
-    COMPLETE:"مكتمل",
+    COMPLETED:"مكتمل",
 }
 
 

@@ -2,7 +2,7 @@ import { z } from "zod";
 export type DashboardOverviewType = {
   id: number;
   title: string;
-  status: "NOT_STARTED" | "IN_PROGRESS" | "COMPLETE";
+  status: "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED";
 };
 
 // const ApiResponseSchema = z

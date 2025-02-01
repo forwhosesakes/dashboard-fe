@@ -8,7 +8,7 @@ interface DashboardEntriesProps {
   dashboardType: DashboardType;
   entries: Array<{ name: string; label: string; value: any }>;
   onEntryChange: (name: string, value: any) => void;
-  status: "NOT_STARTED" | "IN_PROGRESS" | "COMPLETE";
+  status: "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED";
 }
 
 const DashboardEntries = ({

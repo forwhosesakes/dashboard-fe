@@ -46,6 +46,8 @@ const Entries = ({
 }: {
   currentIndicator: { name: string };
 }) => {
+
+
   const { entries, currentDashboard, baseUrl, id } = useLoaderData();
   const locationData = useLocation();
   const [view, setView] = useState<"entries" | "indicators">("entries");
@@ -54,15 +56,17 @@ const Entries = ({
   >([]);
 
   useEffect(() => {
-    console.log("overview:: ", locationData.state);
     const dashboardsOverview = locationData.state?.dashboardsOverview;
     if (dashboardsOverview) {
+      
       const currentDasboardData = dashboardsOverview.find((dashboard) =>
         dashboard.title.includes(currentDashboard)
       );
+
       if (currentDasboardData) {
         setDashboardStatus(currentDasboardData.status);
-        if (dashboardStatus === "NOT_STARTED") {
+        
+        if (currentDasboardData.status === "NOT_STARTED") {
           const initialEntries = Object.entries(
             initialValues[currentDashboard]
           ).map(([key, value]) => ({
@@ -87,9 +91,6 @@ const Entries = ({
   }, [currentDashboard]);
 
   // const inputRefs = useRef<(HTMLInputElement | null)[]>([]);  // Add this line
-  const [dashboardStatus, setDashboardStatus] = useState<
-    "NOT_STARTED" | "IN_PROGRESS" | "COMPLETE"
-  >("NOT_STARTED");
 
   const [entryToEdit, setEntryToEdit] = useState<{
     name: string;
@@ -183,7 +184,7 @@ const Entries = ({
                       );
                       setCurrentEntries(updatedEntries);
                     }}
-                    status={"COMPLETE"}
+                    status={"COMPLETED"}
                   />
                 </>
               ) : (

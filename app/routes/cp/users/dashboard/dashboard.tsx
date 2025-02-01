@@ -66,7 +66,7 @@ useEffect(()=>{
                     <div className="flex border rounded-lg px-2 py-1 justify-center items-center gap-2">
                       <p>{dashboardStatusMap[dashboard.status]}</p>
                       <div className={`h-1.5 w-1.5 
-                      ${dashboard.status === "COMPLETE" ? `bg-green-600`
+                      ${dashboard.status === "COMPLETED" ? `bg-green-600`
                       : dashboard.status === "NOT_STARTED" ? `bg-red-600`
                       : `bg-orange-500`
                       } rounded-full`}></div>
