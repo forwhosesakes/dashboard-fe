@@ -5,7 +5,7 @@
  const dashboardStatusMap={
     NOT_STARTED:"لم يتم البدء",
     IN_PROGRESS:"قيد التنفيذ",
-    COMPLETE:"مكتمل",
+    COMPLETED:"مكتمل",
 }
 
 
@@ -120,8 +120,43 @@ const entriesLabels = {
     NO_VOLUNTEERS_NEXT_QUARTER: "عدد المتطوعين في الربع السابق",
     NO_VOLUNTEERS_CONT_3: "عدد المتطوعين المستمرين لأكثر من 3 أشهر",
     TOTAL_VOLUNTEERS: "إجمالي عدد المتطوعين"
-    }
+    },
+    GENERAL:{
+      NO_ADOPTED_ORPHANS:"عدد الأيتام المكفولين ",
+      TOTAL_TARGETED_ORPHANS:"إجمالي الأيتام المستهدفين",
+      TOTAL_MONTHLY_ADOP_EXP:"إجمالي تكاليف الكفالات الشهرية ",
+      NO_ORPHANS_PRGM:"عدد الأيتام المشاركين في البرامج التأهيلية ",
+      TOTAL_ORPHANS_QUAL_PRGM:"إجمالي الأيتام المؤهلين للبرامج التأهيلية",
+      TOTAL_ANNUAL_EXP_ORPHANS:"إجمالي تكاليف الخدمات السنوية",
+      NO_BENF_ORPHANS:"عدد الأيتام المستفيدين من الخدمات",
+      NO_STD_ORPHANS:"عدد الأيتام الملتحقين بالتعليم العام ",
+      TOTAL_ORPHANS_STD_AGE:"إجمالي الأيتام في سن التعليم العام",
+      NO_ORPHANS_STD_UNI:"عدد الأيتام الملتحقين بالتعليم الجامعي ",
+      TOTAL_ORPHANS_AGE_UNI:"إجمالي الأيتام في سن التعليم الجامعي",
+      TOTAL_MARKS_ORPHANS:"مجموع المعدلات الدراسية لجميع الأيتام ",
+      NO_GEN_EDU_ORPHANS:"عدد الأيتام الملتحقين بالتعليم",
+      NO_HLTH_ORPHANS:"عدد الأيتام المشمولين بالتأمين الصحي ",
+      TOTAL_ORPHANS:"إجمالي الأيتام",
+      NO_EXEC_CONST_REQS: "عدد طلبات الصيانة المنفذة ", 
+      TOTAL_CONST_REQS:"إجمالي طلبات الصيانة المستلمة",
+      NO_MOSQUES_ND_CONST:"عدد المساجد المحتاجة للترميم ",
+      TOTAL_REG_MOSQUES:"إجمالي المساجد المسجلة",
+      NO_MOSQUES_COMP_CONST:"عدد المساجد المكتملة البناء ",
+      TOTAL_MOSQUES_PLAN_CONST:"إجمالي المساجد المخطط بناؤها",
+      TOTAL_ANNUAL_EXPANSES_MOSQUES:"إجمالي تكاليف الصيانة السنوية ",
+      NO_SERV_MOSQUES:"عدد المساجد المخدومة",
+      NO_RESV_COMPL_MOSQUES:"عدد الشكاوى المستلمة ",
+      NO_EXEC_PRJKS_MOSQUES:"عدد المشاريع المنفذة    "
+    },
+    MOSQUES:{
+   
+  }
 }
+
+
+
+
+
 
 export {
     entriesLabels,

@@ -2,7 +2,7 @@ import { z } from "zod";
 export type DashboardOverviewType = {
   id: number;
   title: string;
-  status: "NOT_STARTED" | "IN_PROGRESS" | "COMPLETE";
+  status: "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED";
 };
 
 // const ApiResponseSchema = z
@@ -63,6 +63,45 @@ const CorporateDashboardEntriesSchema = z.object({
   NO_ACHIV_TARGETS: z.coerce.number(),
   TOTAL_TARGETS: z.coerce.number(),
 });
+
+const OrphansDashboardEntriesSchema = z.object({
+  dashbaordId: z.number(),
+  id: z.string(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
+  NO_ADOPTED_ORPHANS: z.coerce.number(),
+  TOTAL_TARGETED_ORPHANS: z.coerce.number(),
+  TOTAL_MONTHLY_ADOP_EXP: z.coerce.number(),
+  NO_ORPHANS_PRGM: z.coerce.number(),
+  TOTAL_ORPHANS_STD_AGE: z.coerce.number(),
+  TOTAL_ANNUAL_EXP_ORPHANS: z.coerce.number(),
+  NO_BENF_ORPHANS: z.coerce.number(),
+  NO_ORPHANS_STD_UNI: z.coerce.number(),
+  TOTAL_ORPHANS_AGE_UNI: z.coerce.number(),
+  TOTAL_MARKS_ORPHANS: z.coerce.number(),
+  NO_GEN_EDU_ORPHANS: z.coerce.number(),
+  NO_HLTH_ORPHANS: z.coerce.number(),
+  TOTAL_ORPHANS: z.coerce.number(),
+});
+const MosquesDashboardEntriesSchema = z.object({
+  dashbaordId: z.number(),
+  id: z.string(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
+  NO_EXEC_CONST_REQS: z.coerce.number(),
+  TOTAL_CONST_REQS: z.coerce.number(),
+  TOTAL_MONTHLY_ADOP_EXP: z.coerce.number(),
+  NO_MOSQUES_ND_CONST: z.coerce.number(),
+  TOTAL_REG_MOSQUES: z.coerce.number(),
+  NO_MOSQUES_COMP_CONST: z.coerce.number(),
+  TOTAL_MOSQUES_PLAN_CONST: z.coerce.number(),
+  TOTAL_ANNUAL_EXPANSES_MOSQUES: z.coerce.number(),
+  NO_SERV_MOSQUES: z.coerce.number(),
+  NO_RESV_COMPL_MOSQUES: z.coerce.number(),
+  NO_EXEC_PRJKS_MOSQUES: z.coerce.number(),
+});
+
+
 export type CorporateDashboardEntriesType = {
   dashbaordId: number;
   id: string;
@@ -256,12 +295,17 @@ const DashboardSchemaMap = {
   OPERATIONAL: DashboardResponseSchema(OperationalDashboardEntriesSchema),
   FINANCIAL: DashboardResponseSchema(FinancialDashboardEntriesSchema),
   CORPORATE: DashboardResponseSchema(CorporateDashboardEntriesSchema),
+  GENERAL: DashboardResponseSchema(
+    OrphansDashboardEntriesSchema || MosquesDashboardEntriesSchema
+  ),
 } as const;
 
 export type DashboardTypeMap = {
   OPERATIONAL: OperationalDashboardEntriesType;
   FINANCIAL: FinancialDashboardEntriesType;
   CORPORATE: CorporateDashboardEntriesType;
+  //TODO: CHANGE THIS
+  GENERAL: CorporateDashboardEntriesType;
 };
 
 const ErrorResponseSchema = z.object({
@@ -286,8 +330,8 @@ const IndicatorSchema = z.object({
 
 const SaveEntriesResponseSchema = z.object({
   indicators: z.object({
-    status:z.string(),
-    data: z.array(IndicatorSchema)
+    status: z.string(),
+    data: z.array(IndicatorSchema),
   }),
 });
 type SaveEntriesResponse = z.infer<typeof SaveEntriesResponseSchema>;
@@ -296,7 +340,7 @@ type SaveEntriesParams = {
   type: DashboardType;
   id: string;
   entries: Record<string, string | number>; // Changed from FormData to match how we'll structure the data
-}
+};
 
 function isErrorWithMessage(obj: unknown): obj is { message: string } {
   return typeof obj === "object" && obj !== null && "message" in obj;
@@ -344,33 +388,32 @@ export const dashboardApi = (url: string) => {
       try {
         if (!/^\d+$/.test(id) || parseInt(id) <= 0) {
           throw new Error("ID must be a positive number");
-      }
-      const formData = new FormData();
-      Object.entries(entries).forEach(([key, value])=>{
-        formData.append(key,String(value));
-      })
+        }
+        const formData = new FormData();
+        Object.entries(entries).forEach(([key, value]) => {
+          formData.append(key, String(value));
+        });
 
         const response = await fetch(`${url}/dashboard/entries/${type}/${id}`, {
           method: `POST`,
           body: formData,
         });
 
-        if(!response.ok){
-          const errorData = await response.json().catch(()=>null)
-          if(errorData && ErrorResponseSchema.safeParse(errorData).success){
-            throw new Error(errorData.message || `Failed to save entries (${response.status})`);
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => null);
+          if (errorData && ErrorResponseSchema.safeParse(errorData).success) {
+            throw new Error(
+              errorData.message || `Failed to save entries (${response.status})`
+            );
           }
-          throw new Error(`Failed to save entries (${response.status})`)
+          throw new Error(`Failed to save entries (${response.status})`);
         }
 
-
         const data = await response.json();
-        
-        console.log("save entries response:: ",data);
-        const validatedData = SaveEntriesResponseSchema.parse(data)
-        return validatedData
 
-      
+        console.log("save entries response:: ", data);
+        const validatedData = SaveEntriesResponseSchema.parse(data);
+        return validatedData;
       } catch (e) {
         if (e instanceof z.ZodError) {
           console.error("Response validation error: ", e.errors);
@@ -384,8 +427,13 @@ export const dashboardApi = (url: string) => {
       type: T
     ): Promise<DashboardTypeMap[T]> => {
       try {
+        console.log(
+          "this endpoint:::::",
+          `${url}/dashboard/entries/${type}/${id}`
+        );
+
         const response = await fetch(`${url}/dashboard/entries/${type}/${id}`);
-        
+
         if (!response.ok) {
           const errorData = await response.json().catch(() => null);
           const message = isErrorWithMessage(errorData)
@@ -404,8 +452,10 @@ export const dashboardApi = (url: string) => {
         // }
 
         // console.log("response hiii get entries::: ",apiResponse);
-        console.log("response:: ", rawResponse,"type is:: ",type);
+        console.log("response:: ", rawResponse, "type is:: ", type);
         const parsedData = schema.parse(rawResponse);
+        console.log("parsedData:: ", rawResponse, "type is:: ", type);
+
 
         return parsedData.data as DashboardTypeMap[T];
       } catch (e) {

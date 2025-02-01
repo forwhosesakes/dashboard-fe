@@ -13,7 +13,6 @@ import { useEffect, useRef, useState } from "react";
 import {
   dashboardApi,
   type DashboardType,
-  type OperationalDashboardEntriesType,
 } from "~/lib/api/dashboard";
 import { entriesLabels, tabsNames } from "./constants/glossary";
 import DashboardEntries from "./components/DashboardEntries";
@@ -32,6 +31,9 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
   console.log("entries :: ", entries);
 
   // if (!entries[0]) return redirect(`/cp/users/org/${id}/dashboard`);
+
+  console.log("entries general please",entries[0] );
+  
 
   return {
     entries: entries[0],
@@ -57,12 +59,15 @@ const Entries = ({
     console.log("overview:: ", locationData.state);
     const dashboardsOverview = locationData.state?.dashboardsOverview;
     if (dashboardsOverview) {
+ 
+
       const currentDasboardData = dashboardsOverview.find((dashboard) =>
         dashboard.title.includes(currentDashboard)
       );
       if (currentDasboardData) {
+
         setDashboardStatus(currentDasboardData.status);
-        if (dashboardStatus === "NOT_STARTED") {
+        if (currentDasboardData.status === "NOT_STARTED") {
           const initialEntries = Object.entries(
             initialValues[currentDashboard]
           ).map(([key, value]) => ({
@@ -88,7 +93,7 @@ const Entries = ({
 
   // const inputRefs = useRef<(HTMLInputElement | null)[]>([]);  // Add this line
   const [dashboardStatus, setDashboardStatus] = useState<
-    "NOT_STARTED" | "IN_PROGRESS" | "COMPLETE"
+    "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED"
   >("NOT_STARTED");
 
   const [entryToEdit, setEntryToEdit] = useState<{
@@ -183,7 +188,7 @@ const Entries = ({
                       );
                       setCurrentEntries(updatedEntries);
                     }}
-                    status={"COMPLETE"}
+                    status={"COMPLETED"}
                   />
                 </>
               ) : (
