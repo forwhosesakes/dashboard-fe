@@ -23,6 +23,7 @@ import { useToast } from "./hooks/use-toast";
 
 export async function loader({ request, context }: LoaderFunctionArgs) {
   const serverUrl = context.cloudflare.env.BASE_URL;
+  
   const url = new URL(request.url);
   const publicRoutes = [
     "/login",
@@ -32,7 +33,7 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
   ];
   try {
   const cookieHeader = request.headers.get("Cookie");
-
+    
     const [sessionResponse, toastResponse] = await Promise.all([
       authClient(serverUrl).getSession({
         fetchOptions: {
@@ -44,11 +45,15 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
       }),
       getToast(request, context.cloudflare.env.SESSION_SECRET),
     ]);
+    
+
+    
+
     if (publicRoutes.includes(url.pathname)) {
       return { serverUrl };
     }
     const session = sessionResponse.data?.session;
-
+    
     if (!session) {
       return redirect("/login");
     }

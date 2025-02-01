@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import StepsTracker from "./steps-tracker";
 import { StepsEnum, type TSteps } from "../../../types/users.types";
 import { Button } from "../button";
@@ -49,6 +49,12 @@ export default function Stepper<T>(props: IProps<T>) {
 
     setCurrentStep((prev) => prev - 1);
   };
+
+
+  useEffect(()=>{
+    console.log("props:: ",props);
+    
+  },[props])
 
   return (
     <div>

@@ -6,7 +6,6 @@ export const clientFormDataSchema = z.object({
   email: z.string().email("يرجى إدخال البريد الالكتروني  "),
   type: z.enum(["technical", "waqfi"], {
     required_error: "يجب أن يكون تصنيف الجمعية إما تقنيًا أو وقفيًا",
-
   }),
   category: z.string().min(3, "يرجى إدخال تخصص الحمعية "),
   licenseNumber: z.string().min(1, "يرجى إدخال رقم الرخصة"),
