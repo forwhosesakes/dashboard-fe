@@ -341,7 +341,7 @@ const Members = () => {
         </div>
       </div>
 
-      <div className="flex flex-col border  gap-8">
+      <div className="flex flex-col   gap-8">
         <MembersTable
           data={admins}
           title="المستخدمون الإداريون"

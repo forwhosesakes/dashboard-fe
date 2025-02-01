@@ -10,13 +10,13 @@ const ViewToggle = ({ view, onViewChange }: ViewToggleProps) => (
   <div className="flex gap-2 mb-4">
     <ButtonGroup >
       <Button 
-      className={`${view === 'entries' ? 'bg-gray-100' : ''}`}
+      className={`${view === 'entries' ? 'bg-primary-100' : ''}`}
            variant={ 'outline'}
       onClick={() => onViewChange("entries")}>
         المدخلات
       </Button>
       <Button  
-       className={`${view === 'indicators' ? 'bg-gray-100' : ''}`}
+       className={`${view === 'indicators' ? 'bg-primary-100' : ''}`}
       variant={ 'outline'} onClick={() => onViewChange("indicators")}>
         المؤشرات
       </Button>

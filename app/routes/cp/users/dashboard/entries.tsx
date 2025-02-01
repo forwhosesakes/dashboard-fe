@@ -6,10 +6,9 @@ import {
   useNavigate,
   type LoaderFunctionArgs,
 } from "react-router";
-import { Button } from "~/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import SemiCircleProgress from "~/components/ui/semi-circle-progress";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   dashboardApi,
   type DashboardType,
@@ -19,6 +18,8 @@ import DashboardEntries from "./components/DashboardEntries";
 import DashboardHeader from "./components/DashboardHeader";
 import ViewSwitch from "./components/ViewSwitch";
 import { initialValues } from "./constants/initialValues";
+import { useThemeStore } from "~/lib/store/theme-store";
+
 
 export const loader = async ({ context, params }: LoaderFunctionArgs) => {
   console.log("params:: ", params);
@@ -48,25 +49,30 @@ const Entries = ({
 }: {
   currentIndicator: { name: string };
 }) => {
+
+
   const { entries, currentDashboard, baseUrl, id } = useLoaderData();
   const locationData = useLocation();
   const [view, setView] = useState<"entries" | "indicators">("entries");
+  const {setDarkTheme,setLightTheme} = useThemeStore()
+
   const [currentEntries, setCurrentEntries] = useState<
     { name: string; value: any; label: string }[]
   >([]);
 
   useEffect(() => {
-    console.log("overview:: ", locationData.state);
+
     const dashboardsOverview = locationData.state?.dashboardsOverview;
     if (dashboardsOverview) {
  
 
+      
       const currentDasboardData = dashboardsOverview.find((dashboard) =>
         dashboard.title.includes(currentDashboard)
       );
+
       if (currentDasboardData) {
 
-        setDashboardStatus(currentDasboardData.status);
         if (currentDasboardData.status === "NOT_STARTED") {
           const initialEntries = Object.entries(
             initialValues[currentDashboard]
@@ -90,11 +96,15 @@ const Entries = ({
       }
     }
   }, [currentDashboard]);
+  useEffect(()=>{
+setDarkTheme()
+
+
+  return ()=> setLightTheme()
+},[])
 
   // const inputRefs = useRef<(HTMLInputElement | null)[]>([]);  // Add this line
-  const [dashboardStatus, setDashboardStatus] = useState<
-    "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED"
-  >("NOT_STARTED");
+
 
   const [entryToEdit, setEntryToEdit] = useState<{
     name: string;
