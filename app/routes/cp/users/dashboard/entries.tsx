@@ -64,7 +64,7 @@ const Entries = ({
       );
 
       if (currentDasboardData) {
-        setDashboardStatus(currentDasboardData.status);
+        console.log(currentDasboardData.status);
         
         if (currentDasboardData.status === "NOT_STARTED") {
           const initialEntries = Object.entries(
