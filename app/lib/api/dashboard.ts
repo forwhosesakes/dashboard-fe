@@ -19,18 +19,13 @@ const DashboardResponseSchema = <T extends z.ZodType>(schema: T) =>
     status: z.string().optional(),
   });
 
-const baseSchema = z.object({
-  dashbaordId: z.number(),
-  id: z.string(),
-  createdAt: z.coerce.date(),
-  updatedAt: z.coerce.date(),
-});
+
 
 const CorporateDashboardEntriesSchema = z.object({
   dashbaordId: z.number(),
   id: z.string(),
-  createdAt: z.coerce.date(),
-  updatedAt: z.coerce.date(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
   COMPLIANCE_ADHERENCE_PRACTICES: z.coerce.number(),
   TRANSPARENCY_DISCLOSURE_PRACTICES: z.coerce.number(),
   FINANCIAL_SAFETY_PRACTICES: z.coerce.number(),
@@ -48,10 +43,11 @@ const CorporateDashboardEntriesSchema = z.object({
   TOTAL_GRADES_EMP_SATIS: z.coerce.number(),
   NO_RESPONSES_EMP_SATIS: z.coerce.number(),
   TOTAL_GEADES_PARTENERS_SATIS: z.coerce.number(),
-  TOTAL_RESPONSES_VOL_SATIS: z.coerce.number(),
-  NO_RESPOSES_VOL_SATIS_FORM: z.coerce.number(),
+  NO_RESPONSES_PARTERS_FORM: z.coerce.number(),
   TOTAL_GRADES_VOL_STATIS: z.coerce.number(),
   NO_RESPONSES_VOL_SATIS_FORM: z.coerce.number(),
+  TOTAL_GRADES_DON_STATIS: z.coerce.number(),
+  NO_RESPONSES_DON_SATIS_FORM: z.coerce.number(),
   TOTAL_SATIS_GRADES_ORG: z.coerce.number(),
   NO_ORG_MEMBERS: z.coerce.number(),
   TOTAL_GRADES_COM: z.coerce.number(),
@@ -62,6 +58,10 @@ const CorporateDashboardEntriesSchema = z.object({
   AVG_RES_SATIS_FORMS_EMP: z.coerce.number(),
   EMP_EVAL: z.coerce.number(),
   EMP_ACHIEVMENT_PERC: z.coerce.number(),
+  NO_EXEC_DESC: z.coerce.number(),
+  TOTAL_DESC: z.coerce.number(),
+  NO_ACHIV_TARGETS: z.coerce.number(),
+  TOTAL_TARGETS: z.coerce.number(),
 });
 export type CorporateDashboardEntriesType = {
   dashbaordId: number;
@@ -104,8 +104,8 @@ export type CorporateDashboardEntriesType = {
 const FinancialDashboardEntriesSchema = z.object({
   dashbaordId: z.number(),
   id: z.string(),
-  createdAt: z.coerce.date(),
-  updatedAt: z.coerce.date(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
   GENERAL_ADMINSTRATIVE_EXPENSES: z.coerce.number(),
   GOVERENCE_EXPENSES: z.coerce.number(),
   PROGRAMS_EXPENSES_BOUNDED: z.coerce.number(),
@@ -191,8 +191,8 @@ export type FinancialDashboardEntriesType = {
 const OperationalDashboardEntriesSchema = z.object({
   dashbaordId: z.number(),
   id: z.string(),
-  createdAt: z.coerce.date(),
-  updatedAt: z.coerce.date(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
   NO_OPERATIONAL_GOALS_ACHIEVED: z.coerce.number(),
   NO_OPERATIONAL_GOALS_PLANNED: z.coerce.number(),
   NO_PROGRAMS_EXECUTED: z.coerce.number(),
@@ -216,13 +216,7 @@ const OperationalDashboardEntriesSchema = z.object({
   NO_VOLUNTEERS_CONT_3: z.coerce.number(),
   TOTAL_VOLUNTEERS: z.coerce.number(),
 });
-const OperationalDashboardResponseSchema = z.array(
-  OperationalDashboardEntriesSchema
-);
 
-const BaseApiResponseSchema = z.object({
-  data: z.unknown().optional(),
-});
 export type OperationalDashboardEntriesType = {
   dashbaordId: number;
   id: string;
@@ -255,19 +249,19 @@ export type OperationalDashboardEntriesType = {
 export type DashboardType =
   | "OPERATIONAL"
   | "FINANCIAL"
-  | "CORPRATE"
+  | "CORPORATE"
   | "GENERAL";
 
 const DashboardSchemaMap = {
-  OPERATIONAL: DashboardResponseSchema(OperationalDashboardResponseSchema),
+  OPERATIONAL: DashboardResponseSchema(OperationalDashboardEntriesSchema),
   FINANCIAL: DashboardResponseSchema(FinancialDashboardEntriesSchema),
-  CORPRATE: DashboardResponseSchema(CorporateDashboardEntriesSchema),
+  CORPORATE: DashboardResponseSchema(CorporateDashboardEntriesSchema),
 } as const;
 
 export type DashboardTypeMap = {
   OPERATIONAL: OperationalDashboardEntriesType;
   FINANCIAL: FinancialDashboardEntriesType;
-  CORPRATE: CorporateDashboardEntriesType;
+  CORPORATE: CorporateDashboardEntriesType;
 };
 
 const ErrorResponseSchema = z.object({
@@ -282,12 +276,13 @@ const IndicatorSchema = z.object({
   entriesId:z.string(),
   createdAt:z.string(),
   updatedAt:z.string(),
-}).and(
-  z.record(
-    z.string(),
-    z.string()
-  )
-)
+}).catchall(z.coerce.number())
+// and(
+//   z.record(
+//     z.string(),
+//     z.string()
+//   )
+// )
 
 const SaveEntriesResponseSchema = z.object({
   indicators: z.object({

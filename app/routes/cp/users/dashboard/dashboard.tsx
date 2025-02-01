@@ -17,6 +17,7 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
   if (!id) return { error: "Error at getting Organization id" };
 
   const dashboardsOverview = await dashboardApi(serverUrl).getOrgDashboards(id);
+console.log("overview:: ",dashboardsOverview);
 
   return { dashboardsOverview };
 };
@@ -49,8 +50,6 @@ useEffect(()=>{
         <div className="w-10/12 h-1/3 mt-8  mx-auto flex flex-wrap items-center  justify-center gap-4">
           {dashboardsOverview && dashboardsOverview.map((dashboard) => {
             return (
-             
-
               <NavLink state={{dashboardsOverview}} to={dashboard.title.split("_")[1]} className="w-5/12 border h-44 hover:border-accent rounded-lg group">
                 <div className="w-full flex m-2 items-center gap-3 h-1/6">
                   <div className="border p-2 rounded-lg">
