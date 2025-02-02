@@ -101,7 +101,45 @@ const MosquesDashboardEntriesSchema = z.object({
   NO_EXEC_PRJKS_MOSQUES: z.coerce.number(),
 });
 
+export type CorporateDashboardIndicatorsType = {
+  dashbaordId: number;
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  CORORATE_PERFORMANCE: number;
+  GOVERANCE: number;
+  HR: number;
+  PLANNING_ORGANIZING: number;
+  SATIS_MEASURMENT: number;
+  CEO_PERFORMANCE: number;
+  COMPLIANCE_ADHERENCE_PRACTICES: number;
+  TRANSPARENCY_DISCLOSURE_PRACTICES: number;
+  FINANCIAL_SAFETY_PRACTICES: number;
+  RECRUITMENT: number;
+  EMP_PERF_PROD: number;
+  EMP_DEV_TRAIN: number;
+  TARGETS_HIT_PERF_EVAL: number;
+  JOB_COMMITMENT: number;
+  TRAIN_PLAN_EXEC: number;
+  TRAIN_IMPACT: number;
+  FOLLOWUP_OPERATIONAL_PLAN: number;
+  QUALITY_OPERATIONAL_PLAN: number;
+  BENEF_SATIS_MEASURMENT: number;
+  EMP_SATIS_MEASURMENT: number;
+  PARTENERS_SATIS_MEASURMENT: number;
+  VOLUN_SATIS_MEASURMENT: number;
+  DONATORS_SATIS_MEASURMENT: number;
+  ADMIN_ORG_SATIS_MEASURMENT: number;
+  COMMUNITY_SATIS_MEASURMENT: number;
+  EXEC_LEADERSHIP: number;
+  OPERATIONAL_PERF: number;
+  ENTERPRISE_COMMUN: number;
+  FOLLOWUP_BOARD_DECISION: number;
+  OPERATIONAL_PLAN_ACHIVMENT_GOALS: number;
+  DAILY_OPS_MGMT: number;
+  FOLLOWUP_EMPS_PERF: number;
 
+};
 export type CorporateDashboardEntriesType = {
   dashbaordId: number;
   id: string;
