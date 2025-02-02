@@ -155,10 +155,29 @@ const entriesLabels = {
 
 
 
-
+const OperationalIndicators={
+    EFFIC_INTERNAL_OPS: "كفاءة العمليات الداخلية",
+    VOLN_MGMT: "إدارة التطوع",
+    OPS_PLAN_EXEC: "تنفيذ الخطة التشغيلية",
+    PRJKT_PRGM_MGMT: "إدارة المشاريع والبرامج",
+    OPS_GOALS_ACH_PERC: "نسبة تحقيق الأهداف التشغيلية",
+    PGRM_PRJKS_EXEC_PERC: "نسبة تنفيذ البرامج والمشاريع",
+    EFFIC_PRJKS_EXEC: "كفاءة تنفيذ المشاريع",
+    EFFITV_PRJKS_PGRM: "فعالية المشاريع والبرامج",
+    VOLN_CONTR_PRJKS_EXEC: "مساهمة المتطوعين في تنفيذ المشاريع",
+    QLY_SPEED_PROC_EXEC: "جودة وسرعة تنفيذ الإجراءات",
+    DOCS_ARCHIV: "التوثيق والأرشفة",
+    VOLUN_GROWTH_RATE_QUAR: "معدل النمو الربعي للمتطوعين",
+    VOLUN_SUST_PERC: "نسبة استدامة المتطوعين",
+    PRJKT_TIMELY_COMP_PERC: "نسبة إنجاز المشروع في الوقت المحدد",
+    BUDGET_COMMIT_PERC: "نسبة الالتزام بالميزانية",
+    PRJK_GOALS_ACHV_PERC: "نسبة تحقيق أهداف المشروع",
+    REACH_TARGET_AUD_PERC: "نسبة الوصول للفئة المستهدفة"
+}
 
 
 export {
+    OperationalIndicators,
     entriesLabels,
     dashboardStatusMap,
     tabsNames
