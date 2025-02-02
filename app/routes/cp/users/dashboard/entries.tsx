@@ -19,6 +19,7 @@ import DashboardHeader from "./components/DashboardHeader";
 import ViewSwitch from "./components/ViewSwitch";
 import { initialValues } from "./constants/initialValues";
 import { useThemeStore } from "~/lib/store/theme-store";
+import DashboardIndicators from "./components/DashboardIndicators";
 
 
 export const loader = async ({ context, params }: LoaderFunctionArgs) => {
@@ -29,15 +30,18 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
   const entries = await dashboardApi(
     context.cloudflare.env.BASE_URL
   ).getEntries(`${id}`, (dashboardType as DashboardType) ?? "GENERAL");
+
+
+  const indicators = await dashboardApi(context.cloudflare.env.BASE_URL).getIndicators(`${id}`, (dashboardType as DashboardType) ?? "GENERAL")
   console.log("entries :: ", entries);
+  console.log("indicators::",indicators)
 
   // if (!entries[0]) return redirect(`/cp/users/org/${id}/dashboard`);
 
-  console.log("entries general please",entries[0] );
-  
 
   return {
-    entries: entries[0],
+    entries:(entries)[0],
+    indicators: indicators.length? indicators[0]:null,
     currentDashboard: dashboardType,
     baseUrl: context.cloudflare.env.BASE_URL,
     id,
@@ -51,7 +55,7 @@ const Entries = ({
 }) => {
 
 
-  const { entries, currentDashboard, baseUrl, id } = useLoaderData();
+  const { entries,indicators, currentDashboard, baseUrl, id } = useLoaderData();
   const locationData = useLocation();
   const [view, setView] = useState<"entries" | "indicators">("entries");
   const {setDarkTheme,setLightTheme} = useThemeStore()
@@ -202,7 +206,7 @@ setDarkTheme()
                   />
                 </>
               ) : (
-                <div>Inicators view (Coming Soon)</div>
+                <DashboardIndicators indicators={indicators} type={currentDashboard}/>
               )}
             </div>
           </TabsContent>

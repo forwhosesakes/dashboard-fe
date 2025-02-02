@@ -227,6 +227,10 @@ export type FinancialDashboardEntriesType = {
   END_LIABILITIES: number;
 };
 
+
+
+
+export type DashboardEntriesType = FinancialDashboardEntriesType | CorporateDashboardEntriesType | OperationalDashboardEntriesType
 const OperationalDashboardEntriesSchema = z.object({
   dashbaordId: z.number(),
   id: z.string(),
@@ -299,6 +303,9 @@ const DashboardSchemaMap = {
     OrphansDashboardEntriesSchema || MosquesDashboardEntriesSchema
   ),
 } as const;
+
+
+
 
 export type DashboardTypeMap = {
   OPERATIONAL: OperationalDashboardEntriesType;
@@ -425,13 +432,9 @@ export const dashboardApi = (url: string) => {
     getEntries: async <T extends DashboardType>(
       id: string,
       type: T
-    ): Promise<DashboardTypeMap[T]> => {
+    ): Promise<DashboardTypeMap[T][]> => {
       try {
-        console.log(
-          "this endpoint:::::",
-          `${url}/dashboard/entries/${type}/${id}`
-        );
-
+  
         const response = await fetch(`${url}/dashboard/entries/${type}/${id}`);
 
         if (!response.ok) {
@@ -458,6 +461,37 @@ export const dashboardApi = (url: string) => {
 
 
         return parsedData.data as DashboardTypeMap[T];
+      } catch (e) {
+        if (e instanceof z.ZodError) {
+          console.error("Validation error:", e.errors);
+          throw new Error(`Invalid ${type} dashboard data format`);
+        }
+        throw e;
+      }
+    },
+
+
+    getIndicators: async <T extends DashboardType>(
+      id: string,
+      type: T
+    ): Promise<any> => {
+      try {
+  
+        const response = await fetch(`${url}/dashboard/indicators/${type}/${id}`);
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => null);
+          const message = isErrorWithMessage(errorData)
+            ? errorData.message
+            : undefined;
+          throw new Error(message || `HTTP error! status: ${response.status}`);
+        }
+        const rawResponse = await response.json() as any;
+        console.log("response:: ", rawResponse, "type is:: ", type);
+     
+       
+
+        return rawResponse?.data as any[]
       } catch (e) {
         if (e instanceof z.ZodError) {
           console.error("Validation error:", e.errors);
