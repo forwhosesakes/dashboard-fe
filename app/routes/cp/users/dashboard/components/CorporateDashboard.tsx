@@ -13,6 +13,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import SemiCircleProgressBar from "~/components/ui/half-circular-progress";
+import { Progress } from "~/components/ui/progress";
 
 interface IProps {
   indicators: any;
@@ -27,7 +28,7 @@ const CorporateDashboard = (props: IProps) => {
     "FINANCIAL_SAFETY_PRACTICES",
   ];
 
-  const hrInds = ["EMP_PERF_PROD", "EMP_DEV_TRAIN"]
+  const hrInds = ["EMP_PERF_PROD", "EMP_DEV_TRAIN"];
   const ceoPerfIndicators = [
     {
       key: "OPERATIONAL_PLAN_ACHIVMENT_GOALS",
@@ -118,124 +119,125 @@ const CorporateDashboard = (props: IProps) => {
         ))}
       </div>
 
-<div className="flex gap-4">
- 
+      <div className="flex gap-4">
+        <div className=" rounded-lg p-8 flex-wrap gap-5  bg-[#13161B]  h-[550px] w-1/2 my-5">
+          <h5 className="mb-4">قياس الرضا</h5>
 
-<div className=" rounded-lg p-8 flex-wrap gap-5  bg-[#13161B]  h-96 w-1/2 my-5">
-        <h5 className="mb-4">قياس الرضا</h5>
-
-        <ResponsiveContainer width="100%" height="80%">
-          <BarChart
-            width={800}
-            height={400}
-            data={satisInds}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
-          >
-            <defs>
-              <linearGradient
-                id="paint0_linear_857_15912"
-                x1="19.4768"
-                y1="144"
-                x2="19.4768"
-                y2="90"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stop-color="#1882FF" />
-                <stop offset="1" stop-color="#36EBCA" />
-              </linearGradient>
-
-              <linearGradient
-                id="paint0_linear_857_15917"
-                x1="32"
-                y1="97.2632"
-                x2="8.34548"
-                y2="97.2632"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stop-color="#36F097" />
-                <stop offset="1" stop-color="#36F097" stop-opacity="0.2" />
-              </linearGradient>
-
-              <linearGradient
-                id="paint0_linear_857_15907"
-                x1="0"
-                y1="71.5"
-                x2="32"
-                y2="71.5"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stop-color="#EF7BE3" />
-                <stop offset="1" stop-color="#FF5A5A" />
-              </linearGradient>
-
-              <linearGradient
-                id="paint0_linear_857_15897"
-                x1="16.6957"
-                y1="88"
-                x2="16.6957"
-                y2="55"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stop-color="#FBE947" />
-                <stop offset="1" stop-color="#58D764" />
-              </linearGradient>
-
-              <linearGradient
-                id="paint0_linear_857_15892"
-                x1="0.5"
-                y1="123.5"
-                x2="32.5"
-                y2="123.5"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stop-color="#725CFA" />
-                <stop offset="1" stop-color="#EF7BE3" />
-              </linearGradient>
-            </defs>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip
-              label={"القيمة"}
-              wrapperStyle={{ width: 100, backgroundColor: "#ccc" }}
-              formatter={function (total) {
-                return `${total}`;
+          <ResponsiveContainer width="100%" height="80%">
+            <BarChart
+              width={800}
+              height={400}
+              data={satisInds}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
               }}
-            />
+            >
+              <defs>
+                <linearGradient
+                  id="paint0_linear_857_15912"
+                  x1="19.4768"
+                  y1="144"
+                  x2="19.4768"
+                  y2="90"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stop-color="#1882FF" />
+                  <stop offset="1" stop-color="#36EBCA" />
+                </linearGradient>
 
-            <Bar dataKey="value" width={5} radius={[10, 10, 0, 0]} />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
+                <linearGradient
+                  id="paint0_linear_857_15917"
+                  x1="32"
+                  y1="97.2632"
+                  x2="8.34548"
+                  y2="97.2632"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stop-color="#36F097" />
+                  <stop offset="1" stop-color="#36F097" stop-opacity="0.2" />
+                </linearGradient>
 
-    <div className="flex my-5 h-96 w-1/2 gap-4  bg-[#13161B] rounded-lg p-5  flex-col">
-        <h5 className="mb-4">{"الموارد البشرية"}</h5>
-        {hrInds.map((card)=> <div
-            key={card}
-            className="relative flex flex-col p-5 border border-[#5C626D] rounded-lg min-w-64 h-44 gap-5 shadow-custom"
-          >
-            <h6 className="text-[16px]">
-              {
-                //@ts-ignore
-                indicatorsLabels.CORPORATE[card]
-              }
-            </h6>
+                <linearGradient
+                  id="paint0_linear_857_15907"
+                  x1="0"
+                  y1="71.5"
+                  x2="32"
+                  y2="71.5"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stop-color="#EF7BE3" />
+                  <stop offset="1" stop-color="#FF5A5A" />
+                </linearGradient>
 
-            <h4 className="text-">
-              {Number(props.indicators[card]).toFixed(2) + "%"}
-            </h4>
+                <linearGradient
+                  id="paint0_linear_857_15897"
+                  x1="16.6957"
+                  y1="88"
+                  x2="16.6957"
+                  y2="55"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stop-color="#FBE947" />
+                  <stop offset="1" stop-color="#58D764" />
+                </linearGradient>
 
-            
-          </div>)}
+                <linearGradient
+                  id="paint0_linear_857_15892"
+                  x1="0.5"
+                  y1="123.5"
+                  x2="32.5"
+                  y2="123.5"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stop-color="#725CFA" />
+                  <stop offset="1" stop-color="#EF7BE3" />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip
+                label={"القيمة"}
+                wrapperStyle={{ width: 100, backgroundColor: "#ccc" }}
+                formatter={function (total) {
+                  return `${total}`;
+                }}
+              />
+
+              <Bar dataKey="value" barSize={10} width={5} radius={[10, 10, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
         </div>
-    </div>
 
-    
+        <div className="flex my-5 min-h-96 w-1/2 gap-4  bg-[#13161B] rounded-lg p-5  flex-col">
+          <h5 className="mb-4">{"الموارد البشرية"}</h5>
+          {hrInds.map((card) => (
+            <div
+              key={card}
+              className="relative flex flex-col p-5 border border-[#5C626D] rounded-lg min-w-64 h-44 gap-5 shadow-custom"
+            >
+              <h6 className="text-[16px]">
+                {
+                  //@ts-ignore
+                  indicatorsLabels.CORPORATE[card]
+                }
+              </h6>
+            
+
+              <h4 className="text-">
+                {Number(props.indicators[card]).toFixed(2) + "%"}
+              </h4>
+              <Progress
+                  className="[&>div]:bg-gradient-to-r [&>div]:from-green-900 [&>div]:to-green-300 w-full h-2.5 bg-gray-700"
+                  value={Math.round(Number(props.indicators[card]))}
+                />
+            </div>
+          ))}
+        </div>
+      </div>
 
       <div className="flex my-5 gap-4">
         <div className=" bg-[#13161B] my-5 p-5 rounded-lg  ">

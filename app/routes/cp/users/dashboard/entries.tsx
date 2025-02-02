@@ -20,6 +20,7 @@ import ViewSwitch from "./components/ViewSwitch";
 import { initialValues } from "./constants/initialValues";
 import { useThemeStore } from "~/lib/store/theme-store";
 import DashboardIndicators from "./components/DashboardIndicators";
+import OperationalIndicator from "./components/OperationalIndicators";
 
 
 export const loader = async ({ context, params }: LoaderFunctionArgs) => {
@@ -207,6 +208,26 @@ setDarkTheme()
                 </>
               ) : (
                 <DashboardIndicators indicators={indicators} type={currentDashboard}/>
+                // <div>Inicators view (Coming Soon)</div>
+                // <OperationalIndicator indicators={{
+                //   BUDGET_COMMIT_PERC: 0,
+                //   DOCS_ARCHIV: 125,
+                //   EFFIC_INTERNAL_OPS: 87.85714285714286,
+                //   EFFIC_PRJKS_EXEC: 16.666666666666664,
+                //   EFFITV_PRJKS_PGRM: 100,
+                //   OPS_GOALS_ACH_PERC: 100,
+                //   OPS_PLAN_EXEC: 8,
+                //   PGRM_PRJKS_EXEC_PERC: 100,
+                //   PRJKT_PRGM_MGMT: 7.5,
+                //   PRJKT_TIMELY_COMP_PERC: 33.33333333333333,
+                //   PRJK_GOALS_ACHV_PERC: 100,
+                //   QLY_SPEED_PROC_EXEC: 60,
+                //   REACH_TARGET_AUD_PERC: 100,
+                //   VOLN_CONTR_PRJKS_EXEC: 100,
+                //   VOLN_MGMT: 50,
+                //   VOLUN_GROWTH_RATE_QUAR: 0,
+                //   VOLUN_SUST_PERC: 100
+                // }}/>
               )}
             </div>
           </TabsContent>
@@ -216,3 +237,5 @@ setDarkTheme()
   );
 };
 export default Entries;
+
+
