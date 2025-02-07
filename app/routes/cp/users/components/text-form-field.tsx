@@ -2,7 +2,6 @@ import type { TField, TFormDataInput } from "~/types/users.types";
 import { USER_MGMT } from "../glossary";
 import type { UseFormGetFieldState, UseFormRegister } from "react-hook-form";
 import { InputField } from "~/components/ui/input-field";
-import { useEffect } from "react";
 
 interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
   field: TField;
@@ -23,6 +22,7 @@ const TextFormField = ({ field,error, getFieldState, register, ...rest }: IProps
         *{USER_MGMT.FORM_FIELDS[field.label]}
       </label>
       <InputField
+      dir={field.label==="phoneNumber"?"ltr":"rtl"}
         error={error}
         className="flex-[1_0_0]"
         {...rest}

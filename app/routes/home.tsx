@@ -147,16 +147,7 @@ const navigate = useNavigate()
     root.classList.add(theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === "light" ? "dark" : "light"));
-  };
-
-  const showToast = () => {
-    toasts.success({
-      message: "test",
-      description: "test toast",
-    });
-  };
+ 
   return (
     <div className=" w-full h-full">
       {/* <LineChart
@@ -398,9 +389,7 @@ const navigate = useNavigate()
                   أضف مستخدم جديد
                 </p>
 
-                <p className="text-primary text-sm font-thin">
-                  أضف بنفسك أو استورد من CSV
-                </p>
+           
               </div>
             </div>
 

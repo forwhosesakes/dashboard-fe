@@ -34,11 +34,11 @@ const initialValues = {
   phoneNumber: "",
   email: "",
   type: "technical" as "technical" | "waqfi", // Default to one of the enum values
-  category: "",
+  category: "none",
   licenseNumber: "",
   website: "",
   address: "",
-  city: "",
+  city: "الرياض",
   neighbor: "",
   street: "",
   map: "",

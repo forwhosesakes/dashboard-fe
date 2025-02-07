@@ -1,6 +1,7 @@
 import type { DashboardType } from "~/lib/api/dashboard";
 import CorporateDashboard from "./CorporateDashboard";
 import OperationalIndicator from "./OperationalIndicators"
+import FinancialDashboard from "./FinancialDashboard";
 
 interface IProps {
   indicators: any;
@@ -16,8 +17,7 @@ const DashboardIndicators = (props: IProps) => {
       return <h2> GENERAL dashboard indicators </h2>;
 
     case "FINANCIAL":
-      return <h2> FINANCIAL dashboard indicators </h2>;
-
+      return <FinancialDashboard indicators={props.indicators} />
     case "CORPORATE":
       return (
         <CorporateDashboard indicators={props.indicators}>

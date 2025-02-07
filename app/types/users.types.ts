@@ -12,7 +12,7 @@ export type TFormDataInput = {
   phoneNumber: string;
   email: string;
   type: "technical" | "waqfi";
-  category: "mosque" | "orphans" | string;
+  category: "mosque" | "orphans" | "none"|string;
   licenseNumber: string;
   website: string;
   address: string;
@@ -72,6 +72,7 @@ export type FieldType =
   | "TOGGLE"
   | "SLIDER"
   | "EMAIL"
+  | "DROPDOWN"
   | "PHONE"
   | "TOGGLE_SLIDER";
 
@@ -80,6 +81,7 @@ export type TField = {
   placeholder?: string;
   description?: string;
   type: FieldType | FieldType[];
+  options?:string[]
 };
 
 export interface IStepComponentProps<T> {

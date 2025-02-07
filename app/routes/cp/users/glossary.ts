@@ -37,4 +37,11 @@ export const USER_MGMT = {
     corporateIndicatorsSetting: "مؤشر لوحة حساب الأداء التشغيلي",
     generalndicatorsSetting: "مؤشر حساب اللوحة العامة",
   },
+  OPTIONS:{
+    technical:"تقني",
+    waqfi:"وقفي",
+    mosque:"العناية بالمساجد",
+    orphans:"رعاية الأيتام",
+    none:"لا يوجد"
+  }
 };
