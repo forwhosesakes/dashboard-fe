@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import StepsTracker from "./steps-tracker";
 import { StepsEnum, type TSteps } from "../../../types/users.types";
 import { Button } from "../button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const stepsIndex = [
   StepsEnum.MAIN_ENTRIES,
@@ -14,13 +15,10 @@ interface IProps<T> {
   children?: React.ReactNode;
   onComplete: any;
   cancelStepper: any;
-  completeDisable:boolean;
+  completeDisable: boolean;
   canMoveToNextPage?: any;
-  onReachFinalStep?:any;
-  onStepChange: (
-    prevStep: StepsEnum,
-    currentStep: StepsEnum | null
-  ) => void;
+  onReachFinalStep?: any;
+  onStepChange: (prevStep: StepsEnum, currentStep: StepsEnum | null) => void;
   steps: TSteps;
   additionalProps: T;
 }
@@ -29,15 +27,13 @@ export default function Stepper<T>(props: IProps<T>) {
   const CurrentComponent = props.steps[stepsIndex[currentStep]].component;
 
   const moveToNextPage = () => {
-    if(currentStep===stepsIndex.length-2){
- 
+    if (currentStep === stepsIndex.length - 2) {
       // props.onReachFinalStep()
     }
     props.onStepChange(
       stepsIndex[currentStep],
       currentStep < stepsIndex.length - 1 ? stepsIndex[currentStep + 1] : null
     );
-
     setCurrentStep((prev) => prev + 1);
   };
 
@@ -50,18 +46,69 @@ export default function Stepper<T>(props: IProps<T>) {
     setCurrentStep((prev) => prev - 1);
   };
 
+  const onStepNavigate = (index:number)=>{
+    props.onStepChange(
+      stepsIndex[currentStep],
+      currentStep > 0 ? stepsIndex[index] : null
+    );
 
-  useEffect(()=>{
-    console.log("props:: ",props);
+    setCurrentStep((prev) => index);
     
-  },[props])
+  }
 
   return (
     <div>
       <StepsTracker
+      onStepNavigate={onStepNavigate}
         steps={props.steps}
         currentStep={props.steps[stepsIndex[currentStep]]}
       />
+          <div className="stepper-action float-end w-1/3 flex gap-x-4">
+          {currentStep > 0 && (
+          <Button
+            type="button"
+            variant={"outline"}
+            onClick={moveToPrevPage}
+            loading={false}>
+            <ChevronRight/>
+            السابق
+          </Button>
+        )}
+        {currentStep < stepsIndex.length - 1 ? (
+          <>
+            <Button
+              type="button"
+              variant={"secondary"}
+              onClick={moveToNextPage}
+              loading={false}
+            >
+              التالي
+
+              <ChevronLeft/>
+            </Button>
+            <Button
+              type="submit"
+              variant={"secondary"}
+              disabled={props.completeDisable}
+              onClick={props.onComplete}
+              loading={false}
+            >
+              حفظ
+            </Button>
+          </>
+        ) : (
+          <Button
+            type="submit"
+            variant={"secondary"}
+            disabled={props.completeDisable}
+            onClick={props.onComplete}
+            loading={false}
+          >
+            حفظ
+          </Button>
+        )}
+    
+      </div>
       {
         <CurrentComponent
           // stepData={props.steps[stepsIndex[currentStep]]}
@@ -69,46 +116,7 @@ export default function Stepper<T>(props: IProps<T>) {
         />
       }
 
-      <div className="stepper-action float-end w-1/5 flex gap-x-4">
-        <Button
-          variant={"outline"}
-          onClick={props.cancelStepper}
-          loading={false}
-        >
-          إلغاء
-        </Button>
-
-        {currentStep < stepsIndex.length - 1 ? (
-          <Button
-          type="button"
-
-            variant={"secondary"}
-            onClick={moveToNextPage}
-            loading={false}
-          >
-            التالي
-          </Button>
-        ) : (
-          <Button 
-          type="submit"
-          variant={"secondary"}
-          disabled={props.completeDisable}
-          
-          onClick={props.onComplete} loading={false}>
-            حفظ
-          </Button>
-        )}
-        {currentStep > 0 && (
-          <Button
-          type="button"
-            variant={"outline"}
-            onClick={moveToPrevPage}
-            loading={false}
-          >
-            السابق
-          </Button>
-        )}
-      </div>
+  
     </div>
   );
 }

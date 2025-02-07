@@ -11,7 +11,6 @@ import {
   createColumnHelper,
   flexRender,
   getCoreRowModel,
-  getFilteredRowModel,
   useReactTable,
   type ColumnDef,
   type RowSelectionState,
@@ -27,6 +26,7 @@ import type { TClientOverview } from "~/types/users.types";
 import DeleteUserDialog from "./components/deleteUserDialog";
 import { OrganizationsAPI } from "~/services/org";
 import { APIError } from "~/lib/utils/error";
+import { PlusIcon } from "lucide-react";
 
 const DashboardBadgeColor: {
   [key in DashboardEnum]: "mauv" | "red" | "blue" | "green";
@@ -210,9 +210,15 @@ const Users = () => {
   });
 
   return (
-    <section className="p-4">
+    <section className="p-4 relative">
       <h6 className=""> {USER_MGMT.PAGE_TITLE}</h6>
       <p>{USER_MGMT.PAGE_DESCRIPTION}</p>
+
+      <Button
+      className="absolute left-4 top-2 w-fit"
+      onClick={()=>navigate("/cp/users/org/create-edit")}  variant={"outline"}>{USER_MGMT.CREATE_CLIENT}
+      <PlusIcon/>
+      </Button>
 
       <hr className="my-4" />
 

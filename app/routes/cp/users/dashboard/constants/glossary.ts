@@ -149,7 +149,36 @@ const entriesLabels = {
 };
 
 const indicatorsLabels = {
-  FINANCIAL: {},
+  FINANCIAL: {
+    FINANCIAL_PERF:"الأداء المالي",
+    FINANCIAL_RESOURCES_DEV: "تنمية الموارد المالية",
+    ADMIN_EXPENSES: "المصاريف الإدارية  ",
+    PRGRMS_EXPENSES: "مصاريف البرامج و الأنشطة",
+    FINANCIAL_SUSTAIN: " نسبة الاستدامة المالية ",
+    DONAT_MONEY_RAISING: "جمع الأموال و التبرعات",
+    ABL_COVER_OBLIG: "القدرة على تغطية التزاماتها المستقبلية",
+    DIVERSITY_INCOME_RESOURCES:"تنوع مصادر الدخل",
+    EFFECIENT_RESOURCE_MGMT:"كفاءة إدارة الموارد",
+    ADMIN_TO_TOTAL_EXPENSES:"المصاريف الإدارية إلى اجمالي المصاريف",
+    REV_FIN_SUST_TO_TOTAL_EXPENSES:"عوائد الاستدامة المالية إلى المصاريف الإدارية",
+    PRGRMS_TO_TOTAL_EXPENSES:"مصاريف البرامج والأنشطة إلى اجمالي المصاريف",
+    SUST_TO_TOTAL_EXPENSES:"مصاريف الاستدامة إلى اجمالي المصاريف",
+    SUST_EXPENSEES_TO_REV:"مصاريف الاستدامة إلى عوائد الاستدامة",
+    SUST_RETURN_TO_ASSETS:"العائد من الاستدامة إلى اجمالي أصول الاستدامة",
+    FUND_RAISING_TO_TOTAL_EXPENSES:"مصاريف جمع الأموال إلى اجمالي المصاريف",
+    FUND_RAISING_TO_TOTAL_DONAT:"مصاريف جمع الأموال إلى اجمالي التبرعات",
+    CACHE_RELATED_TO_NET_ASSETS_AND_AWQAF:"النقد وما ي حكمه إلى (صافي الأصول المقيدة + صافي أصول النقدية الأوقاف)",
+    NET_CACHE_INVEST_ADMIN_EXPENSES:"صافي النقد والاستثمارات المتداولة إلى المصاريف الإدارية التقديرية",
+    DONAT_PERC:"نسبة التبرعات (مقيدة/غير مقيدة)",
+    PLATFORM_REV_PERC:"نسبة الإيرادات من المنصات",
+    PRGMS_PRJKS_REV:"عوائد البرامج و المشاريع",
+    PAID_MEMBERSHIP_PERC:"نسبة العضويات المسددة",
+    ECO_RETURN_VOLUN:"العائد الاقتصادي من التطوع",
+    RATE_REV_ANNUAL_GROWTH:"معدل نمو الإيرادات السنوي",
+    COMMIT_DISC_PERC:"نسبة تخفيض الالتزامات",
+    RATE_SUST_DONAT:"معدل استدامة المتبرعين",
+    TOTAL_TAX_REFUND:"اجمالي المبالغ المستردة من الضريبة"
+  },
   CORPORATE: {
     CORORATE_PERFORMANCE: "الأداء المؤسسي ",
     GOVERANCE: "النسبة الإجمالية للحوكمة",
