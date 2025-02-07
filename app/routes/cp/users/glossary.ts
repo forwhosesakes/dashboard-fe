@@ -40,7 +40,7 @@ export const USER_MGMT = {
   OPTIONS:{
     technical:"تقني",
     waqfi:"وقفي",
-    mosque:"العناية بالمساجد",
+    mosques:"العناية بالمساجد",
     orphans:"رعاية الأيتام",
     none:"لا يوجد"
   }

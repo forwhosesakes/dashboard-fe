@@ -12,7 +12,7 @@ export type TFormDataInput = {
   phoneNumber: string;
   email: string;
   type: "technical" | "waqfi";
-  category: "mosque" | "orphans" | "none"|string;
+  category: "mosques" | "orphans" | "none"|string;
   licenseNumber: string;
   website: string;
   address: string;
@@ -41,7 +41,7 @@ export type TOrganization = {
   phoneNumber: string;
   email: string;
   type: "technical" | "waqfi";
-  category: "mosque" | "orphans" | string;
+  category: "mosques" | "orphans" | string;
   licenseNumber: string;
   website: string;
   address: string;

@@ -15,18 +15,18 @@ import type {
   LoaderData,
   StepsEnum,
   TFormDataInput,
+  TOrganization,
 } from "~/types/users.types";
 import { STEPS } from "./constants/steps";
 import Stepper from "~/components/ui/stepper/stepper";
-import {  useEffect, useState } from "react";
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { clientFormDataSchema } from "./constants/client-schema";
 import { APIError } from "~/lib/utils/error";
 import { OrganizationsAPI } from "~/services/org";
 import { createToastHeaders } from "~/lib/toast.server";
 import { FILE_FIELDS } from "./constants/client-shared";
-
-
+import LoadingOverlay from "~/components/loading-overlay";
 
 const initialValues = {
   // Text fields
@@ -62,8 +62,6 @@ const initialValues = {
   generalndicatorsSetting: false,
 };
 
-
-
 export async function loader({ request, context, params }: LoaderFunctionArgs) {
   const serverUrl = context.cloudflare.env.BASE_URL;
   const { id } = params;
@@ -81,16 +79,39 @@ export async function loader({ request, context, params }: LoaderFunctionArgs) {
   try {
     // Call the API
     const response = await OrganizationsAPI.getById(Number(id), serverUrl);
+
     // Check for API-level errors
     if (response.status !== "success") {
       throw new Error(response.message);
     }
 
-    // Return successful response
-    return Response.json({
-      status: "success" as const,
-      data: response.data,
-    });
+    const responseData = response.data as TOrganization;
+    if (responseData) {
+      FILE_FIELDS.forEach((field: any) => {
+        try {
+          // @ts-ignore
+          const val = JSON.parse(responseData[field]) ?? [];
+          if (Array.isArray(val)) {
+            // @ts-ignore
+            responseData[field] = val;
+          } else {
+            // @ts-ignore
+
+            responseData[field] = [val];
+          }
+        } catch (e) {
+          // @ts-ignore
+          responseData[field] = [responseData[field]];
+          console.log("Error in parsing json:", e);
+        }
+      });
+
+      // Return successful response
+      return Response.json({
+        status: "success" as const,
+        data: response.data,
+      });
+    }
   } catch (error) {
     // Handle different types of errors
     if (error instanceof APIError) {
@@ -116,7 +137,6 @@ export async function loader({ request, context, params }: LoaderFunctionArgs) {
 }
 
 export async function action({ request, context }: ActionFunctionArgs) {
-  
   const uploadHandler = async (props: FileUpload) => {
     // const key = `${Date.now()}-${createId()}.${filename.split(".")[1]}`;
     if (props.fieldName) {
@@ -141,16 +161,26 @@ export async function action({ request, context }: ActionFunctionArgs) {
     try {
       const formData = await parseFormData(request, uploadHandler as any);
 
-      //todo: convert the form data into json, stringify the fields with arrays
-      // todo: call the post org servive to create/update the org
+      // convert the form data into json, stringify the fields with arrays
+      //  call the post org servive to create/update the org
 
       let orgObject: any = {};
 
       for (const [key, value] of formData.entries()) {
+        
         if (FILE_FIELDS.includes(key)) {
           orgObject[key] = JSON.stringify(formData.getAll(key));
         } else if (key === "generalndicatorsSetting") {
           orgObject[key] = value == "true" ? 100 : 0;
+        } else if (
+          [
+            "corporateIndicatorsSetting",
+            "operationalIndicatorsSetting",
+            "financialIndicatorsSetting",
+          ].includes(key)
+        ) {
+          
+          orgObject[key] = value == "false" ? 0 : value;
         } else orgObject[key] = value;
       }
 
@@ -196,7 +226,8 @@ const CreateEditClient = () => {
   const navigate = useNavigate();
   const fetcher = useFetcher();
 
-  const loaderData = useLoaderData<typeof loader>() as unknown as LoaderData;
+  const loaderData = useLoaderData() as unknown as LoaderData;
+
 
   const formHook = useForm<TFormDataInput>({
     mode: "all",
@@ -209,16 +240,7 @@ const CreateEditClient = () => {
   });
   const [formSteps, setFormSteps] = useState(STEPS);
 
-  // useEffect(() => {
-  //   const subscription = formHook.watch((data) => {
-  //     console.log('Form values:', data);
-  //     console.log('Form state:', formHook.formState);
-  //   });
-  //   return () => subscription.unsubscribe();
-  // }, [formHook.watch, formHook.formState]);
-
   const onSubmit = (data: TFormDataInput) => {
-    let files: { file: File; field: string }[] = [];
     let formData = new FormData();
 
     Object.keys(data)
@@ -227,7 +249,7 @@ const CreateEditClient = () => {
         formData.append(key, data[key as keyof TFormDataInput].toString())
       );
 
-      FILE_FIELDS.forEach((field: string) => {
+    FILE_FIELDS.forEach((field: string) => {
       const dataFiles = data[
         field as keyof TFormDataInput
       ] as unknown as File[];
@@ -242,27 +264,25 @@ const CreateEditClient = () => {
     fetcher.submit(formData, {
       method: "POST",
       encType: "multipart/form-data",
-    })
+    });
 
     //Todo: upload all the files and reteive their url in r2 storage
     // uploadFiles(files as {file:File, field:string}[])
   };
-  const isThisFormSectionValid = (formSection: StepsEnum) => {
-    // return STEPS[formSection].fields.every(
-    //   (field) =>
-    //     formHook.formState.dirtyFields[field.label] &&
-    //     !formHook.formState.errors[field.label]
-    // );
-
-    return STEPS[formSection].fields.every(
-      async (field) => await formHook.trigger(field.label)
+  const isThisFormSectionValid = async (formSection: StepsEnum) => {
+    const results = await Promise.all(
+      STEPS[formSection].fields.map(async (field) => {
+        const isValid = await formHook.trigger(field.label);
+        return isValid && !formHook.formState.errors[field.label];
+      })
     );
+    return results.every(result => result);
   };
-  const onStepChange = async (
+  const onStepChange =  async (
     prevStep: StepsEnum,
     currentStep: null | StepsEnum
   ) => {
-    const statusForNextStep = (await isThisFormSectionValid(prevStep))
+    const statusForNextStep = await isThisFormSectionValid(prevStep)
       ? "DONE"
       : "IDLE";
 
@@ -276,25 +296,26 @@ const CreateEditClient = () => {
 
       return newst;
     });
-
-    
   };
 
   return (
     <section className="w-full p-12 ">
+     {fetcher.state !== "idle"
+          && <LoadingOverlay message="جاري إضافة الجمعية" />
+        }
       <h5>{id ? USER_MGMT.EDIT_CLIENT : USER_MGMT.CREATE_CLIENT}</h5>
       <form onSubmit={formHook.handleSubmit(onSubmit)}>
         <Stepper<UseFormReturn<TFormDataInput, any, undefined>>
           onComplete={() => {
             // console.log("completed");
           }}
-      
           completeDisable={!formHook.formState.isValid}
           steps={formSteps}
           additionalProps={formHook}
           cancelStepper={() => navigate("/cp/users")}
           onStepChange={onStepChange}
         />
+
       </form>
     </section>
   );
