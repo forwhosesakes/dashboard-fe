@@ -19,7 +19,7 @@ import type {
 } from "~/types/users.types";
 import { STEPS } from "./constants/steps";
 import Stepper from "~/components/ui/stepper/stepper";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { clientFormDataSchema } from "./constants/client-schema";
 import { APIError } from "~/lib/utils/error";
@@ -59,7 +59,7 @@ const initialValues = {
   financialIndicatorsSetting: false,
   operationalIndicatorsSetting: false,
   corporateIndicatorsSetting: false,
-  generalndicatorsSetting: false,
+  generalndicatorsSetting: 100,
 };
 
 export async function loader({ request, context, params }: LoaderFunctionArgs) {
@@ -228,6 +228,7 @@ const CreateEditClient = () => {
 
   const loaderData = useLoaderData() as unknown as LoaderData;
 
+  console.log("loaderData:::",loaderData)
 
   const formHook = useForm<TFormDataInput>({
     mode: "all",
@@ -239,6 +240,11 @@ const CreateEditClient = () => {
     resolver: zodResolver(clientFormDataSchema),
   });
   const [formSteps, setFormSteps] = useState(STEPS);
+
+
+  useEffect(()=>{
+console.log("formhook form state", formHook.formState)
+  },[formHook.formState])
 
   const onSubmit = (data: TFormDataInput) => {
     let formData = new FormData();

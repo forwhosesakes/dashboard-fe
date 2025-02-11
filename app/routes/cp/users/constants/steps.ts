@@ -142,10 +142,7 @@ export const STEPS: TSteps = {
               label: "corporateIndicatorsSetting",
               type: "TOGGLE_SLIDER"
           },
-          {
-              label: "generalndicatorsSetting",
-              type: "TOGGLE_SLIDER"
-          },
+       
       ],
       title: "الصلاحيات والخصائص",
       description: "تخصيص لوحة التحكم",

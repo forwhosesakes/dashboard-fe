@@ -18,7 +18,9 @@ const StepsTracker = (props: IProps) => {
           return (
             <div key={Key} className="mt-10 w-36  text-center">
               <StepStatusUI status={value.status} />
-              <Button  onClick={()=>props.onStepNavigate(i)} variant={"link"} className="text-sm  mt-2 text-tertiary-700 font-bold">{value.title}</Button>
+              <Button type="button"  onClick={(e)=>{
+                e.preventDefault()
+                props.onStepNavigate(i)}} variant={"link"} className="text-sm  mt-2 text-tertiary-700 font-bold">{value.title}</Button>
               <span className="text-xs">{value.description}</span>
             </div>
           );
