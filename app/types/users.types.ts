@@ -33,7 +33,7 @@ export type TFormDataInput = {
   financialIndicatorsSetting: number | false;
   operationalIndicatorsSetting: number | false;
   corporateIndicatorsSetting: number | false;
-  generalndicatorsSetting: number | false;
+  generalndicatorsSetting: number;
 };
 //todo: idk remove this?
 export type TOrganization = {

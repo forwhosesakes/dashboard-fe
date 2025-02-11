@@ -16,7 +16,14 @@ import {
   type RowSelectionState,
 } from "@tanstack/react-table";
 import { useEffect, useMemo, useRef, useState, type HTMLProps } from "react";
-import { useLoaderData, useNavigate, type LoaderFunctionArgs } from "react-router";
+import {
+  NavLink,
+  useFetcher,
+  useLoaderData,
+  useNavigate,
+  type ActionFunctionArgs,
+  type LoaderFunctionArgs,
+} from "react-router";
 import Badge from "~/components/ui/badge";
 import EditIcon from "~/assets/icons/edit.svg?react";
 import RemoveIcon from "~/assets/icons/remove.svg?react";
@@ -27,6 +34,7 @@ import DeleteUserDialog from "./components/deleteUserDialog";
 import { OrganizationsAPI } from "~/services/org";
 import { APIError } from "~/lib/utils/error";
 import { PlusIcon } from "lucide-react";
+import { createToastHeaders } from "~/lib/toast.server";
 
 const DashboardBadgeColor: {
   [key in DashboardEnum]: "mauv" | "red" | "blue" | "green";
@@ -37,8 +45,7 @@ const DashboardBadgeColor: {
   [DashboardEnum.GENERAL_DASHBOARD]: "mauv",
 };
 
-
-type LoaderData = 
+type LoaderData =
   | {
       status: "success";
       data: TClientOverview[];
@@ -54,50 +61,92 @@ type LoaderData =
       message: string;
     };
 
+export async function loader({ request, context }: LoaderFunctionArgs) {
+  const serverUrl = context.cloudflare.env.BASE_URL;
+  const url = new URL(request.url);
+  const page = parseInt(url.searchParams.get("page") || "1");
 
-export async function loader({request,context}:LoaderFunctionArgs){
-    const serverUrl = context.cloudflare.env.BASE_URL
-    const url = new URL(request.url);
-    const page = parseInt(url.searchParams.get("page") || "1");
-  
+  try {
+    // Call the API
+    const response = await OrganizationsAPI.getOverview({ page }, serverUrl);
 
-    try {
-        // Call the API
-        const response = await OrganizationsAPI.getOverview({ page }, serverUrl);
-    
-        // Check for API-level errors
-        if (response.status !== "success") {
-          throw new Error(response.message);
-        }
-    
-        // Return successful response
-        return Response.json({
-          status: "success" as const,
-          data: response.data,
-          pagination: response.pagination
-        });
-      } catch (error) {
-        // Handle different types of errors
-        if (error instanceof APIError) {
-          return Response.json({
-            status: "error" as const,
-            message: error.response.message || "API Error",
-          }, { status: 400 });
-        }
-    
-        // Handle unexpected errors
-        console.error("Unexpected error in organizations loader:", error);
-        return Response.json({
-          status: "error" as const,
-          message: "An unexpected error occurred",
-        }, { status: 500 });
-      }
+    // Check for API-level errors
+    if (response.status !== "success") {
+      throw new Error(response.message);
     }
-    
+
+    // Return successful response
+    return Response.json({
+      status: "success" as const,
+      data: response.data,
+      pagination: response.pagination,
+    });
+  } catch (error) {
+    // Handle different types of errors
+    if (error instanceof APIError) {
+      return Response.json(
+        {
+          status: "error" as const,
+          message: error.response.message || "API Error",
+        },
+        { status: 400 }
+      );
+    }
+
+    // Handle unexpected errors
+    console.error("Unexpected error in organizations loader:", error);
+    return Response.json(
+      {
+        status: "error" as const,
+        message: "An unexpected error occurred",
+      },
+      { status: 500 }
+    );
+  }
+}
+
+export async function action({ request, params, context }: ActionFunctionArgs) {
+  try {
+    const formData = await request.formData();
+    const id = Number(formData.get("id"));
+
+    const serverUrl = context.cloudflare.env.BASE_URL;
+    return OrganizationsAPI.removeOrg(id, serverUrl).then(async (response) => {
+      return Response.json(
+        { success: true, data: response.data },
+        {
+          headers: await createToastHeaders(
+            {
+              description: "",
+              title: "  تم حذف الجمعية بنجاح",
+              type: "success",
+            },
+            context.cloudflare.env.SESSION_SECRET
+          ),
+        }
+      );
+    });
+  } catch (error) {
+    return Response.json(
+      { success: false, error: "Failed to remove organization" },
+      {
+        headers: await createToastHeaders(
+          {
+            description: "",
+            title: "حدث خطأ أثناء حذف الجمعية",
+            type: "error",
+          },
+          context.cloudflare.env.SESSION_SECRET
+        ),
+      }
+    );
+  }
+}
 const columnHelper = createColumnHelper<TClientOverview>();
 
 const Users = () => {
-    const loaderData = useLoaderData<typeof loader>() as unknown as LoaderData;
+  const loaderData = useLoaderData<typeof loader>() as unknown as LoaderData;
+  const fetcher = useFetcher();
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   const [userToDelete, setUserToDelete] = useState<TClientOverview | null>(
@@ -114,12 +163,11 @@ const Users = () => {
     navigate("prg/" + user.id);
   };
 
-  const deleteUser = (userId:string) => {
-    console.log("click user delete");
+  const deleteUser = (userId: string) => {
+    fetcher.submit({ id: userId }, { method: "DELETE" });
   };
 
   const handleRemoveUserClick = (user: TClientOverview, e: any) => {
-    e.preventDefault();
     e.stopPropagation();
     setUserToDelete(user);
   };
@@ -179,17 +227,28 @@ const Users = () => {
         cell: ({ row }: any) => {
           return (
             <div className="flex  w-fit gap-x-2">
-              <Button
-                onClick={(e) => handleEditUserClick(row.original, e)}
-                variant={"ghost"}
+              <NavLink
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+                to={`/cp/users/org/create-edit/${row.original.id}`}
               >
-                <EditIcon />
-              </Button>
+                <Button variant={"ghost"}>
+                  {" "}
+                  <EditIcon />
+                </Button>
+              </NavLink>
+
               <Button
                 onClick={(e) => handleRemoveUserClick(row.original, e)}
                 variant={"ghost"}
               >
-                <RemoveIcon />
+                {/* // todo: see whats up with this  */}
+                {fetcher.state !== "idle" ? (
+                  <div className="w-4 h-4 border-4 border-secondary border-t-transparent rounded-full animate-spin" />
+                ) : (
+                  <RemoveIcon />
+                )}
               </Button>
             </div>
           );
@@ -200,7 +259,7 @@ const Users = () => {
   );
 
   const table = useReactTable<TClientOverview>({
-    data: loaderData.status==="success"?loaderData.data:[],
+    data: loaderData.status === "success" ? loaderData.data : [],
     columns,
     getCoreRowModel: getCoreRowModel(),
     enableMultiRowSelection: true,
@@ -215,9 +274,12 @@ const Users = () => {
       <p>{USER_MGMT.PAGE_DESCRIPTION}</p>
 
       <Button
-      className="absolute left-4 top-2 w-fit"
-      onClick={()=>navigate("/cp/users/org/create-edit")}  variant={"outline"}>{USER_MGMT.CREATE_CLIENT}
-      <PlusIcon/>
+        className="absolute left-4 top-2 w-fit"
+        onClick={() => navigate("/cp/users/org/create-edit")}
+        variant={"outline"}
+      >
+        {USER_MGMT.CREATE_CLIENT}
+        <PlusIcon />
       </Button>
 
       <hr className="my-4" />

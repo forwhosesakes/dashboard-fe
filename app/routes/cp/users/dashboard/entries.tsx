@@ -18,9 +18,8 @@ import DashboardEntries from "./components/DashboardEntries";
 import DashboardHeader from "./components/DashboardHeader";
 import ViewSwitch from "./components/ViewSwitch";
 import { initialValues } from "./constants/initialValues";
-import { useThemeStore } from "~/lib/store/theme-store";
 import DashboardIndicators from "./components/DashboardIndicators";
-import OperationalIndicator from "./components/OperationalIndicators";
+import { toasts } from "~/lib/utils/toast";
 
 
 export const loader = async ({ context, params }: LoaderFunctionArgs) => {
@@ -59,7 +58,7 @@ const Entries = ({
   const { entries,indicators, currentDashboard, baseUrl, id } = useLoaderData();
   const locationData = useLocation();
   const [view, setView] = useState<"entries" | "indicators">("entries");
-  const {setDarkTheme,setLightTheme} = useThemeStore()
+  const [loading,setLoading] = useState(false)
 
   const [currentEntries, setCurrentEntries] = useState<
     { name: string; value: any; label: string }[]
@@ -101,24 +100,10 @@ const Entries = ({
       }
     }
   }, [currentDashboard]);
-  useEffect(()=>{
-setDarkTheme()
 
 
-  return ()=> setLightTheme()
-},[])
+  
 
-  // const inputRefs = useRef<(HTMLInputElement | null)[]>([]);  // Add this line
-
-
-  const [entryToEdit, setEntryToEdit] = useState<{
-    name: string;
-    value: number;
-  } | null>(null);
-
-  const [currentIndecators, setCurrentInticators] = useState<
-    { name: string; value: any; label: string }[]
-  >([{ name: "المؤشر 1", label: "اسم المؤشر", value: 45 }]);
 
   const navigate = useNavigate();
   const handleTabChange = (value: string) => {
@@ -129,6 +114,7 @@ setDarkTheme()
 
   const saveEntries = async () => {
     try {
+      setLoading(true)
       const requestBody = {};
       currentEntries.forEach((entry) => {
         requestBody[entry.name] = entry.value;
@@ -138,16 +124,22 @@ setDarkTheme()
         type: currentDashboard,
         entries: requestBody,
       });
+      toasts.success({message:"تم حفظ المدخلات بنجاح"})
       console.log("Indicators: ", result.indicators.data[0]);
-      setCurrentInticators(result.indicators.data[0]);
+      setLoading(false)
+
     } catch (e) {
       console.error("Failed to save entries:", e);
+      setLoading(false)
+      toasts.error({message:"   حدث خطأ أثناء حفظ المدخلات"})
+
+
     }
   };
   return (
     <>
-      <DashboardHeader dashboardType={currentDashboard} onSave={saveEntries} />
-      <ViewSwitch view={view} onViewChange={setView} />
+      <DashboardHeader dashboardType={currentDashboard} onSave={saveEntries} loading={loading} />
+      <ViewSwitch hasIndicators={!!indicators} view={view} onViewChange={setView} />
       {/* <div className="flex justify-between p-5">
         <div>
           <h5>{`${currentIndicator?.name ?? "مؤشر الأداء المالي"}`}</h5>
@@ -188,12 +180,12 @@ setDarkTheme()
               {/* Content for مؤشر الأداء المالي */}
               {view === "entries" ? (
                 <>
-                  <div className="flex flex-col justify-center items-center">
+                  {/* <div className="flex flex-col justify-center items-center">
                     <SemiCircleProgress percentage={86} />
                     <p className="font-semibold text-primary-foreground/50">
                       نسبة إكمال البيانات
                     </p>
-                  </div>
+                  </div> */}
                   <DashboardEntries
                     dashboardType={currentDashboard}
                     entries={currentEntries}
@@ -208,26 +200,7 @@ setDarkTheme()
                 </>
               ) : (
                 <DashboardIndicators indicators={indicators} type={currentDashboard}/>
-                // <div>Inicators view (Coming Soon)</div>
-                // <OperationalIndicator indicators={{
-                //   BUDGET_COMMIT_PERC: 0,
-                //   DOCS_ARCHIV: 125,
-                //   EFFIC_INTERNAL_OPS: 87.85714285714286,
-                //   EFFIC_PRJKS_EXEC: 16.666666666666664,
-                //   EFFITV_PRJKS_PGRM: 100,
-                //   OPS_GOALS_ACH_PERC: 100,
-                //   OPS_PLAN_EXEC: 8,
-                //   PGRM_PRJKS_EXEC_PERC: 100,
-                //   PRJKT_PRGM_MGMT: 7.5,
-                //   PRJKT_TIMELY_COMP_PERC: 33.33333333333333,
-                //   PRJK_GOALS_ACHV_PERC: 100,
-                //   QLY_SPEED_PROC_EXEC: 60,
-                //   REACH_TARGET_AUD_PERC: 100,
-                //   VOLN_CONTR_PRJKS_EXEC: 100,
-                //   VOLN_MGMT: 50,
-                //   VOLUN_GROWTH_RATE_QUAR: 0,
-                //   VOLUN_SUST_PERC: 100
-                // }}/>
+               
               )}
             </div>
           </TabsContent>

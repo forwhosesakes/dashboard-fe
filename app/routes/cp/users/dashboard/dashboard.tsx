@@ -40,9 +40,7 @@ useEffect(()=>{
           <NavLink state={{dashboardsOverview}} to={"GENERAL"}>
             <Button variant={"secondary"}>{"عرض المؤشرات"}</Button>
           </NavLink>
-          <NavLink to={`dashboard`}>
-            <Button variant={"outline"}>{"secondary"}</Button>
-          </NavLink>
+   
         </div>
       </div>
 

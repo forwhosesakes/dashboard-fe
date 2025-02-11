@@ -65,6 +65,12 @@ import type { TClientOverview } from '~/types/users.types';
         params: { page, limit }
       });
       return response.data;
+    },
+
+    // Remove one org
+    removeOrg: async (id:number,baseUrl:string) : Promise<ApiResponse<TOrganization[]>> => {
+      const response = await axios.delete(`${baseUrl}/org/pre/${id}`);      
+      return response.data;
     }
   };
   
