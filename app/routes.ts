@@ -12,6 +12,10 @@ export default [
   route("signup", "routes/auth/sign-up.tsx"),
   route("login", "routes/auth/login.tsx"),
   route("download/:file", "routes/download.tsx"),
+  ...prefix("org/:id",[
+    index("routes/org/org.tsx"),
+    route("/:dashboardType","routes/org/dashboard/dashboard.tsx")
+  ]),
   ...prefix("cp", [
     // index("routes/dashboard/index.tsx"),
     ...prefix("users", [

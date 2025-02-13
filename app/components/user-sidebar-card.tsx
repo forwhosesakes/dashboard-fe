@@ -12,9 +12,12 @@ import {
 interface UserDropdownProps {
   user: User;
   toggle?: boolean;  // For sidebar collapsed state
+  handleLogOut:()=>void
 }
 
-export function UserSidebarCard({ user, toggle = true }: UserDropdownProps) {
+export function UserSidebarCard({ user, handleLogOut, toggle = true }: UserDropdownProps) {
+
+
   return (
     <DropdownMenu dir="rtl">
       <DropdownMenuTrigger asChild>
@@ -63,7 +66,7 @@ export function UserSidebarCard({ user, toggle = true }: UserDropdownProps) {
 
         <DropdownMenuSeparator />
         
-        <DropdownMenuItem className="text-destructive">
+        <DropdownMenuItem onClick={handleLogOut} className="text-destructive">
           <LogOut className="ml-2 h-4 w-4" />
           <span>تسجيل الخروج</span>
         </DropdownMenuItem>

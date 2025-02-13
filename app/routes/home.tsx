@@ -29,8 +29,15 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "~/components/ui/tabs";
 import ActiveNow from "~/assets/icons/active-now.svg";
 import Members from "~/assets/icons/members-icon.svg";
 import TotalMembers from "~/assets/icons/total-members.svg";
-import { useNavigate } from "react-router";
+import { useLoaderData, useNavigate, type LoaderFunctionArgs } from "react-router";
+import { orgApi } from "~/lib/api/org";
+import glossary from "~/constants/glossary"
 
+export async function loader ({context}:LoaderFunctionArgs){
+  const serverUrl = context.cloudflare.env.BASE_URL;
+  const rawLatestOrgs = await orgApi(serverUrl).getLatestOrgs()
+  return{rawLatestOrgs}
+}
 export function meta({}: Route.MetaArgs) {
   return [
     { title: "New React Router App" },
@@ -74,8 +81,24 @@ const renderCustomAxisTick = ({ x, y, payload }) => {
     </svg>
   );
 };
+type Org = {
+  name:string;
+  month:string;
+  year:string;
+  tags:Tag[]
+}
 
+type Tag = {
+  name:string;
+  theme:{
+    bg:string;
+    text:string;
+    border:string;
+  }
+}
 export default function Home({ loaderData }: Route.ComponentProps) {
+  const {rawLatestOrgs} = useLoaderData()
+  const [latestOrgs, setLatestOrgs] = useState<Org[]>([])
   const [selectedFilter, setSelectedFilter] = useState("24h");
   const timeFilters = [
     { id: "24h", label: "24 ساعة" },
@@ -84,53 +107,291 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     { id: "12m", label: "12 شهراً" },
   ];
 
-  const recentCharity = [
-    {
-      name: "جمعية البر بأبها",
-      month: "فبراير",
-      year: "2025",
-      tags: [{name:"أوقاف", theme:{bg:"bg-[#eef4ff]",text:"text-[#3538cd]",border:"border-[#c6d7fe]"}}, {name:"رعاية الأيتام",theme:{bg:"bg-[#eff8ff]",text:"text-[#175cd3]",border:"border-[#b2ddff]"}}, {name:"ملابس",theme:{bg:"bg-[#f9f5ff]",text:"text-[#6941c6]",border:"border-[#e9d7fe]"}}],
-    },
-    {
-      name: "جمعية قيم بالخفجي",
-      month: "يناير",
-      year: "2025",
-      tags: [{name:"أوقاف", theme:{bg:"bg-[#eef4ff]",text:"text-[#3538cd]",border:"border-[#c6d7fe]"}}, {name:"رعاية الأيتام",theme:{bg:"bg-[#eff8ff]",text:"text-[#175cd3]",border:"border-[#b2ddff]"}}, {name:"ملابس",theme:{bg:"bg-[#f9f5ff]",text:"text-[#6941c6]",border:"border-[#e9d7fe]"}}],
-    },
-    {
-      name: "جمعية البر بعنيزة",
-      month: "مارس",
-      year: "2025",
-      tags: [{name:"أوقاف", theme:{bg:"bg-[#eef4ff]",text:"text-[#3538cd]",border:"border-[#c6d7fe]"}}, {name:"رعاية الأيتام",theme:{bg:"bg-[#eff8ff]",text:"text-[#175cd3]",border:"border-[#b2ddff]"}}, {name:"ملابس",theme:{bg:"bg-[#f9f5ff]",text:"text-[#6941c6]",border:"border-[#e9d7fe]"}}],
-    },
-    {
-      name: "جمعية الزكاة بالرياض",
-      month: "أبريل",
-      year: "2025",
-      tags: [{name:"أوقاف", theme:{bg:"bg-[#eef4ff]",text:"text-[#3538cd]",border:"border-[#c6d7fe]"}}, {name:"رعاية الأيتام",theme:{bg:"bg-[#eff8ff]",text:"text-[#175cd3]",border:"border-[#b2ddff]"}}, {name:"ملابس",theme:{bg:"bg-[#f9f5ff]",text:"text-[#6941c6]",border:"border-[#e9d7fe]"}}],
-    },
-    {
-      name: "جمعية الإحسان بالدمام",
-      month: "مايو",
-      year: "2025",
-      tags: [{name:"أوقاف", theme:{bg:"bg-[#eef4ff]",text:"text-[#3538cd]",border:"border-[#c6d7fe]"}}, {name:"رعاية الأيتام",theme:{bg:"bg-[#eff8ff]",text:"text-[#175cd3]",border:"border-[#b2ddff]"}}, {name:"ملابس",theme:{bg:"bg-[#f9f5ff]",text:"text-[#6941c6]",border:"border-[#e9d7fe]"}}],
-    },
-    {
-      name: "جمعية الرحمة بجدة",
-      month: "يونيو",
-      year: "2025",
-      tags: [{name:"أوقاف", theme:{bg:"bg-[#eef4ff]",text:"text-[#3538cd]",border:"border-[#c6d7fe]"}}, {name:"رعاية الأيتام",theme:{bg:"bg-[#eff8ff]",text:"text-[#175cd3]",border:"border-[#b2ddff]"}}, {name:"ملابس",theme:{bg:"bg-[#f9f5ff]",text:"text-[#6941c6]",border:"border-[#e9d7fe]"}}],
-    },
-    {
-      name: "جمعية السلام بحائل",
-      month: "يوليو",
-      year: "2025",
-      tags: [{name:"أوقاف", theme:{bg:"bg-[#eef4ff]",text:"text-[#3538cd]",border:"border-[#c6d7fe]"}}, {name:"رعاية الأيتام",theme:{bg:"bg-[#eff8ff]",text:"text-[#175cd3]",border:"border-[#b2ddff]"}}, {name:"ملابس",theme:{bg:"bg-[#f9f5ff]",text:"text-[#6941c6]",border:"border-[#e9d7fe]"}}],
-    },
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
   ];
-const navigate = useNavigate()
-  const [theme, setTheme] = useState<"light" | "dark">(() => {
 
+  
+  useEffect(()=>{
+    
+    
+    
+    // const data = rawLatestOrgs.map((org)=>{
+    //   const date = new Date(org.createdAt)
+    //   const year = date.getUTCFullYear();
+    //   const monthIndex = date.getUTCMonth()
+    //   const month = monthNames[monthIndex]
+    //   return{
+    //     name:org.name,
+    //     month,
+    //     year,
+    //     tags:[{
+    //       name:glossary.latestOrgs[org.type].name,
+    //       theme:{
+    //         bg:glossary.latestOrgs[org.type].theme.bg,
+    //         text:glossary.latestOrgs[org.type].theme.text,
+    //         border:glossary.latestorgs[org.type].theme.border
+    //       }}
+    //     ]
+    //   }
+    // })
+    const data = rawLatestOrgs.map((org)=>{
+      const date = new Date(org.createdAt)
+      const year = date.getUTCFullYear();
+      const monthIndex = date.getUTCMonth()
+      const month = monthNames[monthIndex]
+
+      return{
+        name:org.name,
+        month,
+        year,
+        tags:[{
+            name:glossary.latestOrgs[org.type]?.name,
+            theme:{
+              bg:glossary.latestOrgs[org.type]?.theme.bg,
+              text:glossary.latestOrgs[org.type]?.theme.text,
+              border:glossary.latestOrgs[org.type]?.theme.border
+            }
+        },
+        {
+          name:glossary.latestOrgs[org.category]?.name,
+          theme:{
+            bg:glossary.latestOrgs[org.category]?.theme.bg,
+            text:glossary.latestOrgs[org.category]?.theme.text,
+            border:glossary.latestOrgs[org.category]?.theme.border
+          }
+        }
+      ]
+      }
+    })
+    console.log("latest orgss:: ",rawLatestOrgs);
+    
+    setLatestOrgs(data)
+
+
+  },[])
+  // const recentCharity = [
+  //   {
+  //     name: "جمعية البر بأبها",
+  //     month: "فبراير",
+  //     year: "2025",
+  //     tags: [
+  //       {
+  //         name: "أوقاف",
+  //         theme: {
+  //           bg: "bg-[#eef4ff]",
+  //           text: "text-[#3538cd]",
+  //           border: "border-[#c6d7fe]",
+  //         },
+  //       },
+  //       {
+  //         name: "رعاية الأيتام",
+  //         theme: {
+  //           bg: "bg-[#eff8ff]",
+  //           text: "text-[#175cd3]",
+  //           border: "border-[#b2ddff]",
+  //         },
+  //       },
+  //       {
+  //         name: "ملابس",
+  //         theme: {
+  //           bg: "bg-[#f9f5ff]",
+  //           text: "text-[#6941c6]",
+  //           border: "border-[#e9d7fe]",
+  //         },
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     name: "جمعية قيم بالخفجي",
+  //     month: "يناير",
+  //     year: "2025",
+  //     tags: [
+  //       {
+  //         name: "أوقاف",
+  //         theme: {
+  //           bg: "bg-[#eef4ff]",
+  //           text: "text-[#3538cd]",
+  //           border: "border-[#c6d7fe]",
+  //         },
+  //       },
+  //       {
+  //         name: "رعاية الأيتام",
+  //         theme: {
+  //           bg: "bg-[#eff8ff]",
+  //           text: "text-[#175cd3]",
+  //           border: "border-[#b2ddff]",
+  //         },
+  //       },
+  //       {
+  //         name: "ملابس",
+  //         theme: {
+  //           bg: "bg-[#f9f5ff]",
+  //           text: "text-[#6941c6]",
+  //           border: "border-[#e9d7fe]",
+  //         },
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     name: "جمعية البر بعنيزة",
+  //     month: "مارس",
+  //     year: "2025",
+  //     tags: [
+  //       {
+  //         name: "أوقاف",
+  //         theme: {
+  //           bg: "bg-[#eef4ff]",
+  //           text: "text-[#3538cd]",
+  //           border: "border-[#c6d7fe]",
+  //         },
+  //       },
+  //       {
+  //         name: "رعاية الأيتام",
+  //         theme: {
+  //           bg: "bg-[#eff8ff]",
+  //           text: "text-[#175cd3]",
+  //           border: "border-[#b2ddff]",
+  //         },
+  //       },
+  //       {
+  //         name: "ملابس",
+  //         theme: {
+  //           bg: "bg-[#f9f5ff]",
+  //           text: "text-[#6941c6]",
+  //           border: "border-[#e9d7fe]",
+  //         },
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     name: "جمعية الزكاة بالرياض",
+  //     month: "أبريل",
+  //     year: "2025",
+  //     tags: [
+  //       {
+  //         name: "أوقاف",
+  //         theme: {
+  //           bg: "bg-[#eef4ff]",
+  //           text: "text-[#3538cd]",
+  //           border: "border-[#c6d7fe]",
+  //         },
+  //       },
+  //       {
+  //         name: "رعاية الأيتام",
+  //         theme: {
+  //           bg: "bg-[#eff8ff]",
+  //           text: "text-[#175cd3]",
+  //           border: "border-[#b2ddff]",
+  //         },
+  //       },
+  //       {
+  //         name: "ملابس",
+  //         theme: {
+  //           bg: "bg-[#f9f5ff]",
+  //           text: "text-[#6941c6]",
+  //           border: "border-[#e9d7fe]",
+  //         },
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     name: "جمعية الإحسان بالدمام",
+  //     month: "مايو",
+  //     year: "2025",
+  //     tags: [
+  //       {
+  //         name: "أوقاف",
+  //         theme: {
+  //           bg: "bg-[#eef4ff]",
+  //           text: "text-[#3538cd]",
+  //           border: "border-[#c6d7fe]",
+  //         },
+  //       },
+  //       {
+  //         name: "رعاية الأيتام",
+  //         theme: {
+  //           bg: "bg-[#eff8ff]",
+  //           text: "text-[#175cd3]",
+  //           border: "border-[#b2ddff]",
+  //         },
+  //       },
+  //       {
+  //         name: "ملابس",
+  //         theme: {
+  //           bg: "bg-[#f9f5ff]",
+  //           text: "text-[#6941c6]",
+  //           border: "border-[#e9d7fe]",
+  //         },
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     name: "جمعية الرحمة بجدة",
+  //     month: "يونيو",
+  //     year: "2025",
+  //     tags: [
+  //       {
+  //         name: "أوقاف",
+  //         theme: {
+  //           bg: "bg-[#eef4ff]",
+  //           text: "text-[#3538cd]",
+  //           border: "border-[#c6d7fe]",
+  //         },
+  //       },
+  //       {
+  //         name: "رعاية الأيتام",
+  //         theme: {
+  //           bg: "bg-[#eff8ff]",
+  //           text: "text-[#175cd3]",
+  //           border: "border-[#b2ddff]",
+  //         },
+  //       },
+  //       {
+  //         name: "ملابس",
+  //         theme: {
+  //           bg: "bg-[#f9f5ff]",
+  //           text: "text-[#6941c6]",
+  //           border: "border-[#e9d7fe]",
+  //         },
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     name: "جمعية السلام بحائل",
+  //     month: "يوليو",
+  //     year: "2025",
+  //     tags: [
+  //       {
+  //         name: "أوقاف",
+  //         theme: {
+  //           bg: "bg-[#eef4ff]",
+  //           text: "text-[#3538cd]",
+  //           border: "border-[#c6d7fe]",
+  //         },
+  //       },
+  //       {
+  //         name: "رعاية الأيتام",
+  //         theme: {
+  //           bg: "bg-[#eff8ff]",
+  //           text: "text-[#175cd3]",
+  //           border: "border-[#b2ddff]",
+  //         },
+  //       },
+  //       {
+  //         name: "ملابس",
+  //         theme: {
+  //           bg: "bg-[#f9f5ff]",
+  //           text: "text-[#6941c6]",
+  //           border: "border-[#e9d7fe]",
+  //         },
+  //       },
+  //     ],
+  //   },
+  // ];
+  const navigate = useNavigate();
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
     // if (typeof window !== "undefined") {
     //   return (
     //     (localStorage.getItem("theme") as "light" | "dark") ||
@@ -393,7 +654,10 @@ const navigate = useNavigate()
               <div className="p-2 bg-primary border w-fit rounded-lg flex items-center justify-center">
                 <UserRoundPlus className="h-6 w-6" />
               </div>
-              <div onClick={()=>navigate("/cp/users/org/create-edit")} className="mx-2 cursor-pointer flex flex-col">
+              <div
+                onClick={() => navigate("/cp/users/org/create-edit")}
+                className="mx-2 cursor-pointer flex flex-col"
+              >
                 <p className="text-primary font-bold text-base">
                   أضف مستخدم جديد
                 </p>
@@ -503,20 +767,21 @@ const navigate = useNavigate()
             الجمعيات المضافة حديثاً
           </p>
           <div className="my-1 flex flex-col gap-2">
-            {recentCharity.map((charity) => (
-              <div key={charity.name} className="flex  flex-wrap gap-2">
+            {latestOrgs.map((charity) => (
+              <div key={charity?.name} className="flex flex-wrap gap-2">
                 <img className="w-10 h-10" src={DefaultUserImg} alt="" />
                 <div className="flex flex-col">
-                  <p>{charity.name}</p>
+                  <p>{charity?.name}</p>
                   <p className="text-primary-foreground/60">
-                    عضو منذ {charity.month} 
-                    {" "}
-                    {charity.year}
+                    عضو منذ {charity?.month} {charity?.year}
                   </p>
                   <div className="flex gap-1">
-                    {charity.tags.map((tag) => (
-                      <div key={tag.name} className={`border rounded-xl p-0.5 px-1.5 text-xs ${tag.theme.bg} ${tag.theme.text} ${tag.theme.border}`}>
-                        {tag.name}
+                    {charity?.tags?.map((tag) => (
+                      <div
+                        key={tag?.name}
+                        className={`border rounded-xl p-0.5 px-1.5 text-xs ${tag?.theme?.bg} ${tag?.theme?.text} ${tag?.theme?.border}`}
+                      >
+                        {tag?.name}
                       </div>
                     ))}
                   </div>

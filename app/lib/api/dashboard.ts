@@ -456,7 +456,6 @@ export const dashboardApi = (url: string) => {
 
         const data = await response.json();
 
-        console.log("save entries response:: ", data);
         const validatedData = SaveEntriesResponseSchema.parse(data);
         return validatedData;
       } catch (e) {
@@ -493,11 +492,7 @@ export const dashboardApi = (url: string) => {
         // }
 
         // console.log("response hiii get entries::: ",apiResponse);
-        console.log("response:: ", rawResponse, "type is:: ", type);
         const parsedData = schema.parse(rawResponse);
-        console.log("parsedData:: ", rawResponse, "type is:: ", type);
-
-
         return parsedData.data as DashboardTypeMap[T];
       } catch (e) {
         if (e instanceof z.ZodError) {
@@ -525,10 +520,6 @@ export const dashboardApi = (url: string) => {
           throw new Error(message || `HTTP error! status: ${response.status}`);
         }
         const rawResponse = await response.json() as any;
-        console.log("response:: ", rawResponse, "type is:: ", type);
-     
-       
-
         return rawResponse?.data as any[]
       } catch (e) {
         if (e instanceof z.ZodError) {

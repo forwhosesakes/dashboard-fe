@@ -115,7 +115,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   // @ts-ignore
   //TODO: proper typing later
-  const { user , toast} = useLoaderData<typeof loader>();
+  const { user , toast, serverUrl} = useLoaderData<typeof loader>();
   useToast(toast);
 
   const noSidebarRoutes = [
@@ -135,7 +135,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {shouldShowSidebar ? <AppLayout user={user} >{children}</AppLayout> : children}
+        {shouldShowSidebar ? <AppLayout serverUrl={serverUrl} user={user} >{children}</AppLayout> : children}
         <Toaster richColors position="bottom-right" />
         <ScrollRestoration />
         <Scripts />

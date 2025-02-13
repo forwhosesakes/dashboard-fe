@@ -20,6 +20,34 @@ const login = {
     }
 }
 
+
+const latestOrgs = {
+    "Healthcare":{
+        name:"الرعاية الصحية",
+        theme: {
+            bg: "bg-[#eef4ff]",
+            text: "text-[#3538cd]",
+            border: "border-[#c6d7fe]",
+          }
+    },
+    "technical":{
+        name:"تقني",
+        theme: {
+            bg: "bg-[#f9f5ff]",
+            text: "text-[#6941c6]",
+            border: "border-[#e9d7fe]",
+          },
+    },
+    "orphans":{
+        name:"رعاية الأيتام",
+        theme:{
+            bg:"bg-[#eff8ff]",
+            text:"text-[#175cd3]",
+            border:"border-[#b2ddff]"}
+        }
+}
+
 export default {
     login,
+    latestOrgs
 } as const
