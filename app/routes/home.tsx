@@ -1,26 +1,14 @@
 import { useEffect, useState } from "react";
 import type { Route } from "./+types/home";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-} from "recharts";
-import { toasts } from "~/lib/utils/toast";
 import DefaultBanner from "~/assets/images/default-banner.png";
 import DefaultUserImg from "~/assets/images/default-user-img.png";
 import { Breadcrumbs } from "~/components/app-breadcrumbs";
-import { InputField, Input } from "~/components/ui/input-field";
 import {
-  Search,
   TrendingUp,
   ArrowUpRight,
   Settings,
   ArrowDownRight,
   UserRoundPlus,
-  PenLine,
   EllipsisVertical,
 } from "lucide-react";
 import { Chip } from "~/components/ui/chip";
@@ -408,16 +396,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     root.classList.add(theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === "light" ? "dark" : "light"));
-  };
-
-  const showToast = () => {
-    toasts.success({
-      message: "test",
-      description: "test toast",
-    });
-  };
+ 
   return (
     <div className=" w-full h-full">
       {/* <LineChart
@@ -662,9 +641,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                   أضف مستخدم جديد
                 </p>
 
-                <p className="text-primary text-sm font-thin">
-                  أضف بنفسك أو استورد من CSV
-                </p>
+           
               </div>
             </div>
 

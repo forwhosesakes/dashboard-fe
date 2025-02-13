@@ -1,7 +1,5 @@
 import React, { useRef, useState } from "react";
 import type { DashboardType } from "~/lib/api/dashboard";
-import { initialValues } from "../constants/initialValues";
-import { Button } from "~/components/ui/button";
 import { entriesLabels } from "../constants/glossary";
 
 interface DashboardEntriesProps {

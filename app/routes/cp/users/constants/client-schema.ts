@@ -20,13 +20,48 @@ export const clientFormDataSchema = z.object({
   repEmail: z.string().email( "يرجى إدخال بريد الكتروني صحيح للممثل"),
   
   // File validations
-  logo: z.array(z.instanceof(File, { message:  "يرجى رفع صورة للشعار"})).length(1, "يسمح برفع صورة واحدة فقط"),
-  officialDocs: z.array(z.instanceof(File, { message: "يرجى رفع نسخ من المستندات الرسمية " })),
-  operationalPlanImage: z.array(z.instanceof(File, { message: "يرجى رفع نسخ من المستندات المطلوبة " })),
-  repSpeach: z.array(z.instanceof(File, { message: "يرجى رفع نسخ من المستندات المطلوبة " })),
-  licenseImage: z.array(z.instanceof(File, { message: "يرجى رفع نسخ من المستندات المطلوبة " })),
-  contractImage: z.array(z.instanceof(File, { message: "يرجى رفع نسخ من المستندات المطلوبة " })),
-  additionalDocs: z.array(z.instanceof(File, { message: "يرجى رفع نسخ من المستندات المطلوبة " })),
+  logo: z.array(
+    z.union([
+      z.instanceof(File, { message: "يرجى رفع نسخ من المستندات المطلوبة" }),
+      z.string({  message: "يرجى رفع نسخ من المستندات المطلوبة" })
+    ])
+  ).length(1, "يسمح برفع صورة واحدة فقط"),
+  officialDocs: z.array(
+    z.union([
+      z.instanceof(File, { message: "يرجى رفع نسخ من المستندات المطلوبة" }),
+      z.string({  message: "يرجى رفع نسخ من المستندات المطلوبة" })
+    ])
+  ),
+  operationalPlanImage: z.array(
+    z.union([
+      z.instanceof(File, { message: "يرجى رفع نسخ من المستندات المطلوبة" }),
+      z.string({  message: "يرجى رفع نسخ من المستندات المطلوبة" })
+    ])
+  ),
+  repSpeach: z.array(
+    z.union([
+      z.instanceof(File, { message: "يرجى رفع نسخ من المستندات المطلوبة" }),
+      z.string({  message: "يرجى رفع نسخ من المستندات المطلوبة" })
+    ])
+  ),
+  licenseImage:z.array(
+    z.union([
+      z.instanceof(File, { message: "يرجى رفع نسخ من المستندات المطلوبة" }),
+      z.string({  message: "يرجى رفع نسخ من المستندات المطلوبة" })
+    ])
+  ), 
+  contractImage:z.array(
+    z.union([
+      z.instanceof(File, { message: "يرجى رفع نسخ من المستندات المطلوبة" }),
+      z.string({  message: "يرجى رفع نسخ من المستندات المطلوبة" })
+    ])
+  ),
+  additionalDocs: z.array(
+    z.union([
+      z.instanceof(File, { message: "يرجى رفع نسخ من المستندات المطلوبة" }),
+      z.string({  message: "يرجى رفع نسخ من المستندات المطلوبة" })
+    ])
+  ),
   
   // Indicators settings
   financialIndicatorsSetting: z.union([
@@ -41,10 +76,7 @@ export const clientFormDataSchema = z.object({
     z.number().min(0, "Corporate indicators setting must be a positive number"),
     z.literal(false)
   ]),
-  generalndicatorsSetting: z.union([
-    z.number().min(0, "General indicators setting must be a positive number"),
-    z.boolean()
-  ]),
+
 });
 
 export type TFormDataSchema = z.infer<typeof clientFormDataSchema>;

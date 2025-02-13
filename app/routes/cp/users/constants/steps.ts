@@ -7,14 +7,47 @@ import AttachmentsEntries from "../client-form-steps/attachments-entries";
 import SettingsEntries from "../client-form-steps/settings-entries";
 
 
+export const REGIONS =[
+    "الرياض",
+    "مكة المكرمة",
+    "المدينة المنورة",
+    "جدة",
+    "أبها",
+    "الدوادمي",
+    "حائل",
+    "الخفجي",
+    "الباحة",
+    "بريدة",
+    "عنيزة",
+    "تبوك",
+    "جازان",
+    "الدمام",
+    "سكاكا",
+    "عرعر",
+    "نجران" ,
+    "الطائف",
+    "خميس مشيط",
+    "الهفوف",
+    "حفر الباطن",
+    "الجبيل",
+    "ينبع",
+    "الرس",
+    "بيشة",
+    "القطيف",
+    "الباحة",
+    "الخبر"
+    
+
+]
+
 export const STEPS: TSteps = {
   MAIN_ENTRIES: {
       fields: [
           { label: "name", type: "TEXT", placeholder: "اسم الجمعية" },
           { label: "phoneNumber", type: "TEXT",placeholder:"+966 (555) 000-0000" },
           { label: "email", type: "EMAIL",placeholder:"Kmsalms@gmail.com" },
-          { label: "type", type: "TEXT",placeholder:"اختر تصنيف الجمعية" },
-          { label: "category", type: "TEXT",placeholder:"اختر تخصص الجمعية" },
+          { label: "type", type: "DROPDOWN",placeholder:"اختر تصنيف الجمعية", options:["technical","waqfi"] },
+          { label: "category", type: "DROPDOWN",placeholder:"اختر تخصص الجمعية" , options:["mosques","orphans", "none"]},
 
           { label: "licenseNumber", type: "TEXT",placeholder:"رقم الترخيص" },
           { label: "website", type: "TEXT" ,placeholder:"www.untitledui.com"},
@@ -27,7 +60,7 @@ export const STEPS: TSteps = {
   LOCATION_ENTRIES: {
       fields: [
           { label: "address", type: "TEXT" ,placeholder:"العنوان الوطني"},
-          { label: "city", type: "TEXT" ,placeholder:"اختار المدينة"},
+          { label: "city", type: "DROPDOWN" ,placeholder:"اختار المدينة", options:REGIONS},
           { label: "neighbor", type: "TEXT" ,placeholder:"الحي"},
           { label: "street", type: "TEXT" ,placeholder:"الشارع"},
           { label: "map", type: "TEXT",placeholder:"خارطة الجمعية" },
@@ -109,10 +142,7 @@ export const STEPS: TSteps = {
               label: "corporateIndicatorsSetting",
               type: "TOGGLE_SLIDER"
           },
-          {
-              label: "generalndicatorsSetting",
-              type: "TOGGLE_SLIDER"
-          },
+       
       ],
       title: "الصلاحيات والخصائص",
       description: "تخصيص لوحة التحكم",

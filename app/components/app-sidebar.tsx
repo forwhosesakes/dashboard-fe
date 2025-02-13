@@ -14,22 +14,12 @@ import {
 import {
   Home,
   Users,
-  Settings,
-  BarChart3,
-  LogOut,
-  ChevronDown,
-  ChevronUp,
   ChevronLeft,
-  BarChart4Icon,
   CopyCheck,
-  Files,
-  Shirt,
-  Droplet,
   Baby,
-  Command,
+  HandHelpingIcon
 } from "lucide-react";
 import Mosque from "~/assets/icons/mosque.svg";
-import { toasts } from "~/lib/utils/toast";
 import KidanLogo from "~/assets/images/logo.png";
 import KidanLogomark from "~/assets/images/Logomark.png";
 import { useEffect, useState } from "react";
@@ -46,7 +36,7 @@ const generalNavigation = [
   //   href: "/dashboard",
   //   isNested: true,
   // },
-  { name: "المستخدمين", icon: Users, href: "/cp/users", isNested: false },
+  { name: "الجمعيات", icon: HandHelpingIcon, href: "/cp/users", isNested: false },
   // { name: "المستندات", icon: Files, href: "/documents", isNested: false },
   // { name: "الإعدادات", icon: Settings, href: "/settings", isNested: false },
   { name: "الأعضاء", icon: Users, href: "/cp/members", isNested: false },
@@ -135,14 +125,14 @@ export function AppLayout({ children, user, serverUrl }: AppLayoutProps) {
                         <span>{item.name}</span>
                       </Link>
                     </SidebarMenuButton>
-                    {item.stat && (
+                    {/* {item.stat && (
                       <span className="border text-xs py-[4px] px-[7px] rounded-2xl text-primary-foreground mx-2">
                         {item.stat}
                       </span>
-                    )}
-                    {item.isNested && (
+                    )} */}
+                    {/* {item.isNested && (
                       <ChevronDown className="min-w-4 min-h-4 h-4 w-4 text-primary-foreground/60" />
-                    )}
+                    )} */}
                   </SidebarMenuItem>
                 ))}
               </SidebarMenu>
@@ -179,7 +169,7 @@ export function AppLayout({ children, user, serverUrl }: AppLayoutProps) {
                         <Command className="w-3 h-3 my-auto " />
                       </div>
                     )} */}
-                    <ChevronLeft className="min-w-4 min-h-4 h-4 w-4 text-primary-foreground/60" />
+                 {toggle&&   <ChevronLeft className="min-w-4 min-h-4 h-4 w-4 text-primary-foreground/60" />}
                   </SidebarMenuItem>
                 ))}
               </SidebarMenu>
