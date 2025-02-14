@@ -9,11 +9,8 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
-  RadialBarChart,
-  RadialBar,
-  PolarAngleAxis,
+
 } from "recharts";
 import CircularProgressBar from "~/components/ui/circular-progress";
 
