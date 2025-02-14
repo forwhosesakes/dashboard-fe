@@ -14,6 +14,8 @@ import { Breadcrumbs } from "~/components/app-breadcrumbs";
 import { Button } from "~/components/ui/button";
 import { Layers } from "lucide-react";
 import { dashboardStatusMap } from "../cp/users/dashboard/constants/glossary";
+import { useThemeStore } from "~/lib/store/theme-store";
+
 
 export const loader = async ({
   request,
@@ -58,6 +60,7 @@ export const loader = async ({
 };
 const Org = () => {
   const { dashboardsOverview, org } = useLoaderData<typeof loader>();
+  const { setDarkTheme } = useThemeStore()
 
   useEffect(() => {
     console.log(dashboardsOverview);
@@ -114,6 +117,7 @@ const Org = () => {
                   state={{ dashboardsOverview }}
                   to={dashboard.title.split("_")[1]}
                   className="w-5/12 border h-44 hover:border-accent rounded-lg group"
+                  
                 >
                   <div className="w-full flex m-2 items-center gap-3 h-1/6">
                     <div className="border p-2 rounded-lg">

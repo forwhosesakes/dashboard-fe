@@ -106,7 +106,6 @@ const Entries = ({
 
 
   useEffect(()=>{
-    console.log("mounted");
 
     return ()=>{
       setLightTheme()
@@ -172,13 +171,7 @@ const Entries = ({
           onValueChange={handleTabChange}
         >
           <TabsList className="w-full justify-start bg-transparent">
-            {/* <TabsTrigger value="GENERAL"></TabsTrigger>
-
-            <TabsTrigger value="FINANCIAL"></TabsTrigger>
-
-            <TabsTrigger value="OPERATIONAL"></TabsTrigger>
-
-            <TabsTrigger value="CORPORATE"></TabsTrigger> */}
+        
             {locationData.state?.dashboardsOverview.map((tab) => (
               <TabsTrigger value={tab.title.split("_")[1]}>
                 {tabsNames[tab.title.split("_")[1]]}
