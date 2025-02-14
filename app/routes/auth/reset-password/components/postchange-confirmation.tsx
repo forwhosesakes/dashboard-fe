@@ -13,7 +13,7 @@ const PostChangeConformation = ({handleStepChange}:any)=>{
     <p className="text-primary-900 mb-8">
     تمت إعادة تعيين كلمة المرور بنجاح. انقر أدناه لتسجيل الدخول  .
     </p>
-    <Button onClick={()=>navigate("login")} variant={"secondary"} loading={false}>استمر   </Button>
+    <Button onClick={()=>navigate("/login")} variant={"secondary"} loading={false}>استمر   </Button>
   </div>
 }
 
