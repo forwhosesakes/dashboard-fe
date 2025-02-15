@@ -9,11 +9,8 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
-  RadialBarChart,
-  RadialBar,
-  PolarAngleAxis,
+
 } from "recharts";
 import CircularProgressBar from "~/components/ui/circular-progress";
 
@@ -38,6 +35,8 @@ export default function OperationalIndicator({
   return (
     <>
       <div className="h-full w-full  gap-8 flex flex-col">
+
+  
         <div className="w-full  flex gap-3">
           <div className=" p-5 flex flex-col w-3/5  rounded-lg">
             <h5 className="mb-4"> تنفيذ الخطة التشغيلية</h5>

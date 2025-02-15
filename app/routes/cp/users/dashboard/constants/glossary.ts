@@ -11,6 +11,13 @@ const tabsNames = {
   GENERAL: "اللوحة العامة",
 };
 
+const GOVERANCE_TABS= {
+  COMPLIANCE_ADHERENCE_PRACTICES:"ممارسات الامتثال و الالتزام",
+  TRANSPARENCY_DISCLOSURE_PRACTICES:"ممارسات الشفافية و الإفصاح",
+  FINANCIAL_SAFETY_PRACTICES:"ممارسات السلامة المالية"
+
+}
+
 const entriesLabels = {
   FINANCIAL: {
     GENERAL_ADMINSTRATIVE_EXPENSES: "المصاريف العمومية و الإدارية",
@@ -238,4 +245,134 @@ const indicatorsLabels = {
   GENERAL: {},
 };
 
-export { entriesLabels, indicatorsLabels, dashboardStatusMap, tabsNames };
+
+const governanceLabels  = {
+  COMPLIANCE_ADHERENCE_PRACTICES: {
+ 
+      // Bylaws and Basic Requirements
+      BYLAWS_MODIFIED_IN_CURRENT_OR_PREVIOUS_YEAR:"هل تم تعديل اللائحة الأساسية للجمعية خلال السنة المالية الحالية أو السابقة؟",
+      BYLAWS_INCLUDE_MEMBERSHIP_TERMS: "هل تشتمل اللائحة الأساسية على فئات وشروط وأحكام العضوية في الجمعية العمومية؟",
+      HAS_APPROVED_BYLAWS_FROM_ASSEMBLY_AND_CENTER: "هل توجد لدى الجمعية لائحة أساسية معتمدة من الجمعية العمومية والمركز الوطني لتنمية القطاع غير الربحي وفق آخر تحديث ؟",
+      HAS_OFFICIAL_WEBSITE: "هل تمتلك الجمعية موقعًا إلكترونيًا خاصًا بها؟",
+      HAS_VALID_COMMERCIAL_REGISTRATION: "هل يوجد لدى الجمعية سجل تجاري ساري المفعول؟",
+      HAS_BRANCHES_OR_OFFICES: "هل توجد فروع أو مكاتب لدى الجمعية؟",
+      HAS_PERMANENT_COMMITTEES: "هل توجد لجان دائمة في الجمعية؟",
+      FOLLOWED_BYLAWS_MODIFICATION_PROCEDURES:"هل تم اتباع الاجراءات المحدّدة عند تعديل اللائحة، وقبل تحديثها واعتمادها؟",
+      MEMBERSHIP_OPEN_TO_PUBLIC:"هل باب العضوية في الجمعية مفتوح للعموم؟",
+      GENERAL_ASSEMBLY_MEMBERSHIP_INCREASING:"هل يوجد تزايد في عدد أعضاء الجمعية العمومية؟",
+      HAS_UPDATED_MEMBERS_REGISTRY:"هل لدى الجمعية سجل متكامل ومُحدّث بأعضاء الجمعية العمومية؟",
+      ELECTED_NEW_BOARD_OR_EXECUTIVE_MEMBER_IN_CURRENT_OR_PREVIOUS_YEAR:"هل انتخبت الجمعية العمومية مجلساً جديداً أو عضواَ جديداً أو عضو إدارة تنفيذية خلال السنة المالية الحالية أو السابقة؟",
+      PREVIOUS_BOARD_CLEARED_IN_FIRST_MEETING_AFTER_CHANGE:"هل تم إبراء ذمة مجلس الإدارة السابق أو أحد أعضائه في الاجتماع الأول بعد تغيّر الأعضاء ؟",
+      GENERAL_ASSEMBLY_MET_IN_CURRENT_YEAR:"هل اجتمعت الجمعية العمومية (الاجتماع العادي) خلال السنة المالية الحالية؟",
+      GENERAL_ASSEMBLY_REVIEWED_AUDITOR_REPORT:"هل درست الجمعية العمومية العادية في اجتماعها الأول تقرير مراجع الحسابات عن القوائم المالية للسنة المالية المنتهية؟",
+      GENERAL_ASSEMBLY_APPROVED_NEW_BUDGET:"هل أقرّت الجمعية العمومية العادية مشروع الميزانية التقديرية للسنة المالية الجديدة؟",
+      GENERAL_ASSEMBLY_DISCUSSED_NEW_YEAR_PLAN:"هل ناقشت الجمعية العمومية العادية الخطة المقترحة للسنة المالية الجديدة واتخذت التوصيات والقرارات لذلك؟",
+      SUBMITTED_MEETING_MINUTES_TO_CENTER_WITHIN_FIFTEEN_DAYS:"هل تم إرسال نسخة من محضر اجتماع الجمعية العمومية مع محضر فرز الأصوات -إن وُجد- إلى المركز خلال 15 يوماً من تاريخ الاجتماع ؟",
+      HAS_CURRENT_OPERATIONAL_PLAN:"هل توجد خطة تشغيلية للسنة المالية الحالية لدى الجمعية؟",
+      OPERATIONAL_PLAN_APPROVED_BY_ASSEMBLY:"هل تم اعتماد الخطة من الجمعية العمومية؟",
+      EXTRAORDINARY_GENERAL_ASSEMBLY_MET_IN_CURRENT_OR_PREVIOUS_YEAR:"هل انعقدت الجمعية العمومية (غير العادية) خلال السنة المالية الحالية أو السابقة؟",
+      MEETINGS_HELD_BASED_ON_VALID_REQUEST:"هل كانت الاجتماعات بناًء على طلب مسّبب من المركز، أو من مجلس الإدارة، أو بناًء على طلب عدد لا يقل عن (25%) من الأعضاء الذين يحق لهم حضور الجمعية العمومية؟",
+      EXTRAORDINARY_ASSEMBLY_DISCUSSED_WITHIN_JURISDICTION:"هل كل ما تم مناقشته هو ضمن اختصاصات الجمعية العمومية غير العادّية؟",
+     
+      SUBMITTED_EXTRAORDINARY_MEETING_MINUTES_TO_CENTER_WITHIN_FIFTEEN_DAYS:"هل تم إرسال نسخة من محضر اجتماع الجمعية العمومية مع محضر فرز الأصوات -إن ُوجد- إلى المركز خلال 15 يومًا من تاريخ الاجتماع؟",
+     
+      DECISIONS_MADE_DURING_MEETING:"هل تم اتخاذ قرارات خلال الاجتماع؟",
+      OBTAINED_CENTER_APPROVAL_FOR_DECISIONS:"هل تم أخذ موافقة المركز على القرارات قبل تنفيذها؟",
+
+
+      HAS_INTERNAL_AUDITOR_FOR_POLICIES:"هل يوجد مراجع داخلي أو موظف التزام لمراجعة وتحديث اللوائح والسياسات الداخلية؟",
+     
+      HAS_INTERNAL_CONTROL_SYSTEM_FOR_SPENDING_AND_COMPLIANCE:"هل يوجد نظام رقابة داخلي لمراجعة أوامر وقرارات الصرف الداخلية ومراجعة تطابق قرارات الإدارة التنفيذية مع السياسات واللوائح الداخلية المعتمدة؟",
+      INTERNAL_CONTROL_SYSTEM_APPROVED_BY_BOARD:"هل تم اعتماد نظام الرقابة الداخلي من مجلس الإدارة؟",
+      BOARD_OVERSEES_ASSEMBLY_AND_AUDITOR_DECISIONS:"هل يشرف المجلس على تنفيذ قرارات وتعليمات الجمعية العمومية أو المراجع الخارجي؟",
+      HAS_APPROVED_CONFLICT_OF_INTEREST_POLICY:"هل توجد سياسة لتعارض المصالح معتمدة من مجلس الإدارة؟",
+      HAS_RELATED_PARTY_TRANSACTIONS_BETWEEN_MEMBERS:"هل توجد علاقة تعاقدية أو تجارية من الدرجة الأولى إلى الدرجة الرابعة بين أحد أعضاء الجمعية العمومية أو أعضاء مجلس الإدارة أو موظفي الجمعية؟",
+      HAS_APPROVED_WHISTLEBLOWER_PROTECTION_POLICY:"هل توجد سياسة للإبلاغ عن المخالفات وحماية مقدمي البلاغات معتمدة من مجلس الإدارة؟",
+      HAS_APPROVED_DATA_PRIVACY_POLICY:"هل توجد سياسة لخصوصية البيانات معتمدة من مجلس الإدارة؟",
+      HAS_APPROVED_DOCUMENT_RETENTION_POLICY:"هل توجد سياسة للاحتفاظ بالوثائق وإتلافها معتمدة من مجلس الإدارة؟",
+      HAS_APPROVED_DONATION_POLICY:"هل توجد سياسة لجمع التبرعات معتمدة من مجلس الإدارة؟",
+      HAS_APPROVED_BENEFICIARY_RELATIONS_POLICY:"هل توجد سياسة لتنظيم العلاقة مع المستفيدين (المستفيدين من الخدمة التي تقدمها الجمعية) معتمدة من مجلس الإدارة؟",
+      POLICY_INCLUDES_ELIGIBILITY_VERIFICATION:"هل تحتوي السياسة على آلية للتأكد من استحقاق المستفيد؟",
+      BENEFICIARY_NEEDS_ASSESSED:"هل تم دراسة احتياجات المستفيدين؟",
+      AID_DISTRIBUTED_FAIRLY_TO_BENEFICIARIES:"هل تم توزيع التبرعات (الخدمات) بشكل عادل ومنصف بين المستفيدين؟",
+      AID_MEETS_ACTUAL_BENEFICIARY_NEEDS:"هل تلبي التبرعات (الخدمات) الاحتياجات الفعلية للمستفيدين؟",
+      AID_DISTRIBUTION_PROPERLY_DOCUMENTED:"هل تم تسجيل وتوثيق توزيع التبرعات (الخدمات) بطريقة صحيحة وشفافة؟",
+      HAS_PERIODIC_AID_DISTRIBUTION_REPORTS:"هل توجد تقارير دورية تفيد بتسليم التبرعات (الخدمات) للمستفيدين؟",
+      HAS_APPROVED_VOLUNTEER_MANAGEMENT_POLICY:"هل توجد آلية لإدارة المتطوعين في الجمعية معتمدة من مجلس الإدارة؟",
+      HAS_APPROVED_HR_POLICY:"هل توجد لائحة للموارد البشرية في الجمعية معتمدة من مجلس الإدارة؟",
+      HAS_APPROVED_BOARD_AUTHORITY_POLICY:"هل توجد لائحة لصلاحيات المجلس والصلاحيات الممنوحة من قبل مجلس الإدارة؟",
+      HAS_DETAILED_AUTHORITY_DELEGATION_LIST:"هل توجد قائمة بصلاحيات المجلس والصلاحيات التي فّوضها وإجراءات اتخاذ القرار ومدة التفويض؟",
+      BOARD_MONITORS_DELEGATED_AUTHORITIES:"هل يقوم المجلس بمتابعة ممارسة الصلاحيات المفّوضة عبر تقارير المتابعة؟",
+      BOARD_MET_FOUR_TIMES_IN_PREVIOUS_YEAR:"هل اجتمع مجلس الإدارة (لا ُيقصد اللجنة التنفيذية) خلال السنة المالية السابقة أربعة اجتماعات على الأقل؟",
+      BOARD_MEETINGS_HELD_QUARTERLY:"هل ُعقدت الاجتماعات بشكل منتظم (كل 3 أشهر مرة واحدة على الأقل)؟",
+      BOARD_MEMBER_WORKS_IN_MANAGEMENT:"هل يوجد أحد أعضاء مجلس الإدارة يعمل في إدارة الجمعية أو في إحدى وظائفها؟",
+      HAS_CENTER_APPROVAL_1:"هل توجد موافقة من المركز؟",
+      BOARD_MEMBER_WORKS_IN_SUPERVISORY_AUTHORITY:"هل يوجد أحد أعضاء مجلس الإدارة يعمل في الإدارة المختصة بالإشراف على الجمعية في المركز أو الجهة المشرفة؟",
+      HAS_CENTER_APPROVAL_2:"هل توجد موافقة من المركز؟",
+      BOARD_MEMBER_EXCEEDED_TWO_CONSECUTIVE_TERMS:"هل يوجد أحد من أعضاء مجلس الإدارة استمر في عضويته لأكثر من دورتين متتاليتين؟",
+      HAS_CENTER_APPROVAL_3:"هل توجد موافقة من المركز؟",
+      BOARD_MEMBER_FROM_JUDICIARY:"هل يوجد أحد أعضاء مجلس الإدارة من أصحاب الفضيلة في السلك القضائي؟",
+
+      HAS_APPOINTED_EXECUTIVE_DIRECTOR:"هل تم تعيين مدير تنفيذي في الجمعية",
+      BOARD_MEMBERS_RECEIVED_ORIENTATION_PROGRAMS:"هل تم تقديم برامج تعريفية مخصصة لأعضاء مجلس الإدارة متعّلقة بعمل الجمعية والواجبات والمهام وفق نظام الجمعيات والمؤسسات الأهلية، وذلك خلال السنة المالية الحالية أو السابقة؟",
+      EXECUTIVE_DIRECTOR_APPOINTED_BY_BOARD:"هل تم تعيينه (تعيين وليس تكليف) بقرار من قبل مجلس الإدارة؟",
+      EXECUTIVE_DIRECTOR_RESPONSIBILITIES_DEFINED_IN_APPOINTMENT:"هل تم توضيح صلاحياته ومسؤولياته وحقوقه والتزاماته في قرار التعيين؟",
+      EXECUTIVE_DIRECTOR_APPOINTMENT_DETAILS_SENT_TO_CENTER:"هل تم إرسال نسخة من قرار التعيين ومسوغات الراتب مع إرفاق صورة من هويته الوطنية وبيانات التواصل معه إلى المركز؟",
+      HAS_SAUDI_ACCOUNTANT:"هل يوجد لدى الجمعية محاسب سعودي الجنسية؟",
+      ACCOUNTANT_APPOINTMENT_DETAILS_SENT_TO_CENTER:"هل تم إرسال نسخة من قرار التعيين ومسوغات الراتب مع إرفاق صورة من هويته الوطنية وبيانات التواصل معه إلى المركز؟",
+      BOARD_TERM_ENDING_OR_RECENTLY_ENDED:"هل مدة دورة مجلس الإدارة انتهت قريبًا (ستة أشهر قبل التقييم) أو على وشك الانتهاء (شهر بعد التقييم)؟",
+      ELECTION_COMMITTEE_FORMED_IN_PREVIOUS_ASSEMBLY:"هل تم تشكيل لجنة انتخابات في الاجتماع العمومي الذي يسبق اجتماع الترشيح؟",
+      ELECTION_COMMITTEE_HAS_TWO_NONCANDIDATE_MEMBERS:"هل أعضاء لجنة الانتخابات اثنين من أعضاء الجمعية العمومية كحد أدنى وغير مرشحين لعضوية المجلس الجديد؟",
+      BOARD_INVITED_ELIGIBLE_CANDIDATES_WITHIN_TIMEFRAME:"هل دعا مجلس الإدارة جميع أعضاء الجمعية العمومية الذين تنطبق عليهم شروط الترشح لعضوية مجلس الإدارة قبل مئة وثمانين يوماً على الأقل من نهاية مدة مجلس الإدارة؟",
+      NOMINATIONS_CLOSED_AND_SUBMITTED_TO_CENTER_ON_TIME:"هل تم إقفال باب الترشيح قبل تسعين يوما من نهاية مدة المجلس على الأقل ورفع أسماء المترشحين إلى المركز خلال أسبوع من قفل باب الترشيح؟",
+      CANDIDATE_LIST_DISPLAYED_FIFTEEN_DAYS_BEFORE_TERM_END:"هل عرضت لجنة الانتخابات بالتنسيق مع مجلس الإدارة قائمة أسماء المترشحين الواردة من المركز في مقر الجمعية أو موقع الجمعية الإلكتروني قبل خمسة عشر يوما على الأقل من نهاية مدة المجلس؟",
+      NEW_BOARD_MEMBERS_SUBMITTED_TO_CENTER_WITHIN_FIFTEEN_DAYS:"هل زود مجلس الإدارة الجديد المركز بأسماء الأعضاء الذين تم انتخابهم خلال خمسة عشر يوما من تاريخ الانتخاب؟",
+      HAS_LOCAL_BRANCHES_AND_OFFICES:"هل يوجد لدى الجمعية فروع ومكاتب داخل المملكة؟",
+      BRANCHES_APPROVED_BY_CENTER_AND_SUPERVISOR:"هل توجد موافقة من المركز والجهة المشرفة على إنشاء هذه الفروع والمكاتب؟",
+      HAS_CERTIFIED_EXTERNAL_AUDITOR:"هل تم التعاقد مع مراجع حسابات معتمد لدى المركز أو مصنف لدى الهيئة السعودية للمراجعين والمحاسبين؟",
+      HAS_DETAILED_ANNUAL_FINANCIAL_REPORT_APPROVED:"هل يوجد تقرير سنوي مفصل عن القوائم المالية ومعتمد من مراجع حسابات خارجي ومن الجمعية العمومية؟",
+      TERRORISM_FINANCING_RISKS_IDENTIFIED_AND_UNDERSTOOD:"هل قامت الجمعية بتحديد وفهم مخاطر جرائم الإرهاب وتمويله لديها؟",
+      USES_CASH_TRANSACTIONS_FOR_DONATIONS:"هل يتم استخدام وسيلة التعاملات النقدية غير الإلكترونية في جمع التبرعات أو صرفها للمستفيدين؟",
+      HAS_MONEY_LAUNDERING_SUSPICION_PROCEDURES:"هل لدى الجمعية إجراءات واضحة تلتزم بها إذا توافرت لديهم أسباب معقولة للاشتباه في أن الأموال أو بعضها تمثل عمليات لها علاقة بغسل الأموال أو أنها سوف تستخدم في عمليات غسل أموال أو بعلاقة أو ارتباط أي من العمليات، أو الصفقات المعّقدة، أو الضخمة أو غير الطبيعية بعمليات غسل الأموال؟",
+      HAS_TERRORISM_FINANCING_AWARENESS_PROGRAMS:"هل توجد برامج توعوية لنشر وتعميق الوعي داخل الجمعية حول نقاط الضعف الممكنة والتي قد تستغل من قبل ممولي الإرهاب؟",
+      REGISTRATION_CERTIFICATE_VALID:"هل شهادة تسجيل الجمعية سارية؟",
+      ACTIVITIES_MATCH_CLASSIFICATION:"هل أنشطة الجمعية متطابقة مع تصنيفها؟",
+      PROGRAM_ACTIVITIES_APPROVED_BY_SUPERVISORY_UNIT:"هل تمت الموافقة على طلبات إقامة البرامج والمشروعات والأنشطة الفنية التي تقدمها الجمعية وفق الإجراءات المتبعة للوحدة الإشرافية التابعة لها؟",
+      HAS_UNAUTHORIZED_ACTIVITIES_OUTSIDE_BYLAWS:"هل توجد برامج وأنشطة للجمعية متعارضة مع أهدافها المحّددة في اللائحة الأساسية وبدون موافقة من المركز؟",
+      HAS_SERVICE_DELIVERY_TRACKING_DOCUMENTATION:"هل يوجد توثيق لتتبع وصول الخدمة والمساعدات للمستفيدين؟",
+      HAS_ACTIVITIES_OUTSIDE_ADMINISTRATIVE_SCOPE:"هل لدى الجمعية برامج أو أنشطة خارج نطاقها الإداري؟",
+      HAS_CENTER_APPROVAL_4:"هل توجد موافقة من المركز؟",
+      HAS_INTERNATIONAL_PARTNERSHIPS_OR_AGREEMENTS:"هل توجد تعاقدات أو شراكات أو اتفاقيات مع دول أو منظمات أو مؤسسات دولية؟",
+      HAS_APPROVAL_FOR_INTERNATIONAL_AGREEMENTS:"هل توجد موافقة على ذلك من المركز والجهة المختصة؟",
+      CONDUCTS_FUNDRAISING_CAMPAIGNS:"هل تقوم الجمعية بحملات لجمع التبرعات؟",
+      HAS_FUNDRAISING_APPROVAL_FROM_CENTER:"هل توجد موافقة من المركز بذلك؟",
+      HAS_SEPARATE_DONATIONS_ACCOUNT:"هل يوجد حساب مستقل للتبرعات؟",
+      HAS_DONATIONS_REGISTRY:"هل يوجد سجل خاص بالتبرعات؟",
+      DONATION_REGISTRY_INCLUDES_REQUIRED_DETAILS:"هل يحتوي السجل معلومات المتبرع، وقيمة التبرع، وشرطه إن وجد؟",
+      DONATIONS_USED_FOR_UNINTENDED_PURPOSE:"هل تم استخدام التبرعات التي تم جمعها لغرض معين في نشاط آخر غير ما ُجمعت لأجله؟",
+      HAS_CENTER_APPROVAL_FOR_DONATION_REPURPOSE:"هل توجد موافقة من المركز على ذلك؟",
+      SURPLUS_INVESTED_IN_ENDOWMENTS_OR_PROJECTS:"هل تم استخدام فائض إيرادات معّينة وإدخالها في أوقاف الجمعية، أو تم استثمارها في مجالات مرّجحة الكسب تضمن لها الحصول على مورد ثابت، أو تم إعادة توظيفها في المشروعات الإنتاجية والخدمية؟",
+      SURPLUS_INVESTMENT_APPROVED_BY_ASSEMBLY:"هل تم أخذ موافقة الجمعية العمومية على ذلك؟",
+      RECEIVED_UNSOLICITED_FOREIGN_AID:"هل استقبلت الجمعية أعانات من خارج المملكة من دون طلب؟",
+      NOTIFIED_CENTER_OF_FOREIGN_AID:"هل تم ابلاغ المركز؟",
+      HAS_PROPERTY_OR_INVESTMENTS:"هل توجد عقارات أو استثمارات في ملكية الجمعية؟",
+      PROPERTY_ACQUISITION_PROPERLY_APPROVED:"هل توجد موافقة من الجمعية العمومية قبل التملك أو تم إقرار ذلك في أول اجتماع تاٍل لها أو بقرار من مجلس الإدارة -في حال تم تفويضه من الجمعية العمومية باتخاذ القرارات في ذلك؟",
+      BENEFICIARY_RECORDS_SECURELY_MAINTAINED:"هل يتم الاحتفاظ في مقر الجمعية بسجلات المستفيدين بحيث لا يتم فقدانها أو كشف سريتها؟",
+      HAS_UPDATED_ASSEMBLY_MEETINGS_REGISTRY:"هل يوجد سجل محّدث خاص بوقائع جلسات الجمعية العمومية العادية وغير العادية؟",
+      BOARD_MEETING_RECORDS_MAINTAINED:"هل ُتحفظ السجلات المتعلقة باجتماعات مجلس الإدارة؟",
+      MEMBERS_HAVE_MEMBERSHIP_CARDS:"هل توجد بطاقات عضوية لكل عضو من أعضاء الجمعية العمومية؟",
+      ALL_MEMBERS_RECEIVED_MEMBERSHIP_CARDS:"هل استلم جميع أعضاء الجمعية العمومية بطاقات عضوية؟",
+      HAS_PERMANENT_OR_TEMPORARY_COMMITTEES_WITH_SPECIFIC_TASKS:"هل توجد لجان دائمة أو مؤقتة تم تكوينها من قبل الجمعية العمومية أو مجلس الإدارة للقيام بمهام محددة من حيث طبيعتها ومدتها؟",
+      COMMITTEES_FORMATION_DECISIONS_EXIST:"هل توجد قرارات صادرة بتكوين هذه اللجان؟",
+      COMMITTEE_DECISIONS_INCLUDE_COMPLETE_DETAILS:"هل اشتملت القرارات على مسمى كل لجنة وعدد أعضائها واختصاصاتها واختصاصات أعضائها، بما في ذلك تسمية رئيسها؟",
+      BOARD_MEMBERS_PRESENT_IN_COMMITTEES:"هل يوجد أحد أعضاء مجلس الإدارة في هذه اللجان؟",
+      HAS_EXECUTIVE_COMMITTEE:"هل توجد لجنة تنفيذية في الجمعية؟",
+      EXECUTIVE_COMMITTEE_FORMED_WITH_DEFINED_AUTHORITIES:"هل يوجد قرار بتشكيلها وتحديد المهام والصلاحيات المفوضة فيها والتي تكفل سير عمل الجمعية؟",
+      HAS_INTERNAL_AUDIT_COMMITTEE:"هل توجد لجنة تدقيق ومراجعة داخلية؟",
+
+      FINANCIAL_SUPERVISOR_CHAIRS_AUDIT_COMMITTEE:"هل يرأس المشرف المالي في مجلس الإدارة هذه اللجنة؟"
+    }
+
+}
+
+export { entriesLabels, indicatorsLabels, dashboardStatusMap, tabsNames ,governanceLabels,GOVERANCE_TABS};
