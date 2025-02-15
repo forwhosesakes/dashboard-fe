@@ -8,7 +8,7 @@ import {
 } from "react-router";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import SemiCircleProgress from "~/components/ui/semi-circle-progress";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   dashboardApi,
   type DashboardType,
@@ -106,7 +106,6 @@ const Entries = ({
 
 
   useEffect(()=>{
-    console.log("mounted");
 
     return ()=>{
       setLightTheme()
@@ -147,10 +146,29 @@ const Entries = ({
 
     }
   };
+
+
+
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      containerRef.current
+        ?.requestFullscreen()
+        .then(() => setIsFullscreen(true))
+        .catch((err) => console.error("Error entering fullscreen"));
+    } else {
+      document
+        .exitFullscreen()
+        .then(() => setIsFullscreen(false))
+        .catch((err) => console.error("Error exiting fullscreen"));
+    }
+  };
+  
   return (
     <>
       <DashboardHeader dashboardType={currentDashboard} onSave={saveEntries} loading={loading} />
-      <ViewSwitch hasIndicators={!!indicators} view={view} onViewChange={setView} />
+      <ViewSwitch hasIndicators={!!indicators} view={view} onViewChange={setView} toggleFullscreen={toggleFullscreen} />
       {/* <div className="flex justify-between p-5">
         <div>
           <h5>{`${currentIndicator?.name ?? "مؤشر الأداء المالي"}`}</h5>
@@ -172,13 +190,7 @@ const Entries = ({
           onValueChange={handleTabChange}
         >
           <TabsList className="w-full justify-start bg-transparent">
-            {/* <TabsTrigger value="GENERAL"></TabsTrigger>
-
-            <TabsTrigger value="FINANCIAL"></TabsTrigger>
-
-            <TabsTrigger value="OPERATIONAL"></TabsTrigger>
-
-            <TabsTrigger value="CORPORATE"></TabsTrigger> */}
+        
             {locationData.state?.dashboardsOverview.map((tab) => (
               <TabsTrigger value={tab.title.split("_")[1]}>
                 {tabsNames[tab.title.split("_")[1]]}
@@ -187,7 +199,7 @@ const Entries = ({
           </TabsList>
 
           <TabsContent value={currentDashboard}>
-            <div className="p-4">
+            <div className="p-4 overflow-auto" ref={containerRef}>
               {/* Content for مؤشر الأداء المالي */}
               {view === "entries" ? (
                 <>
@@ -210,7 +222,7 @@ const Entries = ({
                   />
                 </>
               ) : (
-                <DashboardIndicators indicators={indicators} type={currentDashboard}/>
+                <DashboardIndicators indicators={{...entries,...indicators}} type={currentDashboard}/>
                
               )}
             </div>

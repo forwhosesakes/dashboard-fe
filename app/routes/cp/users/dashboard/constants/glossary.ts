@@ -157,6 +157,7 @@ const entriesLabels = {
 
 const indicatorsLabels = {
   FINANCIAL: {
+    GENERAL_ADMINSTRATIVE_EXPENSES: "المصاريف العمومية و الإدارية",
     FINANCIAL_PERF:"الأداء المالي",
     FINANCIAL_RESOURCES_DEV: "تنمية الموارد المالية",
     ADMIN_EXPENSES: "المصاريف الإدارية  ",
