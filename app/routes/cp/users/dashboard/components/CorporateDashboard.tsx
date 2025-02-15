@@ -14,6 +14,8 @@ import {
 } from "recharts";
 import SemiCircleProgressBar from "~/components/ui/half-circular-progress";
 import { Progress } from "~/components/ui/progress";
+import { TrendingUp } from "lucide-react";
+import SemiCircleProgress from "~/components/ui/semi-circle-progress";
 
 interface IProps {
   indicators: any;
@@ -22,10 +24,10 @@ interface IProps {
 
 const CorporateDashboard = (props: IProps) => {
   const cardsInds = [
-    "GOVERANCE",
-    "COMPLIANCE_ADHERENCE_PRACTICES",
-    "TRANSPARENCY_DISCLOSURE_PRACTICES",
     "FINANCIAL_SAFETY_PRACTICES",
+    "TRANSPARENCY_DISCLOSURE_PRACTICES",
+    "COMPLIANCE_ADHERENCE_PRACTICES",
+    "GOVERANCE",
   ];
 
   const hrInds = ["EMP_PERF_PROD", "EMP_DEV_TRAIN"];
@@ -97,26 +99,78 @@ const CorporateDashboard = (props: IProps) => {
 
   return (
     <section>
-      <div className="flex flex-wrap gap-5 my-5 rounded-lg bg-[#13161B] p-5">
-        <h4 className="w-full">{"الحوكمة"}</h4>
-        {cardsInds.map((card: string) => (
-          <div
-            key={card}
-            className="relative flex flex-col p-5 border border-[#5C626D] rounded-lg min-w-64 h-44 gap-5 shadow-custom"
-          >
-            <h6 className="text-[16px]">
-              {
-                //@ts-ignore
-                indicatorsLabels.CORPORATE[card]
-              }
-            </h6>
-
-            <h4 className="text-">
-              {Number(props.indicators[card]).toFixed(2) + "%"}
-            </h4>
-            <ChartProgress className="absolute w-20 h-20 left-4 bottom-0" />
+      <div className="flex my-5 gap-5">
+        {/* right side */}
+        <div className="flex flex-col gap-5 w-8/12">
+          <div className="flex flex-wrap gap-5 w-full justify-between rounded-lg bg-[#13161B] p-1">
+            <h4 className="w-full">{"الحوكمة"}</h4>
           </div>
-        ))}
+
+          <div className="flex flex-wrap gap-5">
+            {cardsInds.map((card: string) => (
+              <div
+                key={card}
+                className="relative flex flex-col justify-center items-center p-1 border-b-2 border-accent min-w-44 w-3/12 gap-1 shadow-custom "
+              >
+                <h6 className="text-[18px] text-[#94979C]">
+                  {
+                    //@ts-ignore
+                    indicatorsLabels.CORPORATE[card]
+                  }
+                </h6>
+
+                <div className="flex justify-center items-center gap-1">
+                  <h5 className="text-">
+                    {Number(props.indicators[card]).toFixed(2) + "%"}
+                  </h5>
+                  <div className="border p-0.5 flex justify-center items-center gap-1 text-xs rounded-lg">
+                    {" "}
+                    {"آخر ثلاث شهور"}
+                    <TrendingUp className="w-4 text-green-600" />{" "}
+                  </div>
+                </div>
+
+                {/* <ChartProgress className="absolute w-20 h-20 left-4 bottom-0" /> */}
+              </div>
+            ))}
+          </div>
+          {/* التخطيط والتنظيم  -  الموارد البشرية */}
+          <div className="flex gap-5">
+            <div className="w-3/5 flex flex-col">
+              <div className="flex flex-wrap gap-5 w-full justify-between rounded-lg bg-[#13161B] p-1">
+                <h4 className="w-full">{"التخطيط والتنظيم"}</h4>
+              </div>
+
+            </div>
+
+            <div className="w-2/5 flex flex-col">
+              <div className="flex flex-wrap gap-5 w-full justify-between rounded-lg bg-[#13161B] p-1">
+                <h4 className="w-full">{"الموارد البشرية"}</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* أداء المدير التنفيذي */}
+        <div className="flex flex-wrap gap-5 justify-center items-center w-4/12">
+          <div className="flex gap-5 w-full rounded-lg bg-[#13161B] p-1">
+            <h4 className="w-full">{"أداء المدير التنفيذي"}</h4>
+          </div>
+          <div>
+            <div className="flex justify-center flex-wrap gap-y-16 gap-x-3">
+              {ceoPerfIndicators.map((card) => (
+                <div
+                  key={card.key}
+                  className="border rounded-lg p-5 w-5/12 flex flex-col justify-center text-center items-center gap-2"
+                >
+                  <p>{indicatorsLabels.CORPORATE[card.key]}</p>
+
+                  <SemiCircleProgress  size={120} percentage={86} color={card.gradientStart} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="flex gap-4">
@@ -207,7 +261,12 @@ const CorporateDashboard = (props: IProps) => {
                 }}
               />
 
-              <Bar dataKey="value" barSize={10} width={5} radius={[10, 10, 0, 0]} />
+              <Bar
+                dataKey="value"
+                barSize={10}
+                width={5}
+                radius={[10, 10, 0, 0]}
+              />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -225,15 +284,14 @@ const CorporateDashboard = (props: IProps) => {
                   indicatorsLabels.CORPORATE[card]
                 }
               </h6>
-            
 
               <h4 className="text-">
                 {Number(props.indicators[card]).toFixed(2) + "%"}
               </h4>
               <Progress
-                  className="[&>div]:bg-gradient-to-r [&>div]:from-green-900 [&>div]:to-green-300 w-full h-2.5 bg-gray-700"
-                  value={Math.round(Number(props.indicators[card]))}
-                />
+                className="[&>div]:bg-gradient-to-r [&>div]:from-green-900 [&>div]:to-green-300 w-full h-2.5 bg-gray-700"
+                value={Math.round(Number(props.indicators[card]))}
+              />
             </div>
           ))}
         </div>
@@ -264,7 +322,7 @@ const CorporateDashboard = (props: IProps) => {
           </div>
         </div>
 
-        <div className="bg-[#13161B] my-5 p-5 rounded-lg">
+        {/* <div className="bg-[#13161B] my-5 p-5 rounded-lg">
           <h5 className="my-5">{" أداء المدير التنفيذي"}</h5>
           <div className="flex flex-wrap gap-4">
             {ceoPerfIndicators.map((card) => (
@@ -287,7 +345,7 @@ const CorporateDashboard = (props: IProps) => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

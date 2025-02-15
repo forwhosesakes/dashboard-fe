@@ -55,7 +55,7 @@ const SemiCircleProgress = ({
           className="absolute inset-0 flex items-center justify-center"
           style={{ marginTop: size / 4 }}
         >
-          <span className="text-2xl font-bold text-primary-foreground">
+          <span className="text-2xl mt-1 font-bold text-primary-foreground">
             {Math.round(percentage)}%
           </span>
         </div>
