@@ -39,6 +39,7 @@ const FinancialDashboard = (props: IProps) => {
       fill: "#17B26A",
     },
   ];
+  
 
   return (
     <section>

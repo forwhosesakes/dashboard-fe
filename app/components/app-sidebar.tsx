@@ -22,9 +22,11 @@ import {
 import Mosque from "~/assets/icons/mosque.svg";
 import KidanLogo from "~/assets/images/logo.png";
 import KidanLogomark from "~/assets/images/Logomark.png";
-import {  useState } from "react";
-import { Link, useLocation } from "react-router";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router";
 import { UserSidebarCard } from "~/components/user-sidebar-card";
+import { authClient } from "~/lib/auth-client";
+import { toast } from "sonner";
 
 const generalNavigation = [
   { name: "لوحة التحكم", icon: Home, href: "/", isNested: true, stat: 10 },
@@ -37,7 +39,7 @@ const generalNavigation = [
   { name: "الجمعيات", icon: HandHelpingIcon, href: "/cp/users", isNested: false },
   // { name: "المستندات", icon: Files, href: "/documents", isNested: false },
   // { name: "الإعدادات", icon: Settings, href: "/settings", isNested: false },
-  {name:"الأعضاء", icon:Users,href:"/cp/members",isNested:false}
+  { name: "الأعضاء", icon: Users, href: "/cp/members", isNested: false },
 ];
 
 const secondaryNavigation = [
@@ -61,11 +63,24 @@ const categories = [
 interface AppLayoutProps {
   children: React.ReactNode;
   user: User;
+  serverUrl: string;
 }
 
-export function AppLayout({ children, user }: AppLayoutProps) {
+export function AppLayout({ children, user, serverUrl }: AppLayoutProps) {
   const [toggle, setToggle] = useState(true);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogOut = async () => {
+    try {
+      await authClient(serverUrl).signOut();
+      navigate("/login");
+      toast.success("تم تسجيل الخروج بنجاح");
+    } catch (e) {
+      console.error("Logout error: ", e);
+      toast.error("حدث خطأ اثناء تسجيل الخروج!");
+    }
+  };
 
   return (
     <SidebarProvider defaultOpen>
@@ -197,7 +212,11 @@ export function AppLayout({ children, user }: AppLayoutProps) {
                     </div>
                   </div>
                 </div> */}
-                <UserSidebarCard user={user} toggle={toggle} />
+                <UserSidebarCard
+                  handleLogOut={handleLogOut}
+                  user={user}
+                  toggle={toggle}
+                />
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarFooter>

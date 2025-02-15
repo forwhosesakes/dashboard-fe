@@ -8,6 +8,7 @@ import { InputField } from "~/components/ui/input-field";
 import { SPECIAL_REGEX } from "~/lib/constants";
 import CheckComponent from "~/components/ui/check-component";
 import { Button } from "~/components/ui/button";
+import { toasts } from "~/lib/utils/toast";
 
 type Inputs = {
   password: string;
@@ -42,12 +43,13 @@ const NewPasswordStep = (props: IProps) => {
         password: data.password,
       });
     } else {
-      const session = await client.getSession();
-      const email = session.data?.user.email;
-      if (!email) {
-        throw new Error("no session in here");
-      }
-      client.resetPassword({
+      // const session = await client.getSession();
+      // const email = session.data?.user.email;
+      // console.log("props:::", props)
+      // if (!email) {
+      //   throw new Error("no session in here");
+      // }
+      return client.resetPassword({
         newPassword: data.password,
       });
     }
@@ -64,6 +66,8 @@ const NewPasswordStep = (props: IProps) => {
       })
       .catch((e) => {
         setLoading(false);
+        console.log("error happen when resetting password::", e)
+        toasts.error({message:"حدث خطأ أثناء إعادة تعيين كلمة المرور"})
 
         //todo: handle error in here
       });

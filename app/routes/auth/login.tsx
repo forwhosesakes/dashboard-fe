@@ -16,6 +16,7 @@ import WhiteLogo from "~/assets/images/logo-white.png";
 import { Checkbox } from "~/components/ui/checkbox";
 import glossary from "~/constants/glossary";
 import type { LoaderFunctionArgs } from "react-router";
+import { orgApi } from "~/lib/api/org";
 
 type Inputs = {
   email: string;
@@ -35,10 +36,18 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
     },
   });
   const session = res.data?.session;
-  
+  const user = res.data?.user
+  // console.log("user is :: ",user);
   
 
-  if (session) return redirect("/");
+  if (session && user && user.role === "user"){
+    const org = await orgApi(serverUrl).getOrgByUderId("naaXdX1LaI0Z24SkDduNydZuGEPCz729")
+    console.log("org is ::",org);
+    // if(!org)return redirect("/login")
+    return redirect(`/org/${org.id}`)
+  } else if(session && user && user.role === "admin"){
+    return redirect(`/`)
+  }
   
 
   return { serverUrl };

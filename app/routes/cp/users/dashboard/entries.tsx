@@ -20,6 +20,8 @@ import ViewSwitch from "./components/ViewSwitch";
 import { initialValues } from "./constants/initialValues";
 import DashboardIndicators from "./components/DashboardIndicators";
 import { toasts } from "~/lib/utils/toast";
+import { useThemeStore } from "~/lib/store/theme-store";
+
 
 
 export const loader = async ({ context, params }: LoaderFunctionArgs) => {
@@ -59,13 +61,14 @@ const Entries = ({
   const locationData = useLocation();
   const [view, setView] = useState<"entries" | "indicators">("entries");
   const [loading,setLoading] = useState(false)
+  const {setLightTheme}=useThemeStore()
 
   const [currentEntries, setCurrentEntries] = useState<
     { name: string; value: any; label: string }[]
   >([]);
 
   useEffect(() => {
-
+    
     const dashboardsOverview = locationData.state?.dashboardsOverview;
     if (dashboardsOverview) {
  
@@ -102,7 +105,15 @@ const Entries = ({
   }, [currentDashboard]);
 
 
-  
+  useEffect(()=>{
+    console.log("mounted");
+
+    return ()=>{
+      setLightTheme()
+      
+    }
+    
+  },[])
 
 
   const navigate = useNavigate();
