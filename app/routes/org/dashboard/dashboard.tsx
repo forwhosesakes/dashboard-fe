@@ -1,103 +1,128 @@
-import { useEffect } from "react";
-import { useLoaderData, useLocation, useNavigate, type LoaderFunctionArgs } from "react-router"
+import { useEffect, useRef, useState } from "react";
+import {
+  useLoaderData,
+  useLocation,
+  useNavigate,
+  type LoaderFunctionArgs,
+} from "react-router";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { dashboardApi } from "~/lib/api/dashboard";
 import { useThemeStore } from "~/lib/store/theme-store";
 import DashboardIndicators from "~/routes/cp/users/dashboard/components/DashboardIndicators";
 import { tabsNames } from "./constants/glossary";
+import { Button } from "~/components/ui/button";
+import { Maximize2 } from "lucide-react";
 
+export const loader = async ({ context, params }: LoaderFunctionArgs) => {
+  const { id, dashboardType } = params;
 
+  console.log("from loader:: ", id, dashboardType);
 
-export const loader = async({context, params}:LoaderFunctionArgs) => {
-    const {id,dashboardType}=params
+  const indicators = await dashboardApi(
+    context.cloudflare.env.BASE_URL
+  ).getIndicators(`${id}`, (dashboardType as DashboardType) ?? "GENERAL");
 
-    console.log("from loader:: ",id,dashboardType);
+  return {
+    id,
+    currentDashboard: dashboardType,
+    indicators: indicators.length ? indicators[0] : null,
+  };
+};
 
+const Dashbaord = () => {
+  const { id, currentDashboard, indicators } = useLoaderData();
+  const locationData = useLocation();
+  const { setLightTheme, setDarkTheme } = useThemeStore();
 
-  const indicators = await dashboardApi(context.cloudflare.env.BASE_URL).getIndicators(`${id}`, (dashboardType as DashboardType) ?? "GENERAL")
-    
-    return { 
-        id,
-        currentDashboard: dashboardType,
-        indicators:indicators.length?indicators[0]:null
+  // useEffect(() => {
+
+  //     const dashboardsOverview = locationData.state?.dashboardsOverview;
+  //     if (dashboardsOverview) {
+
+  //       const currentDasboardData = dashboardsOverview.find((dashboard) =>
+  //         dashboard.title.includes(currentDashboard)
+  //       );
+
+  //       if (currentDasboardData) {
+
+  //         if (currentDasboardData.status === "NOT_STARTED") {
+  //           const initialEntries = Object.entries(
+  //             initialValues[currentDashboard]
+  //           ).map(([key, value]) => ({
+  //             name: key,
+  //             label: entriesLabels[currentDashboard][key] ?? key,
+  //             value,
+  //           }));
+  //           setCurrentEntries(initialEntries);
+  //         } else {
+  //           const excludedKeys = ["id", "dashbaordId", "createdAt", "updatedAt"];
+  //           const newEntries = Object.entries(entries)
+  //             .filter(([key]) => !excludedKeys.includes(key))
+  //             .map(([key, value], i) => ({
+  //               name: key,
+  //               label: entriesLabels[currentDashboard][key] ?? key,
+  //               value,
+  //             }));
+  //           setCurrentEntries(newEntries);
+  //         }
+  //       }
+  //     }
+  //   }, [currentDashboard]);
+
+  useEffect(() => {
+    console.log("mounted");
+
+    setDarkTheme();
+    return () => {
+      setLightTheme();
+    };
+  }, []);
+
+  const navigate = useNavigate();
+  const handleTabChange = (value: string) => {
+    navigate(`/org/${id}/${value}`, {
+      state: locationData.state,
+    });
+  };
+
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      containerRef.current
+        ?.requestFullscreen()
+        .then(() => setIsFullscreen(true))
+        .catch((err) => console.error("Error entering fullscreen"));
+    } else {
+      document
+        .exitFullscreen()
+        .then(() => setIsFullscreen(false))
+        .catch((err) => console.error("Error exiting fullscreen"));
     }
-}
-
-
-
- const Dashbaord=()=>{
-    const { id, currentDashboard, indicators} = useLoaderData();
-    const locationData = useLocation();
-    const {setLightTheme, setDarkTheme} = useThemeStore();
-
-    // useEffect(() => {
-    
-    //     const dashboardsOverview = locationData.state?.dashboardsOverview;
-    //     if (dashboardsOverview) {
-     
-    
-          
-    //       const currentDasboardData = dashboardsOverview.find((dashboard) =>
-    //         dashboard.title.includes(currentDashboard)
-    //       );
-    
-    //       if (currentDasboardData) {
-    
-    //         if (currentDasboardData.status === "NOT_STARTED") {
-    //           const initialEntries = Object.entries(
-    //             initialValues[currentDashboard]
-    //           ).map(([key, value]) => ({
-    //             name: key,
-    //             label: entriesLabels[currentDashboard][key] ?? key,
-    //             value,
-    //           }));
-    //           setCurrentEntries(initialEntries);
-    //         } else {
-    //           const excludedKeys = ["id", "dashbaordId", "createdAt", "updatedAt"];
-    //           const newEntries = Object.entries(entries)
-    //             .filter(([key]) => !excludedKeys.includes(key))
-    //             .map(([key, value], i) => ({
-    //               name: key,
-    //               label: entriesLabels[currentDashboard][key] ?? key,
-    //               value,
-    //             }));
-    //           setCurrentEntries(newEntries);
-    //         }
-    //       }
-    //     }
-    //   }, [currentDashboard]);
-
-    useEffect(()=>{
-        console.log("mounted");
-    
-        setDarkTheme()
-        return ()=>{
-          setLightTheme()
-          
-        }
-        
-      },[])
-
-      const navigate = useNavigate();
-      const handleTabChange = (value: string) => {
-        navigate(`/org/${id}/${value}`, {
-          state: locationData.state,
-        });
-      };
-
-    return(
-    <>
-    <div className="flex justify-between p-5">
+  };
+  return (
+    <div>
+      <div className="flex justify-between p-5">
         <div>
-            <h5>{
-          currentDashboard === 'FINANCIAL' ? 'الأداء المالي' :
-          currentDashboard === 'OPERATIONAL' ? 'الأداء التشغيلي' :
-          currentDashboard === 'CORPORATE' ? 'الأداء المؤسسي' : 'العام'
-        }</h5>
-            <p className="text-primary-foreground/75">أدخل بيانات المؤشر.</p>
+          <h5>
+            {currentDashboard === "FINANCIAL"
+              ? "الأداء المالي"
+              : currentDashboard === "OPERATIONAL"
+              ? "الأداء التشغيلي"
+              : currentDashboard === "CORPORATE"
+              ? "الأداء المؤسسي"
+              : "العام"}
+          </h5>
+          <p className="text-primary-foreground/75">أدخل بيانات المؤشر.</p>
         </div>
-    </div>
-    <div id="tabs" className="w-full h-full border-t pt-2">
+
+        <div className="">
+          <Button onClick={toggleFullscreen} className="border border-white w-9 p-2">
+          <Maximize2 className=""/>
+          </Button>
+        </div>
+      </div>
+      <div id="tabs" className="w-full h-full border-t pt-2">
         <Tabs
           defaultValue={currentDashboard}
           dir="rtl"
@@ -105,7 +130,6 @@ export const loader = async({context, params}:LoaderFunctionArgs) => {
           onValueChange={handleTabChange}
         >
           <TabsList className="w-full justify-start bg-transparent">
-        
             {locationData.state?.dashboardsOverview.map((tab) => (
               <TabsTrigger value={tab.title.split("_")[1]}>
                 {tabsNames[tab.title.split("_")[1]]}
@@ -114,14 +138,19 @@ export const loader = async({context, params}:LoaderFunctionArgs) => {
           </TabsList>
 
           <TabsContent value={currentDashboard}>
-            <div className="p-4">
-                <DashboardIndicators indicators={indicators} type={currentDashboard}/>
+            <div className="p-4  overflow-auto"
+                ref={containerRef}
+                >
+              <DashboardIndicators
+                indicators={indicators}
+                type={currentDashboard}
+              />
             </div>
           </TabsContent>
         </Tabs>
       </div>
-    </>
-    )
-}
+    </div>
+  );
+};
 
-export default Dashbaord
+export default Dashbaord;
