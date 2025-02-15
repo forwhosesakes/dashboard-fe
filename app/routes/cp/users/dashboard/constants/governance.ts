@@ -1,4 +1,4 @@
-const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
+export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
   Q1: {
     weight: 3,
 
@@ -363,14 +363,14 @@ const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
         ],
         isDependantOnPrev: false,
       },
-      {
-        label: "HAS_APPROVED_BENEFICIARY_RELATIONS_POLICY",
-        options: [
-          { label: "لا توجد سياسة.", weight: 0 },
-          { label: "توجد بشكل متكامل.", weight: 0.2 },
-        ],
-        isDependantOnPrev: false,
-      },
+      // {
+      //   label: "HAS_APPROVED_BENEFICIARY_RELATIONS_POLICY",
+      //   options: [
+      //     { label: "لا توجد سياسة.", weight: 0 },
+      //     { label: "توجد بشكل متكامل.", weight: 0.2 },
+      //   ],
+      //   isDependantOnPrev: false,
+      // },
       {
         label: "BENEFICIARY_NEEDS_ASSESSED",
         options: [
@@ -470,24 +470,8 @@ const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
         isDependantOnPrev: true,
       },
 
-      {
-        label: "BOARD_MET_FOUR_TIMES_IN_PREVIOUS_YEAR",
-        options: [
-          { label: "لم يتم الاجتماع أبدًا.", weight: 0 },
-          { label: "تم الاجتماع أقل من 4 مرات.", weight: 1 },
-          { label: "تم الاجتماع 4 مرات أو أكثر.", weight: 2 },
-        ],
-        isDependantOnPrev: false,
-      },
-      {
-        label: "BOARD_MET_FOUR_TIMES_IN_PREVIOUS_YEAR",
-        options: [
-          { label: "لم يتم الاجتماع أبدًا.", weight: 0 },
-          { label: "تم الاجتماع أقل من 4 مرات.", weight: 1 },
-          { label: "تم الاجتماع 4 مرات أو أكثر.", weight: 2 },
-        ],
-        isDependantOnPrev: false,
-      },
+     
+    
     ],
   },
 
@@ -789,15 +773,7 @@ const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
         ],
         isDependantOnPrev: false,
       },
-      {
-        label: "FINANCIAL_REPORT_SUBMITTED_TO_CENTER_WITHIN_FOUR_MONTHS",
-        options: [
-          { label: "لم يتم رفعه للمركز.", weight: 0 },
-          { label: "تم رفعه لكن بعد الأربعة أشهر.", weight: 0.25 },
-          { label: "تم رفعه خلال الأربعة أشهر.", weight: 0.5 },
-        ],
-        isDependantOnPrev: false,
-      },
+      
     ],
   },
 

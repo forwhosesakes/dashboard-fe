@@ -11,6 +11,13 @@ const tabsNames = {
   GENERAL: "اللوحة العامة",
 };
 
+const GOVERANCE_TABS= {
+  COMPLIANCE_ADHERENCE_PRACTICES:"ممارسات الامتثال و الالتزام",
+  TRANSPARENCY_DISCLOSURE_PRACTICES:"ممارسات الشفافية و الإفصاح",
+  FINANCIAL_SAFETY_PRACTICES:"ممارسات السلامة المالية"
+
+}
+
 const entriesLabels = {
   FINANCIAL: {
     GENERAL_ADMINSTRATIVE_EXPENSES: "المصاريف العمومية و الإدارية",
@@ -367,4 +374,4 @@ const governanceLabels  = {
 
 }
 
-export { entriesLabels, indicatorsLabels, dashboardStatusMap, tabsNames ,governanceLabels};
+export { entriesLabels, indicatorsLabels, dashboardStatusMap, tabsNames ,governanceLabels,GOVERANCE_TABS};

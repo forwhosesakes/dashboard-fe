@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import type { DashboardType } from "~/lib/api/dashboard";
 import { entriesLabels } from "../constants/glossary";
+import GovernanceEntries from "./governanceEntries";
 
 interface DashboardEntriesProps {
   dashboardType: DashboardType;
@@ -12,7 +13,6 @@ interface DashboardEntriesProps {
 const DashboardEntries = ({
   entries,
   onEntryChange,
-  status,
   dashboardType,
 }: DashboardEntriesProps) => {
   const [entryToEdit, setEntryToEdit] = useState<{
@@ -62,8 +62,15 @@ const DashboardEntries = ({
       }
      }
 
+     const governanceTabs = [
+      "COMPLIANCE_ADHERENCE_PRACTICES","TRANSPARENCY_DISCLOSURE_PRACTICES","FINANCIAL_SAFETY_PRACTICES"
+     ]
+
+     
+
   return (
-    <div className="flex flex-col border">
+    <div className="flex flex-col ">
+         { dashboardType === "CORPORATE"&& <GovernanceEntries />}
     <p className="text-accent font-semibold p-1">
         {`بيانات مؤشر ${
           dashboardType === 'FINANCIAL' ? 'الأداء المالي' :
@@ -84,6 +91,7 @@ const DashboardEntries = ({
             
             {entryToEdit?.name === entry.name ? (
               <input
+              // @ts-ignore
                 ref={el => inputRefs.current[index] = el}
                 type="number"
                 className="bg-white text-primary-foreground p-2"
