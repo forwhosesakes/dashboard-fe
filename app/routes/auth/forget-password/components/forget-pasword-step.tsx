@@ -27,7 +27,7 @@ const ForgotPasswordStep = (props: IProps) => {
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     setLoading(true);
     authClient(baseUrl)
-      .forgetPassword({ email: data.email, redirectTo: "/reset-password" })
+      .forgetPassword({ email: data.email, redirectTo: `https://kedan-dashboard.org/reset-password` })
       .then(() => {
         props.handleStepChange(data.email);
         setLoading(false);
