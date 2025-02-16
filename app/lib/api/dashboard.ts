@@ -1,4 +1,5 @@
 import { z } from "zod";
+import type { TGovernanceEntries } from "~/types/dashboard.types";
 export type DashboardOverviewType = {
   id: number;
   title: string;
@@ -402,12 +403,14 @@ export const dashboardApi = (url: string) => {
 
         if (!response.ok)
           throw new Error(`Error at getting dashboard for organiztion`);
+        //@ts-ignore
         return result.data;
       } catch (e) {
         throw e;
       }
     },
-    // todo: create types
+    // todo: create type
+    // @ts-ignore
     createDashboard: async (dashboardData: TDashboard) => {
       try {
         //todo: adjust route
@@ -448,6 +451,7 @@ export const dashboardApi = (url: string) => {
           const errorData = await response.json().catch(() => null);
           if (errorData && ErrorResponseSchema.safeParse(errorData).success) {
             throw new Error(
+              //@ts-ignore
               errorData.message || `Failed to save entries (${response.status})`
             );
           }
@@ -493,6 +497,7 @@ export const dashboardApi = (url: string) => {
 
         // console.log("response hiii get entries::: ",apiResponse);
         const parsedData = schema.parse(rawResponse);
+        //@ts-ignore
         return parsedData.data as DashboardTypeMap[T];
       } catch (e) {
         if (e instanceof z.ZodError) {
@@ -529,5 +534,82 @@ export const dashboardApi = (url: string) => {
         throw e;
       }
     },
+    saveGovernanceEntries: async (
+      orgId: string,
+      type: TGovernanceEntries,
+      responses: Record<string, number>
+    ): Promise<any> => {
+      try {
+        if (!/^\d+$/.test(orgId) || parseInt(orgId) <= 0) {
+          throw new Error("Organization ID must be a positive number");
+        }
+
+        const response = await fetch(`${url}/dashboard/governance/entries/${orgId}/${type.toLowerCase()}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ responses }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => null);
+          if (errorData && ErrorResponseSchema.safeParse(errorData).success) {
+            throw new Error(
+              //@ts-ignore
+              errorData.message || `Failed to save governance entries (${response.status})`
+            );
+          }
+          throw new Error(`Failed to save governance entries (${response.status})`);
+        }
+
+        const data = await response.json();
+        return data;
+      } catch (e) {
+        if (e instanceof z.ZodError) {
+          console.error("Response validation error: ", e.errors);
+          throw new Error("Invalid Response format from the server");
+        }
+        throw e instanceof Error ? e : new Error("unknown error occurred");
+      }
+    },
+
+    getGovernanceEntries: async (
+      orgId: string,
+      type: TGovernanceEntries
+    ): Promise<any | null> => {
+      try {
+        if (!/^\d+$/.test(orgId) || parseInt(orgId) <= 0) {
+          throw new Error("Organization ID must be a positive number");
+        }
+
+        const response = await fetch(
+          `${url}/dashboard/governance/entries/${orgId}/${type.toLowerCase()}`
+        );
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => null);
+          const message = isErrorWithMessage(errorData)
+            ? errorData.message
+            : undefined;
+          throw new Error(message || `HTTP error! status: ${response.status}`);
+        }
+
+        const rawResponse:any = await response.json();
+        
+        if (rawResponse.status === "success" && rawResponse.data) {
+          return rawResponse.data;
+        }
+
+        return null;
+      } catch (e) {
+        if (e instanceof z.ZodError) {
+          console.error("Validation error:", e.errors);
+          throw new Error(`Invalid governance data format`);
+        }
+        throw e;
+      }
+    },
   };
+
 };

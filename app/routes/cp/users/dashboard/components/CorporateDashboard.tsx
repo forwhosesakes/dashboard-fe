@@ -11,11 +11,15 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
 } from "recharts";
 import SemiCircleProgressBar from "~/components/ui/half-circular-progress";
 import { Progress } from "~/components/ui/progress";
 import { TrendingUp } from "lucide-react";
 import SemiCircleProgress from "~/components/ui/semi-circle-progress";
+import PercentageCircle from "~/components/percentage-circle";
 
 interface IProps {
   indicators: any;
@@ -31,6 +35,20 @@ const CorporateDashboard = (props: IProps) => {
   ];
 
   const hrInds = ["EMP_PERF_PROD", "EMP_DEV_TRAIN"];
+  const piechartData = [
+    { name: "EMP_PERF_PROD", value: props.indicators["EMP_PERF_PROD"] },
+    { name: "EMP_DEV_TRAIN", value: props.indicators["EMP_DEV_TRAIN"] },
+  ];
+  const hrColors = {
+    EMP_PERF_PROD: {
+      gradientStart: "#EF7BE3",
+      gradientEnd: "#FF5A5A",
+    },
+    EMP_DEV_TRAIN: {
+      gradientStart: "#36F097",
+      gradientEnd: "#36F097",
+    },
+  };
   const ceoPerfIndicators = [
     {
       key: "OPERATIONAL_PLAN_ACHIVMENT_GOALS",
@@ -55,45 +73,65 @@ const CorporateDashboard = (props: IProps) => {
   ];
 
   const orgPlanCards = [
-    "PLANNING_ORGANIZING",
-    "FOLLOWUP_OPERATIONAL_PLAN",
     "QUALITY_OPERATIONAL_PLAN",
+    "FOLLOWUP_OPERATIONAL_PLAN",
   ];
   const satisInds = [
     {
+      id:"BENEF_SATIS_MEASURMENT",
       value: Number(props.indicators.BENEF_SATIS_MEASURMENT).toFixed(2),
       name: indicatorsLabels.CORPORATE.BENEF_SATIS_MEASURMENT,
-      fill: "url(#paint0_linear_857_15912)",
+      fill: "#EF7BE3",
+      justify:true,
+      size:150
     },
     {
+      id:"EMP_SATIS_MEASURMENT",
       value: Number(props.indicators.EMP_SATIS_MEASURMENT).toFixed(2),
       name: indicatorsLabels.CORPORATE.EMP_SATIS_MEASURMENT,
-      fill: "url(#paint0_linear_857_15917)",
+      fill: "#FF5A5A",
+      justify:false,
+      size:120
     },
     {
+      id:"PARTENERS_SATIS_MEASURMENT",
       value: Number(props.indicators.PARTENERS_SATIS_MEASURMENT).toFixed(2),
       name: indicatorsLabels.CORPORATE.PARTENERS_SATIS_MEASURMENT,
-      fill: "url(#paint0_linear_857_15907)",
+      fill: "#725CFA",
+      justify:true,
+      size:100
     },
     {
+      id:"VOLUN_SATIS_MEASURMENT",
       value: Number(props.indicators.VOLUN_SATIS_MEASURMENT).toFixed(2),
       name: indicatorsLabels.CORPORATE.VOLUN_SATIS_MEASURMENT,
-      fill: "url(#paint0_linear_857_15897)",
+      fill: "#FBE947",
+      justify:false,
+      size:150
     },
     {
+      id:"DONATORS_SATIS_MEASURMENT",
       value: Number(props.indicators.DONATORS_SATIS_MEASURMENT).toFixed(2),
       name: indicatorsLabels.CORPORATE.DONATORS_SATIS_MEASURMENT,
-      fill: "url(#paint0_linear_857_15892)",
+      fill: "orange",
+      justify:true,
+      size:120
     },
     {
+      id:"ADMIN_ORG_SATIS_MEASURMENT",
       value: Number(props.indicators.ADMIN_ORG_SATIS_MEASURMENT).toFixed(2),
       name: indicatorsLabels.CORPORATE.ADMIN_ORG_SATIS_MEASURMENT,
-      fill: "url(#paint0_linear_857_15912)",
+      fill: "#063970",
+      justify:false,
+      size:100
     },
     {
+      id:"COMMUNITY_SATIS_MEASURMENT",
       value: Number(props.indicators.COMMUNITY_SATIS_MEASURMENT).toFixed(2),
       name: indicatorsLabels.CORPORATE.COMMUNITY_SATIS_MEASURMENT,
-      fill: "url(#paint0_linear_857_15917)",
+      fill: "#873e23",
+      justify:true,
+      size:150
     },
   ];
 
@@ -110,16 +148,16 @@ const CorporateDashboard = (props: IProps) => {
             {cardsInds.map((card: string) => (
               <div
                 key={card}
-                className="relative flex flex-col justify-center items-center p-1 border-b-2 border-accent min-w-44 w-3/12 gap-1 shadow-custom "
+                className="relative flex flex-col justify-center items-center p-1 border-b-2 border-accent min-w-44 w-[30%] gap-1 shadow-custom "
               >
-                <h6 className="text-[18px] text-[#94979C]">
+                <h6 className=" text-2xl text-[#94979C]">
                   {
                     //@ts-ignore
                     indicatorsLabels.CORPORATE[card]
                   }
                 </h6>
 
-                <div className="flex justify-center items-center gap-1">
+                <div className="flex justify-center items-center gap-2">
                   <h5 className="text-">
                     {Number(props.indicators[card]).toFixed(2) + "%"}
                   </h5>
@@ -140,19 +178,90 @@ const CorporateDashboard = (props: IProps) => {
               <div className="flex flex-wrap gap-5 w-full justify-between rounded-lg bg-[#13161B] p-1">
                 <h4 className="w-full">{"التخطيط والتنظيم"}</h4>
               </div>
+              <div className="flex justify-between items-center gap-3 my-4">
+                {orgPlanCards.map((card) => (
+                  <div className="border flex flex-col rounded-lg p-2 gap-1">
+                    <h5>{indicatorsLabels.CORPORATE[card]}</h5>
+                    <h5>{Math.round(props.indicators[card])}%</h5>
 
+                    <Progress
+                      className="[&>div]:bg-gradient-to-r [&>div]:from-green-800 [&>div]:to-green-500 w-full h-2.5 bg-gray-700"
+                      value={Math.round(Number(props.indicators[card]))}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div className="w-2/5 flex flex-col">
               <div className="flex flex-wrap gap-5 w-full justify-between rounded-lg bg-[#13161B] p-1">
                 <h4 className="w-full">{"الموارد البشرية"}</h4>
               </div>
+              <div className="h-full w-full flex">
+                <div className="w-1/2 h-full justify-center flex flex-col">
+                  <div className="flex gap-3 items-center ">
+                    <div className="w-3 h-3 bg-gradient-to-t  from-[#36F097] to-[#2596be] rounded"></div>
+                    <h6>الأداء والإنتاجية</h6>
+                  </div>
+
+                  <div className="flex gap-3 items-center ">
+                    <div className="w-3 h-3 bg-gradient-to-t  from-[#EF7BE3] to-[#FF5A5A] rounded"></div>
+                    <h6>التطوير والتدريب</h6>
+                  </div>
+                </div>
+
+                {/* Added border for visibility */}
+                <ResponsiveContainer width="50%" height="100%" minHeight={220}>
+                  <PieChart>
+                    <defs>
+                      <linearGradient id="grad1" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#36F097" />
+                        <stop offset="100%" stopColor="#2596be" />
+                      </linearGradient>
+                      <linearGradient id="grad2" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#EF7BE3" />
+                        <stop offset="100%" stopColor="#FF5A5A" />
+                      </linearGradient>
+                    </defs>
+
+                    <Pie
+                      data={[
+                        {
+                          name: indicatorsLabels.CORPORATE["EMP_PERF_PROD"],
+                          value:
+                            Math.round(
+                              Number(props?.indicators?.["EMP_PERF_PROD"])
+                            ) ?? 50,
+                        },
+                        {
+                          name: indicatorsLabels.CORPORATE["EMP_DEV_TRAIN"],
+                          value:
+                            Math.round(
+                              Number(props?.indicators?.["EMP_DEV_TRAIN"])
+                            ) ?? 50,
+                        },
+                      ]}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={60}
+                      outerRadius={80}
+                      paddingAngle={5}
+                      dataKey="value"
+                      label
+                    >
+                      <Cell key="cell-0" fill="url(#grad1)" />
+                      <Cell key="cell-1" fill="url(#grad2)" />
+                    </Pie>
+                    <Tooltip />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
             </div>
           </div>
         </div>
 
         {/* أداء المدير التنفيذي */}
-        <div className="flex flex-wrap gap-5 justify-center items-center w-4/12">
+        <div className="flex flex-wrap gap-5 justify-center items-center w-4/12 h-full">
           <div className="flex gap-5 w-full rounded-lg bg-[#13161B] p-1">
             <h4 className="w-full">{"أداء المدير التنفيذي"}</h4>
           </div>
@@ -165,7 +274,11 @@ const CorporateDashboard = (props: IProps) => {
                 >
                   <p>{indicatorsLabels.CORPORATE[card.key]}</p>
 
-                  <SemiCircleProgress  size={120} percentage={86} color={card.gradientStart} />
+                  <SemiCircleProgress
+                    size={120}
+                    percentage={Math.round(Number(props.indicators[card.key]))}
+                    color={card.gradientStart}
+                  />
                 </div>
               ))}
             </div>
@@ -173,179 +286,18 @@ const CorporateDashboard = (props: IProps) => {
         </div>
       </div>
 
-      <div className="flex gap-4">
-        <div className=" rounded-lg p-8 flex-wrap gap-5  bg-[#13161B]  h-[550px] w-1/2 my-5">
-          <h5 className="mb-4">قياس الرضا</h5>
-
-          <ResponsiveContainer width="100%" height="80%">
-            <BarChart
-              width={800}
-              height={400}
-              data={satisInds}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <defs>
-                <linearGradient
-                  id="paint0_linear_857_15912"
-                  x1="19.4768"
-                  y1="144"
-                  x2="19.4768"
-                  y2="90"
-                  gradientUnits="userSpaceOnUse"
-                >
-                  <stop stop-color="#1882FF" />
-                  <stop offset="1" stop-color="#36EBCA" />
-                </linearGradient>
-
-                <linearGradient
-                  id="paint0_linear_857_15917"
-                  x1="32"
-                  y1="97.2632"
-                  x2="8.34548"
-                  y2="97.2632"
-                  gradientUnits="userSpaceOnUse"
-                >
-                  <stop stop-color="#36F097" />
-                  <stop offset="1" stop-color="#36F097" stop-opacity="0.2" />
-                </linearGradient>
-
-                <linearGradient
-                  id="paint0_linear_857_15907"
-                  x1="0"
-                  y1="71.5"
-                  x2="32"
-                  y2="71.5"
-                  gradientUnits="userSpaceOnUse"
-                >
-                  <stop stop-color="#EF7BE3" />
-                  <stop offset="1" stop-color="#FF5A5A" />
-                </linearGradient>
-
-                <linearGradient
-                  id="paint0_linear_857_15897"
-                  x1="16.6957"
-                  y1="88"
-                  x2="16.6957"
-                  y2="55"
-                  gradientUnits="userSpaceOnUse"
-                >
-                  <stop stop-color="#FBE947" />
-                  <stop offset="1" stop-color="#58D764" />
-                </linearGradient>
-
-                <linearGradient
-                  id="paint0_linear_857_15892"
-                  x1="0.5"
-                  y1="123.5"
-                  x2="32.5"
-                  y2="123.5"
-                  gradientUnits="userSpaceOnUse"
-                >
-                  <stop stop-color="#725CFA" />
-                  <stop offset="1" stop-color="#EF7BE3" />
-                </linearGradient>
-              </defs>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip
-                label={"القيمة"}
-                wrapperStyle={{ width: 100, backgroundColor: "#ccc" }}
-                formatter={function (total) {
-                  return `${total}`;
-                }}
-              />
-
-              <Bar
-                dataKey="value"
-                barSize={10}
-                width={5}
-                radius={[10, 10, 0, 0]}
-              />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-
-        <div className="flex my-5 min-h-96 w-1/2 gap-4  bg-[#13161B] rounded-lg p-5  flex-col">
-          <h5 className="mb-4">{"الموارد البشرية"}</h5>
-          {hrInds.map((card) => (
-            <div
-              key={card}
-              className="relative flex flex-col p-5 border border-[#5C626D] rounded-lg min-w-64 h-44 gap-5 shadow-custom"
-            >
-              <h6 className="text-[16px]">
-                {
-                  //@ts-ignore
-                  indicatorsLabels.CORPORATE[card]
-                }
-              </h6>
-
-              <h4 className="text-">
-                {Number(props.indicators[card]).toFixed(2) + "%"}
-              </h4>
-              <Progress
-                className="[&>div]:bg-gradient-to-r [&>div]:from-green-900 [&>div]:to-green-300 w-full h-2.5 bg-gray-700"
-                value={Math.round(Number(props.indicators[card]))}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="flex my-5 gap-4">
-        <div className=" bg-[#13161B] my-5 p-5 rounded-lg  ">
-          <h5 className="my-5">{"التخطيط والتنظيم"}</h5>
-          <div className="flex flex-col gap-8">
-            {orgPlanCards.map((card: string) => (
-              <div
-                key={card}
-                className="relative flex flex-col p-5 border border-[#5C626D] rounded-lg min-w-96 h-32 gap-5 shadow-custom"
-              >
-                <h6 className="text-[16px]">
-                  {
-                    //@ts-ignore
-                    indicatorsLabels.CORPORATE[card]
-                  }
-                </h6>
-
-                <h4 className="text-">
-                  {Number(props.indicators[card]).toFixed(2) + "%"}
-                </h4>
-                <PlanOrgIcon className="absolute left-4 bottom-4" />
+      <div className="w-full">
+      <div className="flex flex-wrap mb-5 gap-5 w-full justify-between rounded-lg bg-[#13161B] p-1">
+                <h4 className="w-full">{"قياس رضا المستفيدين"}</h4>
               </div>
-            ))}
-          </div>
-        </div>
+              <div className="h-60 flex justify-between w-10/12 place-self-center">
+              {satisInds.map((indicator)=>(
+                <div className={`h-full flex ${indicator.justify?"items-start":"items-end"} `}>
+              <PercentageCircle startColor={indicator.fill} size={indicator.size} value={Math.round(Number(props.indicators[indicator.id]))} />
 
-        {/* <div className="bg-[#13161B] my-5 p-5 rounded-lg">
-          <h5 className="my-5">{" أداء المدير التنفيذي"}</h5>
-          <div className="flex flex-wrap gap-4">
-            {ceoPerfIndicators.map((card) => (
-              <div
-                key={card.key}
-                className="relative flex flex-col p-5 border border-[#5C626D] rounded-lg min-w-80  gap-5 shadow-custom"
-              >
-                <h6 className="text-[16px]">
-                  {
-                    //@ts-ignore
-                    indicatorsLabels.CORPORATE[card.key]
-                  }
-                </h6>
-                <SemiCircleProgressBar
-                  gradientStart={card.gradientStart}
-                  gradientEnd={card.gradientEnd}
-                  gradientId={card.key + "gradient"}
-                  progress={Number(props.indicators[card.key])}
-                />
+                </div>
+              ))}
               </div>
-            ))}
-          </div>
-        </div> */}
       </div>
     </section>
   );
