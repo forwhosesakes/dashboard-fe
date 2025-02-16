@@ -180,7 +180,7 @@ const CorporateDashboard = (props: IProps) => {
               </div>
               <div className="flex justify-between items-center gap-3 my-4">
                 {orgPlanCards.map((card) => (
-                  <div className="border flex flex-col rounded-lg p-2 gap-1">
+                  <div className="border flex flex-col rounded-lg p-2 w-[45%] gap-1">
                     <h5>{indicatorsLabels.CORPORATE[card]}</h5>
                     <h5>{Math.round(props.indicators[card])}%</h5>
 

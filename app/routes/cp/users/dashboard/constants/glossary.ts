@@ -177,7 +177,7 @@ const indicatorsLabels = {
     FUND_RAISING_TO_TOTAL_DONAT:"مصاريف جمع الأموال إلى اجمالي التبرعات",
     CACHE_RELATED_TO_NET_ASSETS_AND_AWQAF:"النقد وما ي حكمه إلى (صافي الأصول المقيدة + صافي أصول النقدية الأوقاف)",
     NET_CACHE_INVEST_ADMIN_EXPENSES:"صافي النقد والاستثمارات المتداولة إلى المصاريف الإدارية التقديرية",
-    DONAT_PERC:"نسبة التبرعات (مقيدة/غير مقيدة)",
+    DONAT_PERC:"نسبة التبرعات",
     PLATFORM_REV_PERC:"نسبة الإيرادات من المنصات",
     PRGMS_PRJKS_REV:"عوائد البرامج و المشاريع",
     PAID_MEMBERSHIP_PERC:"نسبة العضويات المسددة",
