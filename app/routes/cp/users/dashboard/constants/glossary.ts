@@ -242,7 +242,24 @@ const indicatorsLabels = {
     REACH_TARGET_AUD_PERC: "نسبة الوصول للفئة المستهدفة"
 
   },
-  GENERAL: {},
+  GENERAL: {
+    ECO_RETURN_VOLUN: "العائد الاقتصادي للتطوع",
+    FINANCIAL_PERF: "نسبة الأداء المالي ",
+    ADMIN_EXPENSES: "المصاريف الإدارية والعمومية",
+    CORPORATE_PERFORMANCE: "نسبة الأداء المؤسسي  ",
+    GENERAL_PERFORMANCE:"نسبة الأداء العام ",
+    VOLUN_SATIS_MEASURMENT: "قياس رضا المتطوعين",
+    BENEF_SATIS_MEASURMENT: "قياس رضا المستفيدين",
+    ADMIN_ORG_SATIS_MEASURMENT: "قياس رضا اصحاب المصلحة",
+    TOTAL_FINANCIAL_PEFORMANCE:"نسبة الأداء المالي ",
+    OPERATIONAL_PERFORMANCE:"نسبة الأداء التشغيلي ",
+
+    GOVERANCE:"نسبة الحوكمة العامة",
+    OPS_PLAN_EXEC: "تنفيذ الخطة التشغيلية",
+    PRJKT_PRGM_MGMT: "إدارة المشاريع والبرامج",
+    EFFIC_INTERNAL_OPS: "كفاءة العمليات الداخلية",
+    VOLN_MGMT: "إدارة التطوع"
+  },
 };
 
 

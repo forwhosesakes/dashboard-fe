@@ -70,8 +70,6 @@ const Dashbaord = () => {
   //   }, [currentDashboard]);
 
   useEffect(() => {
-    console.log("mounted");
-
     setDarkTheme();
     return () => {
       setLightTheme();

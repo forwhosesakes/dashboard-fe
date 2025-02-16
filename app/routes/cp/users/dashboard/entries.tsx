@@ -42,7 +42,7 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
 
 
   return {
-    entries:(entries)[0],
+    entries:entries.length? entries[0]:null ,
     indicators: indicators.length? indicators[0]:null,
     currentDashboard: dashboardType,
     baseUrl: context.cloudflare.env.BASE_URL,
@@ -58,6 +58,7 @@ const Entries = ({
 
 
   const { entries,indicators, currentDashboard, baseUrl, id } = useLoaderData();
+
   const locationData = useLocation();
   const [view, setView] = useState<"entries" | "indicators">("entries");
   const [loading,setLoading] = useState(false)
@@ -71,16 +72,15 @@ const Entries = ({
     
     const dashboardsOverview = locationData.state?.dashboardsOverview;
     if (dashboardsOverview) {
- 
 
-      
-      const currentDasboardData = dashboardsOverview.find((dashboard) =>
+      const currentDasboardData = dashboardsOverview.find((dashboard:any) =>
         dashboard.title.includes(currentDashboard)
       );
 
       if (currentDasboardData) {
 
         if (currentDasboardData.status === "NOT_STARTED") {
+          
           const initialEntries = Object.entries(
             initialValues[currentDashboard]
           ).map(([key, value]) => ({
@@ -91,7 +91,8 @@ const Entries = ({
           setCurrentEntries(initialEntries);
         } else {
           const excludedKeys = ["id", "dashbaordId", "createdAt", "updatedAt"];
-          const newEntries = Object.entries(entries)
+          if(entries){
+            const newEntries = Object.entries(entries)
             .filter(([key]) => !excludedKeys.includes(key))
             .map(([key, value], i) => ({
               name: key,
@@ -99,6 +100,9 @@ const Entries = ({
               value,
             }));
           setCurrentEntries(newEntries);
+
+          }
+          
         }
       }
     }
@@ -209,7 +213,7 @@ const Entries = ({
                       نسبة إكمال البيانات
                     </p>
                   </div> */}
-                  <DashboardEntries
+                 {<DashboardEntries
                     dashboardType={currentDashboard}
                     entries={currentEntries}
                     onEntryChange={(name, value) => {
@@ -219,7 +223,7 @@ const Entries = ({
                       setCurrentEntries(updatedEntries);
                     }}
                     status={"COMPLETED"}
-                  />
+                  />}
                 </>
               ) : (
                 <DashboardIndicators indicators={{...entries,...indicators}} type={currentDashboard}/>

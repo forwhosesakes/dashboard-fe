@@ -4,6 +4,7 @@ import { Button } from "~/components/ui/button";
 import { dashboardApi, type DashboardOverviewType } from "~/lib/api/dashboard";
 import { dashboardStatusMap } from "./constants/glossary"
 import { useEffect } from "react";
+import { newDashboardsTitles } from "~/routes/org/dashboard/constants/glossary";
 
 type LoaderData = {
     dashboardsOverview: DashboardOverviewType[];
@@ -55,7 +56,9 @@ useEffect(()=>{
                   <div className="border p-2 rounded-lg">
                     <Layers className="h-5 w-5"/>
                   </div>
-                  {dashboard.title}
+                  {
+                  //@ts-ignore
+                  newDashboardsTitles[dashboard.title]}
                 </div>
                 <div id="bottom-section" className="border-t group-hover:border-accent flex flex-col py-5 px-5 h-5/6">
                   <div className="flex justify-between">
@@ -72,9 +75,7 @@ useEffect(()=>{
                       } rounded-full`}></div>
                     </div>
                   </div>
-                  <div className="flex items-center w-full h-full">
-                    <p>تعريف بالمؤشر</p>
-                  </div>
+               
                 </div>
               </NavLink>
               
