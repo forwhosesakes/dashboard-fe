@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41 41">
+  <defs>
+    <style>
+      @keyframes pulse-outer {
+        0%, 100% { opacity: 0.1; }
+        50% { opacity: 0.3; }
+      }
+      @keyframes pulse-middle {
+        0%, 100% { opacity: 0.2; }
+        50% { opacity: 0.4; }
+      }
+      @keyframes pulse-inner {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.7; }
+      }
+      .outer-circle {
+        animation: pulse-outer 2s ease-in-out infinite;
+      }
+      .middle-circle {
+        animation: pulse-middle 2s ease-in-out infinite;
+      }
+      .inner-circle {
+        animation: pulse-inner 2s ease-in-out infinite;
+      }
+    </style>
+  </defs>
+  
+  <g class="outer-circle">
+    <rect x="0.691406" y="0.325684" width="40" height="40" rx="20" fill="#00AE84"/>
+  </g>
+  
+  <g class="middle-circle">
+    <rect x="8.69141" y="8.32568" width="24" height="24" rx="12" fill="#00AE84"/>
+  </g>
+  
+  <rect class="inner-circle" x="16.6914" y="16.3257" width="8" height="8" rx="4" fill="#00AE84"/>
+</svg>

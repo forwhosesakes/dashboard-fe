@@ -30,7 +30,6 @@ const FinancialDashboard = (props: IProps) => {
     "ABL_COVER_OBLIG",
     "GENERAL_ADMINSTRATIVE_EXPENSES",
     "DONAT_MONEY_RAISING",
-    "ABL_COVER_OBLIG",
   ];
 
   const finValueThemes = {
@@ -266,7 +265,7 @@ const FinancialDashboard = (props: IProps) => {
 
       <div className="flex min-w-[20%] flex-wrap gap-5 my-5 rounded-lg p-5">
         {finPerfCards.map((card: string) => (
-          <div className="border p-2 flex flex-col gap-2 rounded-lg">
+          <div className="border border-[#555C6A] p-4 flex flex-col gap-2 rounded-lg">
             <p className="text-[#94979C] font-bold text-xl">
               {/*  @ts-ignore  */}
               {indicatorsLabels.FINANCIAL[card]}
@@ -294,13 +293,13 @@ const FinancialDashboard = (props: IProps) => {
           <h5 className="">{"تنمية الموارد المالية"}</h5>
         </div>
         <div className=" flex gap-2 justify-between w-full h-full items-center mt-8">
-          <div className="flex w-1/3 h-full max-h-[320px] justify-start items-start flex-wrap p-2 rounded-lg border-2  flex-col  ">
+          <div className="grid grid-cols-2 w-1/2 h-full  justify-start items-start  p-4 rounded-lg border-2    ">
             {rawData.map((card) => (
               <div
-                className="flex justify-center items-center gap-1"
+                className="flex flex-col justify-center items-start gap-1"
                 key={card.id}
               >
-                <div className="flex items-center my-4 gap-x-4">
+                <div className="flex items-center mt-4 mb-2 gap-x-4">
                   <div
                     style={{ background: card.fill }}
                     className="rounded-full h-3 w-3"
@@ -308,21 +307,21 @@ const FinancialDashboard = (props: IProps) => {
                   <h6 className="text-[#94979C]">{card.name}</h6>
                 </div>
 
-                <h6 className="text-white">{Number(card.value).toFixed(1)}%</h6>
+                <h5 className="text-white">{Number(card.value).toFixed(1)}%</h5>
               </div>
             ))}
           </div>
-          <div className="border-2 w-full h-full max-h-[320px] p-2 rounded-lg">
+          <div className="border-2 w-1/2 h-full max-h-[320px] p-2 rounded-lg">
             <ResponsiveContainer width="100%" height={300}>
               <BarChart width={150} height={40} data={barchartSingleMonthData}>
                 <defs>
                   {barchartSingleMonthData.map((entry, index) => {
                     const colors = [
-                      { start: "#EF7BE3", end: "#30192d" },
-                      { start: "#F79009", end: "#311d02" },
-                      { start: "#1F51FF", end: "#061033" },
-                      { start: "#17b26a", end: "#052415" },
-                      { start: "#800020", end: "#26000a" },
+                      { start: "#FBE947", end: "#58D764" },
+                      { start: "#1882FF", end: "#36EBCA" },
+                      { start: "#FF5A5A", end: "#EF7BE3" },
+                      { start: "#17b26a", end: "#36F097" },
+                      { start: "#F79009", end: "#F79099" },
                     ][index];
 
                     return (
@@ -344,9 +343,11 @@ const FinancialDashboard = (props: IProps) => {
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
                 <YAxis  domain={[0,100]}/>
-                <Tooltip />
+                {/* <Tooltip /> */}
 
-                <Bar dataKey="value" barSize={50} radius={[8, 8, 0, 0]}>
+                <Bar dataKey="value" barSize={40} 
+                
+                radius={[8, 8, 0, 0]}>
                   {barchartSingleMonthData.map((entry, index) => (
                     <Cell
                       key={`cell-${index}`}
@@ -357,54 +358,7 @@ const FinancialDashboard = (props: IProps) => {
               </BarChart>
             </ResponsiveContainer>
           </div>
-          {/* yearly chart */}
-          {/* <ResponsiveContainer
-            width="100%"
-            height={400}
-            className="border-2 rounded-lg"
-          >
-            <BarChart
-              width={500}
-              height={500}
-              data={barchartData}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Bar
-                dataKey="EFFECIENT_RESOURCE_MGMT"
-                fill="#EE46BC"
-                activeBar={<Rectangle fill="#EE46BC" stroke="blue" />}
-              />
-              <Bar
-                dataKey="PLATFORM_REV_PERC"
-                fill="#F79009"
-                activeBar={<Rectangle fill="#F79009" stroke="purple" />}
-              />
-              <Bar
-                dataKey="PRGMS_PRJKS_REV"
-                fill="#1F51FF"
-                activeBar={<Rectangle fill="#1F51FF" stroke="purple" />}
-              />
-              <Bar
-                dataKey="TOTAL_TAX_REFUND"
-                fill="#17B26A"
-                activeBar={<Rectangle fill="#17B26A" stroke="purple" />}
-              />
-              <Bar
-                dataKey="DONAT_PERC"
-                fill="#800020"
-                activeBar={<Rectangle fill="#800020" stroke="purple" />}
-              />
-            </BarChart>
-          </ResponsiveContainer> */}
+   
         </div>
       </div>
     </section>

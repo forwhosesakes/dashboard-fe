@@ -11,6 +11,16 @@ const dashboardStatusMap = {
     GENERAL: "اللوحة العامة",
   };
 
+
+  const newDashboardsTitles = {
+    NEW_CORPORATE_INDICATORS:"اللوحة المؤسسية",
+    NEW_FINANCIAL_INDICATORS:"اللوحة المالية",
+    NEW_OPERATIONAL_INDICATORS:"اللوحة التشغيلية",
+    NEW_GENERAL_INDICATORS:"اللوحة العامة"
+
+
+  }
+
   const indicatorsLabels = {
     FINANCIAL: {
       FINANCIAL_PERF:"الأداء المالي",
@@ -97,7 +107,22 @@ const dashboardStatusMap = {
       REACH_TARGET_AUD_PERC: "نسبة الوصول للفئة المستهدفة"
   
     },
-    GENERAL: {},
+    GENERAL: {
+      ECO_RETURN_VOLUN: "العائد الاقتصادي للتطوع",
+      FINANCIAL_PERF: "نسبة الأداء المالي ",
+      ADMIN_EXPENSES: "المصاريف الإدارية والعمومية",
+      CORPORATE_PERFORMANCE: "نسبة الأداء المؤسسي  ",
+      GENERAL_PERFORMANCE:"نسبة الأداء العام ",
+      VOLUN_SATIS_MEASURMENT: "قياس رضا المتطوعين",
+      BENEF_SATIS_MEASURMENT: "قياس رضا المستفيدين",
+      ADMIN_ORG_SATIS_MEASURMENT: "قياس رضا اصحاب المصلحة",
+      GOVERANCE:"نسبة الحوكمة العامة",
+      OPS_PLAN_EXEC: "تنفيذ الخطة التشغيلية",
+      PRJKT_PRGM_MGMT: "إدارة المشاريع والبرامج",
+      EFFIC_INTERNAL_OPS: "كفاءة العمليات الداخلية",
+      VOLN_MGMT: "إدارة التطوع"
+    
+    },
   };
 
-export { indicatorsLabels, dashboardStatusMap, tabsNames };
+export { indicatorsLabels, dashboardStatusMap, tabsNames ,newDashboardsTitles};

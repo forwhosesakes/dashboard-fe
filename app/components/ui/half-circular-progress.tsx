@@ -9,9 +9,9 @@ const SemiCircleProgressBar = ({
   gradientId = 'progressGradient'
 }) => {
   const sizes = {
-    sm: { width: 120, height: 60, strokeWidth: 8 },
-    md: { width: 200, height: 100, strokeWidth: 12 },
-    lg: { width: 300, height: 150, strokeWidth: 16 }
+    sm: { width: 120, height: 60, strokeWidth: 12 },
+    md: { width: 200, height: 100, strokeWidth: 20 },
+    lg: { width: 300, height: 150, strokeWidth: 32 }
   };
 //@ts-ignore
   const { width, height, strokeWidth } = sizes[size] || sizes.md;
@@ -26,6 +26,7 @@ const SemiCircleProgressBar = ({
           width={width}
           height={height}
           viewBox={`0 0 ${width} ${height}`}
+          style={{ transform: "rotate(0deg)", overflow: "visible" }}
         >
           {/* Define the gradient */}
           <defs>
@@ -65,7 +66,7 @@ const SemiCircleProgressBar = ({
         
         {/* Percentage text */}
         <div className="absolute inset-0 flex items-center justify-center mt-4">
-          <span className="text-2xl mt-5 font-semibold text-white">
+          <span className="text-2xl mt-8 font-semibold text-white">
             {progress.toFixed(2)}%
           </span>
         </div>
