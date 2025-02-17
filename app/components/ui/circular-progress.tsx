@@ -6,7 +6,8 @@ const CircularProgressBar = ({
   animate = true,
   gradientStart = '#3B82F6',  // Default blue-500
   gradientEnd = '#2563EB',    // Default blue-600
-  gradientId = 'progressGradient'
+  gradientId = 'progressGradient',
+  textFillColor="fill-gray-700"
 }) => {
   const sizes = {
     sm: { width: 120, strokeWidth: 16 },
@@ -67,7 +68,6 @@ const CircularProgressBar = ({
               stroke={`url(#${gradientId})`}
               className={`${animate ? 'transition-all duration-500' : ''}`}
               strokeWidth={strokeWidth}
-              strokeLinecap="round"
               strokeDasharray={circumference}
               strokeDashoffset={progressStroke}
             />
@@ -75,10 +75,10 @@ const CircularProgressBar = ({
             {/* Percentage text */}
             <text
               x="50%"
-              y="50%"
+              y="-50%"
               textAnchor="middle"
               dy="0.3em"
-              className="rotate-90 text-2xl font-semibold fill-gray-700"
+              className={` rotate-90 text-2xl font-semibold ${textFillColor}`}
             >
               {progress}%
             </text>
