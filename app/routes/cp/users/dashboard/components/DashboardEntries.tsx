@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import type { DashboardType } from "~/lib/api/dashboard";
-import { entriesLabels } from "../constants/glossary";
 import GovernanceEntries from "./governanceEntries";
 
 interface DashboardEntriesProps {
@@ -21,9 +20,7 @@ const DashboardEntries = ({
   } | null>(null);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
-  const getLabels = ():Record<string,string> => {
-    return entriesLabels[dashboardType]??{}
-  };
+
 
   // If status is NOT_STARTED, use initial values
   // const displayEntries =
@@ -61,12 +58,7 @@ const DashboardEntries = ({
         })
       }
      }
-
-     const governanceTabs = [
-      "COMPLIANCE_ADHERENCE_PRACTICES","TRANSPARENCY_DISCLOSURE_PRACTICES","FINANCIAL_SAFETY_PRACTICES"
-     ]
-
-     
+    
 
   return (
     <div className="flex flex-col ">
@@ -93,10 +85,13 @@ const DashboardEntries = ({
               <input
               // @ts-ignore
                 ref={el => inputRefs.current[index] = el}
+              id={entry.name}
+
                 type="number"
-                className="bg-white text-primary-foreground p-2"
+                className="bg-white text-primary-foreground p-2 outline-none border-none focus:outline-none focus:ring-0"
                 onBlur={handleBlur}
                 onInput={handleInput}
+                onFocus={(e)=>e.target.select()}
                 value={entryToEdit.value}
                 min={0}
                 step="any"

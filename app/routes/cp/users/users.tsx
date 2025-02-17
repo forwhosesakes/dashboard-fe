@@ -149,6 +149,12 @@ const Users = () => {
   const fetcher = useFetcher();
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
+
+  useEffect(()=>{
+    document.title="الجمعيات "
+
+  },[])
+
   const [userToDelete, setUserToDelete] = useState<TClientOverview | null>(
     null
   );

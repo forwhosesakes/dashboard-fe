@@ -1,13 +1,10 @@
 import {
-  NavLink,
-  redirect,
   useLoaderData,
   useLocation,
   useNavigate,
   type LoaderFunctionArgs,
 } from "react-router";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import SemiCircleProgress from "~/components/ui/semi-circle-progress";
 import { useEffect, useRef, useState } from "react";
 import {
   dashboardApi,
@@ -25,8 +22,6 @@ import { useThemeStore } from "~/lib/store/theme-store";
 
 
 export const loader = async ({ context, params }: LoaderFunctionArgs) => {
-  console.log("params:: ", params);
-
   let { id, dashboardType } = params;
 
   const entries = await dashboardApi(
@@ -69,6 +64,10 @@ const Entries = ({
   >([]);
 
   useEffect(() => {
+    if(indicators===null){
+      setView("entries")
+setLightTheme()
+    }
     
     const dashboardsOverview = locationData.state?.dashboardsOverview;
     if (dashboardsOverview) {
@@ -79,7 +78,7 @@ const Entries = ({
 
       if (currentDasboardData) {
 
-        if (currentDasboardData.status === "NOT_STARTED") {
+        if (currentDasboardData.status === "NOT_STARTED" || entries===null) {
           
           const initialEntries = Object.entries(
             initialValues[currentDashboard]
@@ -121,9 +120,12 @@ const Entries = ({
 
   const navigate = useNavigate();
   const handleTabChange = (value: string) => {
+
     navigate(`/cp/users/org/${id}/dashboard/${value}`, {
       state: locationData.state,
     });
+
+
   };
 
   const saveEntries = async () => {
@@ -151,6 +153,28 @@ const Entries = ({
     }
   };
 
+  const removeEntries= async ()=>{
+    try {
+      setLoading(true)
+      const requestBody = {};
+   
+       await dashboardApi(baseUrl).removeEntries(
+        id,
+         currentDashboard,
+      );
+      toasts.success({message:"تم إعادة تعيين اللوحة بنجاح"})
+      setLoading(false)
+
+    } catch (e) {
+      console.error("Failed to save entries:", e);
+      setLoading(false)
+      toasts.error({message:"حدث خطأ أثناء إعادة تعيين اللوحة"})
+
+
+    }
+
+  }
+
 
 
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -171,21 +195,9 @@ const Entries = ({
   
   return (
     <>
-      <DashboardHeader dashboardType={currentDashboard} onSave={saveEntries} loading={loading} />
+      <DashboardHeader dashboardType={currentDashboard} onSave={saveEntries} loading={loading} onDelete={removeEntries} />
       <ViewSwitch hasIndicators={!!indicators} view={view} onViewChange={setView} toggleFullscreen={toggleFullscreen} />
-      {/* <div className="flex justify-between p-5">
-        <div>
-          <h5>{`${currentIndicator?.name ?? "مؤشر الأداء المالي"}`}</h5>
-          <p className="text-primary-foreground/75">{`أدخل بيانات المؤشر.`}</p>
-        </div>
-        <div className="flex gap-x-4">
-            <Button variant={"secondary"} onClick={saveEntries}>{"حفظ المدخلات"}</Button>
-          <NavLink to={`dashboard`}>
-            <Button variant={"outline"}>{"تعديل"}</Button>
-          </NavLink>
-        </div>
-      </div> */}
-
+  
       <div id="tabs" className="w-full h-full border-t pt-2">
         <Tabs
           defaultValue={currentDashboard}
@@ -195,16 +207,17 @@ const Entries = ({
         >
           <TabsList className="w-full justify-start bg-transparent">
         
-            {locationData.state?.dashboardsOverview.map((tab) => (
+            {locationData.state?.dashboardsOverview.map((tab:any) => (
               <TabsTrigger value={tab.title.split("_")[1]}>
-                {tabsNames[tab.title.split("_")[1]]}
+                {
+                //@ts-ignore
+                tabsNames[tab.title.split("_")[1]]}
               </TabsTrigger>
             ))}
           </TabsList>
 
           <TabsContent value={currentDashboard}>
             <div className="p-4 overflow-auto" ref={containerRef}>
-              {/* Content for مؤشر الأداء المالي */}
               {view === "entries" ? (
                 <>
                   {/* <div className="flex flex-col justify-center items-center">

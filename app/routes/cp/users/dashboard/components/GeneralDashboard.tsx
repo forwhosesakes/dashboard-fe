@@ -86,7 +86,7 @@ const GeneralDashboard = ({ indicators }: IProps) => {
   return (
     <section>
       <div className="flex flex-wrap gap-4">
-        {cards.map((card) => (
+        {cards.filter((c)=>c.value).map((card) => (
           <div className="flex flex-col p-5 items-center justify-center rounded-md border border-[#22262F]">
             <h6>
               {

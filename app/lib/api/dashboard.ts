@@ -507,6 +507,34 @@ export const dashboardApi = (url: string) => {
         throw e;
       }
     },
+    removeEntries: async <T extends DashboardType>(
+      id: string,
+      type: T
+    ): Promise<any> => {
+      try {
+        const response = await fetch(`${url}/dashboard/entries/${type}/${id}`, {
+          method: 'DELETE'
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => null);
+          const message = isErrorWithMessage(errorData)
+            ? errorData.message
+            : undefined;
+          throw new Error(message || `HTTP error! status: ${response.status}`);
+        }
+        const rawResponse = await response.json();
+
+     
+        return rawResponse
+      } catch (e) {
+        if (e instanceof z.ZodError) {
+          console.error("Validation error:", e.errors);
+          throw new Error(`Invalid ${type} dashboard data format`);
+        }
+        throw e;
+      }
+    },
 
 
     getIndicators: async <T extends DashboardType>(

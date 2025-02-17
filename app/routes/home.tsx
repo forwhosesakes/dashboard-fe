@@ -153,9 +153,10 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       ]
       }
     })
-    console.log("latest orgss:: ",rawLatestOrgs);
     
     setLatestOrgs(data)
+
+      document.title = " كدان | Kedan ";
 
 
   },[])

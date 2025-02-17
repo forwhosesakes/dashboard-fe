@@ -1,35 +1,74 @@
+import { useState } from "react";
 import { NavLink } from "react-router";
 import { Button } from "~/components/ui/button";
 import CircularSpinner from "~/components/ui/circular-spinner";
 import type { DashboardType } from "~/lib/api/dashboard";
+import EntriesSaveConfirmationDialoug from "./EntriesSaveConfirmationDialoug";
+import ResetEntriesConfirmationDialoug from "./ResetEntriesConfirmationDialoug";
 
 interface DashboardHeaderProps {
-    dashboardType: DashboardType;
-    onSave: () => void;
-    loading:boolean
+  dashboardType: DashboardType;
+  onSave: () => void;
+  onDelete: () => void;
+  loading: boolean;
 }
 
-const DashboardHeader = ({ dashboardType, onSave ,loading}: DashboardHeaderProps) => (
+const DashboardHeader = ({
+  dashboardType,
+  onSave,
+  onDelete,
+  loading,
+}: DashboardHeaderProps) => {
+  const [toSave, setToSave] = useState(false);
+  const [toDelete, setToDelete] = useState(false);
+
+  return (
     <div className="flex justify-between p-5">
-        <div>
-            <h5>{
-          dashboardType === 'FINANCIAL' ? 'الأداء المالي' :
-          dashboardType === 'OPERATIONAL' ? 'الأداء التشغيلي' :
-          dashboardType === 'CORPORATE' ? 'الأداء المؤسسي' : 'العام'
-        }</h5>
-            <p className="text-primary-foreground/75">أدخل بيانات المؤشر.</p>
-        </div>
-        <div className="flex gap-x-4">
-            <Button variant="secondary" onClick={onSave}>حفظ المدخلات
+      {toSave && (
+        <EntriesSaveConfirmationDialoug
+          isOpen={toSave}
+          onClose={() => setToSave(false)}
+          onConfirm={onSave}
+          type={dashboardType}
+        />
+      )}
+      {toDelete && (
+        <ResetEntriesConfirmationDialoug
+          isOpen={toDelete}
+          onClose={() => setToDelete(false)}
+          onConfirm={onDelete}
+          type={dashboardType}
+        />
+      )}
 
-            {loading && <CircularSpinner  size="xs"/>}
-            </Button>
-            <NavLink to="dashboard">
-                {/* //todo: should be in a dialog */}
-                <Button variant="outline">اصدار نسخة جديدة</Button>
-            </NavLink>
-        </div>
+      <div>
+        <h5>
+          {dashboardType === "FINANCIAL"
+            ? "الأداء المالي"
+            : dashboardType === "OPERATIONAL"
+            ? "الأداء التشغيلي"
+            : dashboardType === "CORPORATE"
+            ? "الأداء المؤسسي"
+            : "العام"}
+        </h5>
+        <p className="text-primary-foreground/75">أدخل بيانات المؤشر.</p>
+      </div>
+      <div className="flex gap-x-4">
+        <Button variant="secondary" onClick={() => setToSave(true)}>
+          حفظ المدخلات
+          {loading && <CircularSpinner size="xs" />}
+        </Button>
+        {dashboardType.toUpperCase()!=="GENERAL"&&<Button
+          onClick={() => setToDelete(true)}
+          variant="outline"
+          className="text-destructive  text-nowrap hover:bg-destructive hover:text-destructive-foreground border border-destructive"
+        >
+          {" "}
+          إعادة التعيين
+        </Button>}
+      </div>
     </div>
-);
+  );
+};
 
-export default DashboardHeader
+export default DashboardHeader;
