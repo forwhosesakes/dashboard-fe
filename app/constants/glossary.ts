@@ -44,6 +44,14 @@ const latestOrgs = {
             bg:"bg-[#eff8ff]",
             text:"text-[#175cd3]",
             border:"border-[#b2ddff]"}
+        },
+        "mosques":{
+            name:"رعاية المساجد",
+            theme:{
+                bg: "bg-[#f0f9f6]",
+                text: "text-[#027948]",
+                border: "border-[#b7e5d3]"
+            }
         }
 }
 

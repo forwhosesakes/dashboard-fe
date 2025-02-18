@@ -17,12 +17,17 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "~/components/ui/tabs";
 import ActiveNow from "~/assets/icons/active-now.svg";
 import Members from "~/assets/icons/members-icon.svg";
 import TotalMembers from "~/assets/icons/total-members.svg";
-import { redirect, useLoaderData, useNavigate, type LoaderFunctionArgs } from "react-router";
+import {
+  redirect,
+  useLoaderData,
+  useNavigate,
+  type LoaderFunctionArgs,
+} from "react-router";
 import { orgApi } from "~/lib/api/org";
-import glossary from "~/constants/glossary"
+import glossary from "~/constants/glossary";
 import { authClient } from "~/lib/auth-client";
 
-export async function loader ({request,context}:LoaderFunctionArgs){
+export async function loader({ request, context }: LoaderFunctionArgs) {
   const serverUrl = context.cloudflare.env.BASE_URL;
   const cookieHeader = request.headers.get("Cookie");
   const res = await authClient(serverUrl).getSession({
@@ -34,17 +39,17 @@ export async function loader ({request,context}:LoaderFunctionArgs){
     },
   });
   const session = res.data?.session;
-  const user = res.data?.user
+  const user = res.data?.user;
 
-  if (session && user && user.role === "user"){
-    const org = await orgApi(serverUrl).getOrgByUserId(user.id)
-    console.log("org is ::",org);
+  if (session && user && user.role === "user") {
+    const org = await orgApi(serverUrl).getOrgByUserId(user.id);
+    console.log("org is ::", org);
     // if(!org)return redirect("/login")
-    return redirect(`/org/${org.id}`)
-  } 
-  
-  const rawLatestOrgs = await orgApi(serverUrl).getLatestOrgs()
-  return{rawLatestOrgs}
+    return redirect(`/org/${org.id}`);
+  }
+
+  const rawLatestOrgs = await orgApi(serverUrl).getLatestOrgs();
+  return { rawLatestOrgs };
 }
 export function meta({}: Route.MetaArgs) {
   return [
@@ -90,23 +95,23 @@ const renderCustomAxisTick = ({ x, y, payload }) => {
   );
 };
 type Org = {
-  name:string;
-  month:string;
-  year:string;
-  tags:Tag[]
-}
+  name: string;
+  month: string;
+  year: string;
+  tags: Tag[];
+};
 
 type Tag = {
-  name:string;
-  theme:{
-    bg:string;
-    text:string;
-    border:string;
-  }
-}
+  name: string;
+  theme: {
+    bg: string;
+    text: string;
+    border: string;
+  };
+};
 export default function Home({ loaderData }: Route.ComponentProps) {
-  const {rawLatestOrgs} = useLoaderData()
-  const [latestOrgs, setLatestOrgs] = useState<Org[]>([])
+  const { rawLatestOrgs } = useLoaderData();
+  const [latestOrgs, setLatestOrgs] = useState<Org[]>([]);
   const [selectedFilter, setSelectedFilter] = useState("24h");
   const timeFilters = [
     { id: "24h", label: "24 ساعة" },
@@ -116,15 +121,21 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   ];
 
   const monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
 
-  
-  useEffect(()=>{
-    
-    
-    
+  useEffect(() => {
     // const data = rawLatestOrgs.map((org)=>{
     //   const date = new Date(org.createdAt)
     //   const year = date.getUTCFullYear();
@@ -144,271 +155,47 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     //     ]
     //   }
     // })
-    const data = rawLatestOrgs.map((org)=>{
-      const date = new Date(org.createdAt)
+    const data = rawLatestOrgs.map((org) => {
+      console.log(org);
+      
+      const date = new Date(org.createdAt);
       const year = date.getUTCFullYear();
-      const monthIndex = date.getUTCMonth()
-      const month = monthNames[monthIndex]
+      const monthIndex = date.getUTCMonth();
+      const month = monthNames[monthIndex];
 
-      return{
-        name:org.name,
+      return {
+        name: org.name,
         month,
         year,
-        tags:[{
-            name:glossary.latestOrgs[org.type]?.name,
-            theme:{
-              bg:glossary.latestOrgs[org.type]?.theme.bg,
-              text:glossary.latestOrgs[org.type]?.theme.text,
-              border:glossary.latestOrgs[org.type]?.theme.border
-            }
-        },
-        {
-          name:glossary.latestOrgs[org.category]?.name,
-          theme:{
-            bg:glossary.latestOrgs[org.category]?.theme.bg,
-            text:glossary.latestOrgs[org.category]?.theme.text,
-            border:glossary.latestOrgs[org.category]?.theme.border
-          }
-        }
-      ]
-      }
-    })
-    
-    setLatestOrgs(data)
+        tags: [
+          {
+            name: glossary.latestOrgs[org.type]?.name,
+            theme: {
+              bg: glossary.latestOrgs[org.type]?.theme.bg,
+              text: glossary.latestOrgs[org.type]?.theme.text,
+              border: glossary.latestOrgs[org.type]?.theme.border,
+            },
+          },
+          {
+            name: glossary.latestOrgs[org.category]?.name,
+            theme: {
+              bg: glossary.latestOrgs[org.category]?.theme.bg,
+              text: glossary.latestOrgs[org.category]?.theme.text,
+              border: glossary.latestOrgs[org.category]?.theme.border,
+            },
+          },
+        ],
+      };
+    });
 
-      document.title = " كدان | Kedan ";
+    setLatestOrgs(data);
 
+    document.title = " كدان | Kedan ";
+  }, []);
 
-  },[])
-  // const recentCharity = [
-  //   {
-  //     name: "جمعية البر بأبها",
-  //     month: "فبراير",
-  //     year: "2025",
-  //     tags: [
-  //       {
-  //         name: "أوقاف",
-  //         theme: {
-  //           bg: "bg-[#eef4ff]",
-  //           text: "text-[#3538cd]",
-  //           border: "border-[#c6d7fe]",
-  //         },
-  //       },
-  //       {
-  //         name: "رعاية الأيتام",
-  //         theme: {
-  //           bg: "bg-[#eff8ff]",
-  //           text: "text-[#175cd3]",
-  //           border: "border-[#b2ddff]",
-  //         },
-  //       },
-  //       {
-  //         name: "ملابس",
-  //         theme: {
-  //           bg: "bg-[#f9f5ff]",
-  //           text: "text-[#6941c6]",
-  //           border: "border-[#e9d7fe]",
-  //         },
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     name: "جمعية قيم بالخفجي",
-  //     month: "يناير",
-  //     year: "2025",
-  //     tags: [
-  //       {
-  //         name: "أوقاف",
-  //         theme: {
-  //           bg: "bg-[#eef4ff]",
-  //           text: "text-[#3538cd]",
-  //           border: "border-[#c6d7fe]",
-  //         },
-  //       },
-  //       {
-  //         name: "رعاية الأيتام",
-  //         theme: {
-  //           bg: "bg-[#eff8ff]",
-  //           text: "text-[#175cd3]",
-  //           border: "border-[#b2ddff]",
-  //         },
-  //       },
-  //       {
-  //         name: "ملابس",
-  //         theme: {
-  //           bg: "bg-[#f9f5ff]",
-  //           text: "text-[#6941c6]",
-  //           border: "border-[#e9d7fe]",
-  //         },
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     name: "جمعية البر بعنيزة",
-  //     month: "مارس",
-  //     year: "2025",
-  //     tags: [
-  //       {
-  //         name: "أوقاف",
-  //         theme: {
-  //           bg: "bg-[#eef4ff]",
-  //           text: "text-[#3538cd]",
-  //           border: "border-[#c6d7fe]",
-  //         },
-  //       },
-  //       {
-  //         name: "رعاية الأيتام",
-  //         theme: {
-  //           bg: "bg-[#eff8ff]",
-  //           text: "text-[#175cd3]",
-  //           border: "border-[#b2ddff]",
-  //         },
-  //       },
-  //       {
-  //         name: "ملابس",
-  //         theme: {
-  //           bg: "bg-[#f9f5ff]",
-  //           text: "text-[#6941c6]",
-  //           border: "border-[#e9d7fe]",
-  //         },
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     name: "جمعية الزكاة بالرياض",
-  //     month: "أبريل",
-  //     year: "2025",
-  //     tags: [
-  //       {
-  //         name: "أوقاف",
-  //         theme: {
-  //           bg: "bg-[#eef4ff]",
-  //           text: "text-[#3538cd]",
-  //           border: "border-[#c6d7fe]",
-  //         },
-  //       },
-  //       {
-  //         name: "رعاية الأيتام",
-  //         theme: {
-  //           bg: "bg-[#eff8ff]",
-  //           text: "text-[#175cd3]",
-  //           border: "border-[#b2ddff]",
-  //         },
-  //       },
-  //       {
-  //         name: "ملابس",
-  //         theme: {
-  //           bg: "bg-[#f9f5ff]",
-  //           text: "text-[#6941c6]",
-  //           border: "border-[#e9d7fe]",
-  //         },
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     name: "جمعية الإحسان بالدمام",
-  //     month: "مايو",
-  //     year: "2025",
-  //     tags: [
-  //       {
-  //         name: "أوقاف",
-  //         theme: {
-  //           bg: "bg-[#eef4ff]",
-  //           text: "text-[#3538cd]",
-  //           border: "border-[#c6d7fe]",
-  //         },
-  //       },
-  //       {
-  //         name: "رعاية الأيتام",
-  //         theme: {
-  //           bg: "bg-[#eff8ff]",
-  //           text: "text-[#175cd3]",
-  //           border: "border-[#b2ddff]",
-  //         },
-  //       },
-  //       {
-  //         name: "ملابس",
-  //         theme: {
-  //           bg: "bg-[#f9f5ff]",
-  //           text: "text-[#6941c6]",
-  //           border: "border-[#e9d7fe]",
-  //         },
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     name: "جمعية الرحمة بجدة",
-  //     month: "يونيو",
-  //     year: "2025",
-  //     tags: [
-  //       {
-  //         name: "أوقاف",
-  //         theme: {
-  //           bg: "bg-[#eef4ff]",
-  //           text: "text-[#3538cd]",
-  //           border: "border-[#c6d7fe]",
-  //         },
-  //       },
-  //       {
-  //         name: "رعاية الأيتام",
-  //         theme: {
-  //           bg: "bg-[#eff8ff]",
-  //           text: "text-[#175cd3]",
-  //           border: "border-[#b2ddff]",
-  //         },
-  //       },
-  //       {
-  //         name: "ملابس",
-  //         theme: {
-  //           bg: "bg-[#f9f5ff]",
-  //           text: "text-[#6941c6]",
-  //           border: "border-[#e9d7fe]",
-  //         },
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     name: "جمعية السلام بحائل",
-  //     month: "يوليو",
-  //     year: "2025",
-  //     tags: [
-  //       {
-  //         name: "أوقاف",
-  //         theme: {
-  //           bg: "bg-[#eef4ff]",
-  //           text: "text-[#3538cd]",
-  //           border: "border-[#c6d7fe]",
-  //         },
-  //       },
-  //       {
-  //         name: "رعاية الأيتام",
-  //         theme: {
-  //           bg: "bg-[#eff8ff]",
-  //           text: "text-[#175cd3]",
-  //           border: "border-[#b2ddff]",
-  //         },
-  //       },
-  //       {
-  //         name: "ملابس",
-  //         theme: {
-  //           bg: "bg-[#f9f5ff]",
-  //           text: "text-[#6941c6]",
-  //           border: "border-[#e9d7fe]",
-  //         },
-  //       },
-  //     ],
-  //   },
-  // ];
   const navigate = useNavigate();
   const [theme, setTheme] = useState<"light" | "dark">(() => {
-    // if (typeof window !== "undefined") {
-    //   return (
-    //     (localStorage.getItem("theme") as "light" | "dark") ||
-    //     (window.matchMedia("(prefers-color-scheme:dark").matches
-    //       ? "dark"
-    //       : "light")
-    //   );
-    // }
+
     return "light";
   });
   useEffect(() => {
@@ -417,36 +204,10 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     root.classList.add(theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
- 
+
   return (
     <div className=" w-full h-full">
-      {/* <LineChart
-        width={600}
-        height={300}
-        data={data}
-        margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
-      >
-        <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-        <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-        <XAxis dataKey="name" tick={renderCustomAxisTick} />
-        <YAxis />
-        <Tooltip />
-      </LineChart>
-      <h1>هاي احمد</h1>
-
-      <button
-        className=" bg-secondary mr-5 border-2 w-52 h-52"
-        onClick={showToast}
-      >
-        toast
-      </button>
-
-      <button
-        onClick={toggleTheme}
-        className="bg-secondary text-primary-foreground hover:bg-secondary-700  transition-colors"
-      >
-        change theme
-      </button> */}
+     
 
       <div className="max-h-[240px] overflow-hidden h-full  rounded-lg">
         <img className="w-full h-full" src={DefaultBanner} alt="" />
@@ -462,11 +223,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
           <div className="flex flex-col gap-3">
             <div className="">
-              <Breadcrumbs
-                items={[
-                  { label: "الرئيسية", href: "/" },
-                ]}
-              />
+              <Breadcrumbs items={[{ label: "الرئيسية", href: "/" }]} />
             </div>
             <p className="text-primary-foreground font-bold text-3xl">
               شركة كدان
@@ -476,12 +233,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         </div>
 
         <div className="flex flex-col  justify-between w-2/5">
-          {/* <div className="relative w-2/5">
-            <InputField placeholder="البحث..." className="w-full" />
-            <div className="absolute left-2 text-primary-foreground/40 top-[6px]">
-              <Search className="h-5 w-5" />
-            </div>
-          </div> */}
+      
 
           <div className="border flex place-self-end items-center divide-x divide-border rtl:divide-x-reverse  rounded-lg  gap-1 w-fit">
             {timeFilters.map((filter) => (
@@ -604,7 +356,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             <div className="border-t -mx-4 my-4" />
 
             <div className="h-2/5 flex justify-between items-center ">
-              <Button className="border text-sm max-w-fit bg-accent text-primary">
+              <Button className="border text-sm max-w-fit bg-accent text-primary hover:text-primary-foreground">
                 عرض التقارير
               </Button>
 
@@ -660,8 +412,6 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                 <p className="text-primary font-bold text-base">
                   أضف مستخدم جديد
                 </p>
-
-           
               </div>
             </div>
 
@@ -773,7 +523,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                     عضو منذ {charity?.month} {charity?.year}
                   </p>
                   <div className="flex gap-1">
-                    {charity?.tags?.map((tag) => (
+                    {charity?.tags?.filter(tag=>tag?.name)?.map((tag) => (
                       <div
                         key={tag?.name}
                         className={`border rounded-xl p-0.5 px-1.5 text-xs ${tag?.theme?.bg} ${tag?.theme?.text} ${tag?.theme?.border}`}

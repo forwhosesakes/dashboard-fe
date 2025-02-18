@@ -111,13 +111,13 @@ const Login = () => {
     <div className="lg:flex lg:flex-row  justify-between items-center w-full h-screen overflow-hidden ">
       {(loading || isSubmitting) && <LoadingOverlay />}
       <div className="blur-[180px] inset-0 absolute"></div>
-      <div className="h-full w-full flex flex-col  justify-center items-center z-10 overflow-y-hidden">
+      <div className="h-full w-full flex flex-col justify-center items-center z-10 overflow-y-hidden">
         <img
-          className="lg:my-16 my-8 z-10 lg:w-[186px] lg:h-[155px]  w-[144px] h-[120px] brd"
+          className="lg:my-0 my-8 z-10 lg:w-[186px] lg:h-[155px]  w-[144px] h-[120px] brd"
           src={Logo}
           alt=""
         />
-        <h2 className="my-5 z-10 text-4xl">{glossary.login.title}</h2>
+        <h2 className="my-5 z-10 text-4xl text-primary-foreground">{glossary.login.title}</h2>
 
         <Form
           onSubmit={onSubmit}
@@ -224,21 +224,7 @@ const Login = () => {
       </div>
     </div>
   );
-  // <section>
 
-  //     <h1>login</h1>
-  //     <form onSubmit={handleSubmit(onSubmit)}>
-  //   {/* register your input into the hook by invoking the "register" function */}
-  //   <input defaultValue="email" {...register("email")} />
-
-  //   {/* include validation with required or other standard HTML validation rules */}
-  //   <input {...register("password", { required: true })} />
-  //   {/* errors will return when field validation fails  */}
-  //   {errors.email && <span>This field is required</span>}
-
-  //   <input type="submit" />
-  // </form>
-  //     </section>
 };
 
 export default Login;
