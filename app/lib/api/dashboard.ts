@@ -177,6 +177,8 @@ export type CorporateDashboardEntriesType = {
   AVG_RES_SATIS_FORMS_EMP: number;
   EMP_EVAL: number;
   EMP_ACHIEVMENT_PERC: number;
+  TOTAL_GRADES_DON_STATIS: number,
+  NO_RESPONSES_DON_SATIS_FORM: number,
 };
 
 const FinancialDashboardEntriesSchema = z.object({
@@ -221,6 +223,7 @@ const FinancialDashboardEntriesSchema = z.object({
   NO_TOTAL_MONEY_VAT: z.coerce.number(),
   START_LIABILITIES: z.coerce.number(),
   END_LIABILITIES: z.coerce.number(),
+  TOTAL_TAX_REFUND:z.coerce.number(),
 });
 export type FinancialDashboardEntriesType = {
   dashbaordId: number;
@@ -264,6 +267,7 @@ export type FinancialDashboardEntriesType = {
   NO_TOTAL_MONEY_VAT: number;
   START_LIABILITIES: number;
   END_LIABILITIES: number;
+  TOTAL_TAX_REFUND:number
 };
 
 
