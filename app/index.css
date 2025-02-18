@@ -4,7 +4,7 @@
 
 html,
 body {
-  @apply bg-primary  dark:bg-gray-950;
+  @apply bg-primary  dark:bg-background;
   
 
   @media (prefers-color-scheme: dark) {
@@ -147,11 +147,11 @@ body {
 
   .dark {
     /* Dark mode */
-    --background: 224 25% 12%; /* Dark-ish gray background */
+    --background: 220 20% 6%; /* Dark-ish gray background */
     --foreground: 0 0% 100%; /* White text as primary text color */
 
     /* Primary Colors (Dark mode) */
-    --primary: 224 25% 12%; /* Dark-ish gray */
+    --primary: 220 20% 6%; /* Dark-ish gray */
     --primary-50: 224 25% 15%;
     --primary-100: 224 25% 20%;
     --primary-200: 224 25% 25%;

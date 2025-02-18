@@ -15,7 +15,7 @@ const DashboardIndicators = (props: IProps) => {
       return  <OperationalIndicator indicators={props.indicators}/>
 
     case "GENERAL":
-      return <GeneralDashboard indicators={props.indicators}/>
+      return <GeneralDashboard indicators={props.indicators} category={""}/>
     case "FINANCIAL":
       return <FinancialDashboard indicators={props.indicators} />
     case "CORPORATE":

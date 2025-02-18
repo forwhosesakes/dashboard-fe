@@ -30,6 +30,7 @@ const FinancialDashboard = (props: IProps) => {
     "ABL_COVER_OBLIG",
     "GENERAL_ADMINSTRATIVE_EXPENSES",
     "DONAT_MONEY_RAISING",
+  
   ];
 
   const finValueThemes = {
@@ -76,7 +77,7 @@ const FinancialDashboard = (props: IProps) => {
         { period: "2024-04", value: 5 },
         { period: "2024-05", value: 5 },
       ],
-      fill: "#EE46BC",
+      fill: "#58D764",
     },
     {
       id: "PLATFORM_REV_PERC",
@@ -89,7 +90,7 @@ const FinancialDashboard = (props: IProps) => {
         { period: "2024-04", value: 5 },
         { period: "2024-05", value: 5 },
       ],
-      fill: "#F79009",
+      fill: "#36EBCA",
     },
     {
       id: "PRGMS_PRJKS_REV",
@@ -102,7 +103,21 @@ const FinancialDashboard = (props: IProps) => {
         { period: "2024-04", value: 5 },
         { period: "2024-05", value: 5 },
       ],
-      fill: "#1F51FF",
+      fill: "#EF7BE3",
+    },
+   
+    {
+      id: "DONAT_PERC",
+      name: indicatorsLabels.FINANCIAL.DONAT_PERC,
+      value: Math.round(props.indicators.DONAT_PERC) % 100,
+      timeSeries: [
+        { period: "2024-01", value: 5 },
+        { period: "2024-02", value: 5 },
+        { period: "2024-03", value: 5 },
+        { period: "2024-04", value: 5 },
+        { period: "2024-05", value: 5 },
+      ],
+      fill: "#17b26a",
     },
     {
       id: "TOTAL_TAX_REFUND",
@@ -115,12 +130,12 @@ const FinancialDashboard = (props: IProps) => {
         { period: "2024-04", value: 5 },
         { period: "2024-05", value: 5 },
       ],
-      fill: "#17B26A",
+      fill: "#F79099",
     },
     {
-      id: "DONAT_PERC",
-      name: indicatorsLabels.FINANCIAL.DONAT_PERC,
-      value: Math.round(props.indicators.DONAT_PERC) % 100,
+      id: "DIVERSITY_INCOME_RESOURCES",
+      name: indicatorsLabels.FINANCIAL.DIVERSITY_INCOME_RESOURCES,
+      value: Math.round(props.indicators.DIVERSITY_INCOME_RESOURCES) % 100,
       timeSeries: [
         { period: "2024-01", value: 5 },
         { period: "2024-02", value: 5 },
@@ -128,8 +143,11 @@ const FinancialDashboard = (props: IProps) => {
         { period: "2024-04", value: 5 },
         { period: "2024-05", value: 5 },
       ],
-      fill: "#800020",
+      fill: "#1882FF",
     },
+
+
+    
   ];
 
   const isSingleMonth = false;
@@ -154,6 +172,10 @@ const FinancialDashboard = (props: IProps) => {
     {
       name: indicatorsLabels.FINANCIAL["DONAT_PERC"],
       value: Math.round(props.indicators["DONAT_PERC"]) % 100,
+    },
+    {
+      name: indicatorsLabels.FINANCIAL["DIVERSITY_INCOME_RESOURCES"],
+      value: Math.round(props.indicators["DIVERSITY_INCOME_RESOURCES"]) % 100,
     },
   ];
 
@@ -257,15 +279,30 @@ const FinancialDashboard = (props: IProps) => {
   ];
   const gradientIdPrefix = useId();
 
+const CustomTooltip = ({ active, payload, label }:any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div>
+        <p className="label font-bold">{`${label} : ${payload[0].value}`}</p>
+        <p className="intro">{
+        //@ts-ignore
+        indicatorsLabels.FINANCIAL[label]}</p>
+      </div>
+    );
+  }
+
+  return null;
+};
+
   return (
-    <section>
-      <div className="flex flex-wrap gap-5 my-5 w-full justify-between rounded-lg bg-[#13161B] p-1">
-        <h5 className="w-full">{"الأداء المالي"}</h5>
+    <section >
+      <div className="w-11/12 mx-auto mt-4 rounded-lg  bg-[#13161B] p-1">
+        <h5>{"الأداء المالي"}</h5>
       </div>
 
       <div className="flex min-w-[20%] flex-wrap gap-5 my-5 rounded-lg p-5">
         {finPerfCards.map((card: string) => (
-          <div className="border border-[#555C6A] p-4 flex flex-col gap-2 rounded-lg">
+          <div className="border border-[#555C6A] p-3 flex flex-col gap-3 rounded-xl">
             <p className="text-[#94979C] font-bold text-xl">
               {/*  @ts-ignore  */}
               {indicatorsLabels.FINANCIAL[card]}
@@ -276,7 +313,7 @@ const FinancialDashboard = (props: IProps) => {
               ${finValueThemes[card].text}`}
               >
                 {Number(props.indicators[card]).toFixed(1)}
-                {finSymbols[card] ?? "%"}
+                {"%"}
               </h5>
               <div className="border p-1 flex justify-center items-center gap-1 text-xs rounded-lg">
                 {" "}
@@ -288,12 +325,12 @@ const FinancialDashboard = (props: IProps) => {
         ))}
       </div>
 
-      <div>
-        <div className="w-full mt-4 rounded-lg p-1 bg-[#13161B]">
-          <h5 className="">{"تنمية الموارد المالية"}</h5>
+      <div className="w-11/12 mx-auto">
+        <div className="w-full  mx-auto mt-4 rounded-lg p-1 bg-[#13161B]">
+          <h5>{"تنمية الموارد المالية"}</h5>
         </div>
         <div className=" flex gap-2 justify-between w-full h-full items-center mt-8">
-          <div className="grid grid-cols-2 w-1/2 h-full  justify-start items-start  p-4 rounded-lg border-2    ">
+          <div className="grid grid-cols-2 w-1/2  h-[444px] justify-start items-start  p-6 rounded-lg border border-[#555C6A]    ">
             {rawData.map((card) => (
               <div
                 className="flex flex-col justify-center items-start gap-1"
@@ -311,9 +348,9 @@ const FinancialDashboard = (props: IProps) => {
               </div>
             ))}
           </div>
-          <div className="border-2 w-1/2 h-full max-h-[320px] p-2 rounded-lg">
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart width={150} height={40} data={barchartSingleMonthData}>
+          <div className="border border-[#555C6A] w-1/2 max-h-[444px]  rounded-lg">
+            <ResponsiveContainer width="100%" className={"w-full"} height={444}>
+              <BarChart className='[&_.recharts-cartesian-grid-horizontal>line]:[stroke-dasharray:0]' width={150} height={40} data={barchartSingleMonthData}>
                 <defs>
                   {barchartSingleMonthData.map((entry, index) => {
                     const colors = [
@@ -322,6 +359,8 @@ const FinancialDashboard = (props: IProps) => {
                       { start: "#FF5A5A", end: "#EF7BE3" },
                       { start: "#17b26a", end: "#36F097" },
                       { start: "#F79009", end: "#F79099" },
+                      { start: "#1882FF", end: "#36EBCA" },
+
                     ][index];
 
                     return (
@@ -340,10 +379,11 @@ const FinancialDashboard = (props: IProps) => {
                   })}
                 </defs>
 
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
+                <XAxis tick={false} dataKey="name" />
                 <YAxis  domain={[0,100]}/>
-                {/* <Tooltip /> */}
+                <CartesianGrid strokeDasharray='3 3' />
+                <Tooltip cursor={{fill: 'transparent'}} content={<CustomTooltip />} />
+              
 
                 <Bar dataKey="value" barSize={40} 
                 
