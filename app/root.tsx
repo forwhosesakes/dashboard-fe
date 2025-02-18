@@ -2,6 +2,7 @@ import {
   isRouteErrorResponse,
   Links,
   Meta,
+  NavLink,
   Outlet,
   redirect,
   Scripts,
@@ -19,6 +20,8 @@ import { authClient } from "./lib/auth-client";
 import { getToast } from "~/lib/toast.server";
 import { useToast } from "./hooks/use-toast";
 import { useEffect } from "react";
+import LogoSVG from "~/assets/images/logo.svg?react"
+import { Button } from "./components/ui/button";
 
 export async function loader({ request, context }: LoaderFunctionArgs) {
   const serverUrl = context.cloudflare.env.BASE_URL;
@@ -141,15 +144,15 @@ export default function App() {
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  let message = "Oops!";
-  let details = "An unexpected error occurred.";
+  let message = "المعذرة٫ حدث خطأ";
+  let details = "حدث خطأ غير متوقع أثناء عمل الموقع٫ يرجى المحاولة في وقت لاحق ";
   let stack: string | undefined;
 
   if (isRouteErrorResponse(error)) {
     message = error.status === 404 ? "404" : "Error";
     details =
       error.status === 404
-        ? "The requested page could not be found."
+        ? "الصفحة المطلوبة غير موجودة."
         : error.statusText || details;
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message;
@@ -157,14 +160,22 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
-      <p>{details}</p>
+    <main className="pt-16 p-4 container h-[90vh] flex justify-center items-center  mx-auto">
+      <div className="text-center">
+        <LogoSVG className="mx-auto"/>
+      <h4 className="text-red-900 mb-2 mt-8 font-bold">{message}</h4>
+      <h6>{details}</h6>
+<NavLink to={"/"}>
+<Button className="my-4" variant={"secondary"}>العودة للصفحة الرئيسية</Button>
+
+</NavLink>
       {stack && (
         <pre className="w-full p-4 overflow-x-auto">
           <code>{stack}</code>
         </pre>
       )}
+      </div>
+ 
     </main>
   );
 }
