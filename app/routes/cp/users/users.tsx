@@ -148,6 +148,20 @@ export async function action({ request, params, context }: ActionFunctionArgs) {
           ),
         }
       );
+    }).catch(async (e)=>{
+      return Response.json(
+        { success: false, error: "Failed to remove organization" },
+        {
+          headers: await createToastHeaders(
+            {
+              description: "",
+              title: "حدث خطأ أثناء حذف الجمعية",
+              type: "error",
+            },
+            context.cloudflare.env.SESSION_SECRET
+          ),
+        }
+      );
     });
   } catch (error) {
     return Response.json(
