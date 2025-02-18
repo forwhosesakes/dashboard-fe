@@ -2,7 +2,7 @@ import { Progress } from "~/components/ui/progress";
 import { indicatorsLabels } from "../constants/glossary";
 import ChartPositive from "~/assets/icons/chart-positive.svg?react";
 import ChartNegative from "~/assets/icons/chart-negative.svg?react";
-import LongChartNegative from "~/assets/icons/long-negative.svg?react";
+import LongChartNegative from "~/assets/icons/longNegativeChart.svg?react";
 import {
   BarChart,
   Bar,
@@ -138,9 +138,9 @@ export default function OperationalIndicator({
                     {Number(indicators["VOLUN_SUST_PERC"]).toFixed(2) + "%"}
                   </h4>
                   {Number(indicators["VOLUN_SUST_PERC"]) < 0 ? (
-                    <ChartNegative />
+                    <ChartNegative  className="w-full h-auto"/>
                   ) : (
-                    <ChartPositive />
+                    <ChartPositive className="w-full h-auto"/>
                   )}
                 </div>
               </div>
@@ -157,9 +157,9 @@ export default function OperationalIndicator({
                     {Number(indicators["TOTAL_VOLUNTEERS"]).toFixed(2) + "%"}
                   </h4>
                   {Number(indicators["TOTAL_VOLUNTEERS"]) < 0 ? (
-                    <ChartNegative />
+                    <ChartNegative className="w-full h-auto"/>
                   ) : (
-                    <ChartPositive />
+                    <ChartPositive className="w-full h-auto"/>
                   )}
                 </div>
               </div>
@@ -176,7 +176,7 @@ export default function OperationalIndicator({
                       "%"}
                   </h4>
                   {Number(indicators["VOLUN_GROWTH_RATE_QUAR"]) < 0 ? (
-                    <ChartNegative />
+                    <LongChartNegative className="w-full h-auto"/>
                   ) : (
                     <ChartPositive />
                   )}
