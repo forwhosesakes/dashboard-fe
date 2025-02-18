@@ -33,10 +33,9 @@ const CorporateDashboard = (props: IProps) => {
     "COMPLIANCE_ADHERENCE_PRACTICES",
     "GOVERANCE",
   ];
-  useEffect(()=>{
+  useEffect(() => {
     console.log(props);
-    
-  })
+  });
   const hrInds = ["EMP_PERF_PROD", "EMP_DEV_TRAIN"];
   const piechartData = [
     { name: "EMP_PERF_PROD", value: props.indicators["EMP_PERF_PROD"] },
@@ -139,32 +138,32 @@ const CorporateDashboard = (props: IProps) => {
   ];
 
   return (
-    <section className="px-10">
-      <div className="flex mb-5 gap-5">
+    <section className="px-24">
+      <div className="flex mb-5 gap-10">
         {/* right side */}
-        <div className="flex flex-col gap-5 w-8/12">
-          <div className="flex flex-wrap gap-5 w-full justify-between rounded-lg bg-[#13161B] p-1">
-            <h4 className="w-full text-lg xl:text-xl">{"الحوكمة"}</h4>
+        <div className="flex flex-col gap-5 w-[70%]">
+          <div className="flex flex-wrap gap-5 w-full justify-between rounded-lg bg-[#13161B] p-2">
+            <h4 className="w-full text-lg xl:text-3xl font-bold">{"الحوكمة"}</h4>
           </div>
 
-          <div className="flex flex-wrap gap-5">
+          <div className="flex flex-wrap gap-8">
             {cardsInds.map((card: string) => (
               <div
                 key={card}
-                className="relative flex flex-col justify-center items-center p-1 border-b-2 border-accent min-w-44 w-[30%] gap-1 shadow-custom "
+                className="flex flex-col justify-center items-center p-1 border-b-2 border-accent min-w-44 w-[30%] gap-1 shadow-custom "
               >
-                <h6 className="  text-lg xl:text-xl text-[#94979C]">
+                <h6 className="text-lg xl:text-xl font-bold text-[#94979C]">
                   {
                     //@ts-ignore
                     indicatorsLabels.CORPORATE[card]
                   }
                 </h6>
 
-                <div className="flex justify-center items-center gap-2">
-                  <h5 className="text-">
+                <div className="flex justify-center items-center gap-4">
+                  <h5 className="text-2xl font-bold">
                     {Number(props.indicators[card]).toFixed(2) + "%"}
                   </h5>
-                  <div className="border p-0.5 flex justify-center items-center gap-1 text-xs rounded-lg">
+                  <div className="border p-0.5 font-medium text-sm flex justify-center items-center gap-1 rounded-lg">
                     {" "}
                     {"آخر ثلاث شهور"}
                     <TrendingUp className="w-4 text-green-600" />{" "}
@@ -176,16 +175,22 @@ const CorporateDashboard = (props: IProps) => {
             ))}
           </div>
           {/* التخطيط والتنظيم  -  الموارد البشرية */}
-          <div className="flex gap-5">
+          <div className="flex gap-10">
             <div className="w-3/5 flex flex-col">
-              <div className="flex flex-wrap gap-5 w-full justify-between rounded-lg bg-[#13161B] p-1">
-                <h4 className="w-full text-lg xl:text-xl">{"التخطيط والتنظيم"}</h4>
+              <div className="flex flex-wrap gap-5 w-full justify-between rounded-lg bg-[#13161B] p-2">
+                <h4 className="w-full text-lg xl:text-3xl font-bold">
+                  {"التخطيط والتنظيم"}
+                </h4>
               </div>
-              <div className="flex justify-between items-center gap-3 my-4">
+              <div className="flex justify-between items-center gap-5 my-4">
                 {orgPlanCards.map((card) => (
-                  <div className="border flex flex-col rounded-lg p-2 w-[45%] gap-1">
-                    <h5 className="text-sm xl:text-xl">{indicatorsLabels.CORPORATE[card]}</h5>
-                    <h5 className="text-sm xl:text-xl">{Math.round(props.indicators[card])}%</h5>
+                  <div className="border flex flex-col rounded-lg p-3 w-[45%] gap-2">
+                    <h5 className="text-xl font-bold text-[#94979C]">
+                      {indicatorsLabels.CORPORATE[card]}
+                    </h5>
+                    <h5 className="text-2xl font-bold">
+                      {Math.round(props.indicators[card])}%
+                    </h5>
 
                     <Progress
                       className="[&>div]:bg-gradient-to-r [&>div]:from-green-800 [&>div]:to-green-500 w-full h-2.5 bg-gray-700"
@@ -196,13 +201,11 @@ const CorporateDashboard = (props: IProps) => {
               </div>
             </div>
 
-          
-
             <div className="w-full lg:w-2/5 flex flex-col min-w-[340px]">
               {" "}
               {/* Add minimum width */}
               <div className="flex flex-wrap gap-5 w-full justify-between rounded-lg bg-[#13161B] p-2">
-                <h4 className="text-lg xl:text-xl">{"الموارد البشرية"}</h4>
+                <h4 className="text-lg xl:text-3xl font-bold">{"الموارد البشرية"}</h4>
               </div>
               <div className="h-full w-full xl:w-[80%] flex flex-row gap-4">
                 {" "}
@@ -211,13 +214,13 @@ const CorporateDashboard = (props: IProps) => {
                 <div className="xl:w-full xl:max-w-[145px] w-5/12 min-h-[200px] flex flex-col justify-center space-y-4 px-2">
                   <div className="flex gap-3 items-center">
                     <div className="w-3 h-3 bg-gradient-to-t from-[#36F097] to-[#2596be] rounded shrink-0" />
-                    <h6 className="text-sm xl:text-base truncate">
+                    <h6 className="text-sm text-[#FFFFFF99] xl:text-base truncate">
                       الأداء والإنتاجية
                     </h6>
                   </div>
                   <div className="flex gap-3 items-center">
                     <div className="w-3 h-3 bg-gradient-to-t from-[#EF7BE3] to-[#FF5A5A] rounded shrink-0" />
-                    <h6 className="text-sm xl:text-base truncate">
+                    <h6 className="text-sm xl:text-base text-[#FFFFFF99] truncate">
                       التطوير والتدريب
                     </h6>
                   </div>
@@ -226,7 +229,7 @@ const CorporateDashboard = (props: IProps) => {
                 <div className="w-full min-w-[170px] h-[220px]  xl:h-auto">
                   {" "}
                   {/* Constrained height */}
-                  <ResponsiveContainer width="100%" height="100%">
+                  <ResponsiveContainer width="100%"  height="100%">
                     <PieChart>
                       <defs>
                         <linearGradient id="grad1" x1="0" y1="0" x2="0" y2="1">
@@ -258,8 +261,8 @@ const CorporateDashboard = (props: IProps) => {
                         ]}
                         cx="50%"
                         cy="50%"
-                        innerRadius={60}
-                        outerRadius={80}
+                        innerRadius={55}
+                        outerRadius={70}
                         paddingAngle={5}
                         dataKey="value"
                         label
@@ -267,7 +270,7 @@ const CorporateDashboard = (props: IProps) => {
                         <Cell key="cell-0" fill="url(#grad1)" />
                         <Cell key="cell-1" fill="url(#grad2)" />
                       </Pie>
-                      <Tooltip />
+                      <Tooltip/>
                     </PieChart>
                   </ResponsiveContainer>
                 </div>
@@ -277,18 +280,20 @@ const CorporateDashboard = (props: IProps) => {
         </div>
 
         {/* أداء المدير التنفيذي */}
-        <div className="flex flex-wrap gap-5 justify-center items-center w-4/12 h-full">
-          <div className="flex gap-5 w-full rounded-lg bg-[#13161B] p-1">
-            <h4 className="w-full text-lg xl:text-xl">{"أداء المدير التنفيذي"}</h4>
+        <div className="flex flex-wrap gap-5 justify-center items-center w-[30%] h-full">
+          <div className="flex gap-5 w-full rounded-lg bg-[#13161B] p-2">
+            <h4 className="w-full  text-lg xl:text-3xl font-bold">
+              {"أداء المدير التنفيذي"}
+            </h4>
           </div>
           <div>
             <div className="flex justify-center flex-wrap gap-y-16 gap-x-3">
               {ceoPerfIndicators.map((card) => (
                 <div
                   key={card.key}
-                  className="border rounded-lg p-5 w-5/12 flex flex-col justify-center text-center items-center gap-2"
+                  className="border rounded-lg p-5 w-[48%] flex flex-col justify-center text-center items-center gap-7"
                 >
-                  <p>{indicatorsLabels.CORPORATE[card.key]}</p>
+                  <p className="text-[#94979C] font-bold text-xl">{indicatorsLabels.CORPORATE[card.key]}</p>
 
                   <SemiCircleProgress
                     size={120}
@@ -303,14 +308,14 @@ const CorporateDashboard = (props: IProps) => {
       </div>
 
       <div className="w-full">
-        <div className="flex flex-wrap mb-5 gap-5 w-full justify-between rounded-lg bg-[#13161B] p-1">
-          <h4 className="w-full text-lg xl:text-xl">{"قياس رضا المستفيدين"}</h4>
+        <div className="flex flex-wrap mb-5 gap-5 w-full justify-between rounded-lg bg-[#13161B] p-2">
+          <h4 className="w-full text-lg xl:text-3xl font-bold">{"قياس رضا المستفيدين"}</h4>
         </div>
         <div className="h-60 flex justify-between w-10/12 xl:place-self-center place-self-start">
           {satisInds.map((indicator) => (
             <div
-              className={`h-full flex ${
-                indicator.justify ? "items-start" : "items-end"
+              className={`h-full w-fit flex flex-col items-center ${
+                indicator.justify ? "justify-start" : "justify-end"
               } `}
             >
               <PercentageCircle
@@ -318,7 +323,9 @@ const CorporateDashboard = (props: IProps) => {
                 size={indicator.size}
                 value={Math.round(Number(props.indicators[indicator.id]))}
               />
-              {/* {indicator.name}{props.indicators[indicator.id]} */}
+              <div className="text-wrap text-[#94979C] max-w-40 text-center">
+              {indicator.name}
+              </div>
             </div>
           ))}
         </div>
@@ -326,5 +333,21 @@ const CorporateDashboard = (props: IProps) => {
     </section>
   );
 };
+const CustomTooltip = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div>
+        <p className="label font-bold">{`${label} : ${payload[0].value}`}</p>
+        <p className="intro">
+          {
+            //@ts-ignore
+            indicatorsLabels.FINANCIAL[label]
+          }
+        </p>
+      </div>
+    );
+  }
 
+  return null;
+};
 export default CorporateDashboard;

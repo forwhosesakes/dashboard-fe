@@ -43,7 +43,7 @@ const PercentageCircle = ({
       
       <div className="absolute inset-0 flex items-center justify-center">
         <span 
-          className="text-white font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]"
+          className="text-[#F7F7F7] text-3xl font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]"
           style={{ fontSize: size * 0.25 }}
         >
           {value}%
