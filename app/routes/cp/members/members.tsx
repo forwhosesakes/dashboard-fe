@@ -265,9 +265,9 @@ const MembersTable = ({
             {table.getRowModel().rows.map((row) => (
               <TableRow
                 className="cursor-pointer text-center items-center"
-                onClick={() => {
-                  isAdmin && navigate(`member/${row.original.id}`);
-                }}
+                // onClick={() => {
+                //   isAdmin && navigate(`member/${row.original.id}`);
+                // }}
                 key={row.id}
               >
                 {row.getVisibleCells().map((cell) => (
