@@ -18,6 +18,10 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
 
   console.log("from loader:: ", id, dashboardType);
 
+  const entries = await dashboardApi(
+    context.cloudflare.env.BASE_URL
+  ).getEntries(`${id}`, (dashboardType as DashboardType) ?? "GENERAL");
+
   const indicators = await dashboardApi(
     context.cloudflare.env.BASE_URL
   ).getIndicators(`${id}`, (dashboardType as DashboardType) ?? "GENERAL");
@@ -26,11 +30,12 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
     id,
     currentDashboard: dashboardType,
     indicators: indicators.length ? indicators[0] : null,
+    entries:entries.length? entries[0]:null
   };
 };
 
 const Dashbaord = () => {
-  const { id, currentDashboard, indicators } = useLoaderData();
+  const { id, currentDashboard, indicators, entries } = useLoaderData();
   const locationData = useLocation();
   const { setLightTheme, setDarkTheme } = useThemeStore();
 
@@ -140,7 +145,7 @@ const Dashbaord = () => {
                 ref={containerRef}
                 >
               <DashboardIndicators
-                indicators={indicators}
+                indicators={{...entries,...indicators}}
                 type={currentDashboard}
               />
             </div>

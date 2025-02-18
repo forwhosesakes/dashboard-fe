@@ -8,7 +8,7 @@ export const orgApi = (url:string) => {
                         
 
         },
-        getOrgByUderId:async(userId:string)=>{
+        getOrgByUserId:async(userId:string)=>{
             const response = await fetch(`${url}/org/getOrgByUserId/${userId}`)
             const result = await response.json()
 

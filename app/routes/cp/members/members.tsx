@@ -16,6 +16,7 @@ import {
 } from "@tanstack/react-table";
 import { useEffect, useMemo, useRef, useState, type HTMLProps } from "react";
 import {
+  redirect,
   useLoaderData,
   useNavigate,
   type LoaderFunctionArgs,
@@ -29,6 +30,7 @@ import InviteMemberDialog from "./components/inviteMemberDialog";
 import EditMemberDialog from "./components/editMemberDialog";
 import { authClient } from "~/lib/auth-client";
 import { toast } from "sonner";
+import { orgApi } from "~/lib/api/org";
 
 export async function loader({ request, context }: LoaderFunctionArgs) {
   const serverUrl = context.cloudflare.env.BASE_URL;
@@ -48,7 +50,26 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
         },
       },
     });
-
+    const sessionRes = await authClient(serverUrl).getSession({
+      fetchOptions: {
+        headers: {
+          Cookie: cookieHeader || "",
+        },
+        // credentials: "include",
+      },
+    });
+    const session = sessionRes.data?.session;
+    const user = sessionRes.data?.user
+    console.log("user:: ",user);
+    
+  
+    if (session && user && user.role === "user"){
+      const org = await orgApi(serverUrl).getOrgByUserId(user.id)
+      console.log("org is ::",org);
+      // if(!org)return redirect("/login")
+      return redirect(`/org/${org.id}`)
+    }
+    
     const currentUser = await authClient(serverUrl).getSession({
       fetchOptions: {
         headers: {

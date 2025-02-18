@@ -41,8 +41,8 @@ export const loader = async ({
   const user = res.data?.user;
   let org;
   if (session && user && user.role === "user") {
-    org = await orgApi(serverUrl).getOrgByUderId(
-      "naaXdX1LaI0Z24SkDduNydZuGEPCz729"
+    org = await orgApi(serverUrl).getOrgByUserId(
+      user.id
     );
 
     if (Number(id) !== org.id) {
@@ -52,7 +52,7 @@ export const loader = async ({
     return redirect(`/`);
   }
 
-  //   const org = orgApi(serverUrl).getOrgByUderId(user.id)
+  //   const org = orgApi(serverUrl).getOrgByUserId(user.id)
 
   const dashboardsOverview = await dashboardApi(serverUrl).getOrgDashboards(id);
   console.log("org:: ", org);
@@ -65,7 +65,12 @@ const Org = () => {
   useEffect(() => {
     console.log(dashboardsOverview);
   }, []);
-
+  const newDashboardsTitles = {
+    NEW_CORPORATE_INDICATORS:"اللوحة المؤسسية",
+    NEW_FINANCIAL_INDICATORS:"اللوحة المالية",
+    NEW_OPERATIONAL_INDICATORS:"اللوحة التشغيلية",
+    NEW_GENERAL_INDICATORS:"اللوحة العامة"
+  }
   return (
     <div className="w-full h-full">
       <div className="max-h-[240px] overflow-hidden h-full  rounded-lg">
@@ -123,7 +128,7 @@ const Org = () => {
                     <div className="border p-2 rounded-lg">
                       <Layers className="h-5 w-5" />
                     </div>
-                    {dashboard.title}
+                   { newDashboardsTitles[dashboard.title]}
                   </div>
                   <div
                     id="bottom-section"
