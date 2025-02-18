@@ -124,7 +124,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
     "/forgot-password",
     "/reset-password",
   ];
-  const shouldShowSidebar = !noSidebarRoutes.includes(location.pathname);
+  const shouldShowSidebar = !noSidebarRoutes.includes(location.pathname) ;
+  const isAdmin = user?.role === "admin"
+  
 
   return (
     <html dir="rtl" lang="ar">
@@ -135,7 +137,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {shouldShowSidebar ? <AppLayout serverUrl={serverUrl} user={user} >{children}</AppLayout> : children}
+        {shouldShowSidebar && isAdmin ? <AppLayout serverUrl={serverUrl} user={user} >{children}</AppLayout> : !isAdmin && shouldShowSidebar ?
+        (
+          <main className="p-5 w-full h-full min-h-screen">
+            <div className="w-full h-full">
+            {children}
+            </div>
+          </main>
+):
+children
+}
+
+
         <Toaster richColors position="bottom-right" />
         <ScrollRestoration />
         <Scripts />

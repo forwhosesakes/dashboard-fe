@@ -41,7 +41,7 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
   
 
   if (session && user && user.role === "user"){
-    const org = await orgApi(serverUrl).getOrgByUderId("naaXdX1LaI0Z24SkDduNydZuGEPCz729")
+    const org = await orgApi(serverUrl).getOrgByUserId(user.id)
     console.log("org is ::",org);
     // if(!org)return redirect("/login")
     return redirect(`/org/${org.id}`)

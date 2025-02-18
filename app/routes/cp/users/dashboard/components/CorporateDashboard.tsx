@@ -2,7 +2,7 @@ import { indicatorsLabels } from "../constants/glossary";
 import ChartProgress from "~/assets/icons/chart-progress.svg?react";
 import PlanOrgIcon from "~/assets/icons/plan-org.svg?react";
 
-import React from "react";
+import React, { useEffect } from "react";
 import {
   BarChart,
   Bar,
@@ -33,7 +33,10 @@ const CorporateDashboard = (props: IProps) => {
     "COMPLIANCE_ADHERENCE_PRACTICES",
     "GOVERANCE",
   ];
-
+  useEffect(()=>{
+    console.log(props);
+    
+  })
   const hrInds = ["EMP_PERF_PROD", "EMP_DEV_TRAIN"];
   const piechartData = [
     { name: "EMP_PERF_PROD", value: props.indicators["EMP_PERF_PROD"] },
@@ -315,6 +318,7 @@ const CorporateDashboard = (props: IProps) => {
                 size={indicator.size}
                 value={Math.round(Number(props.indicators[indicator.id]))}
               />
+              {/* {indicator.name}{props.indicators[indicator.id]} */}
             </div>
           ))}
         </div>

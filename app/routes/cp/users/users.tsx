@@ -18,6 +18,7 @@ import {
 import { useEffect, useMemo, useRef, useState, type HTMLProps } from "react";
 import {
   NavLink,
+  redirect,
   useFetcher,
   useLoaderData,
   useNavigate,
@@ -35,6 +36,8 @@ import { OrganizationsAPI } from "~/services/org";
 import { APIError } from "~/lib/utils/error";
 import { PlusIcon } from "lucide-react";
 import { createToastHeaders } from "~/lib/toast.server";
+import { authClient } from "~/lib/auth-client";
+import { orgApi } from "~/lib/api/org";
 
 const DashboardBadgeColor: {
   [key in DashboardEnum]: "mauv" | "red" | "blue" | "green";
@@ -63,6 +66,24 @@ type LoaderData =
 
 export async function loader({ request, context }: LoaderFunctionArgs) {
   const serverUrl = context.cloudflare.env.BASE_URL;
+  const cookieHeader = request.headers.get("Cookie");
+  const res = await authClient(serverUrl).getSession({
+    fetchOptions: {
+      headers: {
+        Cookie: cookieHeader || "",
+      },
+      // credentials: "include",
+    },
+  });
+  const session = res.data?.session;
+  const user = res.data?.user
+
+  if (session && user && user.role === "user"){
+    const org = await orgApi(serverUrl).getOrgByUserId(user.id)
+    console.log("org is ::",org);
+    // if(!org)return redirect("/login")
+    return redirect(`/org/${org.id}`)
+  } 
   const url = new URL(request.url);
   const page = parseInt(url.searchParams.get("page") || "1");
 

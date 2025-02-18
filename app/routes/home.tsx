@@ -17,12 +17,32 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "~/components/ui/tabs";
 import ActiveNow from "~/assets/icons/active-now.svg";
 import Members from "~/assets/icons/members-icon.svg";
 import TotalMembers from "~/assets/icons/total-members.svg";
-import { useLoaderData, useNavigate, type LoaderFunctionArgs } from "react-router";
+import { redirect, useLoaderData, useNavigate, type LoaderFunctionArgs } from "react-router";
 import { orgApi } from "~/lib/api/org";
 import glossary from "~/constants/glossary"
+import { authClient } from "~/lib/auth-client";
 
-export async function loader ({context}:LoaderFunctionArgs){
+export async function loader ({request,context}:LoaderFunctionArgs){
   const serverUrl = context.cloudflare.env.BASE_URL;
+  const cookieHeader = request.headers.get("Cookie");
+  const res = await authClient(serverUrl).getSession({
+    fetchOptions: {
+      headers: {
+        Cookie: cookieHeader || "",
+      },
+      // credentials: "include",
+    },
+  });
+  const session = res.data?.session;
+  const user = res.data?.user
+
+  if (session && user && user.role === "user"){
+    const org = await orgApi(serverUrl).getOrgByUserId(user.id)
+    console.log("org is ::",org);
+    // if(!org)return redirect("/login")
+    return redirect(`/org/${org.id}`)
+  } 
+  
   const rawLatestOrgs = await orgApi(serverUrl).getLatestOrgs()
   return{rawLatestOrgs}
 }
