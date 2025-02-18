@@ -2,7 +2,7 @@ import { Progress } from "~/components/ui/progress";
 import { indicatorsLabels } from "../constants/glossary";
 import ChartPositive from "~/assets/icons/chart-positive.svg?react";
 import ChartNegative from "~/assets/icons/chart-negative.svg?react";
-import LongChartNegative from "~/assets/icons/long-negative.svg?react"
+import LongChartNegative from "~/assets/icons/long-negative.svg?react";
 import {
   BarChart,
   Bar,
@@ -34,92 +34,104 @@ export default function OperationalIndicator({
     },
   ];
 
-
   const areaChartData = [
     {
-      name:"01",
-      OPS_GOALS_ACH_PERC:Math.round(Number(indicators["OPS_GOALS_ACH_PERC"])),
-      PGRM_PRJKS_EXEC_PERC:Math.round(Number(indicators["PGRM_PRJKS_EXEC_PERC"]))
+      name: "01",
+      OPS_GOALS_ACH_PERC: Math.round(Number(indicators["OPS_GOALS_ACH_PERC"])),
+      PGRM_PRJKS_EXEC_PERC: Math.round(
+        Number(indicators["PGRM_PRJKS_EXEC_PERC"])
+      ),
     },
     {
-      name:"02",
-      OPS_GOALS_ACH_PERC:Math.round(Number(indicators["OPS_GOALS_ACH_PERC"]))+50,
-      PGRM_PRJKS_EXEC_PERC:Math.round(Number(indicators["PGRM_PRJKS_EXEC_PERC"]))+12
+      name: "02",
+      OPS_GOALS_ACH_PERC:
+        Math.round(Number(indicators["OPS_GOALS_ACH_PERC"])) + 50,
+      PGRM_PRJKS_EXEC_PERC:
+        Math.round(Number(indicators["PGRM_PRJKS_EXEC_PERC"])) + 12,
     },
     {
-      name:"03",
-      OPS_GOALS_ACH_PERC:Math.round(Number(indicators["OPS_GOALS_ACH_PERC"]))-50,
-      PGRM_PRJKS_EXEC_PERC:Math.round(Number(indicators["PGRM_PRJKS_EXEC_PERC"]))-12
+      name: "03",
+      OPS_GOALS_ACH_PERC:
+        Math.round(Number(indicators["OPS_GOALS_ACH_PERC"])) - 50,
+      PGRM_PRJKS_EXEC_PERC:
+        Math.round(Number(indicators["PGRM_PRJKS_EXEC_PERC"])) - 12,
     },
     {
-      name:"04",
-      OPS_GOALS_ACH_PERC:Math.round(Number(indicators["OPS_GOALS_ACH_PERC"]))-15,
-      PGRM_PRJKS_EXEC_PERC:Math.round(Number(indicators["PGRM_PRJKS_EXEC_PERC"]))-29
+      name: "04",
+      OPS_GOALS_ACH_PERC:
+        Math.round(Number(indicators["OPS_GOALS_ACH_PERC"])) - 15,
+      PGRM_PRJKS_EXEC_PERC:
+        Math.round(Number(indicators["PGRM_PRJKS_EXEC_PERC"])) - 29,
     },
 
     {
-      name:"05",
-      OPS_GOALS_ACH_PERC:Math.round(Number(indicators["OPS_GOALS_ACH_PERC"]))+40,
-      PGRM_PRJKS_EXEC_PERC:Math.round(Number(indicators["PGRM_PRJKS_EXEC_PERC"]))-10
+      name: "05",
+      OPS_GOALS_ACH_PERC:
+        Math.round(Number(indicators["OPS_GOALS_ACH_PERC"])) + 40,
+      PGRM_PRJKS_EXEC_PERC:
+        Math.round(Number(indicators["PGRM_PRJKS_EXEC_PERC"])) - 10,
     },
     {
-      name:"06",
-      OPS_GOALS_ACH_PERC:Math.round(Number(indicators["OPS_GOALS_ACH_PERC"]))+10,
-      PGRM_PRJKS_EXEC_PERC:Math.round(Number(indicators["PGRM_PRJKS_EXEC_PERC"]))-20
+      name: "06",
+      OPS_GOALS_ACH_PERC:
+        Math.round(Number(indicators["OPS_GOALS_ACH_PERC"])) + 10,
+      PGRM_PRJKS_EXEC_PERC:
+        Math.round(Number(indicators["PGRM_PRJKS_EXEC_PERC"])) - 20,
     },
-    
-  ]
+  ];
   return (
-    <section className="px-10">
+    <section className="px-28">
       {/* إدارة البرامج والمشاريع + إدارة التطوع */}
-      <div className="flex mb-5 w-full gap-5">
+      <div className="flex mb-5 w-full gap-16">
         {/* إدارة البرامج والمشاريع */}
-        <div className="flex flex-col w-5/12">
-          <div className="rounded-lg bg-[#13161B] p-1">
-            <h4 className="w-full text-xl xl:text-2xl">
+        <div className="flex flex-col w-4/12">
+          <div className="rounded-lg bg-[#13161B] p-2">
+            <h4 className="w-full text-xl xl:text-3xl">
               {"إدارة البرامج والمشاريع"}
             </h4>
           </div>
-          <div className="flex p-1 gap-12 text-center items-center ">
-            <p className="text-base">{"كفاءة تنفيذ المشاريع"}</p>
+          <div className="flex p-1 gap-12 mb-10 text-center items-center ">
+            <p className="text-xl text-[#94979C]">{"كفاءة تنفيذ المشاريع"}</p>
             <div className="w-fit">
               <CircularProgressBar
-                gradientStart="#EF7BE3" // green-500
-                gradientEnd="#FF5A5A" // green-600
+                gradientStart="#1882FF" // green-500
+                gradientEnd="#36EBCA" // green-600
                 gradientId={"EFFIC_PRJKS_EXEC"}
                 size="md"
                 progress={Math.round(Number(indicators["EFFIC_PRJKS_EXEC"]))}
                 textFillColor="fill-white"
+                trackColor="#22262F"
               />
             </div>
           </div>
 
           <div className="flex p-1 gap-12 text-center items-center ">
-            <p className="text-base">{"كفاءة تنفيذ المشاريع"}</p>
+            <p className="text-xl text-[#94979C]">{"كفاءة تنفيذ المشاريع"}</p>
             <div>
               <CircularProgressBar
-                gradientStart="#1882FF" // green-500
-                gradientEnd="#36EBCA" // green-600
+                gradientStart="#EF7BE3" // green-500
+                gradientEnd="#FF5A5A" // green-600
                 gradientId={"EFFITV_PRJKS_PGRM"}
                 size="md"
                 progress={Math.round(Number(indicators["EFFIC_PRJKS_EXEC"]))}
                 textFillColor="fill-white"
+                trackColor="#22262F"
               />
             </div>
           </div>
         </div>
 
         {/* إدارة التطوع */}
-        <div className="flex flex-col w-7/12">
-          <div className="rounded-lg bg-[#13161B] p-1">
-            <h4 className="w-full text-xl xl:text-2xl">{"إدارة التطوع"}</h4>
+        <div className="flex flex-col w-8/12">
+          <div className="rounded-lg bg-[#13161B] p-2">
+            <h4 className="w-full text-xl xl:text-3xl">{"إدارة التطوع"}</h4>
           </div>
 
           <div className="w-full flex gap-2 flex-col h-full ">
-            <div className="flex w-full my-5 justify-between">
-              <div className="flex flex-col border-2 border-[#13161B] rounded-lg min-w-64 gap-5 shadow-custom">
+            <div className="flex w-full my-5 gap-7 justify-between">
+              <div className="flex flex-col w-full border-2 border-[#13161B] rounded-lg min-w-64 gap-5 shadow-custom">
                 <div className="bg-[#13161B] p-1.5">
-                  <h6>{"نسبة استدامة المتطوعين"}</h6>
+                  <h6 className="text-xl">{"نسبة استدامة المتطوعين"}</h6>
                 </div>
                 <div className="p-5">
                   <h4 className="text-">
@@ -133,9 +145,9 @@ export default function OperationalIndicator({
                 </div>
               </div>
 
-              <div className="flex flex-col border-2 border-[#13161B] rounded-lg min-w-64 gap-5 shadow-custom">
+              <div className="flex flex-col w-full border-2 border-[#13161B] rounded-lg min-w-64 gap-5 shadow-custom">
                 <div className="bg-[#13161B] p-1.5">
-                  <h6>{"عدد المتطوعين"}</h6>
+                  <h6 className="text-xl">{"عدد المتطوعين"}</h6>
                 </div>
                 <div className="p-5">
                   <h6 className=" text-nowrap text-[16px]">
@@ -154,9 +166,9 @@ export default function OperationalIndicator({
             </div>
 
             <div className="w-full flex">
-              <div className="flex flex-col border-2 border-[#13161B] rounded-lg min-w-64 gap-5 shadow-custom">
+              <div className="flex flex-col border-2 border-[#13161B] rounded-lg min-w-64 w-full gap-5 shadow-custom">
                 <div className="bg-[#13161B] w-full p-1.5">
-                  <h6>{"معدل النمو الربعي للمتطوعين"}</h6>
+                  <h6 className="text-xl">{"معدل النمو الربعي للمتطوعين"}</h6>
                 </div>
                 <div className="p-5 w-full">
                   <h4 className="text-">
@@ -176,7 +188,7 @@ export default function OperationalIndicator({
       </div>
 
       {/* كفاءة العمليات الداخلية */}
-      <div className=" flex h-full w-full">
+      <div className=" flex gap-16 h-full w-full">
         {/* names */}
         <div className="flex flex-col w-4/12">
           <div className="rounded-lg w-full bg-[#13161B] p-1.5">
@@ -185,43 +197,54 @@ export default function OperationalIndicator({
             </h4>
           </div>
           <div className="h-full w-full flex flex-col gap-3 justify-center">
-          <div className="flex gap-2 items-center">
-            <div className="bg-gradient-to-t from-green-400 to-green-300 w-2 h-2 rounded-xs"></div>
-            <p>تنفيذ البرامج والمشاريع</p>
+            <div className="flex gap-2 items-center">
+              <div className="bg-gradient-to-t from-green-400 to-green-300 w-[10px] h-[10px] rounded-xs"></div>
+              <p className="text-[#94979C] text-xl">تنفيذ البرامج والمشاريع</p>
+            </div>
+            <div className="flex gap-2 items-center">
+              <div className="bg-gradient-to-t from-orange-400 to-orange-300 w-[10px] h-[10px] rounded-xs"></div>
+              <p className="text-[#94979C] text-xl">تحقيق الأهداف التشغيلية</p>
+            </div>
           </div>
-          <div className="flex gap-2 items-center">
-            <div className="bg-gradient-to-t from-orange-400 to-orange-300 w-2 h-2 rounded-xs"></div>
-            <p>تحقيق الأهداف التشغيلية</p>
-          </div>
-          </div>
-         
         </div>
 
         {/* chart */}
-        <div className="w-8/12">
-        <ResponsiveContainer width="100%" height="100%">
-        <AreaChart
-          width={500}
-          height={400}
-          data={areaChartData}
-          margin={{
-            top: 10,
-            right: 30,
-            left: 0,
-            bottom: 0,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Area type="linear" dataKey="OPS_GOALS_ACH_PERC" stroke="#8884d8" fill="#ff9b00" />
-          <Area type="linear" dataKey="PGRM_PRJKS_EXEC_PERC" stroke="#8884d8" fill="#00c800" />
+        <div className="w-8/12 h-60">
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart
+              width={500}
+              height={400}
+              data={areaChartData}
+              margin={{
+                top: 10,
+                right: 0,
+                left: 0,
+                bottom: 0,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis type="number" domain={[0,100]}  width={35} textAnchor="left" orientation="left"/>
+              {/* <Tooltip /> */}
+              <Tooltip
+                cursor={{ fill: "transparent" }}
+                content={<CustomTooltip />}
+              />
 
-          
-        </AreaChart>
-      </ResponsiveContainer>
-      
+              <Area
+                type="linear"
+                dataKey="OPS_GOALS_ACH_PERC"
+                stroke="#8884d8"
+                fill="#ff9b00"
+              />
+              <Area
+                type="linear"
+                dataKey="PGRM_PRJKS_EXEC_PERC"
+                stroke="#8884d8"
+                fill="#00c800"
+              />
+            </AreaChart>
+          </ResponsiveContainer>
         </div>
       </div>
     </section>
@@ -437,3 +460,21 @@ export default function OperationalIndicator({
     // </>
   );
 }
+
+const CustomTooltip = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div>
+        <p className="label font-bold">{`${label} : ${payload[0].value}`}</p>
+        <p className="intro">
+          {
+            //@ts-ignore
+            indicatorsLabels.FINANCIAL[label]
+          }
+        </p>
+      </div>
+    );
+  }
+
+  return null;
+};

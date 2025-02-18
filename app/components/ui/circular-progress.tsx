@@ -7,11 +7,12 @@ const CircularProgressBar = ({
   gradientStart = '#3B82F6',  // Default blue-500
   gradientEnd = '#2563EB',    // Default blue-600
   gradientId = 'progressGradient',
-  textFillColor="fill-gray-700"
+  textFillColor="fill-gray-700",
+  trackColor="#E5E7EB"
 }) => {
   const sizes = {
     sm: { width: 120, strokeWidth: 16 },
-    md: { width: 160, strokeWidth: 24 },
+    md: { width: 160, strokeWidth: 20 },
     lg: { width: 300, strokeWidth: 32 }
   };
 //@ts-ignore
@@ -54,7 +55,7 @@ const CircularProgressBar = ({
               cy={center}
               r={radius}
               fill="none"
-              stroke="#E5E7EB"
+              stroke={trackColor}
               strokeWidth={strokeWidth}
               strokeLinecap="round"
             />
