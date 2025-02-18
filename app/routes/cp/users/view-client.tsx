@@ -146,7 +146,9 @@ const ViewClient = () => {
                   <label className="max-w-72  min-w-52 flex-[1_0_0]">
                     *{USER_MGMT.FORM_FIELDS[field.label]}
                   </label>
-                  <p>{loaderData.data[field.label]}</p>
+                  <p>{
+                  //@ts-ignore
+                  ["type", "category"].includes(field.label)? USER_MGMT.OPTIONS[loaderData.data[field.label]]:loaderData.data[field.label]}</p>
                 </div>
               ))}
             </div>

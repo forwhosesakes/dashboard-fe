@@ -1048,7 +1048,7 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
           { label: "لم يتم إبلاغ المركز.", weight: 0 },
           { label: "تم إبلاغ المركز.", weight: 0.5 },
         ],
-        isDependantOnPrev: false,
+        isDependantOnPrev: true,
       },
     ],
   },
@@ -1079,7 +1079,7 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
     weight: 0.5,
     questions: [
       {
-        label: "PROPERTY_ACQUISITION_PROPERLY_APPROVED",
+        label: "BENEFICIARY_RECORDS_SECURELY_MAINTAINED",
         options: [
           { label: "لا يتم الاحتفاظ بها.", weight: 0 },
           { label: "يتم الاحتفاظ بها بشكل جزئي.", weight: 0.25 },
@@ -1156,7 +1156,7 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
           { label: "توجد قرارات لكن بشكل جزئي", weight: 0.5 },
           { label: "توجد قرارات بشكل متكامل.", weight: 1 },
         ],
-        isDependantOnPrev: false,
+        isDependantOnPrev: true,
       },
       {
         label: "COMMITTEE_DECISIONS_INCLUDE_COMPLETE_DETAILS",
@@ -1213,3 +1213,1867 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
     ],
   },
 };
+
+
+
+export const TRANSPARENCY_DISCLOSURE_PRACTICES_QUESTIONS ={
+  Q1: {
+    weight: 5,
+
+    questions: [
+      {
+        label: "HAS_OFFICIAL_WEBSITE",
+        options: [
+          {
+            label: "لا يوجد موقع إلكتروني رسمي للجمعية.",
+
+            weight: 0,
+          },
+          {
+            label: "يوجد موقع إلكتروني رسمي للجمعية.",
+            weight: 5,
+          },
+        ],
+      },
+    ],
+  },
+
+
+
+  Q2: {
+    weight: 6,
+
+    questions: [
+      {
+        label: "PUBLISHED_BYLAWS_WITHOUT_IDS",
+        options: [
+          {
+            label: "لم يتم نشر اللائحة.",
+
+            weight: 0,
+          },
+          {
+            label: "تم نشر اللائحة.",
+            weight: 6,
+          },
+        ],
+      },
+    ],
+  },
+
+  Q3: {
+    weight: 14,
+
+    questions: [
+      {
+        label: "PUBLISHED_DONATION_POLICY",
+        options: [
+          {
+            label: "لم يتم نشر السياسة.",
+
+            weight: 0,
+          },
+          {
+            label: "تم نشر السياسة بشكل متكامل.",
+            weight: 2,
+          },
+        ],
+      },
+
+
+      {
+        label: "PUBLISHED_BENEFICIARY_RELATIONS_POLICY",
+        options: [
+          {
+            label: "لم يتم نشر السياسة.",
+
+            weight: 0,
+          },
+          {
+            label: "تم نشر السياسة بشكل متكامل.",
+            weight: 2,
+          },
+        ],
+      },
+
+
+      {
+        label: "PUBLISHED_VOLUNTEER_MANAGEMENT_POLICY",
+        options: [
+          {
+            label: "لم يتم نشر السياسة.",
+
+            weight: 0,
+          },
+          {
+            label: "تم نشر السياسة بشكل متكامل.",
+            weight: 2,
+          },
+        ],
+      },
+
+
+      {
+        label: "PUBLISHED_WHISTLEBLOWER_PROTECTION_POLICY",
+        options: [
+          {
+            label: "لم يتم نشر السياسة.",
+
+            weight: 0,
+          },
+          {
+            label: "تم نشر السياسة بشكل متكامل.",
+            weight: 2,
+          },
+        ],
+      },
+
+
+
+      {
+        label: "PUBLISHED_CONFLICT_OF_INTEREST_POLICY",
+        options: [
+          {
+            label: "لم يتم نشر السياسة.",
+
+            weight: 0,
+          },
+          {
+            label: "تم نشر السياسة بشكل متكامل.",
+            weight: 2,
+          },
+        ],
+      },
+
+
+
+
+      {
+        label: "PUBLISHED_DATA_PRIVACY_POLICY",
+        options: [
+          {
+            label: "لم يتم نشر السياسة.",
+
+            weight: 0,
+          },
+          {
+            label: "تم نشر السياسة بشكل متكامل.",
+            weight: 2,
+          },
+        ],
+      },
+
+
+
+
+      {
+        label: "PUBLISHED_DOCUMENT_RETENTION_POLICY",
+        options: [
+          {
+            label: "لم يتم نشر السياسة.",
+
+            weight: 0,
+          },
+          {
+            label: "تم نشر السياسة بشكل متكامل.",
+            weight: 2,
+          },
+        ],
+      },
+    ],
+  },
+
+
+
+  Q4: {
+    weight: 4,
+
+    questions: [
+      {
+        label: "DISCLOSED_GENERAL_ASSEMBLY_MEMBERS",
+        options: [
+          {
+            label: "لم يتم الإفصاح عن الأسماء على الموقع الإلكتروني.",
+
+            weight: 0,
+          },
+          {
+            label: "تم الإفصاح بشكل متكامل.",
+            weight: 2,
+          },
+        ],
+      },
+
+
+
+      {
+        label: "DISCLOSED_GENERAL_ASSEMBLY_MINUTES",
+        options: [
+          {
+            label: "لم يتم الإفصاح عن محاضر اجتماعات الجمعية العمومية ولا عن محاضر فرز الأصوات على الموقع الإلكتروني.",
+
+            weight: 0,
+          },
+          {
+            label: "تم الإفصاح بشكل جزئي.",
+            weight: 1,
+          },
+          {
+            label: "تم الإفصاح بشكل متكامل.",
+            weight: 2,
+          },
+        ],
+      },
+    ],
+  },
+
+
+  Q5: {
+    weight: 7,
+
+    questions: [
+      {
+        label: "DISCLOSED_BOARD_MEMBERS_AND_TERMS",
+        options: [
+          {
+            label: "لم يتم الإفصاح عن ذلك.",
+
+            weight: 0,
+          },
+          {
+            label: "تم الإفصاح بشكل جزئي.",
+            weight: 1,
+          },
+          {
+            label: "تم الإفصاح بشكل متكامل.",
+            weight: 2,
+          },
+        ],
+      },
+
+
+      {
+        label: "DISCLOSED_RELATED_PARTY_RELATIONSHIPS",
+        options: [
+          {
+            label: "لم يتم الإفصاح عن ذلك.",
+
+            weight: 0,
+          },
+          {
+            label: "تم الإفصاح بشكل متكامل.",
+            weight: 1,
+          }
+        ],
+      },
+
+
+      {
+        label: "DISCLOSED_BOARD_MEMBER_CONTRACTS",
+        options: [
+          {
+            label: "لم يتم الإفصاح عن ذلك.",
+
+            weight: 0,
+          },
+          {
+            label: "تم الإفصاح بشكل متكامل.",
+            weight: 1,
+          }
+        ],
+      },
+
+      {
+        label: "DISCLOSED_COMMERCIAL_RELATIONSHIPS",
+        options: [
+          {
+            label: "لم يتم الإفصاح عن ذلك.",
+
+            weight: 0,
+          },
+          {
+            label: "تم الإفصاح بشكل متكامل.",
+            weight: 2,
+          }
+        ],
+      },
+
+      {
+        label: "HAS_PERMANENT_COMMITTEES",
+        options: [
+          {
+            label: "لا توجد لجان دائمة.",
+
+            weight: 1,
+          },
+          {
+            label: "توجد لجان دائمة.",
+            weight: 0,
+            moveToNext: true 
+          }
+        ],
+      },
+      {
+        label: "DISCLOSED_COMMITTEE_DETAILS",
+        isDependantOnPrev: true,
+
+        options: [
+          {
+            label: "لم يتم الإفصاح عن ذلك.",
+
+            weight: 0,
+          },
+          {
+            label: "تم الإفصاح بشكل جزئي.",
+            weight: 0.5,
+          
+          },
+          {
+            label: "تم الإفصاح بشكل متكامل.",
+            weight: 1,
+          
+          }
+        ],
+      },  
+    ],
+  },
+
+
+
+  Q6: {
+    weight: 5,
+
+    questions: [
+      {
+        label: "HAS_VALID_COMMERCIAL_REGISTRATION",
+        options: [
+          {
+            label: "لا يوجد سجل تجاري ساري",
+
+            weight: 0,
+          },
+          {
+            label: "نعم",
+            weight: 0,
+            moveToNext: true 
+          
+          },
+  
+        ],
+      },
+
+      {
+        label: "DISCLOSED_REGISTRATION_AND_EMPLOYEES",
+        isDependantOnPrev: true,
+
+        options: [
+          {
+            label: "لم يتم الإفصاح عن ذلك.",
+
+            weight: 0,
+          },
+  
+          {
+            label: "تم الإفصاح بشكل متكامل.",
+            weight: 1,
+          
+          }
+        ],
+      },  
+      {
+        label: "DISCLOSED_EXECUTIVE_DIRECTOR",
+        isDependantOnPrev: false,
+
+        options: [
+          {
+            label: "لم يتم الإفصاح عن ذلك.",
+
+            weight: 0,
+          },
+          {
+            label: "تم الإفصاح بشكل جزئي.",
+            weight: 0.5,
+          
+          },
+          {
+            label: "تم الإفصاح بشكل متكامل.",
+            weight: 1,
+          
+          }
+        ],
+      },
+      
+      
+      {
+        label: "HAS_BRANCHES_OR_OFFICES",
+        isDependantOnPrev: false,
+
+        options: [
+          {
+            label: "لا توجد فروع أو مكاتب لدى الجمعية.",
+
+            weight: 2,
+          },
+          {
+            label: "نعم",
+            weight: 0,
+            moveToNext: true 
+
+          
+          },
+        ],
+      },
+
+
+
+      {
+        label: "DISCLOSED_BRANCH_MANAGERS_CONTACTS",
+        isDependantOnPrev: true,
+
+        options: [
+          {
+            label: "لم يتم الإفصاح عن ذلك.",
+
+            weight: 0,
+          },
+          {
+            label: "تم الإفصاح بشكل جزئي.",
+            weight: 1,
+   
+          
+          },
+
+          {
+            label: "تم الإفصاح بشكل متكامل.",
+            weight: 2,
+   
+          
+          },
+        ],
+      },
+
+
+
+      
+    ],
+  },
+
+
+
+
+
+  Q7: {
+    weight: 5,
+
+    questions: [
+      {
+        label: "HAS_FEEDBACK_PORTAL",
+        options: [
+          {
+            label: "لا يوجد ",
+
+            weight: 0,
+          },
+          {
+            label: "نعم",
+            weight: 0,
+            moveToNext: true 
+          
+          },
+  
+        ],
+      },
+
+      {
+        label: "RESPONDS_TO_FEEDBACK",
+        isDependantOnPrev: true,
+
+        options: [
+          {
+            label: "لا يتم التفاعل معها.",
+
+            weight: 0,
+          },
+  
+          {
+            label: "يتم التفاعل معها.",
+            weight: 5,
+          
+          }
+        ],
+      },  
+     
+
+
+
+      
+    ],
+  },
+
+
+
+
+
+  Q8: {
+    weight: 8,
+
+    questions: [
+      {
+        label: "CONDUCTED_STAKEHOLDER_SATISFACTION_SURVEY",
+        options: [
+          {
+            label: "لا توجد استبانات.",
+
+            weight: 0,
+          },
+          {
+            label: "توجد استبانات.",
+            weight: 2,
+          },
+  
+        ],
+      },
+
+      {
+        label: "ACHIEVED_FIFTY_PERCENT_SURVEY_RESPONSE",
+        isDependantOnPrev: false,
+
+        options: [
+          {
+            label: "لا تمثل الاستجابة 50%",
+
+            weight: 0,
+          },
+  
+          {
+            label: "تمثل الاستجابة 50%",
+            weight: 1.5,
+          
+          }
+        ],
+      },  
+
+
+      {
+        label: "ANALYZED_SATISFACTION_SURVEY_RESULTS",
+        isDependantOnPrev: false,
+
+        options: [
+          {
+            label: "لم يتم تحليل الاستجابات",
+
+            weight: 0,
+          },
+  
+          {
+            label: "نعم",
+            weight: 0,
+            moveToNext: true,
+
+          
+          }
+        ],
+      }, 
+      
+      
+
+      {
+        label: "PRESENTED_RESULTS_TO_BOARD",
+        isDependantOnPrev: true,
+
+        options: [
+          {
+            label: "لم يتم العرض ",
+
+            weight: 0,
+          },
+  
+          {
+            label: "تم العرض",
+            weight: 0,
+            moveToNext: true,
+
+          
+          },
+        ],
+      }, 
+
+
+      {
+        label: "BOARD_MADE_RECOMMENDATIONS_ON_RESULTS",
+        isDependantOnPrev: true,
+
+        options: [
+          {
+            label: "لم يتم اتخاذ قرارات وتوصيات على نتائج التقييم.",
+
+            weight: 0,
+          },
+  
+          {
+            label: "تم بشكل جزئي.",
+            weight: 0,
+          },
+
+
+          {
+            label: "تم بشكل متكامل.",
+            weight: 2,
+          },
+        ],
+      }, 
+     
+
+
+      {
+        label: "PUBLISHED_EVALUATION_FEEDBACK",
+        isDependantOnPrev: false,
+
+        options: [
+          {
+            label: "لم يتم النشر.",
+
+            weight: 0,
+          },
+  
+          {
+            label: "تم بشكل جزئي.",
+            weight: 0.5,
+          },
+
+
+          {
+            label: "تم بشكل متكامل.",
+            weight: 1,
+          },
+        ],
+      }, 
+
+
+
+
+      {
+        label: "NOTIFIED_STAKEHOLDERS_OF_IMPROVEMENTS",
+        isDependantOnPrev: false,
+
+        options: [
+     
+  
+          {
+            label: "  لم يتم ذلك.",
+            weight: 0,
+          },
+
+
+          {
+            label: "تم بشكل جزئي.",
+            weight: 0.25,
+          },
+          {
+            label: " تم بشكل كامل .",
+
+            weight:0.5,
+          },
+        ],
+      }, 
+
+
+
+      {
+        label: "HAS_BENEFICIARY_EVALUATION_REPORT",
+        isDependantOnPrev: false,
+
+        options: [
+     
+  
+          {
+            label: "يوجد تقرير.",
+            weight: 0,
+          },
+
+
+          {
+            label: "يوجد تقرير",
+            weight: 1,
+          },
+  
+        ],
+      }, 
+     
+
+
+
+      
+    ],
+  },
+
+
+
+
+
+  Q9: {
+    weight: 7,
+
+    questions: [
+      {
+        label: "PUBLISHED_STRATEGIC_OPERATIONAL_OBJECTIVES",
+        options: [
+          {
+            label: "لم يتم النشر.",
+
+            weight: 0,
+          },
+          {
+            label: "تم النشر بشكل جزئي.",
+            weight: 3.5,
+          },
+          {
+            label: "تم النشر بشكل متكامل.",
+            weight: 7,
+          },
+  
+        ],
+      },
+    ],
+  },
+
+
+
+
+  Q10: {
+    weight: 6,
+
+    questions: [
+      {
+        label: "PUBLISHED_PROGRAM_ACTIVITY_REPORTS",
+        options: [
+          {
+            label: "لم يتم النشر.",
+
+            weight: 0,
+          },
+          {
+            label: "تم النشر بشكل جزئي.",
+            weight: 2,
+          },
+          {
+            label: "تم النشر بشكل متكامل.",
+            weight: 4,
+          },
+  
+        ],
+      },
+
+
+
+      {
+        label: "PUBLISHED_INVESTMENT_OWNERSHIP_DECISIONS",
+        options: [
+          {
+            label: "لم يتم النشر.",
+
+            weight: 0,
+          },
+          {
+            label: "تم النشر بشكل جزئي.",
+            weight: 1,
+          },
+          {
+            label: "تم النشر بشكل متكامل.",
+            weight: 2,
+          },
+  
+        ],
+      },
+    ],
+  },
+
+
+
+
+
+  Q11: {
+    weight: 7,
+
+    questions: [
+      {
+        label: "PUBLISHED_AID_STATISTICS",
+        options: [
+          {
+            label: "لم يتم النشر.",
+
+            weight: 0,
+          },
+          {
+            label: "تم النشر بشكل جزئي.",
+            weight: 3.5,
+          },
+          {
+            label: "تم النشر بشكل متكامل.",
+            weight: 7,
+          },
+  
+        ],
+      },
+    ],
+  },
+
+
+
+
+  Q12: {
+    weight: 2,
+
+    questions: [
+      {
+        label: "NOTIFIED_STAKEHOLDERS_OF_POLICY_UPDATES",
+        options: [
+          {
+            label: "لم يتم النشر.",
+
+            weight: 0,
+          },
+          {
+            label: "تم النشر بشكل جزئي.",
+            weight: 1,
+          },
+          {
+            label: "تم النشر بشكل متكامل.",
+            weight: 2,
+          },
+  
+        ],
+      },
+    ],
+  },
+
+
+
+  Q13: {
+    weight: 13,
+
+    questions: [
+      {
+        label: "PUBLISHED_AUDITED_FINANCIAL_REPORT",
+        options: [
+          {
+            label: "لم يتم النشر.",
+
+            weight: 0,
+          },
+          {
+            label: "تم النشر بشكل جزئي.",
+            weight: 6.5,
+          },
+          {
+            label: "تم النشر بشكل متكامل.",
+            weight: 13,
+          },
+  
+        ],
+      },
+    ],
+  },
+
+
+
+  Q14: {
+    weight: 11,
+
+    questions: [
+      {
+        label: "SUBMITTED_DISCLOSURE_ON_TIME",
+        options: [
+          {
+            label: "لم يتم ذلك.",
+
+            weight: 0,
+          },
+          {
+            label: "تم توفيره بشكل جزئي.",
+            weight: 2,
+          },
+          {
+            label: "تم توفيره بشكل متكامل.",
+            weight: 4,
+          },
+  
+        ],
+      },
+
+
+      {
+        label: "DISCLOSURE_APPROVED_BY_CHAIRMAN",
+        options: [
+          {
+            label: "لم يتم الاعتماد من رئيس مجلس الإدارة.",
+
+            weight: 0,
+          },
+          {
+            label: "تم الاعتماد من رئيس مجلس الإدارة.",
+            weight: 3,
+          },
+       
+  
+        ],
+      },
+
+
+      {
+        label: "DISCLOSURE_MATCHES_REALITY",
+        options: [
+          {
+            label: "لا تتطابق.",
+
+            weight: 0,
+          },
+          {
+            label: "تتطابق بشكل جزئي.",
+            weight: 2,
+          },
+       
+
+          {
+            label: "تتطابق بشكل متكامل.",
+            weight: 4,
+          },
+       
+  
+        ],
+      },
+    ],
+  },
+}
+
+
+export const FINANCIAL_SAFETY_PRACTICES_QUESTIONS={
+  Q1: {
+    weight: 8,
+
+    questions: [
+      {
+        label: "HAS_APPROVED_FINANCIAL_ORG_STRUCTURE",
+        options: [
+          {
+            label: "لا يوجد هيكل تنظيمي.",
+
+            weight: 0,
+          },
+          {
+            label: "يوجد هيكل تنظيمي.",
+            weight: 4,
+          },
+        ],
+      },
+
+
+
+      {
+        label: "HAS_CLEAR_FINANCIAL_JOB_DESCRIPTIONS",
+        options: [
+          {
+            label: "لا يوجد  .",
+
+            weight: 0,
+          },
+          {
+            label: "يوجد  .",
+            weight: 4,
+          },
+        ],
+      },
+    ],
+  },
+
+
+
+
+  Q2: {
+    weight: 5,
+
+    questions: [
+      {
+        label: "HAS_FINANCIAL_AUTHORITY_MATRIX",
+        options: [
+          {
+            label: "لا يوجد لائحة للصلاحيات.",
+
+            weight: 0,
+          },
+          {
+            label: "يوجد بشكل جزئي.",
+            weight: 1.5,
+          },
+
+
+          {
+            label: "يوجد بشكل متكامل.",
+            weight: 3,
+          },
+        ],
+      },
+
+    
+
+
+      {
+        label: "ROLES_MATCH_ORG_STRUCTURE",
+        options: [
+          {
+            label: "ليست متطابقة.",
+
+            weight: 0,
+          },
+          {
+            label: "متطابقة بشكل جزئي.",
+            weight: 1,
+          },
+          {
+            label: "متطابقة بشكل متكامل.",
+            weight: 2,
+          },
+        ],
+      },
+
+
+      
+    ],
+  },
+
+
+
+  Q3: {
+    weight: 6,
+
+    questions: [
+      {
+        label: "SUPERVISOR_PERFORMS_DUTIES",
+        options: [
+          {
+            label: "لا يمارس المهام.",
+
+            weight: 0,
+          },
+          {
+            label: "يمارس المهام بشكل جزئي.",
+            weight: 1,
+          },
+
+
+          {
+            label: "يمارس المهام بشكل متكامل",
+            weight: 2,
+          },
+        ],
+      },
+
+    
+
+
+      {
+        label: "HAS_ACCOUNTANT",
+        options: [
+          {
+            label: "لا يوجد محاسب.",
+
+            weight: 0,
+          },
+          {
+            label: "يوجد محاسب.",
+            weight: 0,
+            moveToNext:true
+          },
+  
+        ],
+      },
+
+
+
+      {
+        label: "ACCOUNTANT_IS_SAUDI",
+        isDependantOnPrev: true,
+
+        options: [
+          {
+            label: "المحاسب غير سعودي.",
+
+            weight: 0,
+          },
+          {
+            label: "المحاسب سعودي.",
+            weight: 4,
+          },
+  
+        ],
+      },
+
+
+    
+
+      
+    ],
+  },
+
+
+
+
+  Q4: {
+    weight: 3,
+
+    questions: [
+      {
+        label: "INTERNAL_AUDITOR_REPORTS_TO_BOARD",
+        isDependantOnPrev: false,
+
+        options: [
+          {
+            label: "لا يرفع التقارير.",
+
+            weight: 0,
+          },
+          {
+            label: "يرفع التقارير.",
+            weight: 3,
+          },
+  
+        ],
+      },
+
+    ],
+  },
+
+
+
+  Q5: {
+    weight: 7,
+
+    questions: [
+      {
+        label: "HAS_FINANCIAL_POLICIES",
+        isDependantOnPrev: false,
+
+        options: [
+          {
+            label: "لا يوجد.",
+
+            weight: 0,
+          },
+          {
+            label: "يوجد بشكل جزئي",
+            weight: 1.5,
+          },
+           {
+            label: "يوجد بشكل متكامل",
+            weight: 3,
+          },
+  
+        ],
+      },
+
+
+
+
+      {
+        label: "FINANCIAL_POLICY_APPROVED_1",
+        isDependantOnPrev: false,
+
+        options: [
+          {
+            label: "لم يتم الاعتماد.",
+
+            weight: 0,
+          },
+          {
+            label: "تم الاعتماد.",
+            weight: 2,
+          },
+        
+  
+        ],
+      },
+
+
+      {
+        label: "PROCEDURES_IMPLEMENTED_1",
+        isDependantOnPrev: false,
+
+        options: [
+          {
+            label: "غير مفعلة.",
+
+            weight: 0,
+          },
+
+          {
+            label: "مفعلة بشكل جزئي.",
+
+            weight: 1,
+          },
+          {
+            label: "مفعلة بشكل متكامل.",
+            weight: 2,
+          },
+        
+  
+        ],
+      },
+
+
+
+      
+
+    ],
+  },
+
+
+
+
+
+  Q6: {
+    weight: 7,
+
+    questions: [
+      {
+        label: "HAS_FINANCIAL_PROCEDURES_MANUAL",
+        isDependantOnPrev: false,
+
+        options: [
+          {
+            label: "لا يوجد.",
+
+            weight: 0,
+          },
+          {
+            label: "يوجد بشكل جزئي",
+            weight: 2,
+          },
+           {
+            label: "يوجد بشكل متكامل",
+            weight: 4,
+          },
+  
+        ],
+      },
+
+
+
+
+      {
+        label: "PROCEDURES_MANUAL_APPROVED",
+        isDependantOnPrev: false,
+
+        options: [
+          {
+            label: "لم يتم الاعتماد.",
+
+            weight: 0,
+          },
+          {
+            label: "تم الاعتماد.",
+            weight: 2,
+          },
+        
+  
+        ],
+      },
+
+
+      {
+        label: "CHART_OF_ACCOUNTS_IMPLEMENTED",
+        isDependantOnPrev: false,
+
+        options: [
+          {
+            label: "غير مفعل.",
+
+            weight: 0,
+          },
+
+          {
+            label: "مفعل بشكل جزئي.",
+
+            weight: 0.5,
+          },
+          {
+            label: "مفعل بشكل متكامل.",
+            weight: 1,
+          },
+        
+  
+        ],
+      },
+
+
+
+      
+
+    ],
+  }
+  
+  
+  
+  
+  
+  
+  
+  ,
+
+
+
+
+
+
+
+
+  Q7: {
+    weight: 22,
+
+    questions: [
+      {
+        label: "HAS_APPROVED_DONATION_POLICY",
+        isDependantOnPrev: false,
+
+        options: [
+          {
+            label: "لا توجد.",
+
+            weight: 0,
+          },
+          {
+            label: "توجد بشكل جزئي",
+            weight: 1,
+          },
+           {
+            label: "توجد بشكل متكامل",
+            weight: 2,
+          },
+  
+        ],
+      },
+
+
+      {
+        label: "HAS_REVENUE_HANDLING_PROCEDURES",
+        isDependantOnPrev: false,
+
+        options: [
+          {
+            label: "لا يوجد.",
+
+            weight: 0,
+          },
+          {
+            label: "يوجد بشكل جزئي",
+            weight: 1.5,
+          },
+           {
+            label: "يوجد بشكل متكامل",
+            weight: 3,
+          },
+  
+        ],
+      },
+
+
+      {
+        label: "PROCEDURES_IMPLEMENTED_2",
+        isDependantOnPrev: false,
+
+        options: [
+          {
+            label: "غير مفعلة.",
+
+            weight: 0,
+          },
+
+          {
+            label: "مفعلة بشكل جزئي.",
+
+            weight: 1,
+          },
+          {
+            label: "مفعلة بشكل متكامل.",
+            weight: 2,
+          },
+        
+  
+        ],
+      },
+
+
+
+
+      {
+        label: "RECEIVED_FOREIGN_AID",
+        isDependantOnPrev: false,
+
+        options: [
+          {
+            label: "لم يتم تلقي أي إعانات من خارج المملكة.",
+
+            weight: 1,
+          },
+
+          {
+            label: "نعم تم تلقي  إعانات من خارج المملكة.",
+            weight: 0,
+            moveToNext:true
+          },
+    
+  
+        ],
+      },
+
+      {
+        label: "FOREIGN_AID_CENTER_APPROVED",
+        isDependantOnPrev: true,
+
+        options: [
+          {
+            label: "لا توجد موافقة.",
+
+            weight: 0,
+          },
+
+          {
+            label: "توجد موافقة من المركز.",
+            weight: 1,
+      
+          },
+    
+  
+        ],
+      },
+      {
+        label: "HAS_MEMBERSHIP_FEES_TRACKING",
+        isDependantOnPrev: false,
+
+        options: [
+          {
+            label: "لا يوجد.",
+
+            weight: 0,
+          },
+          {
+            label: "يوجد بشكل جزئي",
+            weight: 1.5,
+          },
+           {
+            label: "يوجد بشكل متكامل",
+            weight: 3,
+          },
+  
+        ],
+      },
+
+
+      {
+        label: "HAS_PROCUREMENT_PROCEDURES",
+        isDependantOnPrev: false,
+
+        options: [
+          {
+            label: "لا يوجد.",
+
+            weight: 0,
+          },
+          {
+            label: "يوجد بشكل جزئي",
+            weight: 1.5,
+          },
+           {
+            label: "يوجد بشكل متكامل",
+            weight: 3,
+          },
+  
+        ],
+      },
+
+
+  
+
+
+
+      {
+        label: "FINANCIAL_POLICY_APPROVED_3",
+        isDependantOnPrev: false,
+
+        options: [
+          {
+            label: "لم يتم الاعتماد.",
+
+            weight: 0,
+          },
+          {
+            label: "تم الاعتماد.",
+            weight: 2,
+          },
+    
+  
+        ],
+      },
+      {
+        label: "PROCEDURES_IMPLEMENTED_3",
+        isDependantOnPrev: false,
+
+        options: [
+          {
+            label: "غير مفعلة.",
+
+            weight: 0,
+          },
+          {
+            label: "مفعلة بشكل جزئي.",
+            weight: 0.5,
+          },
+
+          {
+            label: "مفعلة بشكل متكامل.",
+            weight: 1,
+          },
+  
+        ],
+      },
+
+      {
+        label: "HAS_PROGRAM_SPENDING_PROCEDURES",
+        isDependantOnPrev: false,
+
+        options: [
+          {
+            label: "لا يوجد.",
+
+            weight: 0,
+          },
+          {
+            label: "يوجد بشكل جزئي",
+            weight: 1.5,
+          },
+           {
+            label: "يوجد بشكل متكامل",
+            weight: 3,
+          },
+  
+        ],
+      },
+
+
+      {
+        label: "POLICIES_APPROVED_2",
+        isDependantOnPrev: false,
+
+        options: [
+          {
+            label: "لم يتم الاعتماد.",
+
+            weight: 0,
+          },
+          {
+            label: "تم الاعتماد.",
+            weight: 2,
+          },
+       
+  
+        ],
+      },
+
+
+      
+     
+     
+
+
+
+      
+
+    ],
+  }
+
+
+
+  ,
+
+
+
+
+  Q8: {
+    weight: 9,
+
+    questions: [
+      {
+        label: "HAS_INVESTMENT_POLICIES",
+        isDependantOnPrev: false,
+
+        options: [
+          {
+            label: "لا توجد سياسة.",
+
+            weight: 0,
+          },
+          {
+            label: "توجد بشكل جزئي",
+            weight: 1.5,
+          },
+           {
+            label: "توجد بشكل متكامل",
+            weight: 3,
+          },
+  
+        ],
+      }
+      
+      ,
+    
+    
+    
+      {
+        label: "POLICIES_APPROVED_3",
+        isDependantOnPrev: false,
+
+        options: [
+          {
+            label: "لم يتم الاعتماد.",
+
+            weight: 0,
+          },
+          {
+            label: "تم الاعتماد.",
+            weight: 2,
+          },
+       
+  
+        ],
+      },
+
+ 
+      {
+        label: "HAS_INVESTMENTS_OR_ASSETS",
+        isDependantOnPrev: false,
+
+        options: [
+          {
+            label: "لا توجد لدى الجمعية أيا منها.",
+
+            weight: 4,
+          },
+          {
+            label: "نعم .",
+            moveToNext:true,
+
+            weight: 0,
+          },
+       
+  
+        ],
+      },
+
+
+      {
+        label: "INVESTMENTS_APPROVED_BY_ASSEMBLY",
+        isDependantOnPrev: true,
+
+        options: [
+          {
+            label: "لم تقر الجمعية العمومية هذه الخطة.",
+
+            weight: 0,
+          },
+          {
+            label: "أقرت الجمعية العمومية الخطة.",
+
+            weight: 4,
+          },
+       
+  
+        ],
+      },
+
+    ]},
+
+
+
+
+    Q9: {
+      weight: 6,
+  
+      questions: [
+        {
+          label: "MAINTAINS_REQUIRED_RECORDS",
+          isDependantOnPrev: false,
+  
+          options: [
+            {
+              label: "لا يوجد .",
+  
+              weight: 0,
+            },
+            {
+              label: "يوجد بشكل جزئي",
+              weight: 3,
+            },
+             {
+              label: "يوجد بشكل متكامل",
+              weight: 6,
+            },
+    
+          ],
+        }
+        
+        ,
+      
+      
+  
+      ]},
+
+
+
+
+
+      Q10: {
+        weight: 5,
+    
+        questions: [
+          {
+            label: "HAS_OPERATIONAL_BUDGET",
+            isDependantOnPrev: false,
+    
+            options: [
+              {
+                label: "لا يوجد موازنة.",
+    
+                weight: 0,
+              },
+              {
+                label: "يوجد موازنة ليست على الخطة التشغيلية.",
+                weight: 2.5,
+              },
+               {
+                label: "يوجد موازنة على الخطة التشغيلية.",
+                weight: 5,
+              },
+      
+            ],
+          }
+          
+          ,
+        
+        
+    
+        ]},
+
+
+
+
+        Q11: {
+          weight: 6,
+      
+          questions: [
+            {
+              label: "FOLLOWS_SAUDI_ACCOUNTING_STANDARDS",
+              isDependantOnPrev: false,
+      
+              options: [
+                {
+                  label: "لا تتقيد.",
+      
+                  weight: 0,
+                },
+                {
+                  label: "تتقيد بشكل جزئي.",
+                  weight: 3,
+                },
+                 {
+                  label: "تتقيد بشكل متكامل.",
+                  weight: 6,
+                },
+        
+              ],
+            }
+            
+            ,
+          
+          
+      
+          ]},
+
+
+
+          Q12: {
+            weight: 16,
+        
+            questions: [
+              {
+                label: "HAS_ACCOUNTING_SOFTWARE",
+                isDependantOnPrev: false,
+        
+                options: [
+                  {
+                    label: "لا يوجد.",
+        
+                    weight: 0,
+                  },
+                  {
+                    label: "نعم يوجد .",
+                    weight: 0,
+                    moveToNext:true   },
+              
+                ],
+              }   ,
+
+              {
+                label: "CHART_OF_ACCOUNTS_IMPLEMENTED",
+                isDependantOnPrev: true,
+        
+                options: [
+                  {
+                    label: "غير مفعل.",
+        
+                    weight: 0,
+                  },
+                  {
+                    label: "مفعل بشكل جزئي.",
+                    weight: 4,
+                  },
+              
+                  {
+                    label: "مفعل بشكل متكامل.",
+                    weight: 8,
+                  },
+              
+                ],
+              }   ,
+
+
+              {
+                label: "APPLIES_UNIFIED_CHART_OF_ACCOUNTS",
+                isDependantOnPrev: false,
+        
+                options: [
+                  {
+                    label: "لا تطبق.",
+        
+                    weight: 0,
+                  },
+                  {
+                    label: "تطبق بشكل جزئي.",
+                    weight: 4,
+                  },
+              
+                  {
+                    label: "تطبق بشكل متكامل.",
+                    weight: 8,
+                  },
+              
+                ],
+              }   ,
+
+
+
+              
+            ]},
+
+
+
+
+}

@@ -267,7 +267,6 @@ const indicatorsLabels = {
 
 const governanceLabels  = {
   COMPLIANCE_ADHERENCE_PRACTICES: {
- 
       // Bylaws and Basic Requirements
       BYLAWS_MODIFIED_IN_CURRENT_OR_PREVIOUS_YEAR:"هل تم تعديل اللائحة الأساسية للجمعية خلال السنة المالية الحالية أو السابقة؟",
       BYLAWS_INCLUDE_MEMBERSHIP_TERMS: "هل تشتمل اللائحة الأساسية على فئات وشروط وأحكام العضوية في الجمعية العمومية؟",
@@ -350,6 +349,9 @@ const governanceLabels  = {
       BRANCHES_APPROVED_BY_CENTER_AND_SUPERVISOR:"هل توجد موافقة من المركز والجهة المشرفة على إنشاء هذه الفروع والمكاتب؟",
       HAS_CERTIFIED_EXTERNAL_AUDITOR:"هل تم التعاقد مع مراجع حسابات معتمد لدى المركز أو مصنف لدى الهيئة السعودية للمراجعين والمحاسبين؟",
       HAS_DETAILED_ANNUAL_FINANCIAL_REPORT_APPROVED:"هل يوجد تقرير سنوي مفصل عن القوائم المالية ومعتمد من مراجع حسابات خارجي ومن الجمعية العمومية؟",
+     
+      FINANCIAL_REPORT_SUBMITTED_TO_CENTER_WITHIN_FOUR_MONTHS:"هل تم رفعه للمركز خلال الأربعة أشهر من نهاية السنة المالية؟",
+     
       TERRORISM_FINANCING_RISKS_IDENTIFIED_AND_UNDERSTOOD:"هل قامت الجمعية بتحديد وفهم مخاطر جرائم الإرهاب وتمويله لديها؟",
       USES_CASH_TRANSACTIONS_FOR_DONATIONS:"هل يتم استخدام وسيلة التعاملات النقدية غير الإلكترونية في جمع التبرعات أو صرفها للمستفيدين؟",
       HAS_MONEY_LAUNDERING_SUSPICION_PROCEDURES:"هل لدى الجمعية إجراءات واضحة تلتزم بها إذا توافرت لديهم أسباب معقولة للاشتباه في أن الأموال أو بعضها تمثل عمليات لها علاقة بغسل الأموال أو أنها سوف تستخدم في عمليات غسل أموال أو بعلاقة أو ارتباط أي من العمليات، أو الصفقات المعّقدة، أو الضخمة أو غير الطبيعية بعمليات غسل الأموال؟",
@@ -373,6 +375,9 @@ const governanceLabels  = {
       SURPLUS_INVESTED_IN_ENDOWMENTS_OR_PROJECTS:"هل تم استخدام فائض إيرادات معّينة وإدخالها في أوقاف الجمعية، أو تم استثمارها في مجالات مرّجحة الكسب تضمن لها الحصول على مورد ثابت، أو تم إعادة توظيفها في المشروعات الإنتاجية والخدمية؟",
       SURPLUS_INVESTMENT_APPROVED_BY_ASSEMBLY:"هل تم أخذ موافقة الجمعية العمومية على ذلك؟",
       RECEIVED_UNSOLICITED_FOREIGN_AID:"هل استقبلت الجمعية أعانات من خارج المملكة من دون طلب؟",
+      COMPLIES_WITH_DONATION_HANDLING_REGULATIONS:"هل تلتزم الجمعية في الإجراءات النظامية المتعلقة باستقبال التبرعات وصرفها للمستفيدين؟",
+      AUDITOR_APPOINTED_BY_BOARD:"هل تم تكليفه أو تعيينه من مجلس الإدارة؟",
+      RISK_ASSESSMENT_DECISIONS_AND_RECOMMENDATIONS_IMPLEMENTED:"هل تم اتخاذ القرارات وتوصيات بعد استعراض نتائج التقييم للتعامل مع المخاطر والحد منها؟",
       NOTIFIED_CENTER_OF_FOREIGN_AID:"هل تم ابلاغ المركز؟",
       HAS_PROPERTY_OR_INVESTMENTS:"هل توجد عقارات أو استثمارات في ملكية الجمعية؟",
       PROPERTY_ACQUISITION_PROPERLY_APPROVED:"هل توجد موافقة من الجمعية العمومية قبل التملك أو تم إقرار ذلك في أول اجتماع تاٍل لها أو بقرار من مجلس الإدارة -في حال تم تفويضه من الجمعية العمومية باتخاذ القرارات في ذلك؟",
@@ -388,9 +393,97 @@ const governanceLabels  = {
       HAS_EXECUTIVE_COMMITTEE:"هل توجد لجنة تنفيذية في الجمعية؟",
       EXECUTIVE_COMMITTEE_FORMED_WITH_DEFINED_AUTHORITIES:"هل يوجد قرار بتشكيلها وتحديد المهام والصلاحيات المفوضة فيها والتي تكفل سير عمل الجمعية؟",
       HAS_INTERNAL_AUDIT_COMMITTEE:"هل توجد لجنة تدقيق ومراجعة داخلية؟",
-
       FINANCIAL_SUPERVISOR_CHAIRS_AUDIT_COMMITTEE:"هل يرأس المشرف المالي في مجلس الإدارة هذه اللجنة؟"
+    },
+    TRANSPARENCY_DISCLOSURE_PRACTICES:{
+        HAS_OFFICIAL_WEBSITE: "هل تمتلك الجمعية موقعًا إلكترونيًا خاصًا بها؟",
+        PUBLISHED_BYLAWS_WITHOUT_IDS: "هل نشرت الجمعية لائحتها الأساسية المعتمدة في موقعها الإلكتروني، مع عدم عرض أرقام هويات أعضاء الجمعية العمومية؟",
+        PUBLISHED_DONATION_POLICY: "هل تم نشر سياسة جمع التبرعات على موقع الجمعية الإلكتروني؟",
+        PUBLISHED_BENEFICIARY_RELATIONS_POLICY: "هل تم نشر سياسة تنظيم العلاقة مع المستفيدين وتقديم الخدمات على موقع الجمعية الإلكتروني؟",
+        PUBLISHED_VOLUNTEER_MANAGEMENT_POLICY: "هل تم نشر آلية إدارة المتطوعين على موقع الجمعية الإلكتروني؟",
+        PUBLISHED_CONFLICT_OF_INTEREST_POLICY: "هل تم نشر سياسة تعارض المصالح المعتمدة في الجمعية على موقع الجمعية الإلكتروني؟",
+        PUBLISHED_WHISTLEBLOWER_PROTECTION_POLICY: "هل تم نشر سياسة الإبلاغ عن المخالفات وحماية مقدمي البلاغات المعتمدة على موقع الجمعية الإلكتروني؟",
+        PUBLISHED_DATA_PRIVACY_POLICY: "هل تم نشر سياسة خصوصية البيانات على موقع الجمعية الإلكتروني؟",
+        PUBLISHED_DOCUMENT_RETENTION_POLICY: "هل تم نشر سياسة الاحتفاظ بالوثائق وإتلافها على موقع الجمعية الإلكتروني؟",
+        DISCLOSED_GENERAL_ASSEMBLY_MEMBERS: "هل تم الإفصاح عن أسماء أعضاء الجمعية العمومية في الموقع الإلكتروني؟",
+        DISCLOSED_GENERAL_ASSEMBLY_MINUTES: "هل تم الإفصاح عن محاضر اجتماعات الجمعية العمومية في موقع الجمعية الإلكتروني؟",
+        DISCLOSED_BOARD_MEMBERS_AND_TERMS: "هل تم الإفصاح عن أسماء أعضاء مجلس الإدارة ومدة دورة المجلس والمدة المتاحة للأعضاء في الموقع الإلكتروني؟",
+        DISCLOSED_RELATED_PARTY_RELATIONSHIPS: "هل تم الإفصاح عن وجود علاقة عائلية أو تجارية بين أحد من أعضاء مجلس الإدارة أو المديرين أو الموظفين القياديين مع عضو مجلس إدارة أو مدير أو موظف قيادي آخر في الجمعية؟",
+        DISCLOSED_BOARD_MEMBER_CONTRACTS: "هل تم الإفصاح عن تعاقدات الجمعية مع شركة لـعضو مجلس إدارة أو أحد من أقاربه من الدرجة الأولى؟",
+        DISCLOSED_COMMERCIAL_RELATIONSHIPS: "هل تم الإفصاح في الموقع الإلكتروني أو نموذج الإفصاح للجمعية عن وجود علاقة تعاقدية تجارية من الدرجة الأولى إلى الدرجة الرابعة؟",
+        HAS_PERMANENT_COMMITTEES: "هل توجد لجان دائمة في الجمعية؟",
+        DISCLOSED_COMMITTEE_DETAILS: "هل تم الإفصاح عن أسماء اللجان الدائمة واختصاصاتها مع أسماء أعضائها؟",
+        HAS_VALID_COMMERCIAL_REGISTRATION: "هل يوجد لدى الجمعية سجل تجاري ساري المفعول؟",
+        DISCLOSED_REGISTRATION_AND_EMPLOYEES: "هل تم الإفصاح عن السجل التجاري والعاملين في نموذج الإفصاح؟",
+        DISCLOSED_EXECUTIVE_DIRECTOR: "هل تم الإفصاح عن اسم المدير التنفيذي؟",
+        HAS_BRANCHES_OR_OFFICES: "هل توجد فروع أو مكاتب لدى الجمعية؟",
+        DISCLOSED_BRANCH_MANAGERS_CONTACTS: "هل تم الإفصاح عن أسماء مديري الفروع والمكاتب وبيانات التواصل معهم؟",
+        HAS_FEEDBACK_PORTAL: "هل لدى الجمعية نافذة لاستقبال الاستفسارات والمقترحات والشكاوى موضحة في موقعها الإلكتروني؟",
+        RESPONDS_TO_FEEDBACK: "هل تتفاعل الجمعية مع الاستفسارات والمقترحات والشكاوى؟",
+        CONDUCTED_STAKEHOLDER_SATISFACTION_SURVEY: "هل تم إجراء تقييمات لقياس رضا أصحاب العلاقة خلال السنة المالية الحالية أو السابقة؟",
+        ACHIEVED_FIFTY_PERCENT_SURVEY_RESPONSE: "هل نسبة الاستجابة على قياس الرضا تمثل 50% من عدد مستفيدي الجمعية؟",
+        ANALYZED_SATISFACTION_SURVEY_RESULTS: "هل تم تحليل الاستجابات التي تم جمعها من قياس الرضا؟",
+        PRESENTED_RESULTS_TO_BOARD: "هل تم عرض النتائج على مجلس الإدارة؟",
+        BOARD_MADE_RECOMMENDATIONS_ON_RESULTS: "هل تم اتخاذ القرارات والتوصيات من مجلس الإدارة على نتائج التقييم؟",
+        PUBLISHED_EVALUATION_FEEDBACK: "هل تم نشر التغذية الراجعة من عمليات التقييم على منصات الجمعية الإلكترونية المناسبة؟",
+        NOTIFIED_STAKEHOLDERS_OF_IMPROVEMENTS: "هل تم ابلاغ المعنيين بنتيجة التحسينات استنادًا إلى ملاحظاتهم؟",
+        HAS_BENEFICIARY_EVALUATION_REPORT: "هل يوجد تقرير يلخص تقييم المستفيدين النهائيين للخدمات التي تقدمها الجمعية؟",
+        PUBLISHED_STRATEGIC_OPERATIONAL_OBJECTIVES: "هل نشرت الجمعية أهدافها الاستراتيجية والتشغيلية في منصاتها الإلكترونية بما فيها موقعها الإلكتروني؟",
+        PUBLISHED_PROGRAM_ACTIVITY_REPORTS: "هل تنشر الجمعية تقارير برامجها وأنشطتها في منصاتها الإلكترونية أو موقعها الإلكتروني؟",
+        PUBLISHED_INVESTMENT_OWNERSHIP_DECISIONS: "هل تنشر الجمعية قرارات الاستثمار أو التملك الصادرة من الجمعية العمومية أو مجلس الإدارة في منصاتها الإلكترونية أو موقعها الإلكتروني؟",
+        PUBLISHED_AID_STATISTICS: "هل تم نشر الإحصائيات الدقيقة المتعلقة بالمساعدات النقدية والعينية وأعداد وفئات المستفيدين منها في مواقع التواصل الاجتماعي للجمعية أو موقعها الإلكتروني؟",
+        NOTIFIED_STAKEHOLDERS_OF_POLICY_UPDATES: "هل تم إبلاغ المستهدفين من الأنظمة واللوائح والسياسات عند نشرها أو تحديثها؟",
+        PUBLISHED_AUDITED_FINANCIAL_REPORT: "هل تم نشر التقرير المالي السنوي المدّقق والمعتمد للجمعية على موقع الجمعية الإلكتروني؟",
+        SUBMITTED_DISCLOSURE_ON_TIME: "هل تم توفير البيانات المطلوبة في نموذج الإفصاح في الوقت المحّدد؟",
+        DISCLOSURE_APPROVED_BY_CHAIRMAN: "هل تم اعتماد النموذج من رئيس مجلس الإدارة؟",
+        DISCLOSURE_MATCHES_REALITY: "هل تتطابق بيانات الجمعية المعتمدة في نموذج الإفصاح مع واقع الجمعية؟"
+      },
+    FINANCIAL_SAFETY_PRACTICES:{
+      HAS_APPROVED_FINANCIAL_ORG_STRUCTURE: "هل يوجد هيكل تنظيمي للوظائف المالية في الجمعية ضمن هيكل الجمعية معتمد من مجلس الإدارة؟",
+      HAS_CLEAR_FINANCIAL_JOB_DESCRIPTIONS: "هل يوجد وصف وظيفي للوظائف المالية واضح يحدد مسؤوليات واختصاصات كل موظف في الوظائف المالية المعتمدة في الهيكل التنظيمي؟",
+      ROLES_MATCH_ORG_STRUCTURE: "هل هي متطابقة مع المستويات الموجودة في الهيكل التنظيمي المعتمد؟",
+      HAS_FINANCIAL_POLICIES: "هل توجد لائحة للسياسات المالية ؟",
+      FINANCIAL_POLICY_APPROVED_1: "هل تم اعتماد اللائحة من مجلس الإدارة؟",
+      FINANCIAL_POLICY_APPROVED_2: "هل تم اعتماد اللائحة من مجلس الإدارة؟",
+      FINANCIAL_POLICY_APPROVED_3: "هل تم اعتماد اللائحة من مجلس الإدارة؟",
+      FINANCIAL_POLICY_APPROVED_4: "هل تم اعتماد اللائحة من مجلس الإدارة؟",
+
+
+      PROCEDURES_IMPLEMENTED_1: "هل هي مفعلة في واقع العمل المالي في الجمعية ؟",
+      PROCEDURES_IMPLEMENTED_2: "هل هي مفعلة في واقع العمل المالي في الجمعية ؟",
+      PROCEDURES_IMPLEMENTED_3: "هل هي مفعلة في واقع العمل المالي في الجمعية ؟",
+
+      HAS_FINANCIAL_PROCEDURES_MANUAL: "هل يوجد لدى الجمعية دليل إجراءات مالي ؟",
+      PROCEDURES_MANUAL_APPROVED: "هل تم اعتماد الدليل من مجلس الإدارة؟",
+      HAS_FINANCIAL_AUTHORITY_MATRIX: "هل يوجد لائحة صلاحيات مالية للمجلس والصلاحيات الممنوحة من المجلس للإدارة التنفيذية؟",
+      HAS_PROCUREMENT_PROCEDURES: "هل يوجد لدى الجمعية لائحة وإجراءات للمشتريات؟",
+      HAS_PROGRAM_SPENDING_PROCEDURES: "هل توجد لدى الجمعية سياسات وإجراءات خاصة بعمليات الصرف للبرامج والأنشطة؟",
+      HAS_REVENUE_HANDLING_PROCEDURES: "هل لدى الجمعية إجراءات ملائمة للتعامل مع المقبوضات في الجمعية؟",
+      HAS_APPROVED_DONATION_POLICY: "هل توجد سياسة لجمع التبرعات معتمدة من مجلس الإدارة؟",
+      POLICIES_APPROVED: "هل تم اعتماد السياسات من مجلس الإدارة؟",
+      POLICIES_APPROVED_2: "هل تم اعتماد السياسات من مجلس الإدارة؟",
+      POLICIES_APPROVED_3: "هل تم اعتماد السياسات من مجلس الإدارة؟",
+
+      HAS_INVESTMENT_POLICIES: "هل توجد لدى الجمعية سياسات وإجراءات مالية للاستثمار في الجمعية؟",
+      HAS_ACCOUNTANT: "هل يوجد لدى الجمعية محاسب؟",
+      ACCOUNTANT_IS_SAUDI: "هل المحاسب سعودي الجنسية؟",
+      SUPERVISOR_PERFORMS_DUTIES: "هل يمارس المشرف المهام الموكلة إليه في هذه الممارسة؟",
+      INTERNAL_AUDITOR_REPORTS_TO_BOARD: "هل يرفع المراجع الداخلي التقارير لمجلس الإدارة والإدارة التنفيذية؟",
+      HAS_ACCOUNTING_SOFTWARE: "هل يوجد لدى الجمعية برنامج محاسبي ؟",
+      FOLLOWS_SAUDI_ACCOUNTING_STANDARDS: "هل تتقيد الجمعية في عملياتها المالية بالمعايير المحاسبية الصادرة من الهيئة السعودية للمحاسبين القانونيين وبالنماذج والتقارير المحاسبية التي تصدرها المركز؟",
+      MAINTAINS_REQUIRED_RECORDS: "هل يوجد لدى الجمعية السجلات والدفاتر الإدارية والمحاسبية التي تحتاجها وفقًا للأنظمة واللوائح والتعليمات ومتطلبات العمل المالي والمحاسبي لكافة العمليات المحاسبية؟",
+      APPLIES_UNIFIED_CHART_OF_ACCOUNTS: "هل تطبق الجمعية دليل الحسابات الموحد في الجمعيات الأهلية والمعتمد من المركز بشكل صحيح ؟",
+      CHART_OF_ACCOUNTS_IMPLEMENTED: "هل هو مفعل في واقع العمل المالي في الجمعية ؟",
+      HAS_MEMBERSHIP_FEES_TRACKING: "هل يوجد سجل يدوي أو عبر البرنامج المحاسبي لمتابعة اشتراكات الأعضاء؟",
+      HAS_OPERATIONAL_BUDGET: "هل للجمعية موازنة تقديرية و تم إعدادها بناء على الخطة التشغيلية المعتمدة للجمعية؟",
+      HAS_INVESTMENTS_OR_ASSETS: "هل لدى الجمعية استثمارات أو أصول ؟",
+      INVESTMENTS_APPROVED_BY_ASSEMBLY: "هل أقّرت الجمعية العمومية خطة هذه الاستثمارات والأصول واقترحت مجالاته؟",
+      RECEIVED_FOREIGN_AID: "هل تلّقت الجمعية إعانات من خارج المملكة؟",
+      FOREIGN_AID_CENTER_APPROVED: "هل تم أخذ الموافقة من المركز؟"
+
+
     }
+
 
 }
 
