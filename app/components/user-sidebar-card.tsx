@@ -21,8 +21,8 @@ export function UserSidebarCard({ user, handleLogOut, toggle = true }: UserDropd
   return (
     <DropdownMenu dir="rtl">
       <DropdownMenuTrigger asChild>
-        <div className="h-full w-full p-2 border rounded-lg relative cursor-pointer">
-          <div className="absolute flex justify-center h-6 w-6 rounded border left-2 top-2 hover:bg-secondary/10 transition-colors duration-300">
+        <div className={`h-full w-full p-2 ${toggle?"border":""} rounded-lg relative cursor-pointer`}>
+          <div className={`absolute flex justify-center h-6 w-6 rounded ${toggle?"border":""} left-2 top-2 hover:bg-secondary/10 transition-colors duration-300`}>
             <div className="relative flex flex-col">
               <ChevronUp className="h-3 w-3" /> 
               <ChevronDown className="h-3 w-3" />
@@ -37,9 +37,13 @@ export function UserSidebarCard({ user, handleLogOut, toggle = true }: UserDropd
             </div>
             <div className="flex flex-col">
               <span className="text-sm font-medium">{user?.name}</span>
+              {toggle?(
               <span className="text-xs text-muted-foreground">
                 {user?.role}
               </span>
+              ):
+              ""
+              }
             </div>
           </div>
         </div>

@@ -17,6 +17,7 @@ import { dashboardStatusMap } from "../cp/users/dashboard/constants/glossary";
 import { useThemeStore } from "~/lib/store/theme-store";
 
 
+
 export const loader = async ({
   request,
   context,
@@ -89,10 +90,11 @@ const Org = () => {
             <div className="">
               <Breadcrumbs
                 items={[
-                  { label: "الرئيسية", href: "/" },
-                  { label: "لوحة البيانات", href: "/" },
+                  { label: "الرئيسية", href: `/org/${org.id}` },
+
                 ]}
               />
+              
             </div>
             <p className="text-primary-foreground font-bold text-3xl">
               {org.name}

@@ -18,6 +18,7 @@ import { initialValues } from "./constants/initialValues";
 import DashboardIndicators from "./components/DashboardIndicators";
 import { toasts } from "~/lib/utils/toast";
 import { useThemeStore } from "~/lib/store/theme-store";
+import { Breadcrumbs } from "~/components/app-breadcrumbs";
 
 
 
@@ -196,6 +197,18 @@ setLightTheme()
   return (
     <>
       <DashboardHeader dashboardType={currentDashboard} onSave={saveEntries} loading={loading} onDelete={removeEntries} />
+      <Breadcrumbs items={[
+            {label:"الرئيسية", href:"/"},
+            {label:"الجمعيات", href:"/cp/users"},
+            {label:"بيانات الجمعية", href:`/cp/users/org/${id}/`},
+            {label:currentDashboard === "FINANCIAL"
+              ? "الأداء المالي"
+              : currentDashboard === "OPERATIONAL"
+              ? "الأداء التشغيلي"
+              : currentDashboard === "CORPORATE"
+              ? "الأداء المؤسسي"
+              : "العام", href:`/cp/users/org/${id}/dashboard/${currentDashboard}`}
+          ]}/>
       <ViewSwitch hasIndicators={!!indicators} view={view} onViewChange={setView} toggleFullscreen={toggleFullscreen} />
   
       <div id="tabs" className="w-full h-full border-t pt-2">
@@ -217,7 +230,7 @@ setLightTheme()
           </TabsList>
 
           <TabsContent value={currentDashboard}>
-            <div className="p-4 overflow-auto" ref={containerRef}>
+            <div className="p-4 overflow-auto " ref={containerRef}>
               {view === "entries" ? (
                 <>
                   {/* <div className="flex flex-col justify-center items-center">

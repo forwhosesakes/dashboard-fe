@@ -465,7 +465,6 @@ export default function Home({ loaderData }: Route.ComponentProps) {
               <Breadcrumbs
                 items={[
                   { label: "الرئيسية", href: "/" },
-                  { label: "لوحة البيانات", href: "/" },
                 ]}
               />
             </div>
