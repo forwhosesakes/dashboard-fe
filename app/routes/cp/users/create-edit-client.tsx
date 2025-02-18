@@ -167,7 +167,6 @@ export async function action({ request, context }: ActionFunctionArgs) {
       let orgObject: any = {};
 
       for (const [key, value] of formData.entries()) {
-        
         if (FILE_FIELDS.includes(key)) {
           orgObject[key] = JSON.stringify(formData.getAll(key));
         } else if (key === "generalndicatorsSetting") {
@@ -179,7 +178,6 @@ export async function action({ request, context }: ActionFunctionArgs) {
             "financialIndicatorsSetting",
           ].includes(key)
         ) {
-          
           orgObject[key] = value == "false" ? 0 : value;
         } else orgObject[key] = value;
       }
@@ -228,8 +226,6 @@ const CreateEditClient = () => {
 
   const loaderData = useLoaderData() as unknown as LoaderData;
 
-  console.log("loaderData:::",loaderData)
-
   const formHook = useForm<TFormDataInput>({
     mode: "all",
     //@ts-ignore
@@ -241,10 +237,11 @@ const CreateEditClient = () => {
   });
   const [formSteps, setFormSteps] = useState(STEPS);
 
+  useEffect(() => {}, [formHook.formState]);
 
-  useEffect(()=>{
-console.log("formhook form state", formHook.formState)
-  },[formHook.formState])
+  useEffect(() => {
+    document.title = id?"تعديل بيانات الجمعية":"إنشاء جمعية جديدة";
+  }, []);
 
   const onSubmit = (data: TFormDataInput) => {
     let formData = new FormData();
@@ -282,13 +279,13 @@ console.log("formhook form state", formHook.formState)
         return isValid && !formHook.formState.errors[field.label];
       })
     );
-    return results.every(result => result);
+    return results.every((result) => result);
   };
-  const onStepChange =  async (
+  const onStepChange = async (
     prevStep: StepsEnum,
     currentStep: null | StepsEnum
   ) => {
-    const statusForNextStep = await isThisFormSectionValid(prevStep)
+    const statusForNextStep = (await isThisFormSectionValid(prevStep))
       ? "DONE"
       : "IDLE";
 
@@ -306,9 +303,9 @@ console.log("formhook form state", formHook.formState)
 
   return (
     <section className="w-full p-12 ">
-     {fetcher.state !== "idle"
-          && <LoadingOverlay message="جاري إضافة الجمعية" />
-        }
+      {fetcher.state !== "idle" && (
+        <LoadingOverlay message="جاري إضافة الجمعية" />
+      )}
       <h5>{id ? USER_MGMT.EDIT_CLIENT : USER_MGMT.CREATE_CLIENT}</h5>
       <form onSubmit={formHook.handleSubmit(onSubmit)}>
         <Stepper<UseFormReturn<TFormDataInput, any, undefined>>
@@ -321,7 +318,6 @@ console.log("formhook form state", formHook.formState)
           cancelStepper={() => navigate("/cp/users")}
           onStepChange={onStepChange}
         />
-
       </form>
     </section>
   );

@@ -49,7 +49,7 @@ export function UserSidebarCard({ user, handleLogOut, toggle = true }: UserDropd
         <DropdownMenuLabel>حسابي</DropdownMenuLabel>
         <DropdownMenuSeparator />
         
-        <DropdownMenuItem>
+        {/* <DropdownMenuItem>
           <User className="ml-2 h-4 w-4" />
           <span>الملف الشخصي</span>
         </DropdownMenuItem>
@@ -62,9 +62,9 @@ export function UserSidebarCard({ user, handleLogOut, toggle = true }: UserDropd
         <DropdownMenuItem>
           <Users className="ml-2 h-4 w-4" />
           <span>تبديل الحساب</span>
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
 
-        <DropdownMenuSeparator />
+        {/* <DropdownMenuSeparator /> */}
         
         <DropdownMenuItem onClick={handleLogOut} className="text-destructive">
           <LogOut className="ml-2 h-4 w-4" />

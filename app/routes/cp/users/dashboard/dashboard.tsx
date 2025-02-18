@@ -14,12 +14,8 @@ type LoaderData = {
 export const loader = async ({ context, params }: LoaderFunctionArgs) => {
   const serverUrl = context.cloudflare.env.BASE_URL;
   const { id } = params;
-
   if (!id) return { error: "Error at getting Organization id" };
-
   const dashboardsOverview = await dashboardApi(serverUrl).getOrgDashboards(id);
-console.log("overview:: ",dashboardsOverview);
-
   return { dashboardsOverview };
 };
 
@@ -27,7 +23,10 @@ const Dashbaord = () => {
   const { dashboardsOverview } = useLoaderData<typeof loader>();
 
 useEffect(()=>{
-    console.log(dashboardsOverview);
+
+    document.title="عرض لوحات معلومات الجمعية"
+
+
     
 },[])
   return (

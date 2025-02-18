@@ -16,6 +16,7 @@ import { Button } from "~/components/ui/button";
 import DownloadIcon from "~/assets/icons/upload.svg?react";
 import PDFIcon from "~/assets/icons/pdf.svg?react";
 import ImageIcon from "~/assets/icons/jpeg.svg?react";
+import { useEffect } from "react";
 
 export async function loader({ request, context, params }: LoaderFunctionArgs) {
   const serverUrl = context.cloudflare.env.BASE_URL;
@@ -100,7 +101,12 @@ export async function loader({ request, context, params }: LoaderFunctionArgs) {
 
 const ViewClient = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
+
+  useEffect(()=>{
+    document.title=loaderData.status==="success"?"عرض بيانات جمعية " +loaderData.data.name:"عرض بيانات الجمعية"
+
+  },[])
+
 
   const loaderData = useLoaderData<typeof loader>() as unknown as LoaderData;
   return (

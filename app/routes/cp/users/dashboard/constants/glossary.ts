@@ -58,6 +58,8 @@ const entriesLabels = {
     NO_TOTAL_MONEY_VAT: "إجمالي المبالغ المستردة من الضريبة",
     START_LIABILITIES: "الالتزامات في بداية العام",
     END_LIABILITIES: "الالتزامات في نهاية العام",
+    TOTAL_TAX_REFUND:"اجمالي المبالغ المستردة من الضريبة"
+
   },
   CORPORATE: {
     COMPLIANCE_ADHERENCE_PRACTICES: "ممارسات الامتثال و الالتزام",

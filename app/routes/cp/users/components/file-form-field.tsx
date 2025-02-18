@@ -44,13 +44,7 @@ const FileFormField = ({ field, getFieldState, control, ...rest }: IProps) => {
               const [selectedFiles, setSelectedFiles] = useState(
                 (value as unknown as any[]) ?? []
               );
-              console.log("initial calue: ", value);
-              // useEffect(() => {
-              //   console.log("fieldState:::", fieldState);
-              //   console.log("value:::", value);
-              // }, [value]);
 
-              // console.log("fild", fieldState);
 
               const onDrop = useCallback(
                 (acceptedFiles: any[]) => {

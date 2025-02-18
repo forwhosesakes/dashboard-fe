@@ -84,9 +84,9 @@ const GeneralDashboard = ({ indicators }: IProps) => {
   ]
 
   return (
-    <section>
+    <section className="max-h-[95vh] overflow-hidden">
       <div className="flex flex-wrap gap-4">
-        {cards.map((card) => (
+        {cards.filter((c)=>c.value).map((card) => (
           <div className="flex flex-col p-5 items-center justify-center rounded-md border border-[#22262F]">
             <h6>
               {
@@ -104,7 +104,7 @@ const GeneralDashboard = ({ indicators }: IProps) => {
         ))}
       </div>
 
-      <div className="w-full flex justify-between p-8 ">
+      <div className="w-full flex justify-between mt-4 px-8 ">
         <div>
             <h5>خارطة الخفجي</h5>
         </div>
