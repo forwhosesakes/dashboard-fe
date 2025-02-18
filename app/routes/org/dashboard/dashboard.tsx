@@ -12,6 +12,8 @@ import DashboardIndicators from "~/routes/cp/users/dashboard/components/Dashboar
 import { tabsNames } from "./constants/glossary";
 import { Button } from "~/components/ui/button";
 import { Maximize2 } from "lucide-react";
+import { Breadcrumbs } from "~/components/app-breadcrumbs";
+
 
 export const loader = async ({ context, params }: LoaderFunctionArgs) => {
   const { id, dashboardType } = params;
@@ -116,7 +118,16 @@ const Dashbaord = () => {
               ? "الأداء المؤسسي"
               : "العام"}
           </h5>
-          <p className="text-primary-foreground/75">أدخل بيانات المؤشر.</p>
+          <Breadcrumbs items={[
+            {label:"الرئيسية", href:`/`},
+           {label:currentDashboard === "FINANCIAL"
+            ? "الأداء المالي"
+            : currentDashboard === "OPERATIONAL"
+            ? "الأداء التشغيلي"
+            : currentDashboard === "CORPORATE"
+            ? "الأداء المؤسسي"
+            : "العام"}
+          ]}/>
         </div>
 
         <div className="">

@@ -5,6 +5,7 @@ import { dashboardApi, type DashboardOverviewType } from "~/lib/api/dashboard";
 import { dashboardStatusMap } from "./constants/glossary"
 import { useEffect } from "react";
 import { newDashboardsTitles } from "~/routes/org/dashboard/constants/glossary";
+import { Breadcrumbs } from "~/components/app-breadcrumbs";
 
 type LoaderData = {
     dashboardsOverview: DashboardOverviewType[];
@@ -16,11 +17,11 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
   const { id } = params;
   if (!id) return { error: "Error at getting Organization id" };
   const dashboardsOverview = await dashboardApi(serverUrl).getOrgDashboards(id);
-  return { dashboardsOverview };
+  return { dashboardsOverview, orgId:id };
 };
 
 const Dashbaord = () => {
-  const { dashboardsOverview } = useLoaderData<typeof loader>();
+  const { dashboardsOverview, orgId } = useLoaderData<typeof loader>();
 
 useEffect(()=>{
 
@@ -35,6 +36,15 @@ useEffect(()=>{
         <div>
           <h5>{`المؤشرات`}</h5>
           <p className="text-primary-foreground/75">{`اختر خطة حساب تناسب سير عملك.`}</p>
+          <div className="mt-2">
+          <Breadcrumbs items={[
+            {label:"الرئيسية", href:"/"},
+            {label:"الجمعيات", href:"/cp/users"},
+            {label:"بيانات الجمعية", href:`/cp/users/org/${orgId}/`},
+            {label:"المؤشرات"}
+          ]}/>
+
+          </div>
         </div>
         <div className="flex gap-x-4">
           <NavLink state={{dashboardsOverview}} to={"GENERAL"}>

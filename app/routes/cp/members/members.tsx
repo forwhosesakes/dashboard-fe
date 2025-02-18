@@ -31,6 +31,7 @@ import EditMemberDialog from "./components/editMemberDialog";
 import { authClient } from "~/lib/auth-client";
 import { toast } from "sonner";
 import { orgApi } from "~/lib/api/org";
+import { Breadcrumbs } from "~/components/app-breadcrumbs";
 
 export async function loader({ request, context }: LoaderFunctionArgs) {
   const serverUrl = context.cloudflare.env.BASE_URL;
@@ -348,6 +349,10 @@ const Members = () => {
             أعضاء الفريق
           </h1>
           <p>قائمة بجميع الأعضاء المسجلين في النظام</p>
+          <Breadcrumbs items={[
+            {label:"الرئيسية", href:"/"},
+            {label:"الأعضاء", href:"/cp/members"}
+          ]}/>
         </div>
 
         <div className="w-3/12 flex items-end">

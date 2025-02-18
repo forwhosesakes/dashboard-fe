@@ -17,6 +17,8 @@ import DownloadIcon from "~/assets/icons/upload.svg?react";
 import PDFIcon from "~/assets/icons/pdf.svg?react";
 import ImageIcon from "~/assets/icons/jpeg.svg?react";
 import { useEffect } from "react";
+import { Breadcrumbs } from "~/components/app-breadcrumbs";
+
 
 export async function loader({ request, context, params }: LoaderFunctionArgs) {
   const serverUrl = context.cloudflare.env.BASE_URL;
@@ -115,6 +117,7 @@ const ViewClient = () => {
         <>
           <div className="flex justify-between p-5">
             <h5>{loaderData.data.name}</h5>
+
             <div className="flex gap-x-4">
               <NavLink to={"dashboard"}>
                 <Button variant={"secondary"}>{" عرض لوحة المعلومات"}</Button>
@@ -123,6 +126,13 @@ const ViewClient = () => {
                 <Button variant={"outline"}>{"تعديل البيانات"}</Button>
               </NavLink>
             </div>
+          </div>
+          <div className="pr-5">
+          <Breadcrumbs items={[
+              {label:"الرئيسية", href:"/"},
+              {label:"الجمعيات", href:"/cp/users"},
+              {label:"بيانات الجمعية"}
+            ]}/>
           </div>
           {/* Main Entries */}
           <div className="p-5">

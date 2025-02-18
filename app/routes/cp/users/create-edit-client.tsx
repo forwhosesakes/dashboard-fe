@@ -27,6 +27,8 @@ import { OrganizationsAPI } from "~/services/org";
 import { createToastHeaders } from "~/lib/toast.server";
 import { FILE_FIELDS } from "./constants/client-shared";
 import LoadingOverlay from "~/components/loading-overlay";
+import { Breadcrumbs } from "~/components/app-breadcrumbs";
+
 
 const initialValues = {
   // Text fields
@@ -307,6 +309,14 @@ const CreateEditClient = () => {
         <LoadingOverlay message="جاري إضافة الجمعية" />
       )}
       <h5>{id ? USER_MGMT.EDIT_CLIENT : USER_MGMT.CREATE_CLIENT}</h5>
+
+      <div className="mt-3">
+      <Breadcrumbs items={[
+        {label:"الرئيسية",href:"/"},
+        {label:"الجمعيات", href:"/cp/users"},
+        {label:id ? USER_MGMT.EDIT_CLIENT : USER_MGMT.CREATE_CLIENT}
+      ]}/>
+      </div>
       <form onSubmit={formHook.handleSubmit(onSubmit)}>
         <Stepper<UseFormReturn<TFormDataInput, any, undefined>>
           onComplete={() => {
