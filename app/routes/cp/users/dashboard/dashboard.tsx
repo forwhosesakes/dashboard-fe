@@ -56,12 +56,11 @@ useEffect(()=>{
 
       <div id="overview" className={`w-full h-full border-t pt-2 `}>
         <div className="w-10/12 h-1/3 mt-8  mx-auto flex flex-wrap items-center  justify-center gap-4">
-          {dashboardsOverview && dashboardsOverview.filter((dashboard)=>dashboard.title!="NEW_GENERAL_INDICATORS").map((dashboard,i) => {
+          {dashboardsOverview && dashboardsOverview.map((dashboard) => {
             return (
               <NavLink
               
-              state={{dashboardsOverview}} to={dashboard.title.split("_")[1]} 
-              className={`${i===2?"w-[99%]":"w-[49%]"}  border h-44 hover:border-accent rounded-lg group`}>
+              state={{dashboardsOverview}} to={dashboard.title.split("_")[1]} className="w-5/12 border h-44 hover:border-accent rounded-lg group">
                 <div className="w-full flex m-2 items-center gap-3 h-1/6">
                   <div className="border p-2 rounded-lg">
                     <Layers className="h-5 w-5"/>
@@ -70,11 +69,10 @@ useEffect(()=>{
                   //@ts-ignore
                   newDashboardsTitles[dashboard.title]}
                 </div>
-                
                 <div id="bottom-section" className="border-t group-hover:border-accent flex flex-col py-5 px-5 h-5/6">
                   <div className="flex justify-between">
                     <div className="flex gap-2 items-end ">
-                      <h3 className="text-primary-foreground">{dashboard.title === "NEW_FINANCIAL_INDICATORS"?38: dashboard.title === "NEW_OPERATIONAL_INDICATORS"? 22 : 36}</h3>
+                      <h3 className="text-primary-foreground">{dashboard.title === "NEW_FINANCIAL_INDICATORS"?38: dashboard.title === "NEW_OPERATIONAL_INDICATORS"? 22 : dashboard.title === "NEW_GENERAL_INDICATORS" ? 0: 36}</h3>
                       <p>مُدخل</p>
                     </div>
                     <div className="flex border rounded-lg px-2 py-1 justify-center items-center gap-2">
