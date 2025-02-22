@@ -216,7 +216,7 @@ const ViewClient = () => {
                               </div>
                               <div className="flex flex-col  ml-6 text-right justify-start w-full">
                                 <span className="text-sm">
-                                  {file.split(".")[0]}
+                                  {file.split(".")[0].split("-").pop()}
                                 </span>
                               </div>
 

@@ -28,6 +28,7 @@ import { createToastHeaders } from "~/lib/toast.server";
 import { FILE_FIELDS } from "./constants/client-shared";
 import LoadingOverlay from "~/components/loading-overlay";
 import { Breadcrumbs } from "~/components/app-breadcrumbs";
+import { sanitizeArabicFilenames } from "~/lib/sanitize-filename";
 
 
 const initialValues = {
@@ -58,9 +59,9 @@ const initialValues = {
   additionalDocs: [],
 
   // Indicator settings - initialize with false or 0
-  financialIndicatorsSetting: false,
-  operationalIndicatorsSetting: false,
-  corporateIndicatorsSetting: false,
+  financialIndicatorsSetting: 30,
+  operationalIndicatorsSetting: 30,
+  corporateIndicatorsSetting: 40,
   generalndicatorsSetting: 100,
 };
 
@@ -71,10 +72,10 @@ export async function loader({ request, context, params }: LoaderFunctionArgs) {
   if (!id || isNaN(Number(id))) {
     return Response.json(
       {
-        status: "error" as const,
-        message: "Invalid organization ID",
+        status: "warn" as const,
+        message: "CREATE_MODE",
       },
-      { status: 400 }
+      { status: 200 }
     );
   }
 
@@ -142,7 +143,7 @@ export async function action({ request, context }: ActionFunctionArgs) {
   const uploadHandler = async (props: FileUpload) => {
     // const key = `${Date.now()}-${createId()}.${filename.split(".")[1]}`;
     if (props.fieldName) {
-      const key = `S${Date.now()}.${props.name?.split(".")[1]}`;
+      const key = `${Date.now()}-${sanitizeArabicFilenames(props.name?.split(".")[0])}.${props.name?.split(".").pop()}`;
       const buffer = await props.arrayBuffer();
       const x = await context.cloudflare.env.KEDAN_DASHBOARD_BUCKET.put(
         key,
@@ -157,11 +158,16 @@ export async function action({ request, context }: ActionFunctionArgs) {
     }
   };
   const contentType = request.headers.get("Content-Type") || "";
+  let id=null
 
   // Handle multipart form data (file uploads)
   if (contentType.includes("multipart/form-data")) {
     try {
       const formData = await parseFormData(request, uploadHandler as any);
+
+       id = formData.get("id")
+
+     
 
       // convert the form data into json, stringify the fields with arrays
       //  call the post org servive to create/update the org
@@ -188,6 +194,28 @@ export async function action({ request, context }: ActionFunctionArgs) {
         orgObject,
         context.cloudflare.env.BASE_URL
       );
+      let err=""
+      if (res.status!=="success") {
+        // Handle specific error cases
+        if (res.error?.code === 'USER_ALREADY_EXISTS') {
+            // Show appropriate error message to user
+         err="البريد الالكتروني للمستخدم مسجل مسبقًا"
+        }
+        return Response.json(
+          { success: false },
+          {
+            headers: await createToastHeaders(
+              {
+                description: err,
+                title: !!id?"حدث خطأ أثناء تحديث الجمعية": "حدث خطأ أثناء إضافة الجمعية",
+                type: "error",
+              },
+              context.cloudflare.env.SESSION_SECRET
+            ),
+          }
+        );
+      
+    }
 
       return Response.json(
         { success: true, data: res },
@@ -195,7 +223,7 @@ export async function action({ request, context }: ActionFunctionArgs) {
           headers: await createToastHeaders(
             {
               description: "",
-              title: "  تمت إضافة الجمعية بنجاح",
+              title: !!id? "تم تحديث الجمعية بنجاح": "تمت إضافة الجمعية بنجاح",
               type: "success",
             },
             context.cloudflare.env.SESSION_SECRET
@@ -203,14 +231,14 @@ export async function action({ request, context }: ActionFunctionArgs) {
         }
       );
     } catch (error) {
-      console.error("Upload failed:", error);
+      // console.error("Upload failed:", error);
       return Response.json(
-        { success: false },
+        { status: "false" },
         {
           headers: await createToastHeaders(
             {
               description: "",
-              title: "حدث خطأ أثناء إضافة الجمعية",
+              title: !!id?"حدث خطأ أثناء تحديث الجمعية": "حدث خطأ أثناء إضافة الجمعية",
               type: "error",
             },
             context.cloudflare.env.SESSION_SECRET
@@ -225,6 +253,8 @@ const CreateEditClient = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const fetcher = useFetcher();
+
+
 
   const loaderData = useLoaderData() as unknown as LoaderData;
 
@@ -321,6 +351,7 @@ const CreateEditClient = () => {
         <Stepper<UseFormReturn<TFormDataInput, any, undefined>>
           onComplete={() => {
             // console.log("completed");
+            navigate("/cp/users")
           }}
           completeDisable={!formHook.formState.isValid}
           steps={formSteps}
