@@ -53,7 +53,7 @@ const DashboardBadgeColor: {
 type LoaderData =
   | {
       status: "success";
-      data: TClientOverview[];
+      data:{users: TClientOverview[], userSession:any};
       pagination: {
         total: number;
         currentPage: number;
@@ -74,12 +74,11 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
       headers: {
         Cookie: cookieHeader || "",
       },
-      // credentials: "include",
     },
   });
   const session = res.data?.session;
   const user = res.data?.user
-
+  
   if (session && user && user.role === "user"){
     const org = await orgApi(serverUrl).getOrgByUserId(user.id)
     console.log("org is ::",org);
@@ -101,7 +100,7 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
     // Return successful response
     return Response.json({
       status: "success" as const,
-      data: response.data,
+      data: {users:response.data, userSession:user},
       pagination: response.pagination,
     });
   } catch (error) {
@@ -202,9 +201,7 @@ const Users = () => {
     navigate(`?${searchParams.toString()}`);
   };
 
-  const handleEditUserClick = (user: TClientOverview, e: any) => {
-    navigate("prg/" + user.id);
-  };
+
 
   const deleteUser = (userId: string) => {
     fetcher.submit({ id: userId }, { method: "DELETE" });
@@ -267,6 +264,7 @@ const Users = () => {
       {
         id: "actions",
         header: () => "الإجراء",
+        
         cell: ({ row }: any) => {
           return (
             <div className="flex  w-fit gap-x-2">
@@ -302,9 +300,14 @@ const Users = () => {
   );
 
   const table = useReactTable<TClientOverview>({
-    data: loaderData.status === "success" ? loaderData.data : [],
+    data: loaderData.status === "success" ? loaderData.data.users : [],
     columns,
     getCoreRowModel: getCoreRowModel(),
+    initialState:{
+      columnVisibility:{
+        actions: loaderData.status==="success"&&loaderData.data.userSession.subRole==="admin"
+      }
+    },
     enableMultiRowSelection: true,
     onRowSelectionChange: setRowSelection, //hoist up the row selection state to your own scope
     // getFilteredRowModel: getFilteredRowModel(),
@@ -322,14 +325,14 @@ const Users = () => {
       ]}/>
       </div>
 
-      <Button
+   { (loaderData.status==="success"&&loaderData.data.userSession.subRole==="admin")&&   <Button
         className="absolute left-4 top-2 w-fit"
         onClick={() => navigate("/cp/users/org/create-edit")}
         variant={"outline"}
       >
         {USER_MGMT.CREATE_CLIENT}
         <PlusIcon />
-      </Button>
+      </Button>}
 
       <hr className="my-4" />
 

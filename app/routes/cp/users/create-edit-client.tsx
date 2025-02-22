@@ -1,5 +1,5 @@
 import {
-  useActionData,
+  redirect,
   useFetcher,
   useLoaderData,
   useNavigate,
@@ -29,6 +29,7 @@ import { FILE_FIELDS } from "./constants/client-shared";
 import LoadingOverlay from "~/components/loading-overlay";
 import { Breadcrumbs } from "~/components/app-breadcrumbs";
 import { sanitizeArabicFilenames } from "~/lib/sanitize-filename";
+import { authClient } from "~/lib/auth-client";
 
 
 const initialValues = {
@@ -67,6 +68,7 @@ const initialValues = {
 
 export async function loader({ request, context, params }: LoaderFunctionArgs) {
   const serverUrl = context.cloudflare.env.BASE_URL;
+
   const { id } = params;
   // Validate ID parameter
   if (!id || isNaN(Number(id))) {
@@ -78,6 +80,20 @@ export async function loader({ request, context, params }: LoaderFunctionArgs) {
       { status: 200 }
     );
   }
+    const cookieHeader = request.headers.get("Cookie");
+    
+    const res = await authClient(serverUrl).getSession({
+      fetchOptions: {
+        headers: {
+          Cookie: cookieHeader || "",
+        },
+      },
+    });
+    const user = res.data?.user
+
+    if(user?.subRole!=="admin"){
+      return redirect("/cp/users")
+    }
 
   try {
     // Call the API
@@ -336,7 +352,7 @@ const CreateEditClient = () => {
   return (
     <section className="w-full p-12 ">
       {fetcher.state !== "idle" && (
-        <LoadingOverlay message="جاري إضافة الجمعية" />
+        <LoadingOverlay message={id? "جاري تحديث الجمعية":"جاري إضافة الجمعية"} />
       )}
       <h5>{id ? USER_MGMT.EDIT_CLIENT : USER_MGMT.CREATE_CLIENT}</h5>
 

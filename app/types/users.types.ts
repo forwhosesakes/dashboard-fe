@@ -115,7 +115,7 @@ export type TSteps = { [key in StepsEnum]: StepData };
 export type LoaderData =
   | {
       status: "success";
-      data: TOrganization;
+      data: {org:TOrganization, userSession:any};
     }
   | {
       status: "error";
