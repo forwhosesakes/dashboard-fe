@@ -32,12 +32,31 @@ import { authClient } from "~/lib/auth-client";
 import { toast } from "sonner";
 import { orgApi } from "~/lib/api/org";
 import { Breadcrumbs } from "~/components/app-breadcrumbs";
+import type { UserWithRole } from "better-auth";
 
 export async function loader({ request, context }: LoaderFunctionArgs) {
   const serverUrl = context.cloudflare.env.BASE_URL;
+  const cookieHeader = request.headers.get("Cookie");
 
   try {
-    const cookieHeader = request.headers.get("Cookie");
+
+    const sessionRes = await authClient(serverUrl).getSession({
+      fetchOptions: {
+        headers: {
+          Cookie: cookieHeader || "",
+        },
+      },
+    });
+    const session = sessionRes.data?.session;
+    const user = sessionRes.data?.user
+
+    if (session && user && user.role === "user"){
+      const org = await orgApi(serverUrl).getOrgByUserId(user.id)
+      return redirect(`/org/${org.id}`)
+    }
+
+    const isAdmin = user?.subRole === "admin";
+
 
     const res = await authClient(serverUrl).admin.listUsers({
       query: {
@@ -51,34 +70,7 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
         },
       },
     });
-    const sessionRes = await authClient(serverUrl).getSession({
-      fetchOptions: {
-        headers: {
-          Cookie: cookieHeader || "",
-        },
-        // credentials: "include",
-      },
-    });
-    const session = sessionRes.data?.session;
-    const user = sessionRes.data?.user
-    console.log("user:: ",user);
     
-  
-    if (session && user && user.role === "user"){
-      const org = await orgApi(serverUrl).getOrgByUserId(user.id)
-      console.log("org is ::",org);
-      // if(!org)return redirect("/login")
-      return redirect(`/org/${org.id}`)
-    }
-    
-    const currentUser = await authClient(serverUrl).getSession({
-      fetchOptions: {
-        headers: {
-          Cookie: cookieHeader || "",
-        },
-      },
-    });
-    const isAdmin = currentUser.data?.user.subRole === "admin";
 
     return { users: res?.data?.users, serverUrl, isAdmin };
   } catch (error) {
@@ -106,10 +98,12 @@ const MembersTable = ({
   data,
   title,
   description,
+  editMember
 }: {
   data: MemberType[];
   title: string;
   description: string;
+  editMember: (member: MemberType, newRole: string)=>Promise<void>
 }) => {
   const [memberToEdit, setMemberToEdit] = useState<MemberType | null>(null);
   const { isAdmin, serverUrl } = useLoaderData();
@@ -132,37 +126,7 @@ const MembersTable = ({
     setMemberToDeleteType(member);
   };
 
-  const editMember = async (member: MemberType,newRole:string) => {
-    try {
-      if (memberToEdit){
-        
-        const response = await fetch(`${serverUrl}/users/updateSubRole`,{
-            method:"POST",
-            headers:{
-                "content-Type":"application/json",
-                Cookie:document.cookie || "",
-            },
-            body:JSON.stringify({
-                id:member.id,
-                subRole:newRole
-            }),
-            credentials:'include'
-        })
-        console.log("response is ", response);
-        
-        if(!response.ok){
-            const error = await response.json();
-            throw new Error(error.message || "Failed to update user");
-        }
-        toast.success("تم تحديث العضو "+member.name+" بنجاح")
-
-      }
-      
-    } catch (error) {
-      console.error(error);
-    //   toast.error("فشل تحديث العضو " + member?.name);
-    }
-  };
+  
 
   const deleteMember = async (id: string) => {
     try {
@@ -318,10 +282,18 @@ const MembersTable = ({
         <EditMemberDialog
           isOpen={memberToEdit !== null}
           onClose={() => setMemberToEdit(null)}
-          onConfirm={(v) => {
+          onConfirm={async (v) => {
+            try{
+              
+              await editMember(memberToEdit,v)
+            }catch(error){
+              console.error("Failed to update member:",error)
+
+            }finally{
+
+              setMemberToEdit(null)
+            }
             
-            editMember(memberToEdit,v)
-            setMemberToEdit(null)
           }}
           member={memberToEdit}
 
@@ -332,14 +304,71 @@ const MembersTable = ({
 };
 
 const Members = () => {
-  const { users, serverUrl, isAdmin } = useLoaderData();
+  const { users, serverUrl, isAdmin } = useLoaderData<{isAdmin:boolean, serverUrl:string, users:MemberType[]}>();
   console.log("users:", users, "serverUrl:", serverUrl);
-
-  const admins = users?.filter((member) => member?.subRole === "admin");
-  const dataEntries = users?.filter(
-    (member) => member?.subRole === "dataEntry"
-  );
+  const [admins, setAdmins]=useState<MemberType[]>([]);
+  const [dataEntries, setDataEntries]=useState<MemberType[]>([]);
   const [showInviteDialog, setShowInviteDialog] = useState(false);
+
+  useEffect(() => {
+    setAdmins(users?.filter((member) => member?.subRole === "admin") || []);
+    setDataEntries(users?.filter((member) => member?.subRole === "dataEntry") || []);
+  }, [users]);
+
+  const editMember = async (member: MemberType,newRole:string) => {
+    try {
+      if (member){
+        
+        const response = await fetch(`${serverUrl}/users/updateSubRole`,{
+            method:"POST",
+            headers:{
+                "content-Type":"application/json",
+                Cookie:document.cookie || "",
+            },
+            body:JSON.stringify({
+                id:member.id,
+                subRole:newRole
+            }),
+            credentials:'include'
+        })
+        console.log("response is ", response.ok);
+        
+        if(!response.ok){
+            const error = await response.json();
+            throw new Error(error.message || "Failed to update user");
+        }
+        toast.success("تم تحديث العضو "+member.name+" بنجاح")
+
+        const res = await authClient(serverUrl).admin.listUsers({
+          query: {
+            filterField: "role",
+            filterOperator: "eq",
+            filterValue: "admin",
+          },
+          fetchOptions: {
+            headers: {
+              Cookie: document.cookie || "",
+            },
+          },
+        });
+
+        type BetterResponse = {
+          users: MemberType[];
+        };
+
+        const newUsers = (res.data as unknown as BetterResponse)?.users
+
+        setAdmins(newUsers?.filter((member) => member?.subRole === "admin"))
+        setDataEntries(newUsers?.filter((member) => member?.subRole === "dataEntry"))
+        
+
+      }
+      
+    } catch (error) {
+      console.error(error);
+    //   toast.error("فشل تحديث العضو " + member?.name);
+    }
+  };
 
   return (
     <section className="p-4 flex flex-col  gap-12">
@@ -372,6 +401,7 @@ const Members = () => {
           data={admins}
           title="المستخدمون الإداريون"
           description="يمكن للمسؤولين إضافة وإزالة المستخدمين وإدارة إعدادات مستوى المنظمة."
+          editMember={editMember}
         />
 
         <hr className="my-4" />
@@ -380,6 +410,7 @@ const Members = () => {
           data={dataEntries}
           title="مستخدمو الحساب"
           description="يمكن لمستخدمي الحساب تقييم ومراجعة المخاطر والاستبيانات وتسريبات البيانات وتحديد الانتهاكات."
+          editMember={editMember}
         />
       </div>
       <InviteMemberDialog
