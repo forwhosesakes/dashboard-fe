@@ -39,7 +39,7 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
 const Dashbaord = () => {
   const { id, currentDashboard, indicators, entries } = useLoaderData();
   const locationData = useLocation();
-  const { setLightTheme, setDarkTheme } = useThemeStore();
+  const { setLightTheme, setDarkTheme, theme } = useThemeStore();
 
   // useEffect(() => {
 
@@ -152,7 +152,7 @@ const Dashbaord = () => {
           </TabsList>
 
           <TabsContent value={currentDashboard}>
-            <div className="p-4  overflow-auto"
+            <div className={`p-4  overflow-auto ${theme.includes("dark")&&"bg-[#0A0E12]"}`}
                 ref={containerRef}
                 >
               <DashboardIndicators

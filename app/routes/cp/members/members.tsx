@@ -371,8 +371,8 @@ const Members = () => {
   };
 
   return (
-    <section className="p-4 flex flex-col  gap-12">
-      <div className="flex  justify-between">
+    <section className="p-4 flex flex-col max-h-screen gap-10">
+      <div className="flex justify-between">
         <div className="flex flex-col gap-2">
           <h1 className="text-2xl font-bold text-primary-foreground">
             أعضاء الفريق
@@ -396,7 +396,7 @@ const Members = () => {
         </div>
       </div>
 
-      <div className="flex flex-col   gap-8">
+      <div className="flex flex-col gap-6">
         <MembersTable
           data={admins}
           title="المستخدمون الإداريون"
@@ -404,7 +404,7 @@ const Members = () => {
           editMember={editMember}
         />
 
-        <hr className="my-4" />
+        <hr className="" />
 
         <MembersTable
           data={dataEntries}

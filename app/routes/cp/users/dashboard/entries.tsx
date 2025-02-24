@@ -58,7 +58,7 @@ const Entries = ({
   const locationData = useLocation();
   const [view, setView] = useState<"entries" | "indicators">("entries");
   const [loading,setLoading] = useState(false)
-  const {setLightTheme}=useThemeStore()
+  const {setLightTheme, theme}=useThemeStore()
 
   const [currentEntries, setCurrentEntries] = useState<
     { name: string; value: any; label: string }[]
@@ -230,7 +230,7 @@ setLightTheme()
           </TabsList>
 
           <TabsContent value={currentDashboard}>
-            <div className="p-4 overflow-auto " ref={containerRef}>
+            <div className={`p-4 overflow-auto ${theme.includes("dark")&&"bg-[#0A0E12]"}`} ref={containerRef}>
               {view === "entries" ? (
                 <>
                   {/* <div className="flex flex-col justify-center items-center">
