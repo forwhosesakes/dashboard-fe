@@ -33,8 +33,8 @@ export const USER_MGMT = {
     contractImage: "صورة من العقد",
     additionalDocs: "مستندات إضافية",
     financialIndicatorsSetting: "مؤشر لوحة الأداء المالي",
-    operationalIndicatorsSetting: "مؤشر لوحة التشغيل المؤسسي",
-    corporateIndicatorsSetting: "مؤشر لوحة حساب الأداء التشغيلي",
+    operationalIndicatorsSetting: "مؤشر لوحة التشغيلي ",
+    corporateIndicatorsSetting: "مؤشر لوحة حساب الأداء  المؤسسي ",
     generalndicatorsSetting: "مؤشر حساب اللوحة العامة",
   },
   OPTIONS:{

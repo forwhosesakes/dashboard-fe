@@ -2,7 +2,6 @@ import {
   Link,
   NavLink,
   useLoaderData,
-  useNavigate,
   useParams,
   type LoaderFunctionArgs,
 } from "react-router";
@@ -18,14 +17,23 @@ import PDFIcon from "~/assets/icons/pdf.svg?react";
 import ImageIcon from "~/assets/icons/jpeg.svg?react";
 import { useEffect } from "react";
 import { Breadcrumbs } from "~/components/app-breadcrumbs";
+import { authClient } from "~/lib/auth-client";
 
 
 export async function loader({ request, context, params }: LoaderFunctionArgs) {
   const serverUrl = context.cloudflare.env.BASE_URL;
-  const object: R2Objects = await (
-    context.cloudflare as any
-  ).env.KEDAN_DASHBOARD_BUCKET.list();
-
+  const cookieHeader = request.headers.get("Cookie");
+  
+  const res = await authClient(serverUrl).getSession({
+    fetchOptions: {
+      headers: {
+        Cookie: cookieHeader || "",
+      },
+    },
+  });
+  const session = res.data?.session;
+  const user = res.data?.user
+  
   const { id } = params;
   // Validate ID parameter
   if (!id || isNaN(Number(id))) {
@@ -75,7 +83,7 @@ export async function loader({ request, context, params }: LoaderFunctionArgs) {
     // Return successful response
     return Response.json({
       status: "success" as const,
-      data: response.data,
+      data: {org:response.data, userSession:user},
     });
   } catch (error) {
     // Handle different types of errors
@@ -105,7 +113,7 @@ const ViewClient = () => {
   const { id } = useParams();
 
   useEffect(()=>{
-    document.title=loaderData.status==="success"?"عرض بيانات جمعية " +loaderData.data.name:"عرض بيانات الجمعية"
+    document.title=loaderData.status==="success"?"عرض بيانات جمعية " +loaderData.data.org.name:"عرض بيانات الجمعية"
 
   },[])
 
@@ -116,15 +124,15 @@ const ViewClient = () => {
       {loaderData.status === "success" ? (
         <>
           <div className="flex justify-between p-5">
-            <h5>{loaderData.data.name}</h5>
+            <h5>{loaderData.data.org.name}</h5>
 
             <div className="flex gap-x-4">
               <NavLink to={"dashboard"}>
                 <Button variant={"secondary"}>{" عرض لوحة المعلومات"}</Button>
               </NavLink>
-              <NavLink to={`/cp/users/org/create-edit/${id}`}>
+      { loaderData.status==="success"&&loaderData.data.userSession.subRole==="admin"&&       <NavLink to={`/cp/users/org/create-edit/${id}`}>
                 <Button variant={"outline"}>{"تعديل البيانات"}</Button>
-              </NavLink>
+              </NavLink>}
             </div>
           </div>
           <div className="pr-5">
@@ -148,7 +156,7 @@ const ViewClient = () => {
                   </label>
                   <p>{
                   //@ts-ignore
-                  ["type", "category"].includes(field.label)? USER_MGMT.OPTIONS[loaderData.data[field.label]]:loaderData.data[field.label]}</p>
+                  ["type", "category"].includes(field.label)? USER_MGMT.OPTIONS[loaderData.data.org[field.label]]:loaderData.data.org[field.label]}</p>
                 </div>
               ))}
             </div>
@@ -164,7 +172,7 @@ const ViewClient = () => {
                   <label className="max-w-72  min-w-52 flex-[1_0_0]">
                     *{USER_MGMT.FORM_FIELDS[field.label]}
                   </label>
-                  <p>{loaderData.data[field.label]}</p>
+                  <p>{loaderData.data.org[field.label]}</p>
                 </div>
               ))}
             </div>
@@ -180,7 +188,7 @@ const ViewClient = () => {
                   <label className="max-w-72  min-w-52 flex-[1_0_0]">
                     *{USER_MGMT.FORM_FIELDS[field.label]}
                   </label>
-                  <p>{loaderData.data[field.label]}</p>
+                  <p>{loaderData.data.org[field.label]}</p>
                 </div>
               ))}
             </div>
@@ -200,8 +208,8 @@ const ViewClient = () => {
                   <div className="">
                     <ul>
                       {/* {JSON.stringify(loaderData.data[field.label])} */}
-                      {Array.isArray(loaderData.data[field.label]) ? (
-                        (loaderData.data[field.label] as string[]).map(
+                      {Array.isArray(loaderData.data.org[field.label]) ? (
+                        (loaderData.data.org[field.label] as string[]).map(
                           (file, i) => (
                             <li
                               key={i}
@@ -216,7 +224,7 @@ const ViewClient = () => {
                               </div>
                               <div className="flex flex-col  ml-6 text-right justify-start w-full">
                                 <span className="text-sm">
-                                  {file.split(".")[0]}
+                                  {file.split(".")[0].split("-").pop()}
                                 </span>
                               </div>
 

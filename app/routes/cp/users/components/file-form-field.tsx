@@ -15,13 +15,17 @@ import ImageIcon from "~/assets/icons/jpeg.svg?react";
 
 import { USER_MGMT } from "../glossary";
 import { Link } from "react-router";
+import { formatFileSize } from "~/lib/format-file-size";
+import React from "react";
 
 interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
   field: TField;
   control: Control<TFormDataInput>;
+  error:string,
   getFieldState: UseFormGetFieldState<TFormDataInput>;
 }
-const FileFormField = ({ field, getFieldState, control, ...rest }: IProps) => {
+const FileFormField = ({ field, getFieldState,error, control, ...rest }: IProps) => {
+
   return (
     <>
       {" "}
@@ -132,7 +136,7 @@ const FileFormField = ({ field, getFieldState, control, ...rest }: IProps) => {
                                         ?.split(".")[0]
                                     }
                                   </span>
-                                  <span className="">{file.size} بايت</span>
+                                  <span className="">{formatFileSize(file.size)}</span>
                                 </div>
                               </>
                             ) : (
@@ -154,7 +158,8 @@ const FileFormField = ({ field, getFieldState, control, ...rest }: IProps) => {
                             )}
                             <div className="absolute top-1 left-2 flex gap-x-1">
                               <Button
-                                onClick={() => removeFileFromSelection(file)}
+                              type="button"
+                                onClick={(e) => {e.preventDefault(); removeFileFromSelection(file)}}
                                 className="p-1  w-fit  bg-transparent hover:bg-gray-100 "
                                 loading={false}
                                 variant={"ghost"}
@@ -176,9 +181,9 @@ const FileFormField = ({ field, getFieldState, control, ...rest }: IProps) => {
                           </li>
                         ))}
                       </ul>
-                      {fieldState.error && (
+                      {error && (
                         <span className="text-red-800 my-1 text-xs">
-                          {fieldState.error.message}
+                          {error}
                         </span>
                       )}
                     </div>

@@ -11,7 +11,6 @@ import { authClient } from "~/lib/auth-client";
 import DefaultBanner from "~/assets/images/default-banner.png";
 import DefaultUserImg from "~/assets/images/default-user-img.png";
 import { Breadcrumbs } from "~/components/app-breadcrumbs";
-import { Button } from "~/components/ui/button";
 import { Layers } from "lucide-react";
 import { dashboardStatusMap } from "../cp/users/dashboard/constants/glossary";
 import { useThemeStore } from "~/lib/store/theme-store";
@@ -56,11 +55,10 @@ export const loader = async ({
   //   const org = orgApi(serverUrl).getOrgByUserId(user.id)
 
   const dashboardsOverview = await dashboardApi(serverUrl).getOrgDashboards(id);
-  console.log("org:: ", org);
   return { dashboardsOverview, org };
 };
 const Org = () => {
-  const { dashboardsOverview, org } = useLoaderData<typeof loader>();
+  const { dashboardsOverview, org } = useLoaderData<any>();
   const { setDarkTheme } = useThemeStore()
 
   useEffect(() => {
