@@ -92,7 +92,7 @@ const DashboardEntries = ({
       <div className="flex flex-wrap w-full border-t">
         {entries?.key === "ROOT" ? Object.entries(entries.children).map(([key,body])=>(
         <div className="mx-1">
-          {body.isParent == true ? `${key} is parent`:`${key} is not parent`}
+          {/* {body.isParent == true ? `${key} is parent`:`${key} is not parent`} */}
         </div>
         )):entries.map((entry, index) => (
           <div className="border w-1/5 flex flex-col" key={entry.name}>

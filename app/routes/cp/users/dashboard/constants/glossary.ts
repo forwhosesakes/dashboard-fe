@@ -12,9 +12,9 @@ const tabsNames = {
 };
 
 const GOVERANCE_TABS= {
-  COMPLIANCE_ADHERENCE_PRACTICES:"ممارسات الامتثال و الالتزام",
-  TRANSPARENCY_DISCLOSURE_PRACTICES:"ممارسات الشفافية و الإفصاح",
-  FINANCIAL_SAFETY_PRACTICES:"ممارسات السلامة المالية"
+  COMPLIANCE_ADHERENCE_PRACTICES:"معيار الامتثال و الالتزام",
+  TRANSPARENCY_DISCLOSURE_PRACTICES:"معيار الشفافية و الإفصاح",
+  FINANCIAL_SAFETY_PRACTICES:"معيار السلامة المالية"
 
 }
 
@@ -64,9 +64,24 @@ const entriesLabels = {
     IMPORTANT_VALUES_AND_PERCENTAGES_SUPPORTING_FINANCIAL_RESOURCES:"قيم ونسب هامة تدعم الموارد المالية",
   },
   CORPORATE: {
-    COMPLIANCE_ADHERENCE_PRACTICES: "ممارسات الامتثال و الالتزام",
-    TRANSPARENCY_DISCLOSURE_PRACTICES: "ممارسات الشفافية و الإفصاح",
-    FINANCIAL_SAFETY_PRACTICES: "ممارسات السلامة المالية",
+    TOTAL_ASSIGNED_TASKS_DURING_PERIOD:"اجمالي المهام المسندة خلال الفترة",
+    TOTAL_COMPLETED_TASKS_DURING_PERIOD:"عدد المهام المنجزة خلال الفترة",
+    TOTAL_WORKING_DAYS:"اجمالي أيام العمل",
+    TOTAL_EMPLOYEE_ATTENDANCE_DAYS:"اجمالي أيام الحضور للموظفين",
+    TOTAL_FORMS_GRADES:"مجموع درجات عدد الاستبيانات",
+    TOTAL_GRADES_VOL_SATIS:"مجموع درجات رضا المتطوعين",
+    TOTAL_GRADES_DONAT_STATIS:"مجموع درجات رضا المتبرعين والداعمين",
+    TOTAL_DECISIONS_BY_CEO:"اجمالي القرارت من المدير التنفيذي",
+    TOTAL_EXECUTED_DECISIONS:"عدد القرارت المنفذة",
+    TOTAL_PLANNED_PROGRAMS:"اجمالي البرامج المخطط لها خلال الفترة",
+    TOTAL_ACHIEVED_PROGRAMS:"عدد البرامج المحققة خلال الفترة",
+    EMP_PERF_EVALUATION_AVG:"نسبة متوسط تقيم اداء الموظفين خلال الفترة",
+    BOARD_OF_DIRECTORS_EVALUATION_PERCENTAGE:"نسبة تقيم مجلس الإدارة",
+    DIRECT_MANAGER_EVALUATION:"تقييم المدير المباشر",
+    NO_RESPONSES_DONAT_SATIS_FORM:"عدد المتبرعين والداعمين للاستبيان",
+    COMPLIANCE_ADHERENCE_PRACTICES: "معيار الامتثال و الالتزام",
+    TRANSPARENCY_DISCLOSURE_PRACTICES: "معيار الشفافية و الإفصاح",
+    FINANCIAL_SAFETY_PRACTICES: "معيار السلامة المالية",
     NO_SUCCESSFUL_HIRES_POST_EXP:
       "عدد التعيينات الناجحة التي تجاوزت فترة التجربة",
     TOTAL_HIRES: "إجمالي التعيينات",
@@ -217,9 +232,9 @@ const indicatorsLabels = {
     PLANNING_ORGANIZING: "التخطيط والتنظيم",
     SATIS_MEASURMENT: "قياس الرضا",
     CEO_PERFORMANCE: "أداء المديرالتنفيذي ",
-    COMPLIANCE_ADHERENCE_PRACTICES: "ممارسات الامتثال و الالتزام",
-    TRANSPARENCY_DISCLOSURE_PRACTICES: "ممارسات الشفافية و الإفصاح",
-    FINANCIAL_SAFETY_PRACTICES: "ممارسات السلامة المالية",
+    COMPLIANCE_ADHERENCE_PRACTICES: "معيار الامتثال و الالتزام",
+    TRANSPARENCY_DISCLOSURE_PRACTICES: "معيار الشفافية و الإفصاح",
+    FINANCIAL_SAFETY_PRACTICES: "معيار السلامة المالية",
     RECRUITMENT: "التوظيف والاستقطاب",
     EMP_PERF_PROD: "أداء وإنتاجية الموظفين",
     EMP_DEV_TRAIN: "تطوير وتدريب الموظفين",
@@ -306,6 +321,9 @@ const governanceLabels  = {
       GENERAL_ASSEMBLY_REVIEWED_AUDITOR_REPORT:"هل درست الجمعية العمومية العادية في اجتماعها الأول تقرير مراجع الحسابات عن القوائم المالية للسنة المالية المنتهية؟",
       GENERAL_ASSEMBLY_APPROVED_NEW_BUDGET:"هل أقرّت الجمعية العمومية العادية مشروع الميزانية التقديرية للسنة المالية الجديدة؟",
       GENERAL_ASSEMBLY_DISCUSSED_NEW_YEAR_PLAN:"هل ناقشت الجمعية العمومية العادية الخطة المقترحة للسنة المالية الجديدة واتخذت التوصيات والقرارات لذلك؟",
+      
+      DOES_POLICY_CONTAIN_MECHANISM_TO_VERIFY_BENEFICIARY_ELIGIBILITY:"هل تحتوي السياسة على آلية للتأكد من استحقاق المستفيد؟",
+      
       SUBMITTED_MEETING_MINUTES_TO_CENTER_WITHIN_FIFTEEN_DAYS:"هل تم إرسال نسخة من محضر اجتماع الجمعية العمومية مع محضر فرز الأصوات -إن وُجد- إلى المركز خلال 15 يوماً من تاريخ الاجتماع ؟",
       HAS_CURRENT_OPERATIONAL_PLAN:"هل توجد خطة تشغيلية للسنة المالية الحالية لدى الجمعية؟",
       OPERATIONAL_PLAN_APPROVED_BY_ASSEMBLY:"هل تم اعتماد الخطة من الجمعية العمومية؟",

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { entriesLabels } from "../constants/glossary"
+import type { DashboardType } from "~/lib/api/dashboard";
+import { useLoaderData } from "react-router";
 
 interface Node {
   key: string;
@@ -24,8 +26,9 @@ interface HierarchicalDataEntryProps {
 }
 
 const HierarchicalDataEntry: React.FC<HierarchicalDataEntryProps> = ({ data, onUpdate }) => {
+
   return (
-    <div className="overflow-x-auto rounded-lg">
+    <div className="w-full overflow-x-auto rounded-lg">
       <table className="min-w-full table-fixed rounded-lg border-collapse">
         <thead>
           <tr className="bg-gray-100">
@@ -79,6 +82,9 @@ interface NodeRowProps {
 
 const NodeRow: React.FC<NodeRowProps> = ({ node, level, path, onUpdate }) => {
   const [expanded, setExpanded] = useState(node.isExpanded || false);
+  const { currentDashboard } = useLoaderData<{
+    currentDashboard: DashboardType;
+  }>();
   
   const hasChildren = node.children && Object.keys(node.children).length > 0;
   const isParent = hasChildren || node.isParent;
@@ -112,21 +118,21 @@ const NodeRow: React.FC<NodeRowProps> = ({ node, level, path, onUpdate }) => {
   
   return (
     <>
-      <tr className={`border-b hover:bg-accent/80 transition-colors duration-200 ${getLevelBgColorClass()}`}>
-        <td className="py-2 px-4 border rounded-lg">
+      <tr className={`border-b group hover:bg-accent/80 transition-colors duration-200 ${getLevelBgColorClass()}`}>
+        <td className="py-2 px-4 border">
           <div className="flex items-center" style={{ paddingLeft: `${level * 20}px` }}>
             {isParent && (
               <button onClick={toggleExpand} className="mr-2">
-                {expanded ? <ChevronDown className="text-accent" size={16} /> : <ChevronRight className="text-accent" size={16} />}
+                {expanded ? <ChevronDown className="text-accent group-hover:text-white/90 group-hover:font-semibold transition-all" size={16} /> : <ChevronRight className="text-accent group-hover:text-white/90 group-hover:font-semibold transition-all" size={16} />}
               </button>
             )}
             {!isParent && <div className="w-6"></div>}
-            <span>{entriesLabels["FINANCIAL"][node.key]}</span>
+            <span className="group-hover:text-white/90 group-hover:font-semibold transition-all cursor-pointer">{entriesLabels[currentDashboard as DashboardType][node.key]}</span>
           </div>
         </td>
         <td className="py-2 px-4 border">
           {isParent ? (
-            <div className="font-semibold">{node.value ?? 0}</div>
+            <div className="group-hover:text-white/90 font-semibold transition-all cursor-pointer">{node.value ?? 0}</div>
           ) : (
             <input
               type="number"
@@ -141,11 +147,11 @@ const NodeRow: React.FC<NodeRowProps> = ({ node, level, path, onUpdate }) => {
             <div className="flex flex-col w-full min-w-[200px] pt-1 px-3">
               <div className="w-full bg-gray-200 rounded-full h-2.5 mb-2">
                 <div 
-                  className="bg-accent h-2.5 rounded-full" 
+                  className="bg-accent group-hover:bg-slate-100 transition-all h-2.5 rounded-full" 
                   style={{ width: `${completionPercentage}%` }}>
                 </div>
               </div>
-              <div className="text-xs text-center">
+              <div className="text-xs text-center group-hover:text-slate-100 group-hover:font-semibold transition-all ">
                 {node.completedChildren || 0}/{node.totalChildren} مكتمل
               </div>
             </div>
