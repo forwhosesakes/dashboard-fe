@@ -1,5 +1,7 @@
 import { z } from "zod";
 import type { TGovernanceEntries } from "~/types/dashboard.types";
+import { transformFinancialEntries } from "./transformers/financialDataTransformers";
+import type { FinancialEntriesType } from "~/routes/cp/users/dashboard/constants/initialValues";
 export type DashboardOverviewType = {
   id: number;
   title: string;
@@ -20,49 +22,40 @@ const DashboardResponseSchema = <T extends z.ZodType>(schema: T) =>
     status: z.string().optional(),
   });
 
-
-
 const CorporateDashboardEntriesSchema = z.object({
   dashbaordId: z.number(),
   id: z.string(),
   createdAt: z.string(),
   updatedAt: z.string(),
-  COMPLIANCE_ADHERENCE_PRACTICES: z.coerce.number(),
-  TRANSPARENCY_DISCLOSURE_PRACTICES: z.coerce.number(),
-  FINANCIAL_SAFETY_PRACTICES: z.coerce.number(),
-  NO_SUCCESSFUL_HIRES_POST_EXP: z.coerce.number(),
-  TOTAL_HIRES: z.coerce.number(),
+
+  TOTAL_ASSIGNED_TASKS_DURING_PERIOD: z.coerce.number(),
+  TOTAL_COMPLETED_TASKS_DURING_PERIOD: z.coerce.number(),
+  TOTAL_WORKING_DAYS: z.coerce.number(),
+  TOTAL_EMPLOYEE_ATTENDANCE_DAYS: z.coerce.number(),
   PERC_COMMIT_WORK_HOURS: z.coerce.number(),
-  NO_EXE_PRACTICES: z.coerce.number(),
   NO_PLANNED_PRACTICES: z.coerce.number(),
-  NO_COMP_ELEMENTS: z.coerce.number(),
-  TOTAL_ELEMENTS: z.coerce.number(),
-  NO_TIMELY_REPORTS: z.coerce.number(),
-  NO_REQUIRED_REPORTS: z.coerce.number(),
-  NO_GRADES_BENEFITS_SATISF: z.coerce.number(),
+  NO_EXE_PRACTICES: z.coerce.number(),
+  TOTAL_FORMS_GRADES: z.coerce.number(),
   NO_RESPONSES_SATIS_FORM: z.coerce.number(),
-  TOTAL_GRADES_EMP_SATIS: z.coerce.number(),
   NO_RESPONSES_EMP_SATIS: z.coerce.number(),
-  TOTAL_GEADES_PARTENERS_SATIS: z.coerce.number(),
   NO_RESPONSES_PARTERS_FORM: z.coerce.number(),
-  TOTAL_GRADES_VOL_STATIS: z.coerce.number(),
-  NO_RESPONSES_VOL_SATIS_FORM: z.coerce.number(),
-  TOTAL_GRADES_DON_STATIS: z.coerce.number(),
-  NO_RESPONSES_DON_SATIS_FORM: z.coerce.number(),
-  TOTAL_SATIS_GRADES_ORG: z.coerce.number(),
+  NO_RESPOSES_VOL_SATIS_FORM: z.coerce.number(),
+  NO_RESPONSES_DONAT_SATIS_FORM: z.coerce.number(),
   NO_ORG_MEMBERS: z.coerce.number(),
+  NO_GRADES_BENEFITS_SATISF: z.coerce.number(),
+  TOTAL_GRADES_EMP_SATIS: z.coerce.number(),
+  TOTAL_GEADES_PARTENERS_SATIS: z.coerce.number(),
+  TOTAL_GRADES_VOL_SATIS: z.coerce.number(),
+  TOTAL_GRADES_DONAT_STATIS: z.coerce.number(),
+  TOTAL_SATIS_GRADES_ORG: z.coerce.number(),
   TOTAL_GRADES_COM: z.coerce.number(),
-  NO_RESPONSES_COM_SATIS: z.coerce.number(),
-  TASKS_ACHIEVED_TIMELY_CEO: z.coerce.number(),
-  TOTAL_PLANNED_TASKS_CEO: z.coerce.number(),
-  AVG_EVAL_EMPS: z.coerce.number(),
-  AVG_RES_SATIS_FORMS_EMP: z.coerce.number(),
-  EMP_EVAL: z.coerce.number(),
-  EMP_ACHIEVMENT_PERC: z.coerce.number(),
-  NO_EXEC_DESC: z.coerce.number(),
-  TOTAL_DESC: z.coerce.number(),
-  NO_ACHIV_TARGETS: z.coerce.number(),
-  TOTAL_TARGETS: z.coerce.number(),
+  TOTAL_DECISIONS_BY_CEO: z.coerce.number(),
+  TOTAL_EXECUTED_DECISIONS: z.coerce.number(),
+  TOTAL_PLANNED_PROGRAMS: z.coerce.number(),
+  TOTAL_ACHIEVED_PROGRAMS: z.coerce.number(),
+  EMP_PERF_EVALUATION_AVG: z.coerce.number(),
+  BOARD_OF_DIRECTORS_EVALUATION_PERCENTAGE: z.coerce.number(),
+  DIRECT_MANAGER_EVALUATION: z.coerce.number(),
 });
 
 const OrphansDashboardEntriesSchema = z.object({
@@ -139,7 +132,6 @@ export type CorporateDashboardIndicatorsType = {
   OPERATIONAL_PLAN_ACHIVMENT_GOALS: number;
   DAILY_OPS_MGMT: number;
   FOLLOWUP_EMPS_PERF: number;
-
 };
 export type CorporateDashboardEntriesType = {
   dashbaordId: number;
@@ -177,103 +169,121 @@ export type CorporateDashboardEntriesType = {
   AVG_RES_SATIS_FORMS_EMP: number;
   EMP_EVAL: number;
   EMP_ACHIEVMENT_PERC: number;
-  TOTAL_GRADES_DON_STATIS: number,
-  NO_RESPONSES_DON_SATIS_FORM: number,
+  TOTAL_GRADES_DON_STATIS: number;
+  NO_RESPONSES_DON_SATIS_FORM: number;
 };
+
+type DashboardSchemaMapType = typeof DashboardSchemaMap;
+type DashboardSchemaType<T extends keyof DashboardSchemaMapType> =
+  DashboardSchemaMapType[T];
 
 const FinancialDashboardEntriesSchema = z.object({
   dashbaordId: z.number(),
   id: z.string(),
   createdAt: z.string(),
   updatedAt: z.string(),
-  GENERAL_ADMINSTRATIVE_EXPENSES: z.coerce.number(),
-  GOVERENCE_EXPENSES: z.coerce.number(),
-  PROGRAMS_EXPENSES_BOUNDED: z.coerce.number(),
-  PROGRAMS_EXPENSES_UNBOUNDED: z.coerce.number(),
-  PROGRAMS_EXPENSES: z.coerce.number(),
-  GENERAL_ADMINSTRATIVE_EXPENSES_ACT: z.coerce.number(),
-  AWQAF_EXPENSES: z.coerce.number(),
-  INVESTMENT_EXPENSES: z.coerce.number(),
-  SUSTAINBILITY_EXPENSES: z.coerce.number(),
-  FUND_RAISING_EXPENSES: z.coerce.number(),
-  TOTAL_EXPENSES: z.coerce.number(),
-  AWQAF_REVENUE: z.coerce.number(),
-  INVESTMENT_REVENUE: z.coerce.number(),
-  SUSTAINBILITY_REVENUE: z.coerce.number(),
-  BOUNDED_CHARITY: z.coerce.number(),
-  UNBOUNDED_CHARITY: z.coerce.number(),
-  TOTAL_CHARITY: z.coerce.number(),
-  CASH_RELATED: z.coerce.number(),
-  TRADED_INVESTMENTS: z.coerce.number(),
-  SUSTAIN_ASSETS_WAQFI: z.coerce.number(),
-  SUSTAIN_ASSETS_INVEST: z.coerce.number(),
-  SUSTAIN_ASSETS_FIN: z.coerce.number(),
-  CURRENT_LIABILITIES: z.coerce.number(),
-  BOUNDED_NET_ASSETS: z.coerce.number(),
-  AWQAF_NET_ASSETS_CASH: z.coerce.number(),
-  GOV_PLATFORMS_REVENUE: z.coerce.number(),
-  PRGMS_PRJKS_REVENUE: z.coerce.number(),
-  NO_PAID_MEMBERSHIP: z.coerce.number(),
-  TOTAL_MEMBERSHIP: z.coerce.number(),
-  FIN_VALUE_VOLUN: z.coerce.number(),
-  OPERATIONAL_EXPANSES: z.coerce.number(),
-  LAST_YEAR_REVENUE: z.coerce.number(),
-  NO_CONT_VOLUN: z.coerce.number(),
-  NO_TOTAL_VOLUN_LAST_YEAR: z.coerce.number(),
-  NO_TOTAL_MONEY_VAT: z.coerce.number(),
-  START_LIABILITIES: z.coerce.number(),
-  END_LIABILITIES: z.coerce.number(),
-  TOTAL_TAX_REFUND:z.coerce.number(),
+  TRADED_INVESTMENTS: z.coerce.number().nullable(),
+  UNTRADED_INVESTMENTS: z.coerce.number().nullable(),
+  AWQAF_INVESTMENTS: z.coerce.number().nullable(),
+  AWQAF_FIXED_ASSETS: z.coerce.number().nullable(),
+  CASHE_RELATED: z.coerce.number().nullable(),
+  CURRENT_LIABILITIES: z.coerce.number().nullable(),
+  LIMITED_NET_ASSETS: z.coerce.number().nullable(),
+  AWQAF_NET_ASSETS: z.coerce.number().nullable(),
+  GENERAL_ADMINSTRATIVE_EXPENSES: z.coerce.number().nullable(),
+  GOVERENCE_EXPENSES: z.coerce.number().nullable(),
+  PROGRAMS_EXPENSES: z.coerce.number().nullable(),
+  ADMINISTRATIVE_EXPENSES_CHARGED_TO_THE_ACTIVITY: z.coerce.number().nullable(),
+  AWQAF_DIST_EXPENSES: z.coerce.number().nullable(),
+  INVESTMENT_EXPENSES: z.coerce.number().nullable(),
+  FUND_RAISING_EXPENSES: z.coerce.number().nullable(),
+  UNRESTRICTED_REVENUE: z.coerce.number().nullable(),
+  RESTRICTED_REVENUE: z.coerce.number().nullable(),
+  AWQAF_QUARTER_REVENUE: z.coerce.number().nullable(),
+  PROFIT_AWQAF_INVESTMENTS: z.coerce.number().nullable(),
+  ZAKAT: z.coerce.number().nullable(),
+  RESTRICTED_CASH_DONATIONS: z.coerce.number().nullable(),
+  RESTRICTED_IN_KIND_DONATIONS: z.coerce.number().nullable(),
+  RESTRICTED_DONATIONS_FOR_VOLUNTEER_SERVICES: z.coerce.number().nullable(),
+  GOVERNMENT_GRANT_DONATIONS: z.coerce.number().nullable(),
+  UNRESTRICTED_CASH_DONATIONS: z.coerce.number().nullable(),
+  UNRESTRICTED_IN_KIND_DONATIONS: z.coerce.number().nullable(),
+  UNRESTRICTED_DONATIONS_FOR_VOLUNTEER_SERVICES: z.coerce.number().nullable(),
+  DONATION_BY_LIABILITY_REDUCTION: z.coerce.number().nullable(),
+  TOTAL_TAX_REFUND: z.coerce.number().nullable(),
+  PROGRAM_AND_ACTIVITY_REVENUES: z.coerce.number().nullable(),
+  RESTRICTED_DESIGNATED_PROGRAM_AND_ACTIVITY_FEES: z.coerce.number().nullable(),
+  GENERAL_ASSEMBLY_MEMBERS_SUBSCRIPTION_TOTAL: z.coerce.number().nullable(),
+  TOTAL_EXPENSES: z.coerce.number().nullable(),
+  TOTAL_SUSTAINABILITY_ASSETS: z.coerce.number().nullable(),
+  TOTAL_NET_RESTRICTED_ASSETS_AND_WAQF_CASH: z.coerce.number().nullable(),
+  TOTAL_ADMINISTRATIVE_GENERAL_AND_GOVERNANCE_EXPENSES: z.coerce
+    .number()
+    .nullable(),
+  ECONOMIC_RETURN_OF_VOLUNTEERING: z.coerce.number().nullable(),
+  TOTAL_PROGRAM_AND_ACTIVITY_EXPENSES: z.coerce.number().nullable(),
+  TOTAL_FINANCIAL_SUSTAINABILITY_EXPENSES: z.coerce.number().nullable(),
+  TOTAL_SUSTAINABILITY_RETURNS: z.coerce.number().nullable(),
+  TOTAL_DONATIONS: z.coerce.number().nullable(),
+  IMPORTANT_VALUES_AND_PERCENTAGES_SUPPORTING_FINANCIAL_RESOURCES: z.coerce
+    .number()
+    .nullable(),
 });
 export type FinancialDashboardEntriesType = {
   dashbaordId: number;
   id: string;
-  createdAt: Date;
-  updatedAt: Date;
-  GENERAL_ADMINSTRATIVE_EXPENSES: number;
-  GOVERENCE_EXPENSES: number;
-  PROGRAMS_EXPENSES_BOUNDED: number;
-  PROGRAMS_EXPENSES_UNBOUNDED: number;
-  PROGRAMS_EXPENSES: number;
-  GENERAL_ADMINSTRATIVE_EXPENSES_ACT: number;
-  AWQAF_EXPENSES: number;
-  INVESTMENT_EXPENSES: number;
-  SUSTAINBILITY_EXPENSES: number;
-  FUND_RAISING_EXPENSES: number;
-  TOTAL_EXPENSES: number;
-  AWQAF_REVENUE: number;
-  INVESTMENT_REVENUE: number;
-  SUSTAINBILITY_REVENUE: number;
-  BOUNDED_CHARITY: number;
-  UNBOUNDED_CHARITY: number;
-  TOTAL_CHARITY: number;
-  CASH_RELATED: number;
-  TRADED_INVESTMENTS: number;
-  SUSTAIN_ASSETS_WAQFI: number;
-  SUSTAIN_ASSETS_INVEST: number;
-  SUSTAIN_ASSETS_FIN: number;
-  CURRENT_LIABILITIES: number;
-  BOUNDED_NET_ASSETS: number;
-  AWQAF_NET_ASSETS_CASH: number;
-  GOV_PLATFORMS_REVENUE: number;
-  PRGMS_PRJKS_REVENUE: number;
-  NO_PAID_MEMBERSHIP: number;
-  TOTAL_MEMBERSHIP: number;
-  FIN_VALUE_VOLUN: number;
-  OPERATIONAL_EXPANSES: number;
-  LAST_YEAR_REVENUE: number;
-  NO_CONT_VOLUN: number;
-  NO_TOTAL_VOLUN_LAST_YEAR: number;
-  NO_TOTAL_MONEY_VAT: number;
-  START_LIABILITIES: number;
-  END_LIABILITIES: number;
-  TOTAL_TAX_REFUND:number
+  createdAt: string;
+  updatedAt: string;
+  TRADED_INVESTMENTS: number | null;
+  UNTRADED_INVESTMENTS: number | null;
+  AWQAF_INVESTMENTS: number | null;
+  AWQAF_FIXED_ASSETS: number | null;
+  CASHE_RELATED: number | null;
+  CURRENT_LIABILITIES: number | null;
+  LIMITED_NET_ASSETS: number | null;
+  AWQAF_NET_ASSETS: number | null;
+  GENERAL_ADMINSTRATIVE_EXPENSES: number | null;
+  GOVERENCE_EXPENSES: number | null;
+  PROGRAMS_EXPENSES: number | null;
+  ADMINISTRATIVE_EXPENSES_CHARGED_TO_THE_ACTIVITY: number | null;
+  AWQAF_DIST_EXPENSES: number | null;
+  INVESTMENT_EXPENSES: number | null;
+  FUND_RAISING_EXPENSES: number | null;
+  UNRESTRICTED_REVENUE: number | null;
+  RESTRICTED_REVENUE: number | null;
+  AWQAF_QUARTER_REVENUE: number | null;
+  PROFIT_AWQAF_INVESTMENTS: number | null;
+  ZAKAT: number | null;
+  RESTRICTED_CASH_DONATIONS: number | null;
+  RESTRICTED_IN_KIND_DONATIONS: number | null;
+  RESTRICTED_DONATIONS_FOR_VOLUNTEER_SERVICES: number | null;
+  GOVERNMENT_GRANT_DONATIONS: number | null;
+  UNRESTRICTED_CASH_DONATIONS: number | null;
+  UNRESTRICTED_IN_KIND_DONATIONS: number | null;
+  UNRESTRICTED_DONATIONS_FOR_VOLUNTEER_SERVICES: number | null;
+  DONATION_BY_LIABILITY_REDUCTION: number | null;
+  TOTAL_TAX_REFUND: number | null;
+  PROGRAM_AND_ACTIVITY_REVENUES: number | null;
+  RESTRICTED_DESIGNATED_PROGRAM_AND_ACTIVITY_FEES: number | null;
+  GENERAL_ASSEMBLY_MEMBERS_SUBSCRIPTION_TOTAL: number | null;
+  TOTAL_EXPENSES: number | null;
+  TOTAL_SUSTAINABILITY_ASSETS: number | null;
+  TOTAL_NET_RESTRICTED_ASSETS_AND_WAQF_CASH: number | null;
+  TOTAL_ADMINISTRATIVE_GENERAL_AND_GOVERNANCE_EXPENSES: number | null;
+  ECONOMIC_RETURN_OF_VOLUNTEERING: number | null;
+  TOTAL_PROGRAM_AND_ACTIVITY_EXPENSES: number | null;
+  TOTAL_FINANCIAL_SUSTAINABILITY_EXPENSES: number | null;
+  TOTAL_SUSTAINABILITY_RETURNS: number | null;
+  TOTAL_DONATIONS: number | null;
+  IMPORTANT_VALUES_AND_PERCENTAGES_SUPPORTING_FINANCIAL_RESOURCES:
+    | number
+    | null;
 };
 
-
-
-
-export type DashboardEntriesType = FinancialDashboardEntriesType | CorporateDashboardEntriesType | OperationalDashboardEntriesType
+export type DashboardEntriesType =
+  | FinancialDashboardEntriesType
+  | CorporateDashboardEntriesType
+  | OperationalDashboardEntriesType;
 const OperationalDashboardEntriesSchema = z.object({
   dashbaordId: z.number(),
   id: z.string(),
@@ -347,12 +357,9 @@ const DashboardSchemaMap = {
   ),
 } as const;
 
-
-
-
 export type DashboardTypeMap = {
   OPERATIONAL: OperationalDashboardEntriesType;
-  FINANCIAL: FinancialDashboardEntriesType;
+  FINANCIAL: FinancialEntriesType;
   CORPORATE: CorporateDashboardEntriesType;
   //TODO: CHANGE THIS
   GENERAL: CorporateDashboardEntriesType;
@@ -363,14 +370,15 @@ const ErrorResponseSchema = z.object({
   message: z.string().optional(),
 });
 
-
-const IndicatorSchema = z.object({
-  id:z.string(),
-  dashbaordId:z.number(),
-  entriesId:z.string(),
-  createdAt:z.string(),
-  updatedAt:z.string(),
-}).catchall(z.coerce.number())
+const IndicatorSchema = z
+  .object({
+    id: z.string(),
+    dashbaordId: z.number(),
+    entriesId: z.string(),
+    createdAt: z.string(),
+    updatedAt: z.string(),
+  })
+  .catchall(z.coerce.number());
 // and(
 //   z.record(
 //     z.string(),
@@ -392,6 +400,13 @@ type SaveEntriesParams = {
   entries: Record<string, string | number>; // Changed from FormData to match how we'll structure the data
 };
 
+
+const ReturnedEntriesMap = {
+  FINANCIAL:transformFinancialEntries,
+  // OPERATIONAL: ,
+  // CORPORATE: ,
+  // GENERAL: ,
+}
 function isErrorWithMessage(obj: unknown): obj is { message: string } {
   return typeof obj === "object" && obj !== null && "message" in obj;
 }
@@ -479,9 +494,8 @@ export const dashboardApi = (url: string) => {
       type: T
     ): Promise<DashboardTypeMap[T][]> => {
       try {
-  
         const response = await fetch(`${url}/dashboard/entries/${type}/${id}`);
-
+    
         if (!response.ok) {
           const errorData = await response.json().catch(() => null);
           const message = isErrorWithMessage(errorData)
@@ -489,20 +503,24 @@ export const dashboardApi = (url: string) => {
             : undefined;
           throw new Error(message || `HTTP error! status: ${response.status}`);
         }
+        
         const rawResponse = await response.json();
-
-        const schema = DashboardSchemaMap[type];
-
-        // const apiResponse = ApiResponseSchema.parse(rawResponse);
-
-        // if (!apiResponse.data) {
-        //   throw new Error("Missing data in API response");
-        // }
-
-        // console.log("response hiii get entries::: ",apiResponse);
+        const schema: DashboardSchemaType<T> = DashboardSchemaMap[type];
         const parsedData = schema.parse(rawResponse);
-        //@ts-ignore
-        return parsedData.data as DashboardTypeMap[T];
+        
+        if (type === "FINANCIAL" && ReturnedEntriesMap[type]) {
+          console.log("is this good??",ReturnedEntriesMap[type](parsedData.data));
+          
+          return ReturnedEntriesMap[type](parsedData.data) as DashboardTypeMap[T][];
+        } else if (type === "OPERATIONAL" && ReturnedEntriesMap[type]) {
+          return ReturnedEntriesMap[type](parsedData.data) as DashboardTypeMap[T][];
+        } else if (type === "CORPORATE" && ReturnedEntriesMap[type]) {
+          return ReturnedEntriesMap[type](parsedData.data) as DashboardTypeMap[T][];
+        } else if (type === "GENERAL" && ReturnedEntriesMap[type]) {
+          return ReturnedEntriesMap[type](parsedData.data) as DashboardTypeMap[T][];
+        }
+        
+        return parsedData.data as unknown as DashboardTypeMap[T][];
       } catch (e) {
         if (e instanceof z.ZodError) {
           console.error("Validation error:", e.errors);
@@ -517,7 +535,7 @@ export const dashboardApi = (url: string) => {
     ): Promise<any> => {
       try {
         const response = await fetch(`${url}/dashboard/entries/${type}/${id}`, {
-          method: 'DELETE'
+          method: "DELETE",
         });
 
         if (!response.ok) {
@@ -529,8 +547,7 @@ export const dashboardApi = (url: string) => {
         }
         const rawResponse = await response.json();
 
-     
-        return rawResponse
+        return rawResponse;
       } catch (e) {
         if (e instanceof z.ZodError) {
           console.error("Validation error:", e.errors);
@@ -540,14 +557,14 @@ export const dashboardApi = (url: string) => {
       }
     },
 
-
     getIndicators: async <T extends DashboardType>(
       id: string,
       type: T
     ): Promise<any> => {
       try {
-  
-        const response = await fetch(`${url}/dashboard/indicators/${type}/${id}`);
+        const response = await fetch(
+          `${url}/dashboard/indicators/${type}/${id}`
+        );
 
         if (!response.ok) {
           const errorData = await response.json().catch(() => null);
@@ -556,8 +573,8 @@ export const dashboardApi = (url: string) => {
             : undefined;
           throw new Error(message || `HTTP error! status: ${response.status}`);
         }
-        const rawResponse = await response.json() as any;
-        return rawResponse?.data as any[]
+        const rawResponse = (await response.json()) as any;
+        return rawResponse?.data as any[];
       } catch (e) {
         if (e instanceof z.ZodError) {
           console.error("Validation error:", e.errors);
@@ -576,23 +593,29 @@ export const dashboardApi = (url: string) => {
           throw new Error("Organization ID must be a positive number");
         }
 
-        const response = await fetch(`${url}/dashboard/governance/entries/${orgId}/${type.toLowerCase()}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ responses }),
-        });
+        const response = await fetch(
+          `${url}/dashboard/governance/entries/${orgId}/${type.toLowerCase()}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ responses }),
+          }
+        );
 
         if (!response.ok) {
           const errorData = await response.json().catch(() => null);
           if (errorData && ErrorResponseSchema.safeParse(errorData).success) {
             throw new Error(
               //@ts-ignore
-              errorData.message || `Failed to save governance entries (${response.status})`
+              errorData.message ||
+                `Failed to save governance entries (${response.status})`
             );
           }
-          throw new Error(`Failed to save governance entries (${response.status})`);
+          throw new Error(
+            `Failed to save governance entries (${response.status})`
+          );
         }
 
         const data = await response.json();
@@ -627,8 +650,8 @@ export const dashboardApi = (url: string) => {
           throw new Error(message || `HTTP error! status: ${response.status}`);
         }
 
-        const rawResponse:any = await response.json();
-        
+        const rawResponse: any = await response.json();
+
         if (rawResponse.status === "success" && rawResponse.data) {
           return rawResponse.data;
         }
@@ -643,5 +666,4 @@ export const dashboardApi = (url: string) => {
       }
     },
   };
-
 };

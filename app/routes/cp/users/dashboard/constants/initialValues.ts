@@ -1,43 +1,135 @@
-export const initialValues = {
+export type EntriesInitialValues = {
+  FINANCIAL: FinancialEntriesType;
+  OPERATIONAL: { [key: string]: number };
+  CORPORATE: { [key: string]: number };
+  GENERAL: { [key: string]: number };
+  COMPLIANCE_ADHERENCE_PRACTICES: { [key: string]: number };
+};
+export const initialValues: EntriesInitialValues = {
   FINANCIAL: {
-    GENERAL_ADMINSTRATIVE_EXPENSES: 0,
-    GOVERENCE_EXPENSES: 0,
-    PROGRAMS_EXPENSES_BOUNDED: 0,
-    PROGRAMS_EXPENSES_UNBOUNDED: 0,
-    PROGRAMS_EXPENSES: 0,
-    GENERAL_ADMINSTRATIVE_EXPENSES_ACT: 0,
-    AWQAF_EXPENSES: 0,
-    INVESTMENT_EXPENSES: 0,
-    SUSTAINBILITY_EXPENSES: 0,
-    FUND_RAISING_EXPENSES: 0,
-    TOTAL_EXPENSES: 0,
-    AWQAF_REVENUE: 0,
-    INVESTMENT_REVENUE: 0,
-    SUSTAINBILITY_REVENUE: 0,
-    BOUNDED_CHARITY: 0,
-    UNBOUNDED_CHARITY: 0,
-    TOTAL_CHARITY: 0,
-    CASH_RELATED: 0,
-    TRADED_INVESTMENTS: 0,
-    SUSTAIN_ASSETS_WAQFI: 0,
-    SUSTAIN_ASSETS_INVEST: 0,
-    SUSTAIN_ASSETS_FIN: 0,
-    CURRENT_LIABILITIES: 0,
-    BOUNDED_NET_ASSETS: 0,
-    AWQAF_NET_ASSETS_CASH: 0,
-    GOV_PLATFORMS_REVENUE: 0,
-    PRGMS_PRJKS_REVENUE: 0,
-    NO_PAID_MEMBERSHIP: 0,
-    TOTAL_MEMBERSHIP: 0,
-    FIN_VALUE_VOLUN: 0,
-    OPERATIONAL_EXPANSES: 0,
-    LAST_YEAR_REVENUE: 0,
-    NO_CONT_VOLUN: 0,
-    NO_TOTAL_VOLUN_LAST_YEAR: 0,
-    NO_TOTAL_MONEY_VAT: 0,
-    START_LIABILITIES: 0,
-    END_LIABILITIES: 0,
-    TOTAL_TAX_REFUND:0
+    TOTAL_SUSTAINABILITY_ASSETS: {
+      value: 0,
+      TRADED_INVESTMENTS: {
+        value: 0,
+      },
+      UNTRADED_INVESTMENTS: {
+        value: 0,
+      },
+      AWQAF_INVESTMENTS: {
+        value: 0,
+      },
+      AWQAF_FIXED_ASSETS: {
+        value: 0,
+      },
+    },
+    CASHE_RELATED: {
+      value: 0,
+    },
+    CURRENT_LIABILITIES: {
+      value: 0,
+    },
+    TOTAL_NET_RESTRICTED_ASSETS_AND_WAQF_CASH: {
+      value: 0,
+      LIMITED_NET_ASSETS: {
+        value: 0,
+      },
+      AWQAF_NET_ASSETS: {
+        value: 0,
+      },
+    },
+    TOTAL_EXPENSES: {
+      value: 0,
+      TOTAL_ADMINISTRATIVE_GENERAL_AND_GOVERNANCE_EXPENSES: {
+        value: 0,
+        GENERAL_ADMINSTRATIVE_EXPENSES: {
+          value: 0,
+        },
+        GOVERENCE_EXPENSES: {
+          value: 0,
+        },
+      },
+      TOTAL_PROGRAM_AND_ACTIVITY_EXPENSES: {
+        value: 0,
+        PROGRAMS_EXPENSES: {
+          value: 0,
+        },
+        ADMINISTRATIVE_EXPENSES_CHARGED_TO_THE_ACTIVITY: {
+          value: 0,
+        },
+      },
+      TOTAL_FINANCIAL_SUSTAINABILITY_EXPENSES: {
+        value: 0,
+        AWQAF_DIST_EXPENSES: {
+          value: 0,
+        },
+        INVESTMENT_EXPENSES: {
+          value: 0,
+        },
+      },
+      FUND_RAISING_EXPENSES: {
+        value: 0,
+      },
+    },
+    TOTAL_SUSTAINABILITY_RETURNS: {
+      value: 0,
+      UNRESTRICTED_REVENUE: {
+        value: 0,
+      },
+      RESTRICTED_REVENUE: {
+        value: 0,
+      },
+      AWQAF_QUARTER_REVENUE: {
+        value: 0,
+      },
+      PROFIT_AWQAF_INVESTMENTS: {
+        value: 0,
+      },
+    },
+    TOTAL_DONATIONS: {
+      value: 0,
+      ZAKAT: {
+        value: 0,
+      },
+      RESTRICTED_CASH_DONATIONS: {
+        value: 0,
+      },
+      RESTRICTED_IN_KIND_DONATIONS: {
+        value: 0,
+      },
+      RESTRICTED_DONATIONS_FOR_VOLUNTEER_SERVICES: {
+        value: 0,
+      },
+      GOVERNMENT_GRANT_DONATIONS: {
+        value: 0,
+      },
+      UNRESTRICTED_CASH_DONATIONS: {
+        value: 0,
+      },
+      UNRESTRICTED_IN_KIND_DONATIONS: {
+        value: 0,
+      },
+      UNRESTRICTED_DONATIONS_FOR_VOLUNTEER_SERVICES: {
+        value: 0,
+      },
+      DONATION_BY_LIABILITY_REDUCTION: {
+        value: 0,
+      },
+    },
+    IMPORTANT_VALUES_AND_PERCENTAGES_SUPPORTING_FINANCIAL_RESOURCES: {
+      value: 0,
+      TOTAL_TAX_REFUND: {
+        value: 0,
+      },
+      PROGRAM_AND_ACTIVITY_REVENUES: {
+        value: 0,
+        RESTRICTED_DESIGNATED_PROGRAM_AND_ACTIVITY_FEES: {
+          value: 0,
+        },
+      },
+      GENERAL_ASSEMBLY_MEMBERS_SUBSCRIPTION_TOTAL: {
+        value: 0,
+      },
+    },
   },
   OPERATIONAL: {
     NO_OPERATIONAL_GOALS_ACHIEVED: 0,
@@ -222,4 +314,560 @@ export const initialValues = {
     HAS_INTERNAL_AUDIT_COMMITTEE: 0,
     FINANCIAL_SUPERVISOR_CHAIRS_AUDIT_COMMITTEE: 0,
   },
+};
+
+
+
+export type OPERATIONALEntriesType = {
+  NO_PROGRAMS_EXECUTED: {
+    value: number | null;
+    isExpanded?: boolean;
+    isParent?: boolean;
+    totalChildren?: number;
+    completedChildren?: number;
+  };
+  NO_PROGRAMS_PLANNED: {
+    value: number | null;
+    isExpanded?: boolean;
+    isParent?: boolean;
+    totalChildren?: number;
+    completedChildren?: number;
+  };
+  APPROVED_BUDGET: {
+    value: number | null;
+    isExpanded?: boolean;
+    isParent?: boolean;
+    totalChildren?: number;
+    completedChildren?: number;
+  };
+  TOTAL_PERIOD_EXPENSES: {
+    value: number | null;
+    isExpanded?: boolean;
+    isParent?: boolean;
+    totalChildren?: number;
+    completedChildren?: number;
+  };
+  NO_ACTUAL_BENEFICIARIES: {
+    value: number | null;
+    isExpanded?: boolean;
+    isParent?: boolean;
+    totalChildren?: number;
+    completedChildren?: number;
+  };
+  PLANNED_TARGET_NUMBER: {
+    value: number | null;
+    isExpanded?: boolean;
+    isParent?: boolean;
+    totalChildren?: number;
+    completedChildren?: number;
+  };
+  NO_PROGRAMS_WITH_PARTICIPANTS: {
+    value: number | null;
+    isExpanded?: boolean;
+    isParent?: boolean;
+    totalChildren?: number;
+    completedChildren?: number;
+  };
+  NO_PROGRAMS_PROJECTS: {
+    value: number | null;
+    isExpanded?: boolean;
+    isParent?: boolean;
+    totalChildren?: number;
+    completedChildren?: number;
+  };
+  NO_VOLUNTEERS_CURRENT_QUARTER: {
+    value: number | null;
+    isExpanded?: boolean;
+    isParent?: boolean;
+    totalChildren?: number;
+    completedChildren?: number;
+  };
+  NO_VOLUNTEERS_NEXT_QUARTER: {
+    value: number | null;
+    isExpanded?: boolean;
+    isParent?: boolean;
+    totalChildren?: number;
+    completedChildren?: number;
+  };
+  NO_VOLUNTEERS_CONT_3: {
+    value: number | null;
+    isExpanded?: boolean;
+    isParent?: boolean;
+    totalChildren?: number;
+    completedChildren?: number;
+  };
+  TOTAL_VOLUNTEERS: {
+    value: number | null;
+    isExpanded?: boolean;
+    isParent?: boolean;
+    totalChildren?: number;
+    completedChildren?: number;
+  };
+  DISBURSED_AMOUNTS_QUARTERLY: {
+    value: number | null;
+    isExpanded?: boolean;
+    isParent?: boolean;
+    totalChildren?: number;
+    completedChildren?: number;
+  };
+  ACTIVITY_EXPENSES: {
+    value: number | null;
+    isExpanded?: boolean;
+    isParent?: boolean;
+    totalChildren?: number;
+    completedChildren?: number;
+  };
+  ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES: {
+    value: number | null;
+    isExpanded?: boolean;
+    isParent?: boolean;
+    totalChildren?: number;
+    completedChildren?: number;
+  };
+  SERVICE_EXPENSES: {
+    value: number | null;
+    isExpanded?: boolean;
+    isParent?: boolean;
+    totalChildren?: number;
+    completedChildren?: number;
+  };
+  SALARY_EXPENSES: {
+    value: number | null;
+    isExpanded?: boolean;
+    isParent?: boolean;
+    totalChildren?: number;
+    completedChildren?: number;
+  };
+  MISCELLANEOUS_EXPENSES: {
+    value: number | null;
+    isExpanded?: boolean;
+    isParent?: boolean;
+    totalChildren?: number;
+    completedChildren?: number;
+  };
+  MARKETING_EXPENSES: {
+    value: number | null;
+    isExpanded?: boolean;
+    isParent?: boolean;
+    totalChildren?: number;
+    completedChildren?: number;
+  };
+  OTHER_EXPENSES: {
+    value: number | null;
+    isExpanded?: boolean;
+    isParent?: boolean;
+    totalChildren?: number;
+    completedChildren?: number;
+  };
+  APPROVED_AMOUNTS_QUARTERLY: {
+    value: number | null;
+    isExpanded?: boolean;
+    isParent?: boolean;
+    totalChildren?: number;
+    completedChildren?: number;
+  };
+  APPROVED_ACTIVITY_EXPENSES: {
+    value: number | null;
+    isExpanded?: boolean;
+    isParent?: boolean;
+    totalChildren?: number;
+    completedChildren?: number;
+  };
+  APPROVED_ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES: {
+    value: number | null;
+    isExpanded?: boolean;
+    isParent?: boolean;
+    totalChildren?: number;
+    completedChildren?: number;
+  };
+  APPROVED_SERVICE_EXPENSES: {
+    value: number | null;
+    isExpanded?: boolean;
+    isParent?: boolean;
+    totalChildren?: number;
+    completedChildren?: number;
+  };
+  APPROVED_SALARY_EXPENSES: {
+    value: number | null;
+    isExpanded?: boolean;
+    isParent?: boolean;
+    totalChildren?: number;
+    completedChildren?: number;
+  };
+  APPROVED_MISCELLANEOUS_EXPENSES: {
+    value: number | null;
+    isExpanded?: boolean;
+    isParent?: boolean;
+    totalChildren?: number;
+    completedChildren?: number;
+  };
+  APPROVED_MARKETING_EXPENSES: {
+    value: number | null;
+    isExpanded?: boolean;
+    isParent?: boolean;
+    totalChildren?: number;
+    completedChildren?: number;
+  };
+  APPROVED_OTHER_EXPENSES: {
+    value: number | null;
+    isExpanded?: boolean;
+    isParent?: boolean;
+    totalChildren?: number;
+    completedChildren?: number;
+  };
+};
+
+type FinancialEntriesType = {
+  key: "ROOT";
+  value: null;
+  children: {
+    TOTAL_SUSTAINABILITY_ASSETS: {
+      value: number | null;
+      key: string;
+      isExpanded?: boolean;
+      isParent?: boolean;
+      totalChildren?: number;
+      completedChildren?: number;
+      children: {
+        TRADED_INVESTMENTS: {
+          value: number | null;
+          key: string;
+          isExpanded?: boolean;
+          isParent?: boolean;
+          totalChildren?: number;
+          completedChildren?: number;
+        };
+        UNTRADED_INVESTMENTS: {
+          value: number | null;
+          key: string;
+          isExpanded?: boolean;
+          isParent?: boolean;
+          totalChildren?: number;
+          completedChildren?: number;
+        };
+        AWQAF_INVESTMENTS: {
+          value: number | null;
+          key: string;
+          isExpanded?: boolean;
+          isParent?: boolean;
+          totalChildren?: number;
+          completedChildren?: number;
+        };
+        AWQAF_FIXED_ASSETS: {
+          value: number | null;
+          key: string;
+          isExpanded?: boolean;
+          isParent?: boolean;
+          totalChildren?: number;
+          completedChildren?: number;
+        };
+      };
+    };
+    CASHE_RELATED: {
+      value: number | null;
+      key: string;
+      isExpanded?: boolean;
+      isParent?: boolean;
+      totalChildren?: number;
+      completedChildren?: number;
+    };
+    CURRENT_LIABILITIES: {
+      value: number | null;
+      key: string;
+      isExpanded?: boolean;
+      isParent?: boolean;
+      totalChildren?: number;
+      completedChildren?: number;
+    };
+    TOTAL_NET_RESTRICTED_ASSETS_AND_WAQF_CASH: {
+      value: number | null;
+      key: string;
+      isExpanded?: boolean;
+      isParent?: boolean;
+      totalChildren?: number;
+      completedChildren?: number;
+      children: {
+        LIMITED_NET_ASSETS: {
+          value: number | null;
+          key: string;
+          isExpanded?: boolean;
+          isParent?: boolean;
+          totalChildren?: number;
+          completedChildren?: number;
+        };
+        AWQAF_NET_ASSETS: {
+          value: number | null;
+          key: string;
+          isExpanded?: boolean;
+          isParent?: boolean;
+          totalChildren?: number;
+          completedChildren?: number;
+        };
+      };
+    };
+    TOTAL_EXPENSES: {
+      value: number | null;
+      key: string;
+      isExpanded?: boolean;
+      isParent?: boolean;
+      totalChildren?: number;
+      completedChildren?: number;
+      children: {
+        TOTAL_ADMINISTRATIVE_GENERAL_AND_GOVERNANCE_EXPENSES: {
+          value: number | null;
+          key: string;
+          isExpanded?: boolean;
+          isParent?: boolean;
+          totalChildren?: number;
+          completedChildren?: number;
+          children: {
+            GENERAL_ADMINSTRATIVE_EXPENSES: {
+              value: number | null;
+              key: string;
+              isExpanded?: boolean;
+              isParent?: boolean;
+              totalChildren?: number;
+              completedChildren?: number;
+            };
+            GOVERENCE_EXPENSES: {
+              value: number | null;
+              key: string;
+              isExpanded?: boolean;
+              isParent?: boolean;
+              totalChildren?: number;
+              completedChildren?: number;
+            };
+          };
+        };
+        TOTAL_PROGRAM_AND_ACTIVITY_EXPENSES: {
+          value: number | null;
+          key: string;
+          isExpanded?: boolean;
+          isParent?: boolean;
+          totalChildren?: number;
+          completedChildren?: number;
+          children: {
+            PROGRAMS_EXPENSES: {
+              value: number | null;
+              key: string;
+              isExpanded?: boolean;
+              isParent?: boolean;
+              totalChildren?: number;
+              completedChildren?: number;
+            };
+            ADMINISTRATIVE_EXPENSES_CHARGED_TO_THE_ACTIVITY: {
+              value: number | null;
+              key: string;
+              isExpanded?: boolean;
+              isParent?: boolean;
+              totalChildren?: number;
+              completedChildren?: number;
+            };
+          };
+        };
+        TOTAL_FINANCIAL_SUSTAINABILITY_EXPENSES: {
+          value: number | null;
+          key: string;
+          isExpanded?: boolean;
+          isParent?: boolean;
+          totalChildren?: number;
+          completedChildren?: number;
+          children: {
+            AWQAF_DIST_EXPENSES: {
+              value: number | null;
+              key: string;
+              isExpanded?: boolean;
+              isParent?: boolean;
+              totalChildren?: number;
+              completedChildren?: number;
+            };
+            INVESTMENT_EXPENSES: {
+              value: number | null;
+              key: string;
+              isExpanded?: boolean;
+              isParent?: boolean;
+              totalChildren?: number;
+              completedChildren?: number;
+            };
+          };
+        };
+        FUND_RAISING_EXPENSES: {
+          value: number | null;
+          key: string;
+          isExpanded?: boolean;
+          isParent?: boolean;
+          totalChildren?: number;
+          completedChildren?: number;
+        };
+      };
+    };
+    TOTAL_SUSTAINABILITY_RETURNS: {
+      value: number | null;
+      key: string;
+      isExpanded?: boolean;
+      isParent?: boolean;
+      totalChildren?: number;
+      completedChildren?: number;
+      children: {
+        UNRESTRICTED_REVENUE: {
+          value: number | null;
+          key: string;
+          isExpanded?: boolean;
+          isParent?: boolean;
+          totalChildren?: number;
+          completedChildren?: number;
+        };
+        RESTRICTED_REVENUE: {
+          value: number | null;
+          key: string;
+          isExpanded?: boolean;
+          isParent?: boolean;
+          totalChildren?: number;
+          completedChildren?: number;
+        };
+        AWQAF_QUARTER_REVENUE: {
+          value: number | null;
+          key: string;
+          isExpanded?: boolean;
+          isParent?: boolean;
+          totalChildren?: number;
+          completedChildren?: number;
+        };
+        PROFIT_AWQAF_INVESTMENTS: {
+          value: number | null;
+          key: string;
+          isExpanded?: boolean;
+          isParent?: boolean;
+          totalChildren?: number;
+          completedChildren?: number;
+        };
+      };
+    };
+    TOTAL_DONATIONS: {
+      value: number | null;
+      key: string;
+      isExpanded?: boolean;
+      isParent?: boolean;
+      totalChildren?: number;
+      completedChildren?: number;
+      children: {
+        ZAKAT: {
+          value: number | null;
+          key: string;
+          isExpanded?: boolean;
+          isParent?: boolean;
+          totalChildren?: number;
+          completedChildren?: number;
+        };
+        RESTRICTED_CASH_DONATIONS: {
+          value: number | null;
+          key: string;
+          isExpanded?: boolean;
+          isParent?: boolean;
+          totalChildren?: number;
+          completedChildren?: number;
+        };
+        RESTRICTED_IN_KIND_DONATIONS: {
+          value: number | null;
+          key: string;
+          isExpanded?: boolean;
+          isParent?: boolean;
+          totalChildren?: number;
+          completedChildren?: number;
+        };
+        RESTRICTED_DONATIONS_FOR_VOLUNTEER_SERVICES: {
+          value: number | null;
+          key: string;
+          isExpanded?: boolean;
+          isParent?: boolean;
+          totalChildren?: number;
+          completedChildren?: number;
+        };
+        GOVERNMENT_GRANT_DONATIONS: {
+          value: number | null;
+          key: string;
+          isExpanded?: boolean;
+          isParent?: boolean;
+          totalChildren?: number;
+          completedChildren?: number;
+        };
+        UNRESTRICTED_CASH_DONATIONS: {
+          value: number | null;
+          key: string;
+          isExpanded?: boolean;
+          isParent?: boolean;
+          totalChildren?: number;
+          completedChildren?: number;
+        };
+        UNRESTRICTED_IN_KIND_DONATIONS: {
+          value: number | null;
+          key: string;
+          isExpanded?: boolean;
+          isParent?: boolean;
+          totalChildren?: number;
+          completedChildren?: number;
+        };
+        UNRESTRICTED_DONATIONS_FOR_VOLUNTEER_SERVICES: {
+          value: number | null;
+          key: string;
+          isExpanded?: boolean;
+          isParent?: boolean;
+          totalChildren?: number;
+          completedChildren?: number;
+        };
+        DONATION_BY_LIABILITY_REDUCTION: {
+          value: number | null;
+          key: string;
+          isExpanded?: boolean;
+          isParent?: boolean;
+          totalChildren?: number;
+          completedChildren?: number;
+        };
+      };
+    };
+    IMPORTANT_VALUES_AND_PERCENTAGES_SUPPORTING_FINANCIAL_RESOURCES: {
+      value: number | null;
+      key: string;
+      isExpanded?: boolean;
+      isParent?: boolean;
+      totalChildren?: number;
+      completedChildren?: number;
+      children: {
+        TOTAL_TAX_REFUND: {
+          value: number | null;
+          key: string;
+          isExpanded?: boolean;
+          isParent?: boolean;
+          totalChildren?: number;
+          completedChildren?: number;
+        };
+        PROGRAM_AND_ACTIVITY_REVENUES: {
+          value: number | null;
+          key: string;
+          isExpanded?: boolean;
+          isParent?: boolean;
+          totalChildren?: number;
+          completedChildren?: number;
+          children: {
+            RESTRICTED_DESIGNATED_PROGRAM_AND_ACTIVITY_FEES: {
+              value: number | null;
+              key: string;
+              isExpanded?: boolean;
+              isParent?: boolean;
+              totalChildren?: number;
+              completedChildren?: number;
+            };
+          };
+        };
+        GENERAL_ASSEMBLY_MEMBERS_SUBSCRIPTION_TOTAL: {
+          value: number | null;
+          key: string;
+          isExpanded?: boolean;
+          isParent?: boolean;
+          totalChildren?: number;
+          completedChildren?: number;
+        };
+      };
+    };
+  };
 };
