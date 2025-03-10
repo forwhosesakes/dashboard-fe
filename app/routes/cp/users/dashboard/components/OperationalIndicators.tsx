@@ -5,6 +5,7 @@ import LongChartNegative from "~/assets/icons/longNegativeChart.svg?react";
 
 import CircularProgressBar from "~/components/ui/circular-progress";
 import { Cell, Label, Legend, Pie, PieChart, ResponsiveContainer } from "recharts";
+import UnderConstructionCard from "~/components/ui/under-construction";
 
 
 export default function OperationalIndicator({
@@ -358,7 +359,10 @@ export default function OperationalIndicator({
           </div>
           <div className="flex justify-center p-1 gap-12 mb-10 text-center items-center ">
             <div className="w-fit">
-              <CircularProgressBar
+           {
+               indicators["REACH_TARGET_AUD_PERC"]==null || indicators["REACH_TARGET_AUD_PERC"] == "NaN"?<UnderConstructionCard/>:
+           
+           <CircularProgressBar
                 gradientStart="#1882FF" // green-500
                 gradientEnd="#36EBCA" // green-600
                 gradientId={"REACH_TARGET_AUD_PERC"}
@@ -366,7 +370,7 @@ export default function OperationalIndicator({
                 progress={Math.round(Number(indicators["REACH_TARGET_AUD_PERC"]))}
                 textFillColor="fill-white"
                 trackColor="#22262F"
-              />
+              />}
             </div>
           </div>
         </div>
@@ -384,14 +388,21 @@ export default function OperationalIndicator({
                   <h6 className="text-xl">{"نسبة استدامة المتطوعين"}</h6>
                 </div>
                 <div className="p-5">
-                  <h4 className="text-">
-                    {Number(indicators["VOLUN_SUST_PERC"]).toFixed(2) + "%"}
-                  </h4>
-                  {Number(indicators["VOLUN_SUST_PERC"]) < 0 ? (
-                    <ChartNegative  className="w-full h-auto"/>
-                  ) : (
-                    <ChartPositive className="w-full h-auto"/>
-                  )}
+                 {
+               indicators["VOLUN_SUST_PERC"]==null || indicators["VOLUN_SUST_PERC"] == "NaN"?<UnderConstructionCard/>:
+                 
+               <>
+                 
+               <h4 className="text-">
+                  {Number(indicators["VOLUN_SUST_PERC"]).toFixed(2) + "%"}
+                </h4>
+                
+               
+               {Number(indicators["VOLUN_SUST_PERC"]) < 0 ? (
+                  <ChartNegative  className="w-full h-auto"/>
+                ) : (
+                  <ChartPositive className="w-full h-auto"/>
+                )}</>}
                 </div>
               </div>
 
@@ -400,17 +411,23 @@ export default function OperationalIndicator({
                   <h6 className="text-xl">{"مساهمة المتطوعين في تنفيذ المشاريع  "}</h6>
                 </div>
                 <div className="p-5">
-                  <h6 className=" text-nowrap text-[16px]">
-                    {indicatorsLabels.OPERATIONAL["VOLN_CONTR_PRJKS_EXEC"]}
-                  </h6>
-                  <h4 className="text-">
+                
+               {
+               indicators["VOLN_CONTR_PRJKS_EXEC"]==null || indicators["VOLN_CONTR_PRJKS_EXEC"] == "NaN"?<UnderConstructionCard/>:
+               <>
+ <h4 className="text-">
                     {Number(indicators["VOLN_CONTR_PRJKS_EXEC"]).toFixed(2) + "%"}
                   </h4>
-                  {Number(indicators["VOLN_CONTR_PRJKS_EXEC"]) < 0 ? (
+
+
+{Number(indicators["VOLN_CONTR_PRJKS_EXEC"]) < 0 ? (
                     <ChartNegative className="w-full h-auto"/>
                   ) : (
                     <ChartPositive className="w-full h-auto"/>
                   )}
+               </>
+              }
+                 
                 </div>
               </div>
             </div>
@@ -421,7 +438,10 @@ export default function OperationalIndicator({
                   <h6 className="text-xl">{"معدل النمو الربعي للمتطوعين"}</h6>
                 </div>
                 <div className="p-5 w-full">
-                  <h4 className="text-">
+                 {
+               indicators["VOLUN_GROWTH_RATE_QUAR"]==null || indicators["VOLUN_GROWTH_RATE_QUAR"] == "NaN"?<UnderConstructionCard/>:
+                <>
+                 <h4 className="text-">
                     {Number(indicators["VOLUN_GROWTH_RATE_QUAR"]).toFixed(2) +
                       "%"}
                   </h4>
@@ -430,6 +450,9 @@ export default function OperationalIndicator({
                   ) : (
                     <ChartPositive />
                   )}
+                </> 
+                }
+                
                 </div>
               </div>
             </div>

@@ -3,6 +3,7 @@ import SemiCircleProgressBar from "~/components/ui/half-circular-progress";
 import SaudiArabiaSvg from "~/assets/images/saudi-arabia.svg?react";
 
 import PulseLocationSvg from "~/assets/images/pulse-location.svg?react";
+import UnderConstructionCard from "~/components/ui/under-construction";
 
 interface IProps {
   indicators: any;
@@ -116,12 +117,15 @@ const GeneralDashboard = ({ indicators }: IProps) => {
                 indicatorsLabels.GENERAL[card.label]
               }
             </h6>
-            <SemiCircleProgressBar
+           
+            {
+               indicators[card.label]==null || indicators[card.label] == "NaN"?<UnderConstructionCard/>:
+              <SemiCircleProgressBar
               size={"md"}
               progress={Math.round(Number(indicators[card.label]))}
               gradientStart={card.gradientStart}
               gradientEnd={card.gradientEnd}
-            />
+            />}
           </div>
         ))}
       </div>
