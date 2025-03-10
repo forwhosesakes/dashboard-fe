@@ -14,6 +14,7 @@ import {
   YAxis,
 } from "recharts";
 import { indicatorsLabels } from "../constants/glossary";
+import UnderConstructionCard from "~/components/ui/under-construction";
 import { useEffect, useId, useRef, useState } from "react";
 import { TrendingUp } from "lucide-react";
 interface IProps {
@@ -24,42 +25,89 @@ const FinancialDashboard = (props: IProps) => {
     console.log("props", props);
   }, []);
   const finPerfCards = [
-    "ADMIN_EXPENSES",
-    "PRGRMS_EXPENSES",
-    "FINANCIAL_SUSTAIN",
-    "ABL_COVER_OBLIG",
-    "GENERAL_ADMINSTRATIVE_EXPENSES",
-    "DONAT_MONEY_RAISING",
-  
+   "ABL_COVER_OBLIG",
+   "ADMIN_EXPENSES",
+"ADMIN_TO_TOTAL_EXPENSES",
+"CACHE_RELATED_TO_NET_ASSETS_AND_AWQAF",
+"DONAT_MONEY_RAISING",
+"FINANCIAL_SUSTAIN",
+"FUND_RAISING_TO_TOTAL_DONAT",
+"FUND_RAISING_TO_TOTAL_EXPENSES",
+"NET_CACHE_INVEST_ADMIN_EXPENSES",
+"PRGRMS_EXPENSES",
+"PRGRMS_TO_TOTAL_EXPENSES",
+"REV_FIN_SUST_TO_TOTAL_EXPENSES",
+  "SUST_EXPENSEES_TO_REV", 
+"SUST_RETURN_TO_ASSETS",
+  "SUST_TO_TOTAL_EXPENSES",
   ];
-
+  
   const finValueThemes = {
-    ADMIN_EXPENSES: {
-      gradient: "bg-gradient-to-r from-indigo-300 to-blue-500",
+    ABL_COVER_OBLIG: {
+      gradient: "bg-gradient-to-r from-amber-300 to-orange-500",
       text: "text-transparent bg-clip-text",
     },
+    CACHE_RELATED_TO_NET_ASSETS_AND_AWQAF: {
+      gradient: "bg-gradient-to-r from-sky-300 to-cyan-500",
+      text: "text-transparent bg-clip-text",
+    },
+    NET_CACHE_INVEST_ADMIN_EXPENSES: {
+      gradient: "bg-gradient-to-r from-blue-300 to-indigo-500",
+      text: "text-transparent bg-clip-text",
+    },
+    
+    ADMIN_EXPENSES: {
+      gradient: "bg-gradient-to-r from-slate-300 to-zinc-500",
+      text: "text-transparent bg-clip-text",
+    },
+    ADMIN_TO_TOTAL_EXPENSES: {
+      gradient: "bg-gradient-to-r from-zinc-300 to-stone-500",
+      text: "text-transparent bg-clip-text",
+    },
+    
     PRGRMS_EXPENSES: {
       gradient: "bg-gradient-to-r from-emerald-300 to-teal-500",
       text: "text-transparent bg-clip-text",
     },
+    PRGRMS_TO_TOTAL_EXPENSES: {
+      gradient: "bg-gradient-to-r from-green-300 to-lime-600",
+      text: "text-transparent bg-clip-text",
+    },
+    
     FINANCIAL_SUSTAIN: {
-      gradient: "bg-gradient-to-r from-purple-300 to-violet-500",
+      gradient: "bg-gradient-to-r from-fuchsia-300 to-purple-600",
       text: "text-transparent bg-clip-text",
     },
-    ABL_COVER_OBLIG: {
-      gradient: "bg-gradient-to-r from-orange-300 to-amber-500",
+    SUST_EXPENSEES_TO_REV: {
+      gradient: "bg-gradient-to-r from-red-300 to-pink-600",
       text: "text-transparent bg-clip-text",
     },
-    GENERAL_ADMINSTRATIVE_EXPENSES: {
-      gradient: "bg-gradient-to-r from-sky-300 to-cyan-500",
+    SUST_RETURN_TO_ASSETS: {
+      gradient: "bg-gradient-to-r from-yellow-300 to-amber-600", 
       text: "text-transparent bg-clip-text",
     },
+    SUST_TO_TOTAL_EXPENSES: {
+      gradient: "bg-gradient-to-r from-violet-300 to-fuchsia-600",
+      text: "text-transparent bg-clip-text",
+    },
+    REV_FIN_SUST_TO_TOTAL_EXPENSES: {
+      gradient: "bg-gradient-to-r from-pink-300 to-purple-600",
+      text: "text-transparent bg-clip-text",
+    },
+    
     DONAT_MONEY_RAISING: {
-      gradient: "bg-gradient-to-r from-rose-300 to-pink-500",
+      gradient: "bg-gradient-to-r from-rose-300 to-red-600",
       text: "text-transparent bg-clip-text",
     },
+    FUND_RAISING_TO_TOTAL_DONAT: {
+      gradient: "bg-gradient-to-r from-orange-300 to-red-500",
+      text: "text-transparent bg-clip-text",
+    },
+    FUND_RAISING_TO_TOTAL_EXPENSES: {
+      gradient: "bg-gradient-to-r from-lime-300 to-green-600",
+      text: "text-transparent bg-clip-text",
+    }
   };
-
   const finSymbols = {
     GENERAL_ADMINSTRATIVE_EXPENSES: "k",
     PRGRMS_EXPENSES: "k",
@@ -301,7 +349,8 @@ const CustomTooltip = ({ active, payload, label }:any) => {
       </div>
 
       <div className="flex min-w-[20%] flex-wrap gap-5 my-5 rounded-lg p-5">
-        {finPerfCards.map((card: string) => (
+        {finPerfCards.map((card: string) => 
+        (
           <div className="border border-[#555C6A] p-3 flex flex-col gap-3 rounded-xl">
             <p className="text-[#94979C] font-bold text-xl">
               {/*  @ts-ignore  */}
@@ -312,8 +361,22 @@ const CustomTooltip = ({ active, payload, label }:any) => {
                 className={`text-2xl font-bold ${finValueThemes[card].gradient} 
               ${finValueThemes[card].text}`}
               >
-                {Number(props.indicators[card]).toFixed(1)}
-                {"%"}
+                {
+                  props.indicators[card]==null || props.indicators[card] == "NaN"
+                  ? 
+                  (
+                    <div className="h-16">
+                      <UnderConstructionCard textColor="text-white"/> 
+                    </div>
+                  )
+                  : (
+                    <>
+                    {Number(props.indicators[card]).toFixed(1)}
+                    {"%"}
+                    </>
+                  )
+                }
+                
               </h5>
               <div className="border p-1 flex justify-center items-center gap-1 text-xs rounded-lg">
                 {" "}
@@ -323,83 +386,6 @@ const CustomTooltip = ({ active, payload, label }:any) => {
             </div>
           </div>
         ))}
-      </div>
-
-      <div className="w-11/12 mx-auto">
-        <div className="w-full  mx-auto mt-4 rounded-lg p-1 bg-[#13161B]">
-          <h5>{"تنمية الموارد المالية"}</h5>
-        </div>
-        <div className=" flex gap-2 justify-between w-full h-full items-center mt-8">
-          <div className="grid grid-cols-2 w-1/2  h-[444px] justify-start items-start  p-6 rounded-lg border border-[#555C6A]    ">
-            {rawData.map((card) => (
-              <div
-                className="flex flex-col justify-center items-start gap-1"
-                key={card.id}
-              >
-                <div className="flex items-center mt-4 mb-2 gap-x-4">
-                  <div
-                    style={{ background: card.fill }}
-                    className="rounded-full h-3 w-3"
-                  />
-                  <h6 className="text-[#94979C]">{card.name}</h6>
-                </div>
-
-                <h5 className="text-white">{Number(card.value).toFixed(1)}%</h5>
-              </div>
-            ))}
-          </div>
-          <div className="border border-[#555C6A] w-1/2 max-h-[444px]  rounded-lg">
-            <ResponsiveContainer width="100%" className={"w-full"} height={444}>
-              <BarChart className='[&_.recharts-cartesian-grid-horizontal>line]:[stroke-dasharray:0]' width={150} height={40} data={barchartSingleMonthData}>
-                <defs>
-                  {barchartSingleMonthData.map((entry, index) => {
-                    const colors = [
-                      { start: "#FBE947", end: "#58D764" },
-                      { start: "#1882FF", end: "#36EBCA" },
-                      { start: "#FF5A5A", end: "#EF7BE3" },
-                      { start: "#17b26a", end: "#36F097" },
-                      { start: "#F79009", end: "#F79099" },
-                      { start: "#1882FF", end: "#36EBCA" },
-
-                    ][index];
-
-                    return (
-                      <linearGradient
-                        key={index}
-                        id={`${gradientIdPrefix}-${index}`}
-                        x1="0"
-                        y1="0"
-                        x2="0"
-                        y2="1"
-                      >
-                        <stop offset="0%" stopColor={colors.start} />
-                        <stop offset="100%" stopColor={colors.end} />
-                      </linearGradient>
-                    );
-                  })}
-                </defs>
-
-                <XAxis tick={false} dataKey="name" />
-                <YAxis  domain={[0,100]}/>
-                <CartesianGrid strokeDasharray='3 3' />
-                <Tooltip cursor={{fill: 'transparent'}} content={<CustomTooltip />} />
-              
-
-                <Bar dataKey="value" barSize={40} 
-                
-                radius={[8, 8, 0, 0]}>
-                  {barchartSingleMonthData.map((entry, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={`url(#${gradientIdPrefix}-${index})`}
-                    />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-   
-        </div>
       </div>
     </section>
   );

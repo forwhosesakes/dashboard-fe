@@ -431,7 +431,12 @@ const IndicatorSchema = z
     createdAt: z.string(),
     updatedAt: z.string(),
   })
-  .catchall(z.coerce.number());
+  .catchall(
+    z.union([
+      z.literal("NaN").transform(()=>null),
+      z.coerce.number().transform(val=>isNaN(val) ? null : val)
+    ])
+  );
 // and(
 //   z.record(
 //     z.string(),
@@ -520,7 +525,7 @@ export const dashboardApi = (url: string) => {
           method: `POST`,
           body: formData,
         });
-
+        
         if (!response.ok) {
           const errorData = await response.json().catch(() => null);
           if (errorData && ErrorResponseSchema.safeParse(errorData).success) {
@@ -533,6 +538,7 @@ export const dashboardApi = (url: string) => {
         }
 
         const data = await response.json();
+console.log("save entries::",data);
 
         const validatedData = SaveEntriesResponseSchema.parse(data);
         return validatedData;

@@ -74,11 +74,13 @@ const Entries = ({
   });
 
   useEffect(() => {
+    console.log("indicators",indicators);
+    
     if (indicators === null) {
       setView("entries");
       setLightTheme();
     }
-
+    
     const dashboardsOverview: DashboardOverviewType[] =
       locationData.state?.dashboardsOverview;
     if (dashboardsOverview) {
