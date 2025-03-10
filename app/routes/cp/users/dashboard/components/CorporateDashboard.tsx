@@ -10,9 +10,9 @@ import {
   Cell,
 } from "recharts";
 import { Progress } from "~/components/ui/progress";
-import { TrendingUp } from "lucide-react";
 import SemiCircleProgress from "~/components/ui/semi-circle-progress";
 import PercentageCircle from "~/components/percentage-circle";
+import UnderConstructionCard from "~/components/ui/under-construction";
 
 interface IProps {
   indicators: any;
@@ -20,12 +20,7 @@ interface IProps {
 }
 
 const CorporateDashboard = (props: IProps) => {
-  const cardsInds = [
-    "FINANCIAL_SAFETY_PRACTICES",
-    "TRANSPARENCY_DISCLOSURE_PRACTICES",
-    "COMPLIANCE_ADHERENCE_PRACTICES",
-    "GOVERANCE",
-  ];
+ 
   useEffect(() => {
     console.log(props);
   });
@@ -66,6 +61,27 @@ const CorporateDashboard = (props: IProps) => {
       gradientEnd: "#36F097",
     },
   ];
+
+
+  const empPerformance = [
+    {
+      key: "EMP_PERF_AND_PROD",
+      gradientStart: "#EF7BE3",
+      gradientEnd: "#FF5A5A",
+    },
+    {
+      key: "EMP_COMMITMENT",
+      gradientStart: "#725CFA",
+      gradientEnd: "#EF7BE3",
+    },
+    {
+      key: "DIRECT_MANAGER_EVALUATION",
+      gradientStart: "#FBE947",
+      gradientEnd: "#58D764",
+    },
+  ]
+
+  
 
   const orgPlanCards = [
     "QUALITY_OPERATIONAL_PLAN",
@@ -134,7 +150,7 @@ const CorporateDashboard = (props: IProps) => {
     <section className="px-24">
       <div className="flex mb-5 gap-10">
         {/* right side */}
-        <div className="flex flex-col gap-5 w-[70%]">
+        <div className="flex flex-col gap-5 w-[60%]">
           {/* <div className="flex flex-wrap gap-5 w-full justify-between rounded-lg bg-[#13161B] p-2">
             <h4 className="w-full text-lg xl:text-3xl font-bold">{"الحوكمة"}</h4>
           </div> */}
@@ -169,114 +185,49 @@ const CorporateDashboard = (props: IProps) => {
 
           {/* التخطيط والتنظيم  -  الموارد البشرية */}
           <div className="flex gap-10">
-            <div className="w-3/5 flex flex-col">
+            <div className="w-full flex flex-col">
               <div className="flex flex-wrap gap-5 w-full justify-between rounded-lg bg-[#13161B] p-2">
-                <h4 className="w-full text-lg xl:text-3xl font-bold">
-                  {"التخطيط والتنظيم"}
+                <h4 className="w-full flex justify-between  text-lg xl:text-3xl font-bold">
+                  <span>
+                  {"الأداء الوظيفي "}
+
+                  </span>
+                  <span>{(Number(props.indicators.EMPLOYMENT_PERFORMANCE))}%</span>
                 </h4>
               </div>
-              <div className="flex justify-between items-center gap-5 my-4">
-                {orgPlanCards.map((card) => (
-                  <div className="border flex flex-col rounded-lg p-3 w-[45%] gap-2">
-                    <h5 className="text-xl font-bold text-[#94979C]">
-                      {indicatorsLabels.CORPORATE[card]}
+              <div className="flex flex-wrap justify-between items-center gap-5 my-4">
+                {empPerformance.map((card) => (
+                  <div className="border flex flex-col rounded-lg p-3 min-w-[45%]  gap-2">
+                    { props.indicators[card.key] ?   <> <h5 className="text-xl font-bold text-[#94979C]">
+                      {indicatorsLabels.CORPORATE[card.key as keyof typeof indicatorsLabels.CORPORATE]}
                     </h5>
                     <h5 className="text-2xl font-bold">
-                      {Math.round(props.indicators[card])}%
+                      {Math.round(props.indicators[card.key])}%
                     </h5>
 
                     <Progress
                       className="[&>div]:bg-gradient-to-r [&>div]:from-green-800 [&>div]:to-green-500 w-full h-2.5 bg-gray-700"
-                      value={Math.round(Number(props.indicators[card]))}
-                    />
+                      value={Math.round(Number(props.indicators[card.key]))}
+                    /></>:<UnderConstructionCard/>}
+                   
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="w-full lg:w-2/5 flex flex-col min-w-[340px]">
-              {" "}
-              {/* Add minimum width */}
-              <div className="flex flex-wrap gap-5 w-full justify-between rounded-lg bg-[#13161B] p-2">
-                <h4 className="text-lg xl:text-3xl font-bold">{"الموارد البشرية"}</h4>
-              </div>
-              <div className="h-full w-full xl:w-[80%] flex flex-row gap-4">
-                {" "}
-                {/* Stack on small screens */}
-                {/* Legend Section */}
-                <div className="xl:w-full xl:max-w-[145px] w-5/12 min-h-[200px] flex flex-col justify-center space-y-4 px-2">
-                  <div className="flex gap-3 items-center">
-                    <div className="w-3 h-3 bg-gradient-to-t from-[#36F097] to-[#2596be] rounded shrink-0" />
-                    <h6 className="text-sm text-[#FFFFFF99] xl:text-base truncate">
-                      الأداء والإنتاجية
-                    </h6>
-                  </div>
-                  <div className="flex gap-3 items-center">
-                    <div className="w-3 h-3 bg-gradient-to-t from-[#EF7BE3] to-[#FF5A5A] rounded shrink-0" />
-                    <h6 className="text-sm xl:text-base text-[#FFFFFF99] truncate">
-                      التطوير والتدريب
-                    </h6>
-                  </div>
-                </div>
-                {/* Chart Section */}
-                <div className="w-full min-w-[170px] h-[220px]  xl:h-auto">
-                  {" "}
-                  {/* Constrained height */}
-                  <ResponsiveContainer width="100%"  height="100%">
-                    <PieChart>
-                      <defs>
-                        <linearGradient id="grad1" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#36F097" />
-                          <stop offset="100%" stopColor="#2596be" />
-                        </linearGradient>
-                        <linearGradient id="grad2" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#EF7BE3" />
-                          <stop offset="100%" stopColor="#FF5A5A" />
-                        </linearGradient>
-                      </defs>
-
-                      <Pie
-                        data={[
-                          {
-                            name: indicatorsLabels.CORPORATE["EMP_PERF_PROD"],
-                            value:
-                              Math.round(
-                                Number(props?.indicators?.["EMP_PERF_PROD"])
-                              ) ?? 50,
-                          },
-                          {
-                            name: indicatorsLabels.CORPORATE["EMP_DEV_TRAIN"],
-                            value:
-                              Math.round(
-                                Number(props?.indicators?.["EMP_DEV_TRAIN"])
-                              ) ?? 50,
-                          },
-                        ]}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={55}
-                        outerRadius={70}
-                        paddingAngle={5}
-                        dataKey="value"
-                        label
-                      >
-                        <Cell key="cell-0" fill="url(#grad1)" />
-                        <Cell key="cell-1" fill="url(#grad2)" />
-                      </Pie>
-                      <Tooltip/>
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
-              </div>
-            </div>
+        
           </div>
         </div>
 
         {/* أداء المدير التنفيذي */}
-        <div className="flex flex-wrap gap-5 justify-center items-center w-[30%] h-full">
+        <div className="flex flex-wrap gap-5 justify-center items-center w-[40%] h-full">
           <div className="flex gap-5 w-full rounded-lg bg-[#13161B] p-2">
-            <h4 className="w-full  text-lg xl:text-3xl font-bold">
+            <h4 className="w-full flex justify-between  text-lg xl:text-3xl font-bold">
+              <span>
               {"أداء المدير التنفيذي"}
+
+              </span>
+              <span>{Math.round(Number(props.indicators.CEO_PERFORMANCE))}%</span>
             </h4>
           </div>
           <div>
@@ -286,13 +237,19 @@ const CorporateDashboard = (props: IProps) => {
                   key={card.key}
                   className="border rounded-lg p-5 w-[48%] flex flex-col justify-center text-center items-center gap-7"
                 >
-                  <p className="text-[#94979C] font-bold text-xl">{indicatorsLabels.CORPORATE[card.key]}</p>
-
-                  <SemiCircleProgress
-                    size={120}
-                    percentage={Math.round(Number(props.indicators[card.key]))}
-                    color={card.gradientStart}
-                  />
+                  {
+                    props.indicators[card.key] ?   <>
+                    <p className="text-[#94979C] font-bold text-xl">{indicatorsLabels.CORPORATE[card.key as keyof typeof indicatorsLabels.CORPORATE]}</p>
+   
+                     <SemiCircleProgress
+                       size={120}
+                       percentage={Math.round(Number(props.indicators[card.key]))}
+                       color={card.gradientStart}
+                     />
+                    
+                    </>  :<UnderConstructionCard/>
+                  }
+              
                 </div>
               ))}
             </div>
@@ -306,6 +263,8 @@ const CorporateDashboard = (props: IProps) => {
         </div>
         <div className="h-60 flex justify-between w-10/12 xl:place-self-center place-self-start">
           {satisInds.map((indicator) => (
+            
+            
             <div
               className={`h-full w-fit flex flex-col items-center ${
                 indicator.justify ? "justify-start" : "justify-end"
