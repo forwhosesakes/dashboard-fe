@@ -227,7 +227,10 @@ const CorporateDashboard = (props: IProps) => {
               {"أداء المدير التنفيذي"}
 
               </span>
-              <span>{Math.round(Number(props.indicators.CEO_PERFORMANCE))}%</span>
+              
+              <span>{
+              
+              Math.round(Number(props.indicators.CEO_PERFORMANCE))}%</span>
             </h4>
           </div>
           <div>
