@@ -1,21 +1,14 @@
 import { indicatorsLabels } from "../constants/glossary";
-import ChartProgress from "~/assets/icons/chart-progress.svg?react";
-import PlanOrgIcon from "~/assets/icons/plan-org.svg?react";
 
 import React, { useEffect } from "react";
 import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
+
   Tooltip,
   ResponsiveContainer,
   PieChart,
   Pie,
   Cell,
 } from "recharts";
-import SemiCircleProgressBar from "~/components/ui/half-circular-progress";
 import { Progress } from "~/components/ui/progress";
 import { TrendingUp } from "lucide-react";
 import SemiCircleProgress from "~/components/ui/semi-circle-progress";
@@ -142,11 +135,11 @@ const CorporateDashboard = (props: IProps) => {
       <div className="flex mb-5 gap-10">
         {/* right side */}
         <div className="flex flex-col gap-5 w-[70%]">
-          <div className="flex flex-wrap gap-5 w-full justify-between rounded-lg bg-[#13161B] p-2">
+          {/* <div className="flex flex-wrap gap-5 w-full justify-between rounded-lg bg-[#13161B] p-2">
             <h4 className="w-full text-lg xl:text-3xl font-bold">{"الحوكمة"}</h4>
-          </div>
+          </div> */}
 
-          <div className="flex flex-wrap gap-8">
+          {/* <div className="flex flex-wrap gap-8">
             {cardsInds.map((card: string) => (
               <div
                 key={card}
@@ -170,10 +163,10 @@ const CorporateDashboard = (props: IProps) => {
                   </div>
                 </div>
 
-                {/* <ChartProgress className="absolute w-20 h-20 left-4 bottom-0" /> */}
               </div>
             ))}
-          </div>
+          </div> */}
+
           {/* التخطيط والتنظيم  -  الموارد البشرية */}
           <div className="flex gap-10">
             <div className="w-3/5 flex flex-col">

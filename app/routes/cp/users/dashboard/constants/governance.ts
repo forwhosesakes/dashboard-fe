@@ -1,4 +1,5 @@
 export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
+
   Q1: {
     weight: 3,
 
@@ -138,8 +139,6 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
         isDependantOnPrev: false,
       },
     
-   
- 
       
       {
         label: "GENERAL_ASSEMBLY_DISCUSSED_NEW_YEAR_PLAN",
@@ -148,7 +147,8 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
           { label: "تم مناقشة الخطة.", weight: 1 },
         ],
         isDependantOnPrev: false,
-      },
+      },  
+ 
       {
         label: "SUBMITTED_MEETING_MINUTES_TO_CENTER_WITHIN_FIFTEEN_DAYS",
         options: [
@@ -363,14 +363,14 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
         ],
         isDependantOnPrev: false,
       },
-      // {
-      //   label: "HAS_APPROVED_BENEFICIARY_RELATIONS_POLICY",
-      //   options: [
-      //     { label: "لا توجد سياسة.", weight: 0 },
-      //     { label: "توجد بشكل متكامل.", weight: 0.2 },
-      //   ],
-      //   isDependantOnPrev: false,
-      // },
+      {
+        label: "DOES_POLICY_CONTAIN_MECHANISM_TO_VERIFY_BENEFICIARY_ELIGIBILITY",
+        options: [
+          { label: "لا توجد آلية.", weight: 0 },
+          { label: "توجد آلية بشكل كامل.", weight: 0.2 },
+        ],
+        isDependantOnPrev: false,
+      },
       {
         label: "BENEFICIARY_NEEDS_ASSESSED",
         options: [
@@ -469,6 +469,15 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
         ],
         isDependantOnPrev: true,
       },
+      {
+        label:"BOARD_MONITORS_DELEGATED_AUTHORITIES",
+        options: [
+          { label: "لا توجد متابعة من قبل المجلس.", weight: 0 },
+          { label: "توجد متابعة بشكل متكامل.", weight: 1 },
+        ],
+        isDependantOnPrev: false,
+      }
+      
 
      
     
@@ -552,8 +561,8 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
       {
         label: "BOARD_MEMBER_FROM_JUDICIARY",
         options: [
-          { label: "لا يوجد.", weight: 0 },
-          { label: "يوجد .", weight: 1 },
+          { label: "لا يوجد.", weight: 1 },
+          { label: "يوجد .", weight: 0 },
         ],
         isDependantOnPrev: false,
       },
@@ -579,7 +588,7 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
     weight: 6.5,
     questions: [
       {
-        label: "BOARD_MET_FOUR_TIMES_IN_PREVIOUS_YEAR",
+        label: "HAS_APPOINTED_EXECUTIVE_DIRECTOR",
         options: [
           { label: "لا يوجد مدير تنفيذي.", weight: 0 },
           { label: "متفرغ كامل.", weight: 2 },
@@ -666,7 +675,7 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
           {
             label:
               "لم يتم تشكيل لجنة انتخابات في الاجتماع العمومي الذي يسبق اجتماع الترشيح.",
-            weight: 0.5,
+            weight: 0,
           },
           { label: "نعم .", weight: 0, moveToNext: true },
         ],
@@ -1214,6 +1223,52 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
   },
 };
 
+export const COMPLIANCE_ADHERENCE_PRACTICES_INDICATORS = [
+  {
+    label:"المؤشر الأول: اللائحة الأساسية للجمعية",
+    questions:["Q1", "Q2", "Q3"]
+  },
+
+  {
+    label:"المؤشر الثاني: الجمعية العمومية ",
+    questions:["Q4", "Q5", "Q6", "Q7"]
+  },
+
+
+  {
+    label:"المؤشر الثالث: مجلس الإدارة",
+    questions:["Q8", "Q9", "Q10", "Q11", "Q12", "Q13", "Q14", "Q15"]
+  },
+  {
+    label:"المؤشر الرابع: الفروع و المكاتب ",
+    questions:["Q16"]
+  },
+  {
+    label:"المؤشر الخامس: التقارير ",
+    questions:["Q17"]
+  },
+  {
+    label:"المؤشر السادس: الأنظمة السارية بالمملكة ",
+    questions:["Q18","Q19","Q20","Q21"]
+  },
+  {
+    label:"المؤشر السابع: الأنشطة والفعاليات والتعقادات",
+    questions:["Q22","Q23"]
+  },
+  {
+    label:"المؤشر الثامن: الإيرادات والمصروفات والتملك ",
+    questions:["Q24","Q25","Q26"]
+  },
+  {
+    label:"المؤشر التاسع: الوثائق والسجلات ",
+    questions:["Q27","Q28","Q29"]
+  },
+  {
+    label:"المؤشر العاشر: تكوين اللجان  ",
+    questions:["Q30"]
+  },
+]
+
 
 
 export const TRANSPARENCY_DISCLOSURE_PRACTICES_QUESTIONS ={
@@ -1504,7 +1559,7 @@ export const TRANSPARENCY_DISCLOSURE_PRACTICES_QUESTIONS ={
           {
             label: "لا توجد لجان دائمة.",
 
-            weight: 1,
+            weight: 2,
           },
           {
             label: "توجد لجان دائمة.",
@@ -1525,12 +1580,12 @@ export const TRANSPARENCY_DISCLOSURE_PRACTICES_QUESTIONS ={
           },
           {
             label: "تم الإفصاح بشكل جزئي.",
-            weight: 0.5,
+            weight: 1,
           
           },
           {
             label: "تم الإفصاح بشكل متكامل.",
-            weight: 1,
+            weight: 2,
           
           }
         ],
@@ -1592,12 +1647,12 @@ export const TRANSPARENCY_DISCLOSURE_PRACTICES_QUESTIONS ={
           },
           {
             label: "تم الإفصاح بشكل جزئي.",
-            weight: 0.5,
+            weight: 1,
           
           },
           {
             label: "تم الإفصاح بشكل متكامل.",
-            weight: 1,
+            weight: 2,
           
           }
         ],
@@ -1812,7 +1867,7 @@ export const TRANSPARENCY_DISCLOSURE_PRACTICES_QUESTIONS ={
   
           {
             label: "تم بشكل جزئي.",
-            weight: 0,
+            weight: 1,
           },
 
 
@@ -2145,7 +2200,33 @@ export const TRANSPARENCY_DISCLOSURE_PRACTICES_QUESTIONS ={
     ],
   },
 }
-
+export const TRANSPARENCY_DISCLOSURE_PRACTICES_INDICATORS = [
+  {
+    label:"المؤشر الأول: اللوائح والأنظمة",
+    questions:["Q1", "Q2", "Q3"]
+  },
+  {
+    label:"المؤشر الثاني: بيانات القائمين على الجمعية  ",
+    questions:["Q4", "Q5", "Q6"]
+  },
+  {
+    label:"المؤشر الثالث: بيانات الجمعية",
+    questions:["Q7","Q8"]
+  },
+  {
+    label:"المؤشر الرابع: أهداف و برامج الجمعية ",
+    questions:["Q9", "Q10", "Q11", "Q12"]
+  },
+  {
+    label:"المؤشر الخامس: القوائم المالية ",
+    questions:["Q13"]
+  },
+  {
+    label:"المؤشر السادس: نموذج الإفصاح ",
+    questions:["Q14"]
+  },
+  
+]
 
 export const FINANCIAL_SAFETY_PRACTICES_QUESTIONS={
   Q1: {
@@ -3077,3 +3158,28 @@ export const FINANCIAL_SAFETY_PRACTICES_QUESTIONS={
 
 
 }
+
+export const FINANCIAL_SAFETY_PRACTICES_INDICATORS = [
+  {
+    label:"المؤشر الأول: الهيكل التنظيمي ",
+    questions:["Q1", "Q2", "Q3","Q4"]
+  },
+  {
+    label:"المؤشر الثاني: تفعيل السياسات والإجراءات    ",
+    questions:["Q5", "Q6", "Q7","Q8"]
+  },
+  {
+    label:"المؤشر الثالث: السجلات والمستندات ",
+    questions:["Q9"]
+  },
+  {
+    label:"المؤشر الرابع: التقارير ",
+    questions:[ "Q10"]
+  },
+  {
+    label:"المؤشر الخامس: الإجراءات المالية والمحاسبية ",
+    questions:["Q11","Q12"]
+  },
+
+  
+]
