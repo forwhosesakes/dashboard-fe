@@ -115,8 +115,8 @@ export type GeneralDahboardIndicatorsType={
 export type CorporateDashboardIndicatorsType = {
   dashbaordId: number;
   id: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   CORORATE_PERFORMANCE: number|null;
   GOVERANCE: number|null;
   HR: number|null;
@@ -153,8 +153,8 @@ export type CorporateDashboardIndicatorsType = {
 export type CorporateDashboardEntriesType = {
   dashbaordId: number;
   id: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   TOTAL_ASSIGNED_TASKS_DURING_PERIOD:number|null;
   TOTAL_COMPLETED_TASKS_DURING_PERIOD:number|null;
   TOTAL_WORKING_DAYS:number|null;
@@ -191,8 +191,8 @@ export type CorporateDashboardEntriesType = {
 export type OrphansDashboardEntriesType = {
   dashbaordId: number;
   id: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   NO_ADOPTED_ORPHANS: number;
   TOTAL_TARGETED_ORPHANS: number;
   TOTAL_MONTHLY_ADOP_EXP: number;
@@ -212,8 +212,8 @@ export type OrphansDashboardEntriesType = {
 export type MosquesDashboardEntriesType = {
   dashbaordId: number; 
   id: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   NO_EXEC_CONST_REQS: number;
   TOTAL_CONST_REQS: number;
   TOTAL_MONTHLY_ADOP_EXP: number;

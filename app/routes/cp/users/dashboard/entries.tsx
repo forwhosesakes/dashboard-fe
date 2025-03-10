@@ -20,7 +20,14 @@ import DashboardIndicators from "./components/DashboardIndicators";
 import { toasts } from "~/lib/utils/toast";
 import { useThemeStore } from "~/lib/store/theme-store";
 import { Breadcrumbs } from "~/components/app-breadcrumbs";
-import type { RootNode ,EntryNode} from "~/types/api.types";
+import type { RootNode, EntryNode } from "~/types/api.types";
+import {
+  createCorporateTemplate,
+  createFinancialTemplate,
+  createOperationalTemplate,
+  flattenNodeStructure,
+  propagateNullValuesUpTree,
+} from "./initialTemplates";
 
 export const loader = async ({ context, params }: LoaderFunctionArgs) => {
   let { id, dashboardType } = params;
@@ -60,7 +67,11 @@ const Entries = ({
   const [loading, setLoading] = useState(false);
   const { setLightTheme, theme } = useThemeStore();
 
-  const [currentEntries, setCurrentEntries] = useState<RootNode|any>({  key: "ROOT",  value: null,   children: []});
+  const [currentEntries, setCurrentEntries] = useState<RootNode | any>({
+    key: "ROOT",
+    value: null,
+    children: [],
+  });
 
   useEffect(() => {
     if (indicators === null) {
@@ -74,37 +85,33 @@ const Entries = ({
       const currentDasboardData = dashboardsOverview.find((dashboard: any) =>
         dashboard.title.includes(currentDashboard)
       );
-
       if (currentDasboardData) {
         if (currentDasboardData.status === "NOT_STARTED" || entries === null) {
-          const initialEntries = Object.entries(
-            initialValues[currentDashboard]
-          ).map(([key, value]) => ({
-            name: key,
-            label: entriesLabels[currentDashboard][key] ?? key,
-            value,
-          }));
-          setCurrentEntries(initialEntries);
-        } else {
-          const excludedKeys = ["id", "dashbaordId", "createdAt", "updatedAt"];
-          if (entries) {
-            console.log("entries are new structure:: ",entries);
-            //new entries structure::
-            if(entries?.key === "ROOT"){
-              setCurrentEntries(entries)              
-              
-            }else{
-              const newEntries = Object.entries(entries)
-                .filter(([key]) => !excludedKeys.includes(key))
-                .map(([key, value], i) => ({
-                  name: key,
-                  label: entriesLabels[currentDashboard][key] ?? key,
-                  value,
-                }));
-              setCurrentEntries(newEntries);
+          let initialEntries;
+          try {
+            if (currentDashboard === "FINANCIAL") {
+              initialEntries = createFinancialTemplate()[0];
+            } else if (currentDashboard === "CORPORATE") {
+              initialEntries = createCorporateTemplate()[0];
+            } else if (currentDashboard === "OPERATIONAL") {
+              initialEntries = createOperationalTemplate()[0];
+            } else {
+              initialEntries = { key: "ROOT", value: null, children: {} };
+              console.warn(
+                `No template available for dashboard: ${currentDashboard}`
+              );
             }
             
+            setCurrentEntries(initialEntries ?? null);
+          } catch (e) {
+            console.error(
+              `Error creating iniaialData for ${currentDashboard}:`,
+              e
+            );
+            setCurrentEntries({ key: "ROOT", value: null, children: {} });
           }
+        } else {
+          setCurrentEntries(entries);
         }
       }
     }
@@ -125,19 +132,19 @@ const Entries = ({
 
   const saveEntries = async () => {
     try {
-      console.log("saveEntries ", currentEntries);
-      
       setLoading(true);
-      const requestBody = {};
-      Object.entries(currentEntries.children).forEach(([key,entry])=> {
-        //@ts-ignore
-        requestBody[key] = (entry as EntryNode).value;
-      });
+
+      console.log(currentEntries);
+      
+      // const checkedData = propagateNullValuesUpTree(currentEntries.children);
+      const requestBody = flattenNodeStructure(currentEntries.children);
+
       const result = await dashboardApi(baseUrl).saveEntries({
         id,
         type: currentDashboard,
         entries: requestBody,
       });
+      
       toasts.success({ message: "تم حفظ المدخلات بنجاح" });
       setLoading(false);
     } catch (e) {
@@ -249,8 +256,12 @@ const Entries = ({
                       dashboardType={currentDashboard}
                       entries={currentEntries}
                       onEntryChange={(name, value) => {
-                        const updatedEntries = Object.entries(currentEntries.children).map(([key,entry]) =>
-                          key === name ? { ...(entry as EntryNode), value } : entry
+                        const updatedEntries = Object.entries(
+                          currentEntries.children
+                        ).map(([key, entry]) =>
+                          key === name
+                            ? { ...(entry as EntryNode), value }
+                            : entry
                         );
                         setCurrentEntries(updatedEntries);
                       }}

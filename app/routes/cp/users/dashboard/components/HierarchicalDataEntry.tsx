@@ -177,7 +177,7 @@ const NodeRow: React.FC<NodeRowProps> = ({ node, level, path, onUpdate }) => {
 function calculateParentValues(data: RootNode) {
   const calculateNodeValues = (node: Node): number => {
     if (!node.children || Object.keys(node.children).length === 0) {
-      return node.value || 0;
+      return  node.value;
     }
     
     let sum = 0;
@@ -196,11 +196,16 @@ function calculateParentValues(data: RootNode) {
     }
     
   
-    node.value = sum;
     node.totalChildren = totalChildren;
     node.completedChildren = completed;
     node.isParent = true;
     
+    
+    if(totalChildren !== completed){
+        node.value = null;
+        return null
+    }
+    node.value=sum
     return sum;
   };
   
