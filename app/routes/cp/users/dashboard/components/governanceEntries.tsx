@@ -17,12 +17,11 @@ import { Switch } from "~/components/ui/switch";
 import { dashboardApi } from "~/lib/api/dashboard";
 import { toasts } from "~/lib/utils/toast";
 import { useLoaderData } from "react-router";
+import { ChevronDown, ChevronUp } from "lucide-react"; // Import icons for collapse/expand
 
 const TABS_QUESTIONS = {
   COMPLIANCE_ADHERENCE_PRACTICES: {questions:COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS, indicators:COMPLIANCE_ADHERENCE_PRACTICES_INDICATORS},
-  FINANCIAL_SAFETY_PRACTICES: {questions:FINANCIAL_SAFETY_PRACTICES_QUESTIONS,indicators:FINANCIAL_SAFETY_PRACTICES_INDICATORS
-    
-     },
+  FINANCIAL_SAFETY_PRACTICES: {questions:FINANCIAL_SAFETY_PRACTICES_QUESTIONS,indicators:FINANCIAL_SAFETY_PRACTICES_INDICATORS},
   TRANSPARENCY_DISCLOSURE_PRACTICES:
     {questions:TRANSPARENCY_DISCLOSURE_PRACTICES_QUESTIONS,indicators:TRANSPARENCY_DISCLOSURE_PRACTICES_INDICATORS},
 };
@@ -42,6 +41,35 @@ const GovernanceEntries = () => {
   const [isFormMode, triggerFormMode] = useReducer((st) => !st, false);
   const [isLoading, setIsLoading] = useState(false);
   const [showValidation, setShowValidation] = useState(false);
+  // State to track expanded/collapsed state of each indicator and question
+  const [expandedIndicators, setExpandedIndicators] = useState<Record<number, boolean>>({});
+  const [expandedQuestions, setExpandedQuestions] = useState<Record<string, boolean>>({});
+
+  useEffect(() => {
+    const initialIndicatorState = TABS_QUESTIONS[govTab].indicators.reduce((acc, _, index) => {
+      return { ...acc, [index]: true };
+    }, {});
+    setExpandedIndicators(initialIndicatorState);
+
+    const initialQuestionState = Object.keys(TABS_QUESTIONS[govTab].questions).reduce((acc, key) => {
+      return { ...acc, [key]: true };
+    }, {});
+    setExpandedQuestions(initialQuestionState);
+  }, [govTab]);
+
+  const toggleIndicator = (index: number) => {
+    setExpandedIndicators(prev => ({
+      ...prev,
+      [index]: !prev[index]
+    }));
+  };
+
+  const toggleQuestion = (questionKey: string) => {
+    setExpandedQuestions(prev => ({
+      ...prev,
+      [questionKey]: !prev[questionKey]
+    }));
+  };
 
   const handleResponse = (sectionId: any, questionLabel: any, value: any) => {
     setResponses((prev: any) => ({
@@ -70,7 +98,6 @@ const GovernanceEntries = () => {
   const handleTabChange = (value: string) => {
     setGovTab(value as TGovernanceEntries);
   };
-  // Function to check if a question should be answered
   const shouldQuestionBeAnswered = (
     question: any,
     sectionQuestions: any[],
@@ -88,18 +115,12 @@ const GovernanceEntries = () => {
     return previousQuestion.options[parseInt(index)]?.moveToNext;
   };
 
-  // Function to get all required question labels
   const getRequiredQuestions = () => {
     const required = new Set<string>();
 
     Object.values(TABS_QUESTIONS[govTab].questions).forEach((section) => {
       section.questions.forEach((question, index) => {
-        console.log("question::", question);
-        console.log(
-          "should it be answured::",
-          shouldQuestionBeAnswered(question, section.questions, index)
-        );
-
+    
         if (shouldQuestionBeAnswered(question, section.questions, index)) {
           required.add(question.label);
         }
@@ -109,61 +130,39 @@ const GovernanceEntries = () => {
     return required;
   };
 
-
   const countEvaluatedPracticesForOneIndicator = (indicatorIndex:number)=>{
     const practices = TABS_QUESTIONS[govTab].indicators[indicatorIndex].questions // e.g ["Q1","Q2","Q3"]
     const [evaluatedPractices,total] = practices.reduce((acc,practice)=>{
-// @ts-ignore
-    const practiceQuestions = TABS_QUESTIONS[govTab].questions[practice].questions
-    const ansCount= Array.from(practiceQuestions).filter((q:any) => responses[q.label]).length;
-  
-    return [ansCount+acc[0],practiceQuestions.length+acc[1]]
+      // @ts-ignore
+      const practiceQuestions = TABS_QUESTIONS[govTab].questions[practice].questions
+      const ansCount= Array.from(practiceQuestions).filter((q:any) => responses[q.label]).length;
+    
+      return [ansCount+acc[0],practiceQuestions.length+acc[1]]
     },[0,0]) 
 
-
     return `تم تقييم ${evaluatedPractices} من أصل ${total}`
-
-
-
   }
+
   const subTotalForOneIndicator = (indicatorIndex:number)=>{
     const practices = TABS_QUESTIONS[govTab].indicators[indicatorIndex].questions // e.g ["Q1","Q2","Q3"]
     const total = practices.reduce((acc,practice)=>{
-// @ts-ignore
-    const practiceQuestions = TABS_QUESTIONS[govTab].questions[practice].questions
-    const subTotal= Array.from(practiceQuestions).reduce((acc:number, q:any) => {
-      if(responses[q.label] || responses[q.label]===0)
-        return acc + Number(responses[q.label].split("-")[0])
-       return acc
+      // @ts-ignore
+      const practiceQuestions = TABS_QUESTIONS[govTab].questions[practice].questions
+      const subTotal= Array.from(practiceQuestions).reduce((acc:number, q:any) => {
+        if(responses[q.label] || responses[q.label]===0)
+          return acc + Number(responses[q.label].split("-")[0])
+        return acc
       },0)
-  
-    return subTotal+acc
+    
+      return subTotal+acc
     },0) 
 
     return total
-    
-
-
-
-
-
   }
 
-  // Check if all required questions are answered
-  const hasUnansweredQuestions = () => {
-    const requiredQuestions = getRequiredQuestions();
-    return Array.from(requiredQuestions).some((label) => !responses[label]);
-  };
 
   const handleSubmit = async () => {
-    // if (hasUnansweredQuestions()) {
-    //   setShowValidation(true);
-    //   toasts.error({
-    //     message: "خطأ في تعبئة النموذج",
-    //     description: "يرجى الإجابة على جميع الأسئلة المطلوبة",
-    //   });
-    //   return;
-    // }
+
     setIsLoading(true);
     try {
       // Transform responses to just the weight values
@@ -204,11 +203,7 @@ const GovernanceEntries = () => {
       if(records){
         setResponses(JSON.parse(records))
       }
-
-
       }
-
-      
     }).catch(()=>{})
   },[govTab])
 
@@ -237,93 +232,121 @@ const GovernanceEntries = () => {
 
           <TabsContent value={govTab}>
             <div className="w-full max-w-4xl mx-auto p-4 space-y-6">
-            {(TABS_QUESTIONS[govTab].indicators).map(( indicator,index)=><div className="">
-              <div className="p-4 mb-4 bg-secondary-600/10 flex justify-between px-2">
-            <h6 className="text-secondary-800 font-semibold ">{indicator.label}</h6>
-            <div className="flex flex-col justify-center items-center">
-            <span className="text-gray-600 text-xs">{countEvaluatedPracticesForOneIndicator(index)}</span>
-            <span className="text-secondary-700 font-semibold text-xs">{`المحصلة: ${subTotalForOneIndicator(index)}`}</span>
-
-
-            </div>
-
-
-              
-              </div>
-            {indicator.questions.map((question,i)=>    <div key={question} className="space-y-4">
-                    <div className="flex justify-between items-center my-2 gap-2">
-                      <div className="flex gap-2 items-center">
-                      <h2 className="text-lg  text-secondary-900 font-semibold">
-                        الممارسة {question.slice(1)}
-                      </h2>
-                      <span className="text-sm text-muted-foreground">
-                       {/* @ts-ignore  */}
-                        (الدرجة: {TABS_QUESTIONS[govTab].questions[question].weight})
-                      </span>
-                        </div>
-
-                       <Button variant={"outline"} className="w-fit" onClick={handleSubmit}>حفظ</Button>
-                        
-                    
+              {(TABS_QUESTIONS[govTab].indicators).map((indicator, index) => (
+                <div key={`indicator-${index}`} className="mb-6 border rounded-lg overflow-hidden shadow-sm">
+                  <div 
+                    className="p-4 bg-secondary-600/10 flex justify-between items-center cursor-pointer hover:bg-secondary-600/20 transition-colors"
+                    onClick={() => toggleIndicator(index)}
+                  >
+                    <h6 className="text-secondary-800 font-semibold">{indicator.label}</h6>
+                    <div className="flex items-center gap-4">
+                      <div className="flex flex-col justify-center items-end">
+                        <span className="text-gray-600 text-xs">{countEvaluatedPracticesForOneIndicator(index)}</span>
+                        <span className="text-secondary-700 font-semibold text-xs">{`المحصلة: ${subTotalForOneIndicator(index)}`}</span>
+                      </div>
+                      {expandedIndicators[index] ? 
+                        <ChevronUp className="h-4 w-4 text-secondary-700" /> : 
+                        <ChevronDown className="h-4 w-4 text-secondary-700" />
+                      }
                     </div>
-                    <Separator />
-                       {/* @ts-ignore  */}
-                    {TABS_QUESTIONS[govTab].questions[question].questions.map(
-                      (q: { label: Key  | any; options: any[]; }, qIndex: number) =>
-                        
-                        shouldShowQuestion( q,TABS_QUESTIONS[govTab].questions[question  as "Q1"].questions,qIndex
-                        ) && (
-                          <div
-                            key={q.label}
-                            className="p-4 border rounded-lg"
-                          >
-                            <p className="text-sm font-medium mb-4">
-                              {qIndex + 1}.{" "}
-                              {
-                                //@ts-ignore
-                                governanceLabels[govTab][q.label]
-                              }
-                            </p>
-                            <RadioGroup
-                              dir="rtl"
-                              onValueChange={(value) =>
-                                handleResponse(question, q.label, value)
-                              }
-                              value={responses[q.label]}
-                              className="space-y-2"
-                            >
-                              {q.options.map((option, index) => (
-                                <div
-                                  key={index}
-                                  className="flex items-center space-x-2"
-                                >
-                                  <RadioGroupItem
-                                    dir="rtl"
-                                    value={`${option.weight.toString()}-${index}`}
-                                    id={`${q.label}-${index}`}
-                                  />
-                                  <p>{option.label}</p>
-                                  <span className="text-xs text-gray-400">
-                                    {" "}
-                                    (الدرجة: {option.weight})
-                                  </span>
-                                </div>
-                              ))}
-                            </RadioGroup>
-                          </div>
-                        )
-                    )}
-                  </div>)}
-            </div>)}
+                  </div>
 
-      
+                  {expandedIndicators[index] && indicator.questions.map((question, i) => (
+                    <div key={question} className={`p-4 border-t ${i > 0 ? "mt-4" : ""}`}>
+                      <div 
+                        className="flex justify-between items-center my-2 gap-2 cursor-pointer"
+                        onClick={() => toggleQuestion(question)}
+                      >
+                        <div className="flex gap-2 items-center">
+                          <h2 className="text-lg text-secondary-900 font-semibold">
+                            الممارسة {question.slice(1)}
+                          </h2>
+                          <span className="text-sm text-muted-foreground">
+                            {/* @ts-ignore */}
+                            (الدرجة: {TABS_QUESTIONS[govTab].questions[question].weight})
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Button variant={"outline"} className="w-fit" onClick={(e) => {
+                            e.stopPropagation();
+                            handleSubmit();
+                          }}>
+                            حفظ
+                          </Button>
+                          {expandedQuestions[question] ? 
+                            <ChevronUp className="h-4 w-4 text-secondary-700" /> : 
+                            <ChevronDown className="h-4 w-4 text-secondary-700" />
+                          }
+                        </div>
+                      </div>
+                      
+                      {expandedQuestions[question] && (
+                        <>
+                          <Separator className="my-2" />
+                          <div className="space-y-4">
+                            {/* @ts-ignore */}
+                            {TABS_QUESTIONS[govTab].questions[question].questions.map(
+                              (q: { label: Key | any; options: any[]; }, qIndex: number) =>
+                                shouldShowQuestion(
+                                  q, 
+                                  TABS_QUESTIONS[govTab].questions[question as "Q1"].questions, 
+                                  qIndex
+                                ) && (
+                                  <div
+                                    key={q.label}
+                                    className="p-4 border rounded-lg"
+                                  >
+                                    <p className="text-sm font-medium mb-4">
+                                      {qIndex + 1}.{" "}
+                                      {
+                                        //@ts-ignore
+                                        governanceLabels[govTab][q.label]
+                                      }
+                                    </p>
+                                    <RadioGroup
+                                      dir="rtl"
+                                      onValueChange={(value) =>
+                                        handleResponse(question, q.label, value)
+                                      }
+                                      value={responses[q.label]}
+                                      className="space-y-2"
+                                    >
+                                      {q.options.map((option, index) => (
+                                        <div
+                                          key={index}
+                                          className="flex items-center space-x-2"
+                                        >
+                                          <RadioGroupItem
+                                            dir="rtl"
+                                            value={`${option.weight.toString()}-${index}`}
+                                            id={`${q.label}-${index}`}
+                                          />
+                                          <p>{option.label}</p>
+                                          <span className="text-xs text-gray-400">
+                                            {" "}
+                                            (الدرجة: {option.weight})
+                                          </span>
+                                        </div>
+                                      ))}
+                                    </RadioGroup>
+                                  </div>
+                                )
+                            )}
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              ))}
 
               <Button
                 onClick={handleSubmit}
                 className="w-full mt-6"
                 variant={"secondary"}
+                disabled={isLoading}
               >
-                رفع الاستبيان
+                {isLoading ? "جاري الرفع..." : "رفع الاستبيان"}
               </Button>
             </div>
           </TabsContent>

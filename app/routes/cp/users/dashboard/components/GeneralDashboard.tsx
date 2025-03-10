@@ -17,9 +17,8 @@ const GeneralDashboard = ({ indicators }: IProps) => {
     //   gradientStart: "#725CFA",
     //   gradientEnd: "#EF7BE3",
     // },
-    {
-        label: "GOVERANCE",
-        value: indicators.GOVERANCE,
+    { label: "GOVERENCE",
+        value: indicators.GOVERENCE,
         gradientStart: "#FBE947",
         gradientEnd: "#58D764",
       },
