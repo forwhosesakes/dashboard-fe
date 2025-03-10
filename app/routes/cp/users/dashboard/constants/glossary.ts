@@ -283,11 +283,32 @@ const indicatorsLabels = {
     PRJKT_TIMELY_COMP_PERC: "نسبة إنجاز المشروع في الوقت المحدد",
     BUDGET_COMMIT_PERC: "نسبة الالتزام بالميزانية",
     PRJK_GOALS_ACHV_PERC: "نسبة تحقيق أهداف المشروع",
-    REACH_TARGET_AUD_PERC: "نسبة الوصول للفئة المستهدفة"
+    REACH_TARGET_AUD_PERC: "نسبة الوصول للفئة المستهدفة",
+    DISBURSED_AMOUNTS_QUARTERLY:"المبالغ المصروفة",
+    ACTIVITY_EXPENSES:"مصاريف الأنشطة",
+    ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES:"مصاريف إدارية محملة على الأنشطة",
+    SERVICE_EXPENSES:"مصاريف خدمات",
+    SALARY_EXPENSES:"مصاريف الرواتب",
+    MISCELLANEOUS_EXPENSES:"مصاريف نثرية",
+    OTHER_EXPENSES:"أخرى",
+    APPROVED_AMOUNTS_QUARTERLY:"المبالغ المعتمدة ",
+    APPROVED_ACTIVITY_EXPENSES:"مصاريف الأنشطة",
+    APPROVED_ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES:"مصاريف إدارية محملة على الأنشطة",
+
+    APPROVED_SERVICE_EXPENSES:"مصاريف خدمات",
+    APPROVED_SALARY_EXPENSES:"مصاريف الرواتب",
+    APPROVED_MISCELLANEOUS_EXPENSES:"مصاريف نثرية",
+    APPROVED_MARKETING_EXPENSES:"مصاريف التسويق",
+    APPROVED_OTHER_EXPENSES:"أخرى",
+
+
+
+
+
 
   },
   GENERAL: {
-    ECO_RETURN_VOLUN: "العائد الاقتصادي للتطوع",
+    ECONOMIC_RETURN_OF_VOLUNTEERING: "العائد الاقتصادي للتطوع",
     FINANCIAL_PERF: "نسبة الأداء المالي ",
     ADMIN_EXPENSES: "المصاريف الإدارية والعمومية",
     CORPORATE_PERFORMANCE: "نسبة الأداء المؤسسي  ",
@@ -297,10 +318,12 @@ const indicatorsLabels = {
     ADMIN_ORG_SATIS_MEASURMENT: "رضا اصحاب المصلحة",
     TOTAL_FINANCIAL_PEFORMANCE:"نسبة الأداء المالي ",
     OPERATIONAL_PERFORMANCE:"نسبة الأداء التشغيلي ",
+    NO_RESPONSES_SATIS_FORM:"عدد المستفيدين ",
+    AVG_SATIS_MEASURMENT:"متوسطة نسبة رضا أصحاب المصلحة",
 
     GOVERANCE:"نسبة الحوكمة العامة",
     OPS_PLAN_EXEC: "تنفيذ الخطة التشغيلية",
-    PRJKT_PRGM_MGMT: "إدارة المشاريع والبرامج",
+    PGRM_PRJKS_EXEC_PERC: "إدارة المشاريع والبرامج",
     EFFIC_INTERNAL_OPS: "كفاءة العمليات الداخلية",
     VOLN_MGMT: "إدارة التطوع"
   },
@@ -396,7 +419,7 @@ const governanceLabels  = {
       HAS_DETAILED_ANNUAL_FINANCIAL_REPORT_APPROVED:"هل يوجد تقرير سنوي مفصل عن القوائم المالية ومعتمد من مراجع حسابات خارجي ومن الجمعية العمومية؟",
      
       FINANCIAL_REPORT_SUBMITTED_TO_CENTER_WITHIN_FOUR_MONTHS:"هل تم رفعه للمركز خلال الأربعة أشهر من نهاية السنة المالية؟",
-     
+      IS_THERE_DETAILED_ANNUAL_REPORT_ON_PROGRAMS_AND_ACTIVITIES_APPROVED_BY_GENERAL_ASSEMBLY:"هل يوجد تقرير سنوي مفصل عن البرامج والأنشطة معتمد من الجمعية العمومية؟",
       TERRORISM_FINANCING_RISKS_IDENTIFIED_AND_UNDERSTOOD:"هل قامت الجمعية بتحديد وفهم مخاطر جرائم الإرهاب وتمويله لديها؟",
       USES_CASH_TRANSACTIONS_FOR_DONATIONS:"هل يتم استخدام وسيلة التعاملات النقدية غير الإلكترونية في جمع التبرعات أو صرفها للمستفيدين؟",
       HAS_MONEY_LAUNDERING_SUSPICION_PROCEDURES:"هل لدى الجمعية إجراءات واضحة تلتزم بها إذا توافرت لديهم أسباب معقولة للاشتباه في أن الأموال أو بعضها تمثل عمليات لها علاقة بغسل الأموال أو أنها سوف تستخدم في عمليات غسل أموال أو بعلاقة أو ارتباط أي من العمليات، أو الصفقات المعّقدة، أو الضخمة أو غير الطبيعية بعمليات غسل الأموال؟",
