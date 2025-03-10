@@ -3,27 +3,9 @@ import { ChevronDown, ChevronRight } from "lucide-react";
 import { entriesLabels } from "../constants/glossary"
 import type { DashboardType } from "~/lib/api/dashboard";
 import { useLoaderData } from "react-router";
+import type { HierarchicalDataEntryProps, NodeRowProps ,EntryNode} from "~/types/api.types";
 
-interface Node {
-  key: string;
-  value: number | null;
-  isExpanded?: boolean;
-  isParent?: boolean;
-  totalChildren?: number;
-  completedChildren?: number;
-  children?: Record<string, Node>;
-}
 
-interface RootNode {
-  key: "ROOT";
-  value: null;
-  children: Record<string, Node>;
-}
-
-interface HierarchicalDataEntryProps {
-  data: RootNode;
-  onUpdate: (updatedData: RootNode) => void;
-}
 
 const HierarchicalDataEntry: React.FC<HierarchicalDataEntryProps> = ({ data, onUpdate }) => {
 
@@ -73,12 +55,7 @@ const HierarchicalDataEntry: React.FC<HierarchicalDataEntryProps> = ({ data, onU
   );
 };
 
-interface NodeRowProps {
-  node: Node;
-  level: number;
-  path: string[];
-  onUpdate: (updatedNode: Node, path: string[]) => void;
-}
+
 
 const NodeRow: React.FC<NodeRowProps> = ({ node, level, path, onUpdate }) => {
   const [expanded, setExpanded] = useState(node.isExpanded || false);
@@ -118,7 +95,9 @@ const NodeRow: React.FC<NodeRowProps> = ({ node, level, path, onUpdate }) => {
   
   return (
     <>
-      <tr className={`border-b group hover:bg-accent/80 transition-colors duration-200 ${getLevelBgColorClass()}`}>
+      <tr 
+      onClick={toggleExpand}
+      className={`border-b group hover:bg-accent/80 transition-colors duration-200 ${getLevelBgColorClass()}`}>
         <td className="py-2 px-4 border">
           <div className="flex items-center" style={{ paddingLeft: `${level * 20}px` }}>
             {isParent && (

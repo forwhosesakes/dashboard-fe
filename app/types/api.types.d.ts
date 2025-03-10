@@ -16,3 +16,29 @@ export type ApiResponse<T> = {
     data?: T;
     pagination?: PaginationData;
   };
+  interface NodeRowProps {
+    node: Node;
+    level: number;
+    path: string[];
+    onUpdate: (updatedNode: Node, path: string[]) => void;
+  }
+  export interface EntryNode {
+    key: string;
+    value: number | null;
+    isExpanded?: boolean;
+    isParent?: boolean;
+    totalChildren?: number;
+    completedChildren?: number;
+    children?: Record<string, EntryNode>;
+  }
+  
+  export interface RootNode {
+    key: "ROOT";
+    value: null;
+    children: Record<string, EntryNode>;
+  }
+  
+  export interface HierarchicalDataEntryProps {
+    data: RootNode;
+    onUpdate: (updatedData: RootNode) => void;
+  }

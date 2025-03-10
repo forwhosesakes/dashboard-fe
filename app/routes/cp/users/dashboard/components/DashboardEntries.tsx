@@ -5,7 +5,7 @@ import HierarchicalDataEntry from "./HierarchicalDataEntry";
 
 interface DashboardEntriesProps {
   dashboardType: DashboardType;
-  entries: Array<{ name: string; label: string; value: any }>;
+  entries: Array<{ name: string; label: string; value: any}>;
   onEntryChange: (name: string, value: any) => void;
   status: "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED";
 }
@@ -22,8 +22,6 @@ const DashboardEntries = ({
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   useEffect(()=>{
-    console.log(entries);
-    
     setData(entries)
   },[entries])
   const [data,setData]=useState({
@@ -32,20 +30,9 @@ const DashboardEntries = ({
     children:{}
     })
 
-    const handleDataUpdate = (updatedData)=>{
+    const handleDataUpdate = (updatedData:any)=>{
       setData(updatedData)
     }
-  // If status is NOT_STARTED, use initial values
-  // const displayEntries =
-  //   status === "NOT_STARTED" ?
-  //     Object.entries(initialValues[dashboardType]).map(([key,value])=>({
-  //       name:key,
-  //       label:getLabels()[key] || key,
-  //       value
-  //     }))
-  //    : entries;
-  //    console.log(displayEntries);
-
 
   const handleEdit = (entry: { name: string; value: any }) => {
     setEntryToEdit(entry);
@@ -91,11 +78,10 @@ const DashboardEntries = ({
 
       <div className="flex flex-wrap w-full border-t">
         {entries?.key === "ROOT" ? Object.entries(entries.children).map(([key,body])=>(
-        <div className="mx-1">
-          {/* {body.isParent == true ? `${key} is parent`:`${key} is not parent`} */}
+        <div key={key} className="mx-1">
         </div>
         )):entries.map((entry, index) => (
-          <div className="border w-1/5 flex flex-col" key={entry.name}>
+          <div className="border w-1/5 flex flex-col" key={`${index}-${entry.name}`}>
             <p className="border-b p-2 text-accent font-semibold">
               {entry.label}
             </p>

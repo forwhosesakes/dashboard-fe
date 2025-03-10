@@ -18,7 +18,7 @@ export function transformFinancialEntries(
     if (!entries || entries.length === 0) {
       return [];
     }
-  
+
     return entries.map(entry => {
       const sustainabilityAssets = createParentNode("TOTAL_SUSTAINABILITY_ASSETS", entry.TOTAL_SUSTAINABILITY_ASSETS, {
         TRADED_INVESTMENTS: createNode("TRADED_INVESTMENTS", entry.TRADED_INVESTMENTS),
@@ -88,6 +88,7 @@ export function transformFinancialEntries(
       const importantValues = createParentNode("IMPORTANT_VALUES_AND_PERCENTAGES_SUPPORTING_FINANCIAL_RESOURCES", 
         entry.IMPORTANT_VALUES_AND_PERCENTAGES_SUPPORTING_FINANCIAL_RESOURCES, {
           TOTAL_TAX_REFUND: createNode("TOTAL_TAX_REFUND", entry.TOTAL_TAX_REFUND),
+          ECONOMIC_RETURN_OF_VOLUNTEERING:createNode("ECONOMIC_RETURN_OF_VOLUNTEERING", entry.ECONOMIC_RETURN_OF_VOLUNTEERING),
           PROGRAM_AND_ACTIVITY_REVENUES: programActivityRevenues,
           GENERAL_ASSEMBLY_MEMBERS_SUBSCRIPTION_TOTAL: createNode("GENERAL_ASSEMBLY_MEMBERS_SUBSCRIPTION_TOTAL", 
             entry.GENERAL_ASSEMBLY_MEMBERS_SUBSCRIPTION_TOTAL)

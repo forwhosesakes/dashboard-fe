@@ -1,8 +1,8 @@
 import { z } from "zod";
 import type { TGovernanceEntries } from "~/types/dashboard.types";
 import { transformFinancialEntries } from "./transformers/financialDataTransformers";
-import type { FinancialEntriesType } from "~/routes/cp/users/dashboard/constants/initialValues";
 import { transformCorporateEntries } from "./transformers/corporateDataTransformers";
+import { transformGeneralEntries } from "./transformers/generalDataTransformers";
 export type DashboardOverviewType = {
   id: number;
   title: string;
@@ -96,6 +96,22 @@ const MosquesDashboardEntriesSchema = z.object({
   NO_EXEC_PRJKS_MOSQUES: z.coerce.number(),
 });
 
+
+export type GeneralDahboardIndicatorsType={
+  FINANCIAL_PERF:number;
+  VOLUN_SATIS_MEASURMENT:number;
+  BENEF_SATIS_MEASURMENT:number;
+  AVG_SATIS_MEASURMENT:number;
+  ECONOMIC_RETURN_OF_VOLUNTEERING:number;
+  PGRM_PRJKS_EXEC_PERC:number;
+  BUDGET_COMMIT_PERC:number;
+  GOVERENCE:number;
+  COMPLIANCE_ADHERENCE_PRACTICES_TOTAL:number;
+  FINANCIAL_SAFETY_PRACTICES_TOTAL:number;
+  TRANSPARENCY_DISCLOSURE_PRACTICES_TOTAL:number;
+
+}
+
 export type CorporateDashboardIndicatorsType = {
   dashbaordId: number;
   id: string;
@@ -168,6 +184,47 @@ export type CorporateDashboardEntriesType = {
   EMP_PERF_EVALUATION_AVG:number;
   BOARD_OF_DIRECTORS_EVALUATION_PERCENTAGE:number;
   DIRECT_MANAGER_EVALUATION:number;
+};
+
+
+// Orphans Dashboard Entry Type
+export type OrphansDashboardEntriesType = {
+  dashbaordId: number;
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  NO_ADOPTED_ORPHANS: number;
+  TOTAL_TARGETED_ORPHANS: number;
+  TOTAL_MONTHLY_ADOP_EXP: number;
+  NO_ORPHANS_PRGM: number;
+  TOTAL_ORPHANS_STD_AGE: number;
+  TOTAL_ANNUAL_EXP_ORPHANS: number;
+  NO_BENF_ORPHANS: number;
+  NO_ORPHANS_STD_UNI: number;
+  TOTAL_ORPHANS_AGE_UNI: number;
+  TOTAL_MARKS_ORPHANS: number;
+  NO_GEN_EDU_ORPHANS: number;
+  NO_HLTH_ORPHANS: number;
+  TOTAL_ORPHANS: number;
+};
+
+// Mosques Dashboard Entry Type
+export type MosquesDashboardEntriesType = {
+  dashbaordId: number; 
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  NO_EXEC_CONST_REQS: number;
+  TOTAL_CONST_REQS: number;
+  TOTAL_MONTHLY_ADOP_EXP: number;
+  NO_MOSQUES_ND_CONST: number;
+  TOTAL_REG_MOSQUES: number;
+  NO_MOSQUES_COMP_CONST: number;
+  TOTAL_MOSQUES_PLAN_CONST: number;
+  TOTAL_ANNUAL_EXPANSES_MOSQUES: number;
+  NO_SERV_MOSQUES: number;
+  NO_RESV_COMPL_MOSQUES: number;
+  NO_EXEC_PRJKS_MOSQUES: number;
 };
 
 type DashboardSchemaMapType = typeof DashboardSchemaMap;
@@ -356,10 +413,9 @@ const DashboardSchemaMap = {
 
 export type DashboardTypeMap = {
   OPERATIONAL: OperationalDashboardEntriesType;
-  FINANCIAL: FinancialEntriesType;
+  FINANCIAL: FinancialDashboardEntriesType;
   CORPORATE: CorporateDashboardEntriesType;
-  //TODO: CHANGE THIS
-  GENERAL: CorporateDashboardEntriesType;
+  GENERAL: MosquesDashboardEntriesType|OrphansDashboardEntriesType;
 };
 
 const ErrorResponseSchema = z.object({
@@ -402,7 +458,7 @@ const ReturnedEntriesMap = {
   FINANCIAL:transformFinancialEntries,
   // OPERATIONAL: ,
   CORPORATE: transformCorporateEntries,
-  // GENERAL: ,
+  GENERAL:transformGeneralEntries ,
 }
 function isErrorWithMessage(obj: unknown): obj is { message: string } {
   return typeof obj === "object" && obj !== null && "message" in obj;
@@ -453,6 +509,8 @@ export const dashboardApi = (url: string) => {
         if (!/^\d+$/.test(id) || parseInt(id) <= 0) {
           throw new Error("ID must be a positive number");
         }
+        console.log("entries in api [saveEntries]", entries);
+        
         const formData = new FormData();
         Object.entries(entries).forEach(([key, value]) => {
           formData.append(key, String(value));

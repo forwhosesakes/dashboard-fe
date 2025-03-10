@@ -20,6 +20,7 @@ import DashboardIndicators from "./components/DashboardIndicators";
 import { toasts } from "~/lib/utils/toast";
 import { useThemeStore } from "~/lib/store/theme-store";
 import { Breadcrumbs } from "~/components/app-breadcrumbs";
+import type { RootNode ,EntryNode} from "~/types/api.types";
 
 export const loader = async ({ context, params }: LoaderFunctionArgs) => {
   let { id, dashboardType } = params;
@@ -31,8 +32,6 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
   const indicators = await dashboardApi(
     context.cloudflare.env.BASE_URL
   ).getIndicators(`${id}`, (dashboardType as DashboardType) ?? "GENERAL");
-
-  // if (!entries[0]) return redirect(`/cp/users/org/${id}/dashboard`);
 
   return {
     entries: entries.length ? entries[0] : null,
@@ -61,9 +60,7 @@ const Entries = ({
   const [loading, setLoading] = useState(false);
   const { setLightTheme, theme } = useThemeStore();
 
-  const [currentEntries, setCurrentEntries] = useState<
-    { name: string; value: any; label: string }[]
-  >([]);
+  const [currentEntries, setCurrentEntries] = useState<RootNode|any>({  key: "ROOT",  value: null,   children: []});
 
   useEffect(() => {
     if (indicators === null) {
@@ -128,10 +125,13 @@ const Entries = ({
 
   const saveEntries = async () => {
     try {
+      console.log("saveEntries ", currentEntries);
+      
       setLoading(true);
       const requestBody = {};
-      currentEntries.forEach((entry) => {
-        requestBody[entry.name] = entry.value;
+      Object.entries(currentEntries.children).forEach(([key,entry])=> {
+        //@ts-ignore
+        requestBody[key] = (entry as EntryNode).value;
       });
       const result = await dashboardApi(baseUrl).saveEntries({
         id,
@@ -220,7 +220,7 @@ const Entries = ({
         >
           <TabsList className="w-full justify-start bg-transparent">
             {locationData.state?.dashboardsOverview.map((tab: any) => (
-              <TabsTrigger value={tab.title.split("_")[1]}>
+              <TabsTrigger key={tab.title} value={tab.title.split("_")[1]}>
                 {
                   //@ts-ignore
                   tabsNames[tab.title.split("_")[1]]
@@ -249,8 +249,8 @@ const Entries = ({
                       dashboardType={currentDashboard}
                       entries={currentEntries}
                       onEntryChange={(name, value) => {
-                        const updatedEntries = currentEntries.map((entry) =>
-                          entry.name === name ? { ...entry, value } : entry
+                        const updatedEntries = Object.entries(currentEntries.children).map(([key,entry]) =>
+                          key === name ? { ...(entry as EntryNode), value } : entry
                         );
                         setCurrentEntries(updatedEntries);
                       }}
