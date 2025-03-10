@@ -35,8 +35,8 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
   // if (!entries[0]) return redirect(`/cp/users/org/${id}/dashboard`);
 
   return {
-    entries: entries.length ? entries[0] : null,
-    indicators: indicators.length ? indicators[0] : null,
+    entries: entries?.length ? entries[0] : null,
+    indicators: indicators?.length ? indicators[0] : null,
     currentDashboard: dashboardType,
     baseUrl: context.cloudflare.env.BASE_URL,
     id,
