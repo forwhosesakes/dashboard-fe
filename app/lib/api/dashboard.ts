@@ -41,11 +41,13 @@ const CorporateDashboardEntriesSchema = z.object({
   NO_RESPONSES_EMP_SATIS: z.coerce.number().nullable(),
   NO_RESPONSES_PARTERS_FORM: z.coerce.number().nullable(),
   NO_RESPOSES_VOL_SATIS_FORM: z.coerce.number().nullable(),
+  NO_RESPONSES_COM_SATIS:z.coerce.number().nullable(),
   NO_RESPONSES_DONAT_SATIS_FORM: z.coerce.number().nullable(),
   NO_ORG_MEMBERS: z.coerce.number().nullable(),
   NO_GRADES_BENEFITS_SATISF: z.coerce.number().nullable(),
   TOTAL_GRADES_EMP_SATIS: z.coerce.number().nullable(),
   TOTAL_GEADES_PARTENERS_SATIS: z.coerce.number().nullable(),
+  
   TOTAL_GRADES_VOL_SATIS: z.coerce.number().nullable(),
   TOTAL_GRADES_DONAT_STATIS: z.coerce.number().nullable(),
   TOTAL_SATIS_GRADES_ORG: z.coerce.number().nullable(),

@@ -1,122 +1,376 @@
-import { Progress } from "~/components/ui/progress";
 import { indicatorsLabels } from "../constants/glossary";
 import ChartPositive from "~/assets/icons/chart-positive.svg?react";
 import ChartNegative from "~/assets/icons/chart-negative.svg?react";
 import LongChartNegative from "~/assets/icons/longNegativeChart.svg?react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  AreaChart,
-  Area,
-} from "recharts";
+
 import CircularProgressBar from "~/components/ui/circular-progress";
+import { Cell, Label, Legend, Pie, PieChart, ResponsiveContainer } from "recharts";
+import UnderConstructionCard from "~/components/ui/under-construction";
+
 
 export default function OperationalIndicator({
   indicators,
 }: {
-  indicators: Record<string, number>;
+  indicators: any;
 }) {
-  const barInds = [
-    {
-      value: Number(indicators.DOCS_ARCHIV).toFixed(2),
-      name: indicatorsLabels.OPERATIONAL.DOCS_ARCHIV,
-      fill: "url(#paint0_linear_857_15912)",
-    },
-    {
-      value: Number(indicators.QLY_SPEED_PROC_EXEC).toFixed(2),
-      name: indicatorsLabels.OPERATIONAL.QLY_SPEED_PROC_EXEC,
-      fill: "url(#paint0_linear_857_15892)",
-    },
-  ];
+  console.log("indicators::",indicators);
+  
+  // const barInds = [
+  //   {
+  //     value: Number(indicators.DOCS_ARCHIV).toFixed(2),
+  //     name: indicatorsLabels.OPERATIONAL.DOCS_ARCHIV,
+  //     fill: "url(#paint0_linear_857_15912)",
+  //   },
+  //   {
+  //     value: Number(indicators.QLY_SPEED_PROC_EXEC).toFixed(2),
+  //     name: indicatorsLabels.OPERATIONAL.QLY_SPEED_PROC_EXEC,
+  //     fill: "url(#paint0_linear_857_15892)",
+  //   },
+  // ];
 
-  const areaChartData = [
-    {
-      name: "01",
-      OPS_GOALS_ACH_PERC: Math.round(Number(indicators["OPS_GOALS_ACH_PERC"])),
-      PGRM_PRJKS_EXEC_PERC: Math.round(
-        Number(indicators["PGRM_PRJKS_EXEC_PERC"])
-      ),
-    },
-    {
-      name: "02",
-      OPS_GOALS_ACH_PERC:
-        Math.round(Number(indicators["OPS_GOALS_ACH_PERC"])) + 50,
-      PGRM_PRJKS_EXEC_PERC:
-        Math.round(Number(indicators["PGRM_PRJKS_EXEC_PERC"])) + 12,
-    },
-    {
-      name: "03",
-      OPS_GOALS_ACH_PERC:
-        Math.round(Number(indicators["OPS_GOALS_ACH_PERC"])) - 50,
-      PGRM_PRJKS_EXEC_PERC:
-        Math.round(Number(indicators["PGRM_PRJKS_EXEC_PERC"])) - 12,
-    },
-    {
-      name: "04",
-      OPS_GOALS_ACH_PERC:
-        Math.round(Number(indicators["OPS_GOALS_ACH_PERC"])) - 15,
-      PGRM_PRJKS_EXEC_PERC:
-        Math.round(Number(indicators["PGRM_PRJKS_EXEC_PERC"])) - 29,
-    },
+  // const areaChartData = [
+  //   {
+  //     name: "01",
+  //     OPS_GOALS_ACH_PERC: Math.round(Number(indicators["OPS_GOALS_ACH_PERC"])),
+  //     PGRM_PRJKS_EXEC_PERC: Math.round(
+  //       Number(indicators["PGRM_PRJKS_EXEC_PERC"])
+  //     ),
+  //   },
+  //   {
+  //     name: "02",
+  //     OPS_GOALS_ACH_PERC:
+  //       Math.round(Number(indicators["OPS_GOALS_ACH_PERC"])) + 50,
+  //     PGRM_PRJKS_EXEC_PERC:
+  //       Math.round(Number(indicators["PGRM_PRJKS_EXEC_PERC"])) + 12,
+  //   },
+  //   {
+  //     name: "03",
+  //     OPS_GOALS_ACH_PERC:
+  //       Math.round(Number(indicators["OPS_GOALS_ACH_PERC"])) - 50,
+  //     PGRM_PRJKS_EXEC_PERC:
+  //       Math.round(Number(indicators["PGRM_PRJKS_EXEC_PERC"])) - 12,
+  //   },
+  //   {
+  //     name: "04",
+  //     OPS_GOALS_ACH_PERC:
+  //       Math.round(Number(indicators["OPS_GOALS_ACH_PERC"])) - 15,
+  //     PGRM_PRJKS_EXEC_PERC:
+  //       Math.round(Number(indicators["PGRM_PRJKS_EXEC_PERC"])) - 29,
+  //   },
 
+  //   {
+  //     name: "05",
+  //     OPS_GOALS_ACH_PERC:
+  //       Math.round(Number(indicators["OPS_GOALS_ACH_PERC"])) + 40,
+  //     PGRM_PRJKS_EXEC_PERC:
+  //       Math.round(Number(indicators["PGRM_PRJKS_EXEC_PERC"])) - 10,
+  //   },
+  //   {
+  //     name: "06",
+  //     OPS_GOALS_ACH_PERC:
+  //       Math.round(Number(indicators["OPS_GOALS_ACH_PERC"])) + 10,
+  //     PGRM_PRJKS_EXEC_PERC:
+  //       Math.round(Number(indicators["PGRM_PRJKS_EXEC_PERC"])) - 20,
+  //   },
+  // ];
+
+
+
+  const approvedExpQuar=[
     {
-      name: "05",
-      OPS_GOALS_ACH_PERC:
-        Math.round(Number(indicators["OPS_GOALS_ACH_PERC"])) + 40,
-      PGRM_PRJKS_EXEC_PERC:
-        Math.round(Number(indicators["PGRM_PRJKS_EXEC_PERC"])) - 10,
+      id:"APPROVED_ACTIVITY_EXPENSES",
+      color:"#0088FE", 
+      value:Math.round(Number(indicators.children?.APPROVED_ACTIVITY_EXPENSES.value)/Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)*100),
+
+
+
     },
     {
-      name: "06",
-      OPS_GOALS_ACH_PERC:
-        Math.round(Number(indicators["OPS_GOALS_ACH_PERC"])) + 10,
-      PGRM_PRJKS_EXEC_PERC:
-        Math.round(Number(indicators["PGRM_PRJKS_EXEC_PERC"])) - 20,
+      id:"APPROVED_ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES",
+      color:"#725CFA", 
+      value:Math.round(Number(indicators.children?.APPROVED_ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES.value)/Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)*100),
+
+   
+      
+
+
+    },  {
+      id:"APPROVED_SERVICE_EXPENSES",
+      color:"#36EBCA", 
+      value:Math.round(Number(indicators.children?.APPROVED_SERVICE_EXPENSES.value)/Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)*100),
+
+      
+
+
+    },  {
+      id:"APPROVED_SALARY_EXPENSES",
+      color:"#EE46BC", 
+      value:Math.round(Number(indicators.children?.APPROVED_SALARY_EXPENSES.value)/Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)*100),
+
+      
+
+
+    },  {
+      id:"APPROVED_MISCELLANEOUS_EXPENSES",
+      color:"#FF8042", 
+      value:Math.round(Number(indicators.children?.APPROVED_MISCELLANEOUS_EXPENSES.value)/Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)*100),
+
+      
+
+
+    },  {
+      id:"APPROVED_MARKETING_EXPENSES",
+      color:"#FFBB28", 
+      value:Math.round(Number(indicators.children?.APPROVED_MARKETING_EXPENSES.value)/Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)*100),
+
+      
+
+
+    },  {
+      id:"APPROVED_OTHER_EXPENSES",
+      color:"#00C49F", 
+      value:Math.round(Number(indicators.children?.APPROVED_OTHER_EXPENSES.value)/Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)*100),
+
+      
+
+
     },
-  ];
+  ]
+
+  const expQuar=[
+    {
+      id:"ACTIVITY_EXPENSES",
+      color:"#0088FE", 
+      value:Math.round(Number(indicators.children?.ACTIVITY_EXPENSES.value)/Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)*100),
+
+
+
+
+    },
+    {
+      id:"ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES",
+      color:"#725CFA", 
+      value:Math.round(Number(indicators.children?.ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES.value)/Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)*100),
+
+      
+
+
+    },  {
+      id:"SERVICE_EXPENSES",
+      color:"#36EBCA", 
+      value:Math.round(Number(indicators.children?.SERVICE_EXPENSES.value)/Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)*100),
+
+
+
+    },  {
+      id:"SALARY_EXPENSES",
+      color:"#EE46BC", 
+      value:Math.round(Number(indicators.children?.SALARY_EXPENSES.value)/Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)*100),
+
+      
+
+
+    },  {
+      id:"MISCELLANEOUS_EXPENSES",
+      color:"#FF8042", 
+      value:Math.round(Number(indicators.children?.MISCELLANEOUS_EXPENSES.value)/Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)*100),
+
+      
+
+
+    },  {
+      id:"OTHER_EXPENSES",
+      color:"#FFBB28", 
+      value:Math.round(Number(indicators.children?.OTHER_EXPENSES.value)/Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)*100),
+
+      
+
+
+    }
+  ]
+
+
+  
+
+  const Bullet = ({ backgroundColor, size }:any) => {
+    return (
+      <div
+        className="CirecleBullet"
+        style={{
+          backgroundColor,
+          width: size,
+          height: size
+        }}
+      ></div>
+    );
+  };
+  const CustomizedLegend = (props:any) => {
+    const { payload } = props;
+    console.log("props in CustomizedLegend", props);
+    
+    return (
+      <ul className="flex gap-x-4 flex-wrap w-3/5 LegendList">
+        {payload.map((entry:any, index:number) => (
+          <li key={`item-${index}`}>
+            <div className="BulletLabel">
+              <Bullet backgroundColor={entry.payload.fill} size="8px" />
+              <div className="BulletLabelText">{indicatorsLabels.OPERATIONAL[entry.payload.id as keyof typeof indicatorsLabels.OPERATIONAL]}</div>
+            </div>
+            <div style={{ marginLeft: "20px" }}>{entry.payload.value}%</div>
+          </li>
+        ))}
+      </ul>
+    );
+  };
+  
+  const CustomLabel = ({ viewBox, labelText, value }:any) => {
+    const { cx, cy } = viewBox;
+    return (
+      <g>
+        <text
+          x={cx}
+          y={cy}
+          className="recharts-text recharts-label"
+          textAnchor="middle"
+          dominantBaseline="central"
+          alignmentBaseline="middle"
+          fontSize="15"
+        >
+          {labelText}
+        </text>
+        <text
+          x={cx}
+          y={cy + 20}
+          className="recharts-text recharts-label"
+          textAnchor="middle"
+          dominantBaseline="central"
+          alignmentBaseline="middle"
+          fill="#0088FE"
+          fontSize="26"
+          fontWeight="600"
+        >
+          {value}
+        </text>
+      </g>
+    );
+  };
+
   return (
     <section className="px-28">
+        <div className=" flex gap-16 h-full w-full">
+      
+
+        <div className="w-full [&_recharts-legend-wrapper]:bottom-[12px] h-[350px]">
+        <div className="rounded-lg w-full bg-[#13161B] p-1.5">
+            <h4 className="w-full text-xl xl:text-2xl">
+              {"المبالغ المصروفة"}
+            </h4>
+          </div>
+          <ResponsiveContainer width="100%" height="100%">
+          <PieChart
+            width={500}
+            height={400}
+            margin={{
+              top: 0,
+              right: 0,
+              left: 0,
+              bottom: 0,
+            }}
+          >
+          <Pie
+            data={expQuar}
+            dataKey="value"
+            cx={100}
+            cy={100}
+            innerRadius={80}
+            outerRadius={100}
+          >
+            {expQuar.map((entry, index) => (
+              <Cell
+              
+                key={`cell-${index}`}
+                fill={entry.color}
+              />
+            ))}
+            {/* <Label
+              content={<CustomLabel labelText="ICPs" value={15} />}
+              position="center"
+            /> */}
+          </Pie>
+          <Legend wrapperStyle={{bottom:"auto", top: '3rem'}} content={<CustomizedLegend  />} />
+        </PieChart>
+      
+          </ResponsiveContainer>
+        </div>
+
+
+        <div className="w-full [&_recharts-legend-wrapper]:bottom-[12px] h-[350px]">
+        <div className="rounded-lg w-full bg-[#13161B] p-1.5">
+            <h4 className="w-full text-xl xl:text-2xl">
+            {"المبالغ المعتمدة"}
+
+            </h4>
+          </div>
+          <ResponsiveContainer width="100%" height="100%">
+          <PieChart
+            width={500}
+            height={400}
+            margin={{
+              top: 0,
+              right: 0,
+              left: 0,
+              bottom: 0,
+            }}
+          >
+          <Pie
+            data={approvedExpQuar}
+            dataKey="value"
+            cx={100}
+            cy={100}
+            innerRadius={80}
+            outerRadius={100}
+          >
+            {approvedExpQuar.map((entry, index) => (
+              <Cell
+              
+                key={`cell-${index}`}
+                fill={entry.color}
+              />
+            ))}
+            {/* <Label
+              content={<CustomLabel labelText="ICPs" value={15} />}
+              position="center"
+            /> */}
+          </Pie>
+          <Legend wrapperStyle={{bottom:"auto", top: '3rem'}} content={<CustomizedLegend  />} />
+        </PieChart>
+      
+          </ResponsiveContainer>
+        </div>
+      </div>
       {/* إدارة البرامج والمشاريع + إدارة التطوع */}
       <div className="flex mb-5 w-full gap-16">
         {/* إدارة البرامج والمشاريع */}
         <div className="flex flex-col w-4/12">
           <div className="rounded-lg bg-[#13161B] p-2">
             <h4 className="w-full text-xl xl:text-3xl">
-              {"إدارة البرامج والمشاريع"}
+            {"  نسبة الوصول للفئة المستهدفة	"}
             </h4>
           </div>
-          <div className="flex p-1 gap-12 mb-10 text-center items-center ">
-            <p className="text-xl text-[#94979C]">{"كفاءة تنفيذ المشاريع"}</p>
+          <div className="flex justify-center p-1 gap-12 mb-10 text-center items-center ">
             <div className="w-fit">
-              <CircularProgressBar
+           {
+               indicators["REACH_TARGET_AUD_PERC"]==null || indicators["REACH_TARGET_AUD_PERC"] == "NaN"?<UnderConstructionCard/>:
+           
+           <CircularProgressBar
                 gradientStart="#1882FF" // green-500
                 gradientEnd="#36EBCA" // green-600
-                gradientId={"EFFIC_PRJKS_EXEC"}
+                gradientId={"REACH_TARGET_AUD_PERC"}
                 size="md"
-                progress={Math.round(Number(indicators["EFFIC_PRJKS_EXEC"]))}
+                progress={Math.round(Number(indicators["REACH_TARGET_AUD_PERC"]))}
                 textFillColor="fill-white"
                 trackColor="#22262F"
-              />
-            </div>
-          </div>
-
-          <div className="flex p-1 gap-12 text-center items-center ">
-            <p className="text-xl text-[#94979C]">{"كفاءة تنفيذ المشاريع"}</p>
-            <div>
-              <CircularProgressBar
-                gradientStart="#EF7BE3" // green-500
-                gradientEnd="#FF5A5A" // green-600
-                gradientId={"EFFITV_PRJKS_PGRM"}
-                size="md"
-                progress={Math.round(Number(indicators["EFFIC_PRJKS_EXEC"]))}
-                textFillColor="fill-white"
-                trackColor="#22262F"
-              />
+              />}
             </div>
           </div>
         </div>
@@ -134,33 +388,46 @@ export default function OperationalIndicator({
                   <h6 className="text-xl">{"نسبة استدامة المتطوعين"}</h6>
                 </div>
                 <div className="p-5">
-                  <h4 className="text-">
-                    {Number(indicators["VOLUN_SUST_PERC"]).toFixed(2) + "%"}
-                  </h4>
-                  {Number(indicators["VOLUN_SUST_PERC"]) < 0 ? (
-                    <ChartNegative  className="w-full h-auto"/>
-                  ) : (
-                    <ChartPositive className="w-full h-auto"/>
-                  )}
+                 {
+               indicators["VOLUN_SUST_PERC"]==null || indicators["VOLUN_SUST_PERC"] == "NaN"?<UnderConstructionCard/>:
+                 
+               <>
+                 
+               <h4 className="text-">
+                  {Number(indicators["VOLUN_SUST_PERC"]).toFixed(2) + "%"}
+                </h4>
+                
+               
+               {Number(indicators["VOLUN_SUST_PERC"]) < 0 ? (
+                  <ChartNegative  className="w-full h-auto"/>
+                ) : (
+                  <ChartPositive className="w-full h-auto"/>
+                )}</>}
                 </div>
               </div>
 
               <div className="flex flex-col w-full border-2 border-[#13161B] rounded-lg min-w-64 gap-5 shadow-custom">
                 <div className="bg-[#13161B] p-1.5">
-                  <h6 className="text-xl">{"عدد المتطوعين"}</h6>
+                  <h6 className="text-xl">{"مساهمة المتطوعين في تنفيذ المشاريع  "}</h6>
                 </div>
                 <div className="p-5">
-                  <h6 className=" text-nowrap text-[16px]">
-                    {indicatorsLabels.OPERATIONAL["TOTAL_VOLUNTEERS"]}
-                  </h6>
-                  <h4 className="text-">
-                    {Number(indicators["TOTAL_VOLUNTEERS"]).toFixed(2) + "%"}
+                
+               {
+               indicators["VOLN_CONTR_PRJKS_EXEC"]==null || indicators["VOLN_CONTR_PRJKS_EXEC"] == "NaN"?<UnderConstructionCard/>:
+               <>
+ <h4 className="text-">
+                    {Number(indicators["VOLN_CONTR_PRJKS_EXEC"]).toFixed(2) + "%"}
                   </h4>
-                  {Number(indicators["TOTAL_VOLUNTEERS"]) < 0 ? (
+
+
+{Number(indicators["VOLN_CONTR_PRJKS_EXEC"]) < 0 ? (
                     <ChartNegative className="w-full h-auto"/>
                   ) : (
                     <ChartPositive className="w-full h-auto"/>
                   )}
+               </>
+              }
+                 
                 </div>
               </div>
             </div>
@@ -171,7 +438,10 @@ export default function OperationalIndicator({
                   <h6 className="text-xl">{"معدل النمو الربعي للمتطوعين"}</h6>
                 </div>
                 <div className="p-5 w-full">
-                  <h4 className="text-">
+                 {
+               indicators["VOLUN_GROWTH_RATE_QUAR"]==null || indicators["VOLUN_GROWTH_RATE_QUAR"] == "NaN"?<UnderConstructionCard/>:
+                <>
+                 <h4 className="text-">
                     {Number(indicators["VOLUN_GROWTH_RATE_QUAR"]).toFixed(2) +
                       "%"}
                   </h4>
@@ -180,16 +450,19 @@ export default function OperationalIndicator({
                   ) : (
                     <ChartPositive />
                   )}
+                </> 
+                }
+                
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+       
 
       {/* كفاءة العمليات الداخلية */}
-      <div className=" flex gap-16 h-full w-full">
-        {/* names */}
+      {/* <div className=" flex gap-16 h-full w-full">
         <div className="flex flex-col w-4/12">
           <div className="rounded-lg w-full bg-[#13161B] p-1.5">
             <h4 className="w-full text-xl xl:text-2xl">
@@ -208,7 +481,6 @@ export default function OperationalIndicator({
           </div>
         </div>
 
-        {/* chart */}
         <div className="w-8/12 h-60">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart
@@ -225,7 +497,6 @@ export default function OperationalIndicator({
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
               <YAxis type="number" domain={[0,100]}  width={35} textAnchor="left" orientation="left"/>
-              {/* <Tooltip /> */}
               <Tooltip
                 cursor={{ fill: "transparent" }}
                 content={<CustomTooltip />}
@@ -246,7 +517,7 @@ export default function OperationalIndicator({
             </AreaChart>
           </ResponsiveContainer>
         </div>
-      </div>
+      </div> */}
     </section>
     // <>
     //   <div className="h-full w-full  gap-8 flex flex-col">

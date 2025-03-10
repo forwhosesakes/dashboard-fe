@@ -3,6 +3,7 @@ import SemiCircleProgressBar from "~/components/ui/half-circular-progress";
 import SaudiArabiaSvg from "~/assets/images/saudi-arabia.svg?react";
 
 import PulseLocationSvg from "~/assets/images/pulse-location.svg?react";
+import UnderConstructionCard from "~/components/ui/under-construction";
 
 interface IProps {
   indicators: any;
@@ -10,12 +11,12 @@ interface IProps {
 }
 const GeneralDashboard = ({ indicators }: IProps) => {
   const cards = [
-    {
-      label: "GENERAL_PERFORMANCE",
-      value: indicators.GENERAL_PERFORMANCE,
-      gradientStart: "#725CFA",
-      gradientEnd: "#EF7BE3",
-    },
+    // {
+    //   label: "GENERAL_PERFORMANCE",
+    //   value: indicators.GENERAL_PERFORMANCE,
+    //   gradientStart: "#725CFA",
+    //   gradientEnd: "#EF7BE3",
+    // },
     {
         label: "GOVERANCE",
         value: indicators.GOVERANCE,
@@ -31,26 +32,39 @@ const GeneralDashboard = ({ indicators }: IProps) => {
         gradientEnd: "#36EBCA",
       },
       {
-        label: "CORPORATE_PERFORMANCE",
-        value: indicators.CORPORATE_PERFORMANCE,
+        label: "AVG_SATIS_MEASURMENT",
+        value: indicators.AVG_SATIS_MEASURMENT,
         gradientStart: "#FBE947",
         gradientEnd: "#58D764",
       },
     {
-      label: "ECO_RETURN_VOLUN",
-      value: indicators.ECO_RETURN_VOLUN,
+      label: "ECONOMIC_RETURN_OF_VOLUNTEERING",
+      value: indicators.ECONOMIC_RETURN_OF_VOLUNTEERING,
       gradientStart: "#725CFA",
       gradientEnd: "#EF7BE3",
     },
 
   
+    // {
+    //   label: "COMPLIANCE_ADHERENCE_PRACTICES_TOTAL",
+    //   value: indicators.COMPLIANCE_ADHERENCE_PRACTICES_TOTAL,
+    //   gradientStart: "#725CFA",
+    //   gradientEnd: "#EF7BE3",
+    // },
+
+    // {
+    //   label: "NO_RESPOSES_VOL_SATIS_FORM",
+    //   value: indicators.NO_RESPOSES_VOL_SATIS_FORM,
+    //   gradientStart: "#725CFA",
+    //   gradientEnd: "#EF7BE3",
+    // },
+  
     {
-      label: "ADMIN_EXPENSES",
-      value: indicators.ADMIN_EXPENSES,
+      label: "NO_RESPONSES_SATIS_FORM",
+      value: indicators.NO_RESPONSES_SATIS_FORM,
       gradientStart: "#725CFA",
       gradientEnd: "#EF7BE3",
     },
-
   
 
     {
@@ -65,12 +79,21 @@ const GeneralDashboard = ({ indicators }: IProps) => {
       gradientStart: "#725CFA",
       gradientEnd: "#EF7BE3",
     },
+    // {
+    //   label: "ADMIN_ORG_SATIS_MEASURMENT",
+    //   value: indicators.ADMIN_ORG_SATIS_MEASURMENT,
+    //   gradientStart: "#725CFA",
+    //   gradientEnd: "#EF7BE3",
+    // },
     {
-      label: "ADMIN_ORG_SATIS_MEASURMENT",
-      value: indicators.ADMIN_ORG_SATIS_MEASURMENT,
+      label: "PGRM_PRJKS_EXEC_PERC",
+      value: indicators.PGRM_PRJKS_EXEC_PERC,
       gradientStart: "#725CFA",
       gradientEnd: "#EF7BE3",
     },
+
+
+    
   
   ];
 
@@ -94,12 +117,15 @@ const GeneralDashboard = ({ indicators }: IProps) => {
                 indicatorsLabels.GENERAL[card.label]
               }
             </h6>
-            <SemiCircleProgressBar
+           
+            {
+               indicators[card.label]==null || indicators[card.label] == "NaN"?<UnderConstructionCard/>:
+              <SemiCircleProgressBar
               size={"md"}
               progress={Math.round(Number(indicators[card.label]))}
               gradientStart={card.gradientStart}
               gradientEnd={card.gradientEnd}
-            />
+            />}
           </div>
         ))}
       </div>

@@ -782,6 +782,16 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
         ],
         isDependantOnPrev: false,
       },
+
+      {
+        label:"IS_THERE_DETAILED_ANNUAL_REPORT_ON_PROGRAMS_AND_ACTIVITIES_APPROVED_BY_GENERAL_ASSEMBLY",
+        options: [
+          { label: "لا يوجد تقرير سنوي.", weight: 0 },
+          { label: "يوجد تقرير  سنوي بشكل متكامل.", weight: 3 },
+        ],
+        isDependantOnPrev: false,
+
+      }
       
     ],
   },
