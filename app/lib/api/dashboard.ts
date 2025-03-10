@@ -2,6 +2,7 @@ import { z } from "zod";
 import type { TGovernanceEntries } from "~/types/dashboard.types";
 import { transformFinancialEntries } from "./transformers/financialDataTransformers";
 import { transformCorporateEntries } from "./transformers/corporateDataTransformers";
+import { transformOperationalEntries } from "./transformers/operationalDataTransformers";
 import { transformGeneralEntries } from "./transformers/generalDataTransformers";
 export type DashboardOverviewType = {
   id: number;
@@ -28,35 +29,34 @@ const CorporateDashboardEntriesSchema = z.object({
   id: z.string(),
   createdAt: z.string(),
   updatedAt: z.string(),
-  TOTAL_ASSIGNED_TASKS_DURING_PERIOD:z.coerce.number(),
-  TOTAL_COMPLETED_TASKS_DURING_PERIOD:z.coerce.number(),
-  TOTAL_WORKING_DAYS:z.coerce.number(),
-  TOTAL_EMPLOYEE_ATTENDANCE_DAYS:z.coerce.number(),
-  PERC_COMMIT_WORK_HOURS:z.coerce.number(),
-  NO_PLANNED_PRACTICES:z.coerce.number(),
-  NO_EXE_PRACTICES:z.coerce.number(),
-  TOTAL_FORMS_GRADES:z.coerce.number(),
-  NO_RESPONSES_SATIS_FORM:z.coerce.number(),
-  NO_RESPONSES_EMP_SATIS:z.coerce.number(),
-  NO_RESPONSES_PARTERS_FORM:z.coerce.number(),
-  NO_RESPOSES_VOL_SATIS_FORM:z.coerce.number(),
-  NO_RESPONSES_DONAT_SATIS_FORM:z.coerce.number(),
-  NO_ORG_MEMBERS:z.coerce.number(),
-  NO_GRADES_BENEFITS_SATISF:z.coerce.number(),
-  TOTAL_GRADES_EMP_SATIS:z.coerce.number(),
-  TOTAL_GRADES_VOL_SATIS:z.coerce.number(),
-  TOTAL_GEADES_PARTENERS_SATIS:z.coerce.number(),
-  TOTAL_GRADES_DONAT_STATIS:z.coerce.number(),
-  TOTAL_SATIS_GRADES_ORG:z.coerce.number(),
-  TOTAL_GRADES_COM:z.coerce.number(),
-  TOTAL_DECISIONS_BY_CEO:z.coerce.number(),
-  TOTAL_EXECUTED_DECISIONS:z.coerce.number(),
-  TOTAL_PLANNED_PROGRAMS:z.coerce.number(),
-  NO_RESPONSES_COM_SATIS:z.coerce.number(),
-  TOTAL_ACHIEVED_PROGRAMS:z.coerce.number(),
-  EMP_PERF_EVALUATION_AVG:z.coerce.number(),
-  BOARD_OF_DIRECTORS_EVALUATION_PERCENTAGE:z.coerce.number(),
-  DIRECT_MANAGER_EVALUATION:z.coerce.number()
+  TOTAL_ASSIGNED_TASKS_DURING_PERIOD: z.coerce.number().nullable(),
+  TOTAL_COMPLETED_TASKS_DURING_PERIOD: z.coerce.number().nullable(),
+  TOTAL_WORKING_DAYS: z.coerce.number().nullable(),
+  TOTAL_EMPLOYEE_ATTENDANCE_DAYS: z.coerce.number().nullable(),
+  PERC_COMMIT_WORK_HOURS: z.coerce.number().nullable(),
+  NO_PLANNED_PRACTICES: z.coerce.number().nullable(),
+  NO_EXE_PRACTICES: z.coerce.number().nullable(),
+  TOTAL_FORMS_GRADES: z.coerce.number().nullable(),
+  NO_RESPONSES_SATIS_FORM: z.coerce.number().nullable(),
+  NO_RESPONSES_EMP_SATIS: z.coerce.number().nullable(),
+  NO_RESPONSES_PARTERS_FORM: z.coerce.number().nullable(),
+  NO_RESPOSES_VOL_SATIS_FORM: z.coerce.number().nullable(),
+  NO_RESPONSES_DONAT_SATIS_FORM: z.coerce.number().nullable(),
+  NO_ORG_MEMBERS: z.coerce.number().nullable(),
+  NO_GRADES_BENEFITS_SATISF: z.coerce.number().nullable(),
+  TOTAL_GRADES_EMP_SATIS: z.coerce.number().nullable(),
+  TOTAL_GEADES_PARTENERS_SATIS: z.coerce.number().nullable(),
+  TOTAL_GRADES_VOL_SATIS: z.coerce.number().nullable(),
+  TOTAL_GRADES_DONAT_STATIS: z.coerce.number().nullable(),
+  TOTAL_SATIS_GRADES_ORG: z.coerce.number().nullable(),
+  TOTAL_GRADES_COM: z.coerce.number().nullable(),
+  TOTAL_DECISIONS_BY_CEO: z.coerce.number().nullable(),
+  TOTAL_EXECUTED_DECISIONS: z.coerce.number().nullable(),
+  TOTAL_PLANNED_PROGRAMS: z.coerce.number().nullable(),
+  TOTAL_ACHIEVED_PROGRAMS: z.coerce.number().nullable(),
+  EMP_PERF_EVALUATION_AVG: z.coerce.number().nullable(),
+  BOARD_OF_DIRECTORS_EVALUATION_PERCENTAGE: z.coerce.number().nullable(),
+  DIRECT_MANAGER_EVALUATION: z.coerce.number().nullable(),
 });
 
 const OrphansDashboardEntriesSchema = z.object({
@@ -117,73 +117,73 @@ export type CorporateDashboardIndicatorsType = {
   id: string;
   createdAt: Date;
   updatedAt: Date;
-  CORORATE_PERFORMANCE: number;
-  GOVERANCE: number;
-  HR: number;
-  PLANNING_ORGANIZING: number;
-  SATIS_MEASURMENT: number;
-  CEO_PERFORMANCE: number;
-  COMPLIANCE_ADHERENCE_PRACTICES: number;
-  TRANSPARENCY_DISCLOSURE_PRACTICES: number;
-  FINANCIAL_SAFETY_PRACTICES: number;
-  RECRUITMENT: number;
-  EMP_PERF_PROD: number;
-  EMP_DEV_TRAIN: number;
-  TARGETS_HIT_PERF_EVAL: number;
-  JOB_COMMITMENT: number;
-  TRAIN_PLAN_EXEC: number;
-  TRAIN_IMPACT: number;
-  FOLLOWUP_OPERATIONAL_PLAN: number;
-  QUALITY_OPERATIONAL_PLAN: number;
-  BENEF_SATIS_MEASURMENT: number;
-  EMP_SATIS_MEASURMENT: number;
-  PARTENERS_SATIS_MEASURMENT: number;
-  VOLUN_SATIS_MEASURMENT: number;
-  DONATORS_SATIS_MEASURMENT: number;
-  ADMIN_ORG_SATIS_MEASURMENT: number;
-  COMMUNITY_SATIS_MEASURMENT: number;
-  EXEC_LEADERSHIP: number;
-  OPERATIONAL_PERF: number;
-  ENTERPRISE_COMMUN: number;
-  FOLLOWUP_BOARD_DECISION: number;
-  OPERATIONAL_PLAN_ACHIVMENT_GOALS: number;
-  DAILY_OPS_MGMT: number;
-  FOLLOWUP_EMPS_PERF: number;
+  CORORATE_PERFORMANCE: number|null;
+  GOVERANCE: number|null;
+  HR: number|null;
+  PLANNING_ORGANIZING: number|null;
+  SATIS_MEASURMENT: number|null;
+  CEO_PERFORMANCE: number|null;
+  COMPLIANCE_ADHERENCE_PRACTICES: number|null;
+  TRANSPARENCY_DISCLOSURE_PRACTICES: number|null;
+  FINANCIAL_SAFETY_PRACTICES: number|null;
+  RECRUITMENT: number|null;
+  EMP_PERF_PROD: number|null;
+  EMP_DEV_TRAIN: number|null;
+  TARGETS_HIT_PERF_EVAL: number|null;
+  JOB_COMMITMENT: number|null;
+  TRAIN_PLAN_EXEC: number|null;
+  TRAIN_IMPACT: number|null;
+  FOLLOWUP_OPERATIONAL_PLAN: number|null;
+  QUALITY_OPERATIONAL_PLAN: number|null;
+  BENEF_SATIS_MEASURMENT: number|null;
+  EMP_SATIS_MEASURMENT: number|null;
+  PARTENERS_SATIS_MEASURMENT: number|null;
+  VOLUN_SATIS_MEASURMENT: number|null;
+  DONATORS_SATIS_MEASURMENT: number|null;
+  ADMIN_ORG_SATIS_MEASURMENT: number|null;
+  COMMUNITY_SATIS_MEASURMENT: number|null;
+  EXEC_LEADERSHIP: number|null;
+  OPERATIONAL_PERF: number|null;
+  ENTERPRISE_COMMUN: number|null;
+  FOLLOWUP_BOARD_DECISION: number|null;
+  OPERATIONAL_PLAN_ACHIVMENT_GOALS: number|null;
+  DAILY_OPS_MGMT: number|null;
+  FOLLOWUP_EMPS_PERF: number|null;
 };
 export type CorporateDashboardEntriesType = {
   dashbaordId: number;
   id: string;
   createdAt: Date;
   updatedAt: Date;
-  TOTAL_ASSIGNED_TASKS_DURING_PERIOD:number;
-  TOTAL_COMPLETED_TASKS_DURING_PERIOD:number;
-  TOTAL_WORKING_DAYS:number;
-  TOTAL_EMPLOYEE_ATTENDANCE_DAYS:number;
-  PERC_COMMIT_WORK_HOURS:number;
-  NO_PLANNED_PRACTICES:number;
-  NO_EXE_PRACTICES:number;
-  TOTAL_FORMS_GRADES:number;
-  NO_RESPONSES_SATIS_FORM:number;
-  NO_RESPONSES_EMP_SATIS:number;
-  NO_RESPONSES_PARTERS_FORM:number;
-  NO_RESPOSES_VOL_SATIS_FORM:number;
-  NO_RESPONSES_DONAT_SATIS_FORM:number;
-  NO_ORG_MEMBERS:number;
-  NO_GRADES_BENEFITS_SATISF:number;
-  TOTAL_GRADES_EMP_SATIS:number;
-  TOTAL_GRADES_VOL_SATIS:number;
-  TOTAL_GEADES_PARTENERS_SATIS:number;
-  TOTAL_GRADES_DONAT_STATIS:number;
-  TOTAL_SATIS_GRADES_ORG:number;
-  TOTAL_GRADES_COM:number;
-  TOTAL_DECISIONS_BY_CEO:number;
-  TOTAL_EXECUTED_DECISIONS:number;
-  TOTAL_PLANNED_PROGRAMS:number;
-  NO_RESPONSES_COM_SATIS:number;
-  TOTAL_ACHIEVED_PROGRAMS:number;
-  EMP_PERF_EVALUATION_AVG:number;
-  BOARD_OF_DIRECTORS_EVALUATION_PERCENTAGE:number;
-  DIRECT_MANAGER_EVALUATION:number;
+  TOTAL_ASSIGNED_TASKS_DURING_PERIOD:number|null;
+  TOTAL_COMPLETED_TASKS_DURING_PERIOD:number|null;
+  TOTAL_WORKING_DAYS:number|null;
+  TOTAL_EMPLOYEE_ATTENDANCE_DAYS:number|null;
+  PERC_COMMIT_WORK_HOURS:number|null;
+  NO_PLANNED_PRACTICES:number|null;
+  NO_EXE_PRACTICES:number|null;
+  TOTAL_FORMS_GRADES:number|null;
+  NO_RESPONSES_SATIS_FORM:number|null;
+  NO_RESPONSES_EMP_SATIS:number|null;
+  NO_RESPONSES_PARTERS_FORM:number|null;
+  NO_RESPOSES_VOL_SATIS_FORM:number|null;
+  NO_RESPONSES_DONAT_SATIS_FORM:number|null;
+  NO_ORG_MEMBERS:number|null;
+  NO_GRADES_BENEFITS_SATISF:number|null;
+  TOTAL_GRADES_EMP_SATIS:number|null;
+  TOTAL_GRADES_VOL_SATIS:number|null;
+  TOTAL_GEADES_PARTENERS_SATIS:number|null;
+  TOTAL_GRADES_DONAT_STATIS:number|null;
+  TOTAL_SATIS_GRADES_ORG:number|null;
+  TOTAL_GRADES_COM:number|null;
+  TOTAL_DECISIONS_BY_CEO:number|null;
+  TOTAL_EXECUTED_DECISIONS:number|null;
+  TOTAL_PLANNED_PROGRAMS:number|null;
+  NO_RESPONSES_COM_SATIS:number|null;
+  TOTAL_ACHIEVED_PROGRAMS:number|null;
+  EMP_PERF_EVALUATION_AVG:number|null;
+  BOARD_OF_DIRECTORS_EVALUATION_PERCENTAGE:number|null;
+  DIRECT_MANAGER_EVALUATION:number|null;
 };
 
 
@@ -226,6 +226,10 @@ export type MosquesDashboardEntriesType = {
   NO_RESV_COMPL_MOSQUES: number;
   NO_EXEC_PRJKS_MOSQUES: number;
 };
+
+
+
+
 
 type DashboardSchemaMapType = typeof DashboardSchemaMap;
 type DashboardSchemaType<T extends keyof DashboardSchemaMapType> =
@@ -343,57 +347,68 @@ const OperationalDashboardEntriesSchema = z.object({
   id: z.string(),
   createdAt: z.string(),
   updatedAt: z.string(),
-  NO_OPERATIONAL_GOALS_ACHIEVED: z.coerce.number(),
-  NO_OPERATIONAL_GOALS_PLANNED: z.coerce.number(),
-  NO_PROGRAMS_EXECUTED: z.coerce.number(),
-  NO_PROGRAMS_PLANNED: z.coerce.number(),
-  NO_TIMELY_ACTIVITIES: z.coerce.number(),
-  TOTAL_PLANNED_ACTIVITIES: z.coerce.number(),
-  APPROVED_BUDGET: z.coerce.number(),
-  PLANNED_ACTUAL_DIFF: z.coerce.number(),
-  NO_OUTPUTS_ACHIEVED: z.coerce.number(),
-  TOTAL_TARGETED_OUTPUTS: z.coerce.number(),
-  NO_ACTUAL_BENEFICIARIES: z.coerce.number(),
-  PLANNED_TARGET_NUMBER: z.coerce.number(),
-  NO_PROGRAMS_WITH_PARTICIPANTS: z.coerce.number(),
-  NO_PROGRAMS_PROJECTS: z.coerce.number(),
-  NO_TIMELY_TRANSACTIONS: z.coerce.number(),
-  TOTAL_TRANSACTIONS: z.coerce.number(),
-  NO_ARCHIVED_DOCS: z.coerce.number(),
-  TOTAL_DOCS: z.coerce.number(),
-  NO_VOLUNTEERS_CURRENT_QUARTER: z.coerce.number(),
-  NO_VOLUNTEERS_NEXT_QUARTER: z.coerce.number(),
-  NO_VOLUNTEERS_CONT_3: z.coerce.number(),
-  TOTAL_VOLUNTEERS: z.coerce.number(),
+  NO_PROGRAMS_EXECUTED: z.coerce.number().nullable(),
+  NO_PROGRAMS_PLANNED: z.coerce.number().nullable(),
+  APPROVED_BUDGET: z.coerce.number().nullable(),
+  TOTAL_PERIOD_EXPENSES: z.coerce.number().nullable(),
+  NO_ACTUAL_BENEFICIARIES: z.coerce.number().nullable(),
+  PLANNED_TARGET_NUMBER: z.coerce.number().nullable(),
+  NO_PROGRAMS_WITH_PARTICIPANTS: z.coerce.number().nullable(),
+  NO_PROGRAMS_PROJECTS: z.coerce.number().nullable(),
+  NO_VOLUNTEERS_CURRENT_QUARTER: z.coerce.number().nullable(),
+  NO_VOLUNTEERS_NEXT_QUARTER: z.coerce.number().nullable(),
+  NO_VOLUNTEERS_CONT_3: z.coerce.number().nullable(),
+  TOTAL_VOLUNTEERS: z.coerce.number().nullable(),
+  DISBURSED_AMOUNTS_QUARTERLY: z.coerce.number().nullable(),
+  ACTIVITY_EXPENSES: z.coerce.number().nullable(),
+  ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES: z.coerce.number().nullable(),
+  SERVICE_EXPENSES: z.coerce.number().nullable(),
+  SALARY_EXPENSES: z.coerce.number().nullable(),
+  MISCELLANEOUS_EXPENSES: z.coerce.number().nullable(),
+  OTHER_EXPENSES: z.coerce.number().nullable(),
+  APPROVED_AMOUNTS_QUARTERLY: z.coerce.number().nullable(),
+  APPROVED_ACTIVITY_EXPENSES: z.coerce.number().nullable(),
+  APPROVED_ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES: z.coerce.number().nullable(),
+  APPROVED_SERVICE_EXPENSES: z.coerce.number().nullable(),
+  APPROVED_SALARY_EXPENSES: z.coerce.number().nullable(),
+  APPROVED_MISCELLANEOUS_EXPENSES: z.coerce.number().nullable(),
+  APPROVED_MARKETING_EXPENSES: z.coerce.number().nullable(),
+  APPROVED_OTHER_EXPENSES: z.coerce.number().nullable(),
 });
 
 export type OperationalDashboardEntriesType = {
   dashbaordId: number;
   id: string;
-  createdAt: Date;
-  updatedAt: Date;
-  NO_OPERATIONAL_GOALS_ACHIEVED: number;
-  NO_OPERATIONAL_GOALS_PLANNED: number;
-  NO_PROGRAMS_EXECUTED: number;
-  NO_PROGRAMS_PLANNED: number;
-  NO_TIMELY_ACTIVITIES: number;
-  TOTAL_PLANNED_ACTIVITIES: number;
-  APPROVED_BUDGET: number;
-  PLANNED_ACTUAL_DIFF: number;
-  NO_OUTPUTS_ACHIEVED: number;
-  TOTAL_TARGETED_OUTPUTS: number;
-  NO_ACTUAL_BENEFICIARIES: number;
-  PLANNED_TARGET_NUMBER: number;
-  NO_PROGRAMS_WITH_PARTICIPANTS: number;
-  NO_PROGRAMS_PROJECTS: number;
-  NO_TIMELY_TRANSACTIONS: number;
-  TOTAL_TRANSACTIONS: number;
-  NO_ARCHIVED_DOCS: number;
-  TOTAL_DOCS: number;
-  NO_VOLUNTEERS_CURRENT_QUARTER: number;
-  NO_VOLUNTEERS_NEXT_QUARTER: number;
-  NO_VOLUNTEERS_CONT_3: number;
-  TOTAL_VOLUNTEERS: number;
+  createdAt: string;
+  updatedAt: string;
+  NO_PROGRAMS_EXECUTED: number|null,
+  NO_PROGRAMS_PLANNED: number|null,
+  APPROVED_BUDGET: number|null,
+  TOTAL_PERIOD_EXPENSES: number|null,
+  NO_ACTUAL_BENEFICIARIES: number|null,
+  PLANNED_TARGET_NUMBER: number|null,
+  NO_PROGRAMS_WITH_PARTICIPANTS: number|null,
+  NO_PROGRAMS_PROJECTS: number|null,
+  NO_VOLUNTEERS_CURRENT_QUARTER: number|null,
+  NO_VOLUNTEERS_NEXT_QUARTER: number|null,
+  NO_VOLUNTEERS_CONT_3: number|null,
+  TOTAL_VOLUNTEERS: number|null,
+  DISBURSED_AMOUNTS_QUARTERLY: number|null,
+  ACTIVITY_EXPENSES: number|null,
+  ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES: number|null,
+  SERVICE_EXPENSES: number|null,
+  SALARY_EXPENSES: number|null,
+  MISCELLANEOUS_EXPENSES: number|null,
+  OTHER_EXPENSES: number|null,
+  APPROVED_AMOUNTS_QUARTERLY: number|null,
+  APPROVED_ACTIVITY_EXPENSES: number|null,
+  APPROVED_ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES: number|null,
+  APPROVED_SERVICE_EXPENSES: number|null,
+  APPROVED_SALARY_EXPENSES: number|null,
+  APPROVED_MISCELLANEOUS_EXPENSES: number|null,
+  APPROVED_MARKETING_EXPENSES: number|null,
+  APPROVED_OTHER_EXPENSES: number|null,
+
 };
 
 export type DashboardType =
@@ -456,7 +471,7 @@ type SaveEntriesParams = {
 
 const ReturnedEntriesMap = {
   FINANCIAL:transformFinancialEntries,
-  // OPERATIONAL: ,
+  OPERATIONAL: transformOperationalEntries,
   CORPORATE: transformCorporateEntries,
   GENERAL:transformGeneralEntries ,
 }
@@ -560,16 +575,23 @@ export const dashboardApi = (url: string) => {
         }
         
         const rawResponse = await response.json();
+        console.log("data:::",rawResponse);
+        
         const schema: DashboardSchemaType<T> = DashboardSchemaMap[type];
         const parsedData = schema.parse(rawResponse);
+       
         
         if (type === "FINANCIAL" && ReturnedEntriesMap[type]) {
           console.log("is this good??",ReturnedEntriesMap[type](parsedData.data));
           
           return ReturnedEntriesMap[type](parsedData.data) as DashboardTypeMap[T][];
         } else if (type === "OPERATIONAL" && ReturnedEntriesMap[type]) {
+
+          console.log("operational data is2 ::",ReturnedEntriesMap[type](parsedData.data));
+          
           return ReturnedEntriesMap[type](parsedData.data) as DashboardTypeMap[T][];
         } else if (type === "CORPORATE" && ReturnedEntriesMap[type]) {
+
           return ReturnedEntriesMap[type](parsedData.data) as DashboardTypeMap[T][];
         } else if (type === "GENERAL" && ReturnedEntriesMap[type]) {
           return ReturnedEntriesMap[type](parsedData.data) as DashboardTypeMap[T][];

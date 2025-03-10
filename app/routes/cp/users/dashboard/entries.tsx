@@ -34,8 +34,8 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
   ).getIndicators(`${id}`, (dashboardType as DashboardType) ?? "GENERAL");
 
   return {
-    entries: entries.length ? entries[0] : null,
-    indicators: indicators.length ? indicators[0] : null,
+    entries: entries?.length ? entries[0] : null,
+    indicators: indicators?.length ? indicators[0] : null,
     currentDashboard: dashboardType,
     baseUrl: context.cloudflare.env.BASE_URL,
     id,
