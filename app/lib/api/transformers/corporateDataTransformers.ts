@@ -71,20 +71,8 @@ export function transformCorporateEntries(
                         TOTAL_ACHIEVED_PROGRAMS,
                         EMP_PERF_EVALUATION_AVG,
                         BOARD_OF_DIRECTORS_EVALUATION_PERCENTAGE
-
-
-
-
-
-
-
-
-
                       }
                     };
-
-
-
     })
 }
 

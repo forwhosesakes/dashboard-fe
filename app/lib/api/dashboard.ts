@@ -117,8 +117,8 @@ export type GeneralDahboardIndicatorsType={
 export type CorporateDashboardIndicatorsType = {
   dashbaordId: number;
   id: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   CORORATE_PERFORMANCE: number|null;
   EMPLOYMENT_PERFORMANCE: number|null;
   EMP_PERF_AND_PROD: number|null;
@@ -140,8 +140,8 @@ export type CorporateDashboardIndicatorsType = {
 export type CorporateDashboardEntriesType = {
   dashbaordId: number;
   id: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   TOTAL_ASSIGNED_TASKS_DURING_PERIOD:number|null;
   TOTAL_COMPLETED_TASKS_DURING_PERIOD:number|null;
   TOTAL_WORKING_DAYS:number|null;
@@ -178,8 +178,8 @@ export type CorporateDashboardEntriesType = {
 export type OrphansDashboardEntriesType = {
   dashbaordId: number;
   id: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   NO_ADOPTED_ORPHANS: number;
   TOTAL_TARGETED_ORPHANS: number;
   TOTAL_MONTHLY_ADOP_EXP: number;
@@ -199,8 +199,8 @@ export type OrphansDashboardEntriesType = {
 export type MosquesDashboardEntriesType = {
   dashbaordId: number; 
   id: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   NO_EXEC_CONST_REQS: number;
   TOTAL_CONST_REQS: number;
   TOTAL_MONTHLY_ADOP_EXP: number;
@@ -433,7 +433,12 @@ const IndicatorSchema = z
     createdAt: z.string(),
     updatedAt: z.string(),
   })
-  .catchall(z.coerce.number());
+  .catchall(
+    z.union([
+      z.literal("NaN").transform(()=>null),
+      z.coerce.number().transform(val=>isNaN(val) ? null : val)
+    ])
+  );
 // and(
 //   z.record(
 //     z.string(),
@@ -522,7 +527,7 @@ export const dashboardApi = (url: string) => {
           method: `POST`,
           body: formData,
         });
-
+        
         if (!response.ok) {
           const errorData = await response.json().catch(() => null);
           if (errorData && ErrorResponseSchema.safeParse(errorData).success) {
@@ -535,6 +540,7 @@ export const dashboardApi = (url: string) => {
         }
 
         const data = await response.json();
+console.log("save entries::",data);
 
         const validatedData = SaveEntriesResponseSchema.parse(data);
         return validatedData;
