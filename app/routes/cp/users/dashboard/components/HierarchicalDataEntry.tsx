@@ -3,11 +3,11 @@ import { ChevronDown, ChevronRight } from "lucide-react";
 import { entriesLabels } from "../constants/glossary"
 import type { DashboardType } from "~/lib/api/dashboard";
 import { useLoaderData } from "react-router";
-import type { HierarchicalDataEntryProps, NodeRowProps ,EntryNode} from "~/types/api.types";
+import type { HierarchicalDataEntryProps, NodeRowProps ,EntryNode, RootNode} from "~/types/api.types";
 
 
 
-const HierarchicalDataEntry: React.FC<HierarchicalDataEntryProps> = ({ data, onUpdate }) => {
+const HierarchicalDataEntry: React.FC<HierarchicalDataEntryProps> = ({ data, onUpdate ,entries}) => {
 
   return (
     <div className="w-full overflow-x-auto rounded-lg">
@@ -28,6 +28,10 @@ const HierarchicalDataEntry: React.FC<HierarchicalDataEntryProps> = ({ data, onU
                 level={0}
                 path={[key]}
                 onUpdate={(updatedNode, path) => {
+                  console.log("updatedNode:",updatedNode);
+                  //update all nodes with same key 
+
+                  
                   //update
                   const newData = {...data};
                   let current = newData.children;
@@ -111,7 +115,7 @@ const NodeRow: React.FC<NodeRowProps> = ({ node, level, path, onUpdate }) => {
         </td>
         <td className="py-2 px-4 border">
           {isParent ? (
-            <div className="group-hover:text-white/90 font-semibold transition-all cursor-pointer">{node.value ?? 0}</div>
+            <div className="group-hover:text-white/90 font-semibold transition-all cursor-pointer">{node.isAggregated? node.value ?? 0:""}</div>
           ) : (
             <input
               type="number"
@@ -175,7 +179,7 @@ const NodeRow: React.FC<NodeRowProps> = ({ node, level, path, onUpdate }) => {
 
 //function to calculate parent values by summing children
 function calculateParentValues(data: RootNode) {
-  const calculateNodeValues = (node: Node): number => {
+  const calculateNodeValues = (node: EntryNode):  number | null => {
     if (!node.children || Object.keys(node.children).length === 0) {
       return  node.value;
     }

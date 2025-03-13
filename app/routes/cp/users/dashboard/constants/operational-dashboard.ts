@@ -5,7 +5,8 @@ const operationalEntries = {
     NO_PROGRAMS_PLANNED:"إجمالي البرامج المخططة",
     NO_TIMELY_ACTIVITIES:"عدد الأنشطة المنفذة في وقتها",
     TOTAL_PLANNED_ACTIVITIES:"إجمالي الأنشطة المخططة",
-    APPROVED_BUDGET:"الميزانية المعتمدة",
+    APPROVED_BUDGET:"الميزانية الربعية المعتمدة",
+
     PLANNED_ACTUAL_DIFF:"الفرق بين المخطط والفعلي",
     NO_OUTPUTS_ACHIEVED:"عدد المخرجات المحققة بالمواصفات المطلوبة",
     TOTAL_TARGETED_OUTPUTS:"إجمالي المخرجات المستهدفة",

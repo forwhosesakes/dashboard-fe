@@ -46,17 +46,17 @@ const CorporateDashboard = (props: IProps) => {
       gradientEnd: "#FF5A5A",
     },
     {
-      key: "ENTERPRISE_COMMUN",
+      key: "FOLLOWUP_BOARD_DECISION",
       gradientStart: "#725CFA",
       gradientEnd: "#EF7BE3",
     },
     {
-      key: "OPERATIONAL_PERF",
+      key: "FOLLOWUP_EMPS_PERF",
       gradientStart: "#FBE947",
       gradientEnd: "#58D764",
     },
     {
-      key: "EXEC_LEADERSHIP",
+      key: "DAILY_OPS_MGMT",
       gradientStart: "#36F097",
       gradientEnd: "#36F097",
     },
@@ -83,10 +83,6 @@ const CorporateDashboard = (props: IProps) => {
 
   
 
-  const orgPlanCards = [
-    "QUALITY_OPERATIONAL_PLAN",
-    "FOLLOWUP_OPERATIONAL_PLAN",
-  ];
   const satisInds = [
     {
       id: "BENEF_SATIS_MEASURMENT",
@@ -192,23 +188,22 @@ const CorporateDashboard = (props: IProps) => {
                   {"الأداء الوظيفي "}
 
                   </span>
-                  <span>{(Number(props.indicators.EMPLOYMENT_PERFORMANCE))}%</span>
+                  <span>{Math.round(Number(props.indicators.EMPLOYMENT_PERFORMANCE))}%</span>
                 </h4>
               </div>
               <div className="flex flex-wrap justify-between items-center gap-5 my-4">
                 {empPerformance.map((card) => (
                   <div className="border flex flex-col rounded-lg p-3 min-w-[45%]  gap-2">
-                    { props.indicators[card.key] ?   <> <h5 className="text-xl font-bold text-[#94979C]">
+                    {  props.indicators[card.key]==null || props.indicators[card.key] == "NaN" ?   <UnderConstructionCard/>:<> <h5 className="text-xl font-bold text-[#94979C]">
                       {indicatorsLabels.CORPORATE[card.key as keyof typeof indicatorsLabels.CORPORATE]}
                     </h5>
                     <h5 className="text-2xl font-bold">
                       {Math.round(props.indicators[card.key])}%
                     </h5>
-
                     <Progress
                       className="[&>div]:bg-gradient-to-r [&>div]:from-green-800 [&>div]:to-green-500 w-full h-2.5 bg-gray-700"
                       value={Math.round(Number(props.indicators[card.key]))}
-                    /></>:<UnderConstructionCard/>}
+                    /></>}
                    
                   </div>
                 ))}

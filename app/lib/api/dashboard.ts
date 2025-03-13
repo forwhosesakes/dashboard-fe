@@ -352,6 +352,7 @@ const OperationalDashboardEntriesSchema = z.object({
   SERVICE_EXPENSES: z.coerce.number().nullable(),
   SALARY_EXPENSES: z.coerce.number().nullable(),
   MISCELLANEOUS_EXPENSES: z.coerce.number().nullable(),
+  MARKETING_EXPENSES:z.coerce.number().nullable(),
   OTHER_EXPENSES: z.coerce.number().nullable(),
   APPROVED_AMOUNTS_QUARTERLY: z.coerce.number().nullable(),
   APPROVED_ACTIVITY_EXPENSES: z.coerce.number().nullable(),

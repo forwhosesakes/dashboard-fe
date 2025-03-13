@@ -125,7 +125,7 @@ const entriesLabels = {
     NO_PROGRAMS_EXECUTED:"عدد البرامج المنفذة",
     NO_PROGRAMS_PLANNED:"إجمالي البرامج المخططة",
     APPROVED_BUDGET:"الميزانية الربعية المعتمدة",
-    TOTAL_PERIOD_EXPENSES:"اجمالي مصروفات الفترة",
+    TOTAL_PERIOD_EXPENSES:"المصروفات الفعلية",
     NO_ACTUAL_BENEFICIARIES:"عدد المستفيدين الفعلي",
     PLANNED_TARGET_NUMBER:"العدد المستهدف في الخطة",
     NO_PROGRAMS_WITH_PARTICIPANTS:"عدد المشاريع والبرامج التي شارك فيها متطوعون",
@@ -139,7 +139,7 @@ const entriesLabels = {
     ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES:"مصاريف إدارية محملة على الأنشطة",
     SERVICE_EXPENSES:"مصاريف خدمات",
     SALARY_EXPENSES:"مصاريف الرواتب",
-    MISCELLANEOUS_EXPENSES:"مصاريف نثرية",
+    MISCELLANEOUS_EXPENSES:" نثرية",
     MARKETING_EXPENSES:"مصاريف التسويق",
     OTHER_EXPENSES:"مصاريف أخرى",
     APPROVED_AMOUNTS_QUARTERLY:"المبالغ المعتمدة (ربعية)"	,
@@ -279,6 +279,8 @@ SUST_TO_TOTAL_EXPENSES: "نسبة مصاريف الاستدامة إلى إجم�
     OTHER_EXPENSES:"أخرى",
     APPROVED_AMOUNTS_QUARTERLY:"المبالغ المعتمدة ",
     APPROVED_ACTIVITY_EXPENSES:"مصاريف الأنشطة",
+    MARKETING_EXPENSES:"مصاريف التسويق",
+
     APPROVED_ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES:"مصاريف إدارية محملة على الأنشطة",
 
     APPROVED_SERVICE_EXPENSES:"مصاريف خدمات",

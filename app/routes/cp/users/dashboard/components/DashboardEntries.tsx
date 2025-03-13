@@ -114,7 +114,7 @@ const DashboardEntries = ({
             )}
           </div>
         ))}
-        <HierarchicalDataEntry data={data} onUpdate={handleDataUpdate} />
+        <HierarchicalDataEntry entries={entries} data={data} onUpdate={handleDataUpdate} />
       </div>
     </div>
   );

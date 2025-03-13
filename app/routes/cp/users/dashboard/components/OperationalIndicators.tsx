@@ -80,7 +80,7 @@ export default function OperationalIndicator({
     {
       id:"APPROVED_ACTIVITY_EXPENSES",
       color:"#0088FE", 
-      value:Math.round(Number(indicators.children?.APPROVED_ACTIVITY_EXPENSES.value)/Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)*100),
+      value:Math.round(Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.children.APPROVED_ACTIVITY_EXPENSES.value)/Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)*100),
 
 
 
@@ -88,7 +88,7 @@ export default function OperationalIndicator({
     {
       id:"APPROVED_ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES",
       color:"#725CFA", 
-      value:Math.round(Number(indicators.children?.APPROVED_ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES.value)/Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)*100),
+      value:Math.round(Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.children.APPROVED_ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES.value)/Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)*100),
 
    
       
@@ -97,7 +97,7 @@ export default function OperationalIndicator({
     },  {
       id:"APPROVED_SERVICE_EXPENSES",
       color:"#36EBCA", 
-      value:Math.round(Number(indicators.children?.APPROVED_SERVICE_EXPENSES.value)/Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)*100),
+      value:Math.round(Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.children.APPROVED_SERVICE_EXPENSES.value)/Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)*100),
 
       
 
@@ -105,7 +105,7 @@ export default function OperationalIndicator({
     },  {
       id:"APPROVED_SALARY_EXPENSES",
       color:"#EE46BC", 
-      value:Math.round(Number(indicators.children?.APPROVED_SALARY_EXPENSES.value)/Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)*100),
+      value:Math.round(Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.children.APPROVED_SALARY_EXPENSES.value)/Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)*100),
 
       
 
@@ -113,7 +113,7 @@ export default function OperationalIndicator({
     },  {
       id:"APPROVED_MISCELLANEOUS_EXPENSES",
       color:"#FF8042", 
-      value:Math.round(Number(indicators.children?.APPROVED_MISCELLANEOUS_EXPENSES.value)/Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)*100),
+      value:Math.round(Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.children.APPROVED_MISCELLANEOUS_EXPENSES.value)/Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)*100),
 
       
 
@@ -121,7 +121,7 @@ export default function OperationalIndicator({
     },  {
       id:"APPROVED_MARKETING_EXPENSES",
       color:"#FFBB28", 
-      value:Math.round(Number(indicators.children?.APPROVED_MARKETING_EXPENSES.value)/Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)*100),
+      value:Math.round(Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.children.APPROVED_MARKETING_EXPENSES.value)/Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)*100),
 
       
 
@@ -129,7 +129,7 @@ export default function OperationalIndicator({
     },  {
       id:"APPROVED_OTHER_EXPENSES",
       color:"#00C49F", 
-      value:Math.round(Number(indicators.children?.APPROVED_OTHER_EXPENSES.value)/Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)*100),
+      value:Math.round(Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.children.APPROVED_OTHER_EXPENSES.value)/Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)*100),
 
       
 
@@ -141,7 +141,7 @@ export default function OperationalIndicator({
     {
       id:"ACTIVITY_EXPENSES",
       color:"#0088FE", 
-      value:Math.round(Number(indicators.children?.ACTIVITY_EXPENSES.value)/Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)*100),
+      value:Math.round(Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.children.ACTIVITY_EXPENSES.value)/Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)*100),
 
 
 
@@ -150,7 +150,7 @@ export default function OperationalIndicator({
     {
       id:"ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES",
       color:"#725CFA", 
-      value:Math.round(Number(indicators.children?.ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES.value)/Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)*100),
+      value:Math.round(Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.children.ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES.value)/Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)*100),
 
       
 
@@ -158,14 +158,14 @@ export default function OperationalIndicator({
     },  {
       id:"SERVICE_EXPENSES",
       color:"#36EBCA", 
-      value:Math.round(Number(indicators.children?.SERVICE_EXPENSES.value)/Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)*100),
+      value:Math.round(Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.children.SERVICE_EXPENSES.value)/Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)*100),
 
 
 
     },  {
       id:"SALARY_EXPENSES",
       color:"#EE46BC", 
-      value:Math.round(Number(indicators.children?.SALARY_EXPENSES.value)/Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)*100),
+      value:Math.round(Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.children.SALARY_EXPENSES.value)/Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)*100),
 
       
 
@@ -173,15 +173,26 @@ export default function OperationalIndicator({
     },  {
       id:"MISCELLANEOUS_EXPENSES",
       color:"#FF8042", 
-      value:Math.round(Number(indicators.children?.MISCELLANEOUS_EXPENSES.value)/Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)*100),
+      value:Math.round(Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.children.MISCELLANEOUS_EXPENSES.value)/Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)*100),
 
       
 
 
-    },  {
+    }, 
+    
+    {
+      id:"MARKETING_EXPENSES",
+      color:"#FFBB28", 
+      value:Math.round(Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.children.MARKETING_EXPENSES.value)/Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)*100),
+
+      
+
+
+    },
+    {
       id:"OTHER_EXPENSES",
       color:"#FFBB28", 
-      value:Math.round(Number(indicators.children?.OTHER_EXPENSES.value)/Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)*100),
+      value:Math.round(Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.children.OTHER_EXPENSES.value)/Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)*100),
 
       
 

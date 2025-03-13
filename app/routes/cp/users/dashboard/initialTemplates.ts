@@ -96,6 +96,7 @@ export function createOperationalTemplate() {
       APPROVED_MISCELLANEOUS_EXPENSES: null,
       APPROVED_MARKETING_EXPENSES: null,
       APPROVED_OTHER_EXPENSES: null,
+  
     },
   ];
 
