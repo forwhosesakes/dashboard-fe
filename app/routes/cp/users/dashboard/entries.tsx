@@ -240,7 +240,7 @@ const Entries = ({
 
           <TabsContent value={currentDashboard}>
             <div
-              className={`p-4 overflow-auto ${
+              className={` overflow-auto ${
                 theme.includes("dark") && "bg-[#0A0E12]"
               }`}
               ref={containerRef}

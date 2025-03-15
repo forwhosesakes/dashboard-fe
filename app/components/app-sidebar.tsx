@@ -27,6 +27,8 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { UserSidebarCard } from "~/components/user-sidebar-card";
 import { authClient } from "~/lib/auth-client";
 import { toast } from "sonner";
+import { useSidebarStore } from "~/lib/store/sidebar-store";
+
 
 const generalNavigation = [
   { name: "لوحة التحكم", icon: Home, href: "/", isNested: true, stat: 10 },
@@ -67,6 +69,8 @@ interface AppLayoutProps {
 }
 
 export function AppLayout({ children, user, serverUrl }: AppLayoutProps) {
+  const { isExpanded, toggleSidebar, setSidebarState } = useSidebarStore();
+
   const [toggle, setToggle] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
@@ -94,6 +98,7 @@ export function AppLayout({ children, user, serverUrl }: AppLayoutProps) {
             <SidebarTrigger
               onClick={() => {
                 setToggle(!toggle);
+                toggleSidebar();
               }}
               loading={false}
               className="mt-2"
