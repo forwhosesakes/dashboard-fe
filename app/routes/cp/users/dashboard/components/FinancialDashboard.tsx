@@ -356,7 +356,7 @@ const FinancialDashboard = (props: IProps) => {
   return (
     <section className={cn(
       " pt-12 flex ",
-      isExpanded ? "xl:pl-5 xl:pr-1 xl:gap-4 2xl:gap-8 2xl:pr-32 2xl:pl-24 w-full" : "gap-8 w-full xl:pl-24 xl:pr-16 2xl:pr-32"
+      isExpanded ? "xl:pl-5 xl:pr-1 xl:gap-4 2xl:gap-8 2xl:pr-32 2xl:pl-24 w-full" : "gap-8 w-full xl:pl-16 xl:pr-24 2xl:pr-32"
     )} >
       <div className="w-full lg:w-60 flex flex-col">
         <div className="">
