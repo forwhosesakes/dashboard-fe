@@ -71,9 +71,9 @@ interface AppLayoutProps {
 export function AppLayout({ children, user, serverUrl }: AppLayoutProps) {
   const { isExpanded, toggleSidebar, setSidebarState } = useSidebarStore();
 
-  const [toggle, setToggle] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
+
 
   const handleLogOut = async () => {
     try {
@@ -92,19 +92,18 @@ export function AppLayout({ children, user, serverUrl }: AppLayoutProps) {
         <Sidebar side="right" variant="floating" collapsible="icon">
           <SidebarHeader
             className={`flex items-center ${
-              toggle ? "flex-row" : "flex-col justify-center"
+              isExpanded ? "flex-row" : "flex-col justify-center"
             }`}
           >
             <SidebarTrigger
               onClick={() => {
-                setToggle(!toggle);
                 toggleSidebar();
               }}
               loading={false}
               className="mt-2"
             />
-            <Link className={`${toggle ? "w-1/2" : "w-10/12"} mt-2`} to={"/"}>
-              <img src={toggle ? KidanLogo : KidanLogomark} />
+            <Link className={`${isExpanded ? "w-1/2" : "w-10/12"} mt-2`} to={"/"}>
+              <img src={isExpanded ? KidanLogo : KidanLogomark} />
             </Link>
           </SidebarHeader>
 
@@ -174,7 +173,7 @@ export function AppLayout({ children, user, serverUrl }: AppLayoutProps) {
                         <Command className="w-3 h-3 my-auto " />
                       </div>
                     )} */}
-                 {toggle&&   <ChevronLeft className="min-w-4 min-h-4 h-4 w-4 text-primary-foreground/60" />}
+                 {isExpanded&&   <ChevronLeft className="min-w-4 min-h-4 h-4 w-4 text-primary-foreground/60" />}
                   </SidebarMenuItem>
                 ))}
               </SidebarMenu>
@@ -200,11 +199,11 @@ export function AppLayout({ children, user, serverUrl }: AppLayoutProps) {
                   </div>
 
                   <div
-                    className={`flex ${toggle ? "" : "flex-col"} items-center `}
+                    className={`flex ${isExpanded ? "" : "flex-col"} items-center `}
                   >
                     <div
                       className={`h-8 w-8 rounded-full border relative ${
-                        toggle ? "ml-2 " : "mb-2"
+                        isExpanded ? "ml-2 " : "mb-2"
                       } bg-primary`}
                     >
                       <div className="absolute bottom-0 -right-1 h-3 w-3 bg-green-500 rounded-full border" />
@@ -220,7 +219,7 @@ export function AppLayout({ children, user, serverUrl }: AppLayoutProps) {
                 <UserSidebarCard
                   handleLogOut={handleLogOut}
                   user={user}
-                  toggle={toggle}
+                  toggle={isExpanded}
                 />
               </SidebarMenuItem>
             </SidebarMenu>

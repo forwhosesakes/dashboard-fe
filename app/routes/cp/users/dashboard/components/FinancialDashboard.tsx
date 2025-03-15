@@ -355,8 +355,8 @@ const FinancialDashboard = (props: IProps) => {
 
   return (
     <section className={cn(
-      "px-4 sm:px-6 md:pl-12 lg:pl-24 xl:pr-16 2xl:pr-32 pt-12 flex flex-col lg:flex-row gap-4 lg:gap-8",
-      isExpanded ? "expanded-layout" : "collapsed-layout"
+      " pt-12 flex ",
+      isExpanded ? "xl:pl-5 xl:pr-1 xl:gap-4 2xl:gap-8 2xl:pr-32 2xl:pl-24 w-full" : "gap-8 w-full xl:pl-24 xl:pr-16 2xl:pr-32"
     )} >
       <div className="w-full lg:w-60 flex flex-col">
         <div className="">
@@ -372,8 +372,8 @@ const FinancialDashboard = (props: IProps) => {
       <div className="flex w-full flex-col gap-4 h-full">
         {/* first row */}
         <div className={cn(
-          "flex flex-col gap-4",
-          isExpanded ? "xl:flex-row" : "md:flex-row"
+          "flex ",
+          isExpanded ? "xl:gap-3 2xl:gap-4" : "gap-4"
         )}>
           <div className="flex flex-col md:flex-row gap-4 md:gap-6 w-full md:w-1/2 justify-center items-center px-4 py-3 border-2 rounded-xl border-[#9C9C9C] shadow-[0px_1px_2px_0px_rgba(255,255,255,0.00)]">
             <div className="flex h-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
@@ -399,7 +399,10 @@ const FinancialDashboard = (props: IProps) => {
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row gap-4 md:gap-6 w-full md:w-1/2 px-4 py-3 border-2 rounded-xl border-[#9C9C9C] shadow-[0px_1px_2px_0px_rgba(255,255,255,0.00)]">
+          <div className={cn(
+            "flex  px-4 py-3 border-2 rounded-xl border-[#9C9C9C] shadow-[0px_1px_2px_0px_rgba(255,255,255,0.00)]",
+            isExpanded?"gap-3 w-6/12":"gap-6 w-1/2"
+          )}>
             <div className="flex flex-col gap-3 md:gap-6 items-center md:items-start">
               <p className="text-base font-bold text-center md:text-right">
                 النقد وما في حكمه إلى صافي الأصول والالتزامات
@@ -422,7 +425,10 @@ const FinancialDashboard = (props: IProps) => {
           </div>
         </div>
         {/* second row */}
-        <div className="flex flex-col md:flex-row gap-4">
+        <div className={cn(
+          "flex",
+          isExpanded? "xl:gap-3 2xl:gap-4" : "gap-4"
+        )}>
           <div className="flex flex-col justify-center w-[25%] items-center p-5 gap-2 border-2 rounded-xl border-[#9C9C9C] shadow-[0px_1px_2px_0px_rgba(255,255,255,0.00)] ">
             <div className="flex h-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
               آخر ثلاث شهور{" "}
@@ -496,7 +502,10 @@ const FinancialDashboard = (props: IProps) => {
         </div>
 
         {/* third row */}
-        <div className="flex flex-col md:flex-row gap-4">
+        <div className={cn(
+          "flex",
+          isExpanded?"xl:gap-3 2xl:gap-4":"gap-4"
+        )}>
           <div className="flex justify-between items-center  w-[78.5%] p-5 gap-4 border-2 rounded-xl border-[#9C9C9C] shadow-[0px_1px_2px_0px_rgba(255,255,255,0.00)]">
             <div className="flex flex-col pb-4 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#EF7BE3] after:to-[#FF5A5A]">
               <p className="font-bold ">الاستدامة المالية (أوقاف واستثمارات)</p>
