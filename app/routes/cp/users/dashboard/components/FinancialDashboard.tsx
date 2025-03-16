@@ -355,11 +355,12 @@ const FinancialDashboard = (props: IProps) => {
 
   return (
     <section className={cn(
-      " pt-12 flex ",
-      isExpanded ? "xl:pl-5 xl:pr-1 xl:gap-4 2xl:gap-8 2xl:pr-32 2xl:pl-24 w-full" : "gap-8 w-full xl:pl-16 xl:pr-24 2xl:pr-32"
+      " pt-12 w-full flex ",
+      isExpanded ? "xl:pl-5 xl:pr-1 xl:gap-4 2xl:gap-8 2xl:pr-32 2xl:pl-24" : "gap-8 xl:pl-16 xl:pr-24 2xl:pr-32"
     )} >
       <div className="w-full lg:w-60 flex flex-col">
         <div className="">
+          {/* https://pub-78d8970765b1464a831d610935e4371c.r2.dev/1740233226681-2e73150c0ab935904bcecca40118e54e%20(1).jpeg */}
           <img src={TestingIcon} alt="organization icon" />
         </div>
         <p className="font-bold text-white text-2xl md:text-3xl lg:text-4xl mt-8 md:mt-16 lg:mt-24 text-nowrap">
@@ -506,7 +507,7 @@ const FinancialDashboard = (props: IProps) => {
           "flex",
           isExpanded?"xl:gap-3 2xl:gap-4":"gap-4"
         )}>
-          <div className="flex justify-between items-center  w-[78.5%] p-5 gap-4 border-2 rounded-xl border-[#9C9C9C] shadow-[0px_1px_2px_0px_rgba(255,255,255,0.00)]">
+          <div className="flex justify-center items-center  w-[78.5%] p-5 gap-4 border-2 rounded-xl border-[#9C9C9C] shadow-[0px_1px_2px_0px_rgba(255,255,255,0.00)]">
             <div className="flex flex-col pb-4 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#EF7BE3] after:to-[#FF5A5A]">
               <p className="font-bold ">الاستدامة المالية (أوقاف واستثمارات)</p>
 

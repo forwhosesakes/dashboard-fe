@@ -4,217 +4,203 @@ import ChartNegative from "~/assets/icons/chart-negative.svg?react";
 import LongChartNegative from "~/assets/icons/longNegativeChart.svg?react";
 
 import CircularProgressBar from "~/components/ui/circular-progress";
-import { Cell, Label, Legend, Pie, PieChart, ResponsiveContainer } from "recharts";
+import { Label, Pie, PieChart, Text } from "recharts";
 import UnderConstructionCard from "~/components/ui/under-construction";
-
+import { cn } from "~/lib/tw-merge";
+import { useSidebarStore } from "~/lib/store/sidebar-store";
+import TestingIcon from "~/assets/icons/Layer_1.webp";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  Legend,
+  PolarAngleAxis,
+  RadialBar,
+  RadialBarChart,
+  Rectangle,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
+import SmallSRPink from "~/assets/icons/smallSRPink.svg?react";
+import SmallSRBlue from "~/assets/icons/smallSRBlue.svg?react";
+import SmallSRGreen from "~/assets/icons/smallSRBGreen.svg?react";
+import SmallSRPurple from "~/assets/icons/smallSRBPurple.svg?react";
+import SmallSRYellow from "~/assets/icons/smallSRYellow.svg?react";
+import SmallSROrange from "~/assets/icons/smallSROrange.svg?react";
+import SmallSRBrown from "~/assets/icons/smallSRBrown.svg?react";
+import { ArrowUpRight } from "lucide-react";
 
 export default function OperationalIndicator({
   indicators,
 }: {
   indicators: any;
 }) {
-  console.log("indicators::",indicators);
-  
-  // const barInds = [
-  //   {
-  //     value: Number(indicators.DOCS_ARCHIV).toFixed(2),
-  //     name: indicatorsLabels.OPERATIONAL.DOCS_ARCHIV,
-  //     fill: "url(#paint0_linear_857_15912)",
-  //   },
-  //   {
-  //     value: Number(indicators.QLY_SPEED_PROC_EXEC).toFixed(2),
-  //     name: indicatorsLabels.OPERATIONAL.QLY_SPEED_PROC_EXEC,
-  //     fill: "url(#paint0_linear_857_15892)",
-  //   },
-  // ];
+  console.log("indicators::", indicators);
 
-  // const areaChartData = [
-  //   {
-  //     name: "01",
-  //     OPS_GOALS_ACH_PERC: Math.round(Number(indicators["OPS_GOALS_ACH_PERC"])),
-  //     PGRM_PRJKS_EXEC_PERC: Math.round(
-  //       Number(indicators["PGRM_PRJKS_EXEC_PERC"])
-  //     ),
-  //   },
-  //   {
-  //     name: "02",
-  //     OPS_GOALS_ACH_PERC:
-  //       Math.round(Number(indicators["OPS_GOALS_ACH_PERC"])) + 50,
-  //     PGRM_PRJKS_EXEC_PERC:
-  //       Math.round(Number(indicators["PGRM_PRJKS_EXEC_PERC"])) + 12,
-  //   },
-  //   {
-  //     name: "03",
-  //     OPS_GOALS_ACH_PERC:
-  //       Math.round(Number(indicators["OPS_GOALS_ACH_PERC"])) - 50,
-  //     PGRM_PRJKS_EXEC_PERC:
-  //       Math.round(Number(indicators["PGRM_PRJKS_EXEC_PERC"])) - 12,
-  //   },
-  //   {
-  //     name: "04",
-  //     OPS_GOALS_ACH_PERC:
-  //       Math.round(Number(indicators["OPS_GOALS_ACH_PERC"])) - 15,
-  //     PGRM_PRJKS_EXEC_PERC:
-  //       Math.round(Number(indicators["PGRM_PRJKS_EXEC_PERC"])) - 29,
-  //   },
+  const { isExpanded } = useSidebarStore();
 
-  //   {
-  //     name: "05",
-  //     OPS_GOALS_ACH_PERC:
-  //       Math.round(Number(indicators["OPS_GOALS_ACH_PERC"])) + 40,
-  //     PGRM_PRJKS_EXEC_PERC:
-  //       Math.round(Number(indicators["PGRM_PRJKS_EXEC_PERC"])) - 10,
-  //   },
-  //   {
-  //     name: "06",
-  //     OPS_GOALS_ACH_PERC:
-  //       Math.round(Number(indicators["OPS_GOALS_ACH_PERC"])) + 10,
-  //     PGRM_PRJKS_EXEC_PERC:
-  //       Math.round(Number(indicators["PGRM_PRJKS_EXEC_PERC"])) - 20,
-  //   },
-  // ];
-
-
-
-  const approvedExpQuar=[
+  const approvedExpQuar = [
     {
-      id:"APPROVED_ACTIVITY_EXPENSES",
-      color:"#0088FE", 
-      value:Math.round(Number(indicators.children?.APPROVED_ACTIVITY_EXPENSES.value)/Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)*100),
-
-
-
+      id: "APPROVED_ACTIVITY_EXPENSES",
+      color: "#0088FE",
+      value: Math.round(
+        (Number(indicators.children?.APPROVED_ACTIVITY_EXPENSES.value) /
+          Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)) *
+          100
+      ),
     },
     {
-      id:"APPROVED_ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES",
-      color:"#725CFA", 
-      value:Math.round(Number(indicators.children?.APPROVED_ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES.value)/Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)*100),
-
-   
-      
-
-
-    },  {
-      id:"APPROVED_SERVICE_EXPENSES",
-      color:"#36EBCA", 
-      value:Math.round(Number(indicators.children?.APPROVED_SERVICE_EXPENSES.value)/Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)*100),
-
-      
-
-
-    },  {
-      id:"APPROVED_SALARY_EXPENSES",
-      color:"#EE46BC", 
-      value:Math.round(Number(indicators.children?.APPROVED_SALARY_EXPENSES.value)/Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)*100),
-
-      
-
-
-    },  {
-      id:"APPROVED_MISCELLANEOUS_EXPENSES",
-      color:"#FF8042", 
-      value:Math.round(Number(indicators.children?.APPROVED_MISCELLANEOUS_EXPENSES.value)/Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)*100),
-
-      
-
-
-    },  {
-      id:"APPROVED_MARKETING_EXPENSES",
-      color:"#FFBB28", 
-      value:Math.round(Number(indicators.children?.APPROVED_MARKETING_EXPENSES.value)/Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)*100),
-
-      
-
-
-    },  {
-      id:"APPROVED_OTHER_EXPENSES",
-      color:"#00C49F", 
-      value:Math.round(Number(indicators.children?.APPROVED_OTHER_EXPENSES.value)/Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)*100),
-
-      
-
-
-    },
-  ]
-
-  const expQuar=[
-    {
-      id:"ACTIVITY_EXPENSES",
-      color:"#0088FE", 
-      value:Math.round(Number(indicators.children?.ACTIVITY_EXPENSES.value)/Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)*100),
-
-
-
-
+      id: "APPROVED_ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES",
+      color: "#725CFA",
+      value: Math.round(
+        (Number(
+          indicators.children
+            ?.APPROVED_ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES.value
+        ) /
+          Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)) *
+          100
+      ),
     },
     {
-      id:"ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES",
-      color:"#725CFA", 
-      value:Math.round(Number(indicators.children?.ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES.value)/Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)*100),
+      id: "APPROVED_SERVICE_EXPENSES",
+      color: "#36EBCA",
+      value: Math.round(
+        (Number(indicators.children?.APPROVED_SERVICE_EXPENSES.value) /
+          Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)) *
+          100
+      ),
+    },
+    {
+      id: "APPROVED_SALARY_EXPENSES",
+      color: "#EE46BC",
+      value: Math.round(
+        (Number(indicators.children?.APPROVED_SALARY_EXPENSES.value) /
+          Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)) *
+          100
+      ),
+    },
+    {
+      id: "APPROVED_MISCELLANEOUS_EXPENSES",
+      color: "#FF8042",
+      value: Math.round(
+        (Number(indicators.children?.APPROVED_MISCELLANEOUS_EXPENSES.value) /
+          Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)) *
+          100
+      ),
+    },
+    {
+      id: "APPROVED_MARKETING_EXPENSES",
+      color: "#FFBB28",
+      value: Math.round(
+        (Number(indicators.children?.APPROVED_MARKETING_EXPENSES.value) /
+          Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)) *
+          100
+      ),
+    },
+    {
+      id: "APPROVED_OTHER_EXPENSES",
+      color: "#00C49F",
+      value: Math.round(
+        (Number(indicators.children?.APPROVED_OTHER_EXPENSES.value) /
+          Number(indicators.children?.APPROVED_AMOUNTS_QUARTERLY.value)) *
+          100
+      ),
+    },
+  ];
 
-      
+  const expQuar = [
+    {
+      id: "ACTIVITY_EXPENSES",
+      color: "#0088FE",
+      value: Math.round(
+        (Number(indicators.children?.ACTIVITY_EXPENSES.value) /
+          Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)) *
+          100
+      ),
+    },
+    {
+      id: "ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES",
+      color: "#725CFA",
+      value: Math.round(
+        (Number(
+          indicators.children?.ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES
+            .value
+        ) /
+          Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)) *
+          100
+      ),
+    },
+    {
+      id: "SERVICE_EXPENSES",
+      color: "#36EBCA",
+      value: Math.round(
+        (Number(indicators.children?.SERVICE_EXPENSES.value) /
+          Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)) *
+          100
+      ),
+    },
+    {
+      id: "SALARY_EXPENSES",
+      color: "#EE46BC",
+      value: Math.round(
+        (Number(indicators.children?.SALARY_EXPENSES.value) /
+          Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)) *
+          100
+      ),
+    },
+    {
+      id: "MISCELLANEOUS_EXPENSES",
+      color: "#FF8042",
+      value: Math.round(
+        (Number(indicators.children?.MISCELLANEOUS_EXPENSES.value) /
+          Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)) *
+          100
+      ),
+    },
+    {
+      id: "OTHER_EXPENSES",
+      color: "#FFBB28",
+      value: Math.round(
+        (Number(indicators.children?.OTHER_EXPENSES.value) /
+          Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)) *
+          100
+      ),
+    },
+  ];
 
-
-    },  {
-      id:"SERVICE_EXPENSES",
-      color:"#36EBCA", 
-      value:Math.round(Number(indicators.children?.SERVICE_EXPENSES.value)/Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)*100),
-
-
-
-    },  {
-      id:"SALARY_EXPENSES",
-      color:"#EE46BC", 
-      value:Math.round(Number(indicators.children?.SALARY_EXPENSES.value)/Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)*100),
-
-      
-
-
-    },  {
-      id:"MISCELLANEOUS_EXPENSES",
-      color:"#FF8042", 
-      value:Math.round(Number(indicators.children?.MISCELLANEOUS_EXPENSES.value)/Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)*100),
-
-      
-
-
-    },  {
-      id:"OTHER_EXPENSES",
-      color:"#FFBB28", 
-      value:Math.round(Number(indicators.children?.OTHER_EXPENSES.value)/Number(indicators.children?.DISBURSED_AMOUNTS_QUARTERLY.value)*100),
-
-      
-
-
-    }
-  ]
-
-
-  
-
-  const Bullet = ({ backgroundColor, size }:any) => {
+  const Bullet = ({ backgroundColor, size }: any) => {
     return (
       <div
         className="CirecleBullet"
         style={{
           backgroundColor,
           width: size,
-          height: size
+          height: size,
         }}
       ></div>
     );
   };
-  const CustomizedLegend = (props:any) => {
+  const CustomizedLegend = (props: any) => {
     const { payload } = props;
     console.log("props in CustomizedLegend", props);
-    
+
     return (
       <ul className="flex gap-x-4 flex-wrap w-3/5 LegendList">
-        {payload.map((entry:any, index:number) => (
+        {payload.map((entry: any, index: number) => (
           <li key={`item-${index}`}>
             <div className="BulletLabel">
               <Bullet backgroundColor={entry.payload.fill} size="8px" />
-              <div className="BulletLabelText">{indicatorsLabels.OPERATIONAL[entry.payload.id as keyof typeof indicatorsLabels.OPERATIONAL]}</div>
+              <div className="BulletLabelText">
+                {
+                  indicatorsLabels.OPERATIONAL[
+                    entry.payload
+                      .id as keyof typeof indicatorsLabels.OPERATIONAL
+                  ]
+                }
+              </div>
             </div>
             <div style={{ marginLeft: "20px" }}>{entry.payload.value}%</div>
           </li>
@@ -222,8 +208,8 @@ export default function OperationalIndicator({
       </ul>
     );
   };
-  
-  const CustomLabel = ({ viewBox, labelText, value }:any) => {
+
+  const CustomLabel = ({ viewBox, labelText, value }: any) => {
     const { cx, cy } = viewBox;
     return (
       <g>
@@ -256,479 +242,542 @@ export default function OperationalIndicator({
   };
 
   return (
-    <section className="px-28">
-        <div className=" flex gap-16 h-full w-full">
-      
-
-        <div className="w-full [&_recharts-legend-wrapper]:bottom-[12px] h-[350px]">
-        <div className="rounded-lg w-full bg-[#13161B] p-1.5">
-            <h4 className="w-full text-xl xl:text-2xl">
-              {"المبالغ المصروفة"}
-            </h4>
-          </div>
-          <ResponsiveContainer width="100%" height="100%">
-          <PieChart
-            width={500}
-            height={400}
-            margin={{
-              top: 0,
-              right: 0,
-              left: 0,
-              bottom: 0,
-            }}
-          >
-          <Pie
-            data={expQuar}
-            dataKey="value"
-            cx={100}
-            cy={100}
-            innerRadius={80}
-            outerRadius={100}
-          >
-            {expQuar.map((entry, index) => (
-              <Cell
-              
-                key={`cell-${index}`}
-                fill={entry.color}
-              />
-            ))}
-            {/* <Label
-              content={<CustomLabel labelText="ICPs" value={15} />}
-              position="center"
-            /> */}
-          </Pie>
-          <Legend wrapperStyle={{bottom:"auto", top: '3rem'}} content={<CustomizedLegend  />} />
-        </PieChart>
-      
-          </ResponsiveContainer>
-        </div>
-
-
-        <div className="w-full [&_recharts-legend-wrapper]:bottom-[12px] h-[350px]">
-        <div className="rounded-lg w-full bg-[#13161B] p-1.5">
-            <h4 className="w-full text-xl xl:text-2xl">
-            {"المبالغ المعتمدة"}
-
-            </h4>
-          </div>
-          <ResponsiveContainer width="100%" height="100%">
-          <PieChart
-            width={500}
-            height={400}
-            margin={{
-              top: 0,
-              right: 0,
-              left: 0,
-              bottom: 0,
-            }}
-          >
-          <Pie
-            data={approvedExpQuar}
-            dataKey="value"
-            cx={100}
-            cy={100}
-            innerRadius={80}
-            outerRadius={100}
-          >
-            {approvedExpQuar.map((entry, index) => (
-              <Cell
-              
-                key={`cell-${index}`}
-                fill={entry.color}
-              />
-            ))}
-            {/* <Label
-              content={<CustomLabel labelText="ICPs" value={15} />}
-              position="center"
-            /> */}
-          </Pie>
-          <Legend wrapperStyle={{bottom:"auto", top: '3rem'}} content={<CustomizedLegend  />} />
-        </PieChart>
-      
-          </ResponsiveContainer>
+    <section
+      className={cn(
+        "py-20 w-full h-full flex flex-col gap-16",
+        isExpanded ? "xl:px-10 2xl:px-14" : " xl:px-20 2xl:px-28"
+      )}
+    >
+      <div className="w-full h-full flex items-center">
+        <img src={TestingIcon} className="" alt="organization icon" />
+        <div className="flex-1 text-center font-bold text-4xl">
+          لوحة المؤشر التشغيلي
         </div>
       </div>
-      {/* إدارة البرامج والمشاريع + إدارة التطوع */}
-      <div className="flex mb-5 w-full gap-16">
-        {/* إدارة البرامج والمشاريع */}
-        <div className="flex flex-col w-4/12">
-          <div className="rounded-lg bg-[#13161B] p-2">
-            <h4 className="w-full text-xl xl:text-3xl">
-            {"  نسبة الوصول للفئة المستهدفة	"}
-            </h4>
+
+      {/* indicators */}
+      <div id="main-container" className="flex justify-center  h-full gap-11">
+        {/* first column */}
+        <div className={cn(
+          "p-5 h-auto flex flex-col gap-11 border-2 border-[#9C9C9C] rounded-xl",
+          isExpanded ? "xl:w-1/3 2xl:w-[29%]" : "xl:w-1/3 2xl:w-[29%]"
+        )}>
+          <div className="flex w-full justify-center">
+            <div className="relative  w-[300px] h-[300px] ">
+              <div className="absolute inset-0 z-10 flex items-center justify-center text-2xl">
+                المبالغ المعتمدة
+              </div>
+              <ResponsiveContainer
+                width={300}
+                minWidth={300}
+                minHeight={300}
+                height={300}
+              >
+                <PieChart margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+                  <defs>
+                    <linearGradient
+                      id="colorGradient1"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop offset="0%" stopColor="#EF7BE3" stopOpacity={1} />
+                      <stop
+                        offset="100%"
+                        stopColor="#FF5A5A "
+                        stopOpacity={1}
+                      />
+                    </linearGradient>
+
+                    <linearGradient
+                      id="colorGradient2"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop offset="0%" stopColor="#1882FF " stopOpacity={1} />
+                      <stop offset="100%" stopColor="#36EBCA" stopOpacity={1} />
+                    </linearGradient>
+                    <linearGradient
+                      id="colorGradient3"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop offset="0%" stopColor="#36F097 " stopOpacity={1} />
+                      <stop offset="100%" stopColor="#3a9c5c" stopOpacity={1} />
+                    </linearGradient>
+                    <linearGradient
+                      id="colorGradient4"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop offset="0%" stopColor="#725CFA" stopOpacity={1} />
+                      <stop offset="100%" stopColor="#EF7BE3" stopOpacity={1} />
+                    </linearGradient>
+                    <linearGradient
+                      id="colorGradient5"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop offset="0%" stopColor="#FBE947" stopOpacity={1} />
+                      <stop offset="100%" stopColor="#58D764" stopOpacity={1} />
+                    </linearGradient>
+                    <linearGradient
+                      id="colorGradient6"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop offset="0%" stopColor="#FBE947" stopOpacity={1} />
+                      <stop offset="100%" stopColor="#F9A000" stopOpacity={1} />
+                    </linearGradient>
+                    <linearGradient
+                      id="colorGradient7"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop offset="0%" stopColor="#ff7300" stopOpacity={1} />
+                      <stop offset="100%" stopColor="#c25502" stopOpacity={1} />
+                    </linearGradient>
+                  </defs>
+                  <Pie
+                    dataKey="value"
+                    data={[
+                      {
+                        name: "مصاريف الأنشطة",
+                        value: 20,
+                        fill: "url(#colorGradient1)",
+                      },
+                      {
+                        name: "مصاريف إدارية",
+                        value: 30,
+                        fill: "url(#colorGradient2)",
+                      },
+                      {
+                        name: "مصاريف نثرية",
+                        value: 25,
+                        fill: "url(#colorGradient3)",
+                      },
+                      {
+                        name: "مصاريف خدمات",
+                        value: 80,
+                        fill: "url(#colorGradient4)",
+                      },
+                      {
+                        name: "مصاريف التسويق",
+                        value: 65,
+                        fill: "url(#colorGradient5)",
+                      },
+                      {
+                        name: "مصاريف الرواتب",
+                        value: 40,
+                        fill: "url(#colorGradient6)",
+                      },
+                      { name: "أخرى", value: 11, fill: "url(#colorGradient7)" },
+                    ]}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius="80%"
+                    outerRadius="100%"
+                  />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
           </div>
-          <div className="flex justify-center p-1 gap-12 mb-10 text-center items-center ">
-            <div className="w-fit">
-           {
-               indicators["REACH_TARGET_AUD_PERC"]==null || indicators["REACH_TARGET_AUD_PERC"] == "NaN"?<UnderConstructionCard/>:
-           
-           <CircularProgressBar
-                gradientStart="#1882FF" // green-500
-                gradientEnd="#36EBCA" // green-600
-                gradientId={"REACH_TARGET_AUD_PERC"}
-                size="md"
-                progress={Math.round(Number(indicators["REACH_TARGET_AUD_PERC"]))}
-                textFillColor="fill-white"
-                trackColor="#22262F"
-              />}
+          <div className="flex flex-col items-center gap-4">
+            {/* مصاريف الانشطة */}
+            <div className="flex justify-between w-2/3 items-center">
+              <div className="flex gap-2 items-center">
+                <div className="rounded-full bg-[#F86790] w-2 h-2" />
+                <p className="font-bold">مصاريف الأنشطة</p>
+              </div>
+              <div className="flex items-center ">
+                <p className="text-3xl font-bold bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">
+                  34
+                </p>
+                <SmallSRPink />
+              </div>
+            </div>
+            {/* مصاريف إدارية */}
+            <div className="flex justify-between w-2/3 items-center">
+              <div className="flex gap-2 items-center">
+                <div className="rounded-full bg-[#36EBCA] w-2 h-2" />
+                <p className="font-bold">مصاريف إدارية</p>
+              </div>
+              <div className="flex items-center ">
+                <p className="text-3xl font-bold bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
+                  34
+                </p>
+                <SmallSRBlue />
+              </div>
+            </div>
+
+            {/* مصاريف نثرية */}
+            <div className="flex justify-between w-2/3  items-center">
+              <div className="flex gap-2 items-center">
+                <div className="rounded-full bg-[#3a9c5c] w-2 h-2" />
+                <p className="font-bold">مصاريف نثرية</p>
+              </div>
+              <div className="flex items-center ">
+                <p className="text-3xl font-bold bg-gradient-to-r from-[#36F097] to-[#3a9c5c] bg-clip-text text-transparent">
+                  34
+                </p>
+                <SmallSRGreen />
+              </div>
+            </div>
+
+            {/* مصاريف خدمات */}
+            <div className="flex justify-between w-2/3  items-center">
+              <div className="flex gap-2 items-center">
+                <div className="rounded-full bg-[#725CFA] w-2 h-2" />
+                <p className="font-bold">مصاريف خدمات</p>
+              </div>
+              <div className="flex items-center ">
+                <p className="text-3xl font-bold bg-gradient-to-r from-[#725CFA] to-[#EF7BE3] bg-clip-text text-transparent">
+                  34
+                </p>
+                <SmallSRPurple />
+              </div>
+            </div>
+
+            {/* مصاريف التسويق */}
+            <div className="flex justify-between w-2/3  items-center">
+              <div className="flex gap-2 items-center">
+                <div className="rounded-full bg-[#58D764] w-2 h-2" />
+                <p className="font-bold">مصاريف التسويق</p>
+              </div>
+              <div className="flex items-center ">
+                <p className="text-3xl font-bold bg-gradient-to-r from-[#FBE947] to-[#58D764] bg-clip-text text-transparent">
+                  34
+                </p>
+                <SmallSRYellow />
+              </div>
+            </div>
+
+            {/* مصاريف الرواتب */}
+            <div className="flex justify-between w-2/3  items-center">
+              <div className="flex gap-2 items-center">
+                <div className="rounded-full bg-[#F9A000] w-2 h-2" />
+                <p className="font-bold">مصاريف الرواتب</p>
+              </div>
+              <div className="flex items-center ">
+                <p className="text-3xl font-bold bg-gradient-to-r from-[#F9A000] to-[#FBE947] bg-clip-text text-transparent">
+                  34
+                </p>
+                <SmallSROrange />
+              </div>
+            </div>
+
+            {/* أخرى */}
+            <div className="flex justify-between w-2/3  items-center">
+              <div className="flex gap-2 items-center">
+                <div className="rounded-full bg-[#c25502] w-2 h-2" />
+                <p className="font-bold">أخرى</p>
+              </div>
+              <div className="flex items-center ">
+                <p className="text-3xl font-bold bg-gradient-to-r from-[#ff7300] to-[#c25502] bg-clip-text text-transparent">
+                  34
+                </p>
+                <SmallSRBrown />
+              </div>
             </div>
           </div>
         </div>
 
-        {/* إدارة التطوع */}
-        <div className="flex flex-col w-8/12">
-          <div className="rounded-lg bg-[#13161B] p-2">
-            <h4 className="w-full text-xl xl:text-3xl">{"إدارة التطوع"}</h4>
-          </div>
-
-          <div className="w-full flex gap-2 flex-col h-full ">
-            <div className="flex w-full my-5 gap-7 justify-between">
-              <div className="flex flex-col w-full border-2 border-[#13161B] rounded-lg min-w-64 gap-5 shadow-custom">
-                <div className="bg-[#13161B] p-1.5">
-                  <h6 className="text-xl">{"نسبة استدامة المتطوعين"}</h6>
-                </div>
-                <div className="p-5">
-                 {
-               indicators["VOLUN_SUST_PERC"]==null || indicators["VOLUN_SUST_PERC"] == "NaN"?<UnderConstructionCard/>:
-                 
-               <>
-                 
-               <h4 className="text-">
-                  {Number(indicators["VOLUN_SUST_PERC"]).toFixed(2) + "%"}
-                </h4>
-                
-               
-               {Number(indicators["VOLUN_SUST_PERC"]) < 0 ? (
-                  <ChartNegative  className="w-full h-auto"/>
-                ) : (
-                  <ChartPositive className="w-full h-auto"/>
-                )}</>}
-                </div>
+        {/* second column */}
+        <div className={cn(
+          "p-5 h-auto flex flex-col gap-11 border-2 border-[#9C9C9C] rounded-xl",
+          isExpanded ? "xl:w-1/3 2xl:w-[29%]" : "xl:w-1/3 2xl:w-[29%]"
+        )}>
+          <div className="flex w-full justify-center">
+            <div className="relative  w-[300px] h-[300px] ">
+              <div className="absolute inset-0 z-10 flex items-center justify-center text-2xl">
+                المبالغ المصروفة
               </div>
+              <ResponsiveContainer
+                width={300}
+                minWidth={300}
+                minHeight={300}
+                height={300}
+              >
+                <PieChart margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+                  <defs>
+                    <linearGradient
+                      id="colorGradient1"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop offset="0%" stopColor="#EF7BE3" stopOpacity={1} />
+                      <stop
+                        offset="100%"
+                        stopColor="#FF5A5A "
+                        stopOpacity={1}
+                      />
+                    </linearGradient>
 
-              <div className="flex flex-col w-full border-2 border-[#13161B] rounded-lg min-w-64 gap-5 shadow-custom">
-                <div className="bg-[#13161B] p-1.5">
-                  <h6 className="text-xl">{"مساهمة المتطوعين في تنفيذ المشاريع  "}</h6>
-                </div>
-                <div className="p-5">
-                
-               {
-               indicators["VOLN_CONTR_PRJKS_EXEC"]==null || indicators["VOLN_CONTR_PRJKS_EXEC"] == "NaN"?<UnderConstructionCard/>:
-               <>
- <h4 className="text-">
-                    {Number(indicators["VOLN_CONTR_PRJKS_EXEC"]).toFixed(2) + "%"}
-                  </h4>
-
-
-{Number(indicators["VOLN_CONTR_PRJKS_EXEC"]) < 0 ? (
-                    <ChartNegative className="w-full h-auto"/>
-                  ) : (
-                    <ChartPositive className="w-full h-auto"/>
-                  )}
-               </>
-              }
-                 
-                </div>
+                    <linearGradient
+                      id="colorGradient2"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop offset="0%" stopColor="#1882FF " stopOpacity={1} />
+                      <stop offset="100%" stopColor="#36EBCA" stopOpacity={1} />
+                    </linearGradient>
+                    <linearGradient
+                      id="colorGradient3"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop offset="0%" stopColor="#36F097 " stopOpacity={1} />
+                      <stop offset="100%" stopColor="#3a9c5c" stopOpacity={1} />
+                    </linearGradient>
+                    <linearGradient
+                      id="colorGradient4"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop offset="0%" stopColor="#725CFA" stopOpacity={1} />
+                      <stop offset="100%" stopColor="#EF7BE3" stopOpacity={1} />
+                    </linearGradient>
+                    <linearGradient
+                      id="colorGradient5"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop offset="0%" stopColor="#FBE947" stopOpacity={1} />
+                      <stop offset="100%" stopColor="#58D764" stopOpacity={1} />
+                    </linearGradient>
+                    <linearGradient
+                      id="colorGradient6"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop offset="0%" stopColor="#FBE947" stopOpacity={1} />
+                      <stop offset="100%" stopColor="#F9A000" stopOpacity={1} />
+                    </linearGradient>
+                    <linearGradient
+                      id="colorGradient7"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop offset="0%" stopColor="#ff7300" stopOpacity={1} />
+                      <stop offset="100%" stopColor="#c25502" stopOpacity={1} />
+                    </linearGradient>
+                  </defs>
+                  <Pie
+                    dataKey="value"
+                    data={[
+                      {
+                        name: "مصاريف الأنشطة",
+                        value: 20,
+                        fill: "url(#colorGradient1)",
+                      },
+                      {
+                        name: "مصاريف إدارية",
+                        value: 30,
+                        fill: "url(#colorGradient2)",
+                      },
+                      {
+                        name: "مصاريف نثرية",
+                        value: 25,
+                        fill: "url(#colorGradient3)",
+                      },
+                      {
+                        name: "مصاريف خدمات",
+                        value: 80,
+                        fill: "url(#colorGradient4)",
+                      },
+                      {
+                        name: "مصاريف التسويق",
+                        value: 65,
+                        fill: "url(#colorGradient5)",
+                      },
+                      {
+                        name: "مصاريف الرواتب",
+                        value: 40,
+                        fill: "url(#colorGradient6)",
+                      },
+                      { name: "أخرى", value: 11, fill: "url(#colorGradient7)" },
+                    ]}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius="80%"
+                    outerRadius="100%"
+                  />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+          <div className="flex flex-col items-center gap-4">
+            {/* مصاريف الانشطة */}
+            <div className="flex justify-between w-2/3 items-center">
+              <div className="flex gap-2 items-center">
+                <div className="rounded-full bg-[#F86790] w-2 h-2" />
+                <p className="font-bold">مصاريف الأنشطة</p>
+              </div>
+              <div className="flex items-center ">
+                <p className="text-3xl font-bold bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">
+                  34
+                </p>
+                <SmallSRPink />
+              </div>
+            </div>
+            {/* مصاريف إدارية */}
+            <div className="flex justify-between w-2/3 items-center">
+              <div className="flex gap-2 items-center">
+                <div className="rounded-full bg-[#36EBCA] w-2 h-2" />
+                <p className="font-bold">مصاريف إدارية</p>
+              </div>
+              <div className="flex items-center ">
+                <p className="text-3xl font-bold bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
+                  34
+                </p>
+                <SmallSRBlue />
               </div>
             </div>
 
-            <div className="w-full flex">
-              <div className="flex flex-col border-2 border-[#13161B] rounded-lg min-w-64 w-full gap-5 shadow-custom">
-                <div className="bg-[#13161B] w-full p-1.5">
-                  <h6 className="text-xl">{"معدل النمو الربعي للمتطوعين"}</h6>
-                </div>
-                <div className="p-5 w-full">
-                 {
-               indicators["VOLUN_GROWTH_RATE_QUAR"]==null || indicators["VOLUN_GROWTH_RATE_QUAR"] == "NaN"?<UnderConstructionCard/>:
-                <>
-                 <h4 className="text-">
-                    {Number(indicators["VOLUN_GROWTH_RATE_QUAR"]).toFixed(2) +
-                      "%"}
-                  </h4>
-                  {Number(indicators["VOLUN_GROWTH_RATE_QUAR"]) < 0 ? (
-                    <LongChartNegative className="w-full h-auto"/>
-                  ) : (
-                    <ChartPositive />
-                  )}
-                </> 
-                }
-                
-                </div>
+            {/* مصاريف نثرية */}
+            <div className="flex justify-between w-2/3  items-center">
+              <div className="flex gap-2 items-center">
+                <div className="rounded-full bg-[#3a9c5c] w-2 h-2" />
+                <p className="font-bold">مصاريف نثرية</p>
+              </div>
+              <div className="flex items-center ">
+                <p className="text-3xl font-bold bg-gradient-to-r from-[#36F097] to-[#3a9c5c] bg-clip-text text-transparent">
+                  34
+                </p>
+                <SmallSRGreen />
+              </div>
+            </div>
+
+            {/* مصاريف خدمات */}
+            <div className="flex justify-between w-2/3  items-center">
+              <div className="flex gap-2 items-center">
+                <div className="rounded-full bg-[#725CFA] w-2 h-2" />
+                <p className="font-bold">مصاريف خدمات</p>
+              </div>
+              <div className="flex items-center ">
+                <p className="text-3xl font-bold bg-gradient-to-r from-[#725CFA] to-[#EF7BE3] bg-clip-text text-transparent">
+                  34
+                </p>
+                <SmallSRPurple />
+              </div>
+            </div>
+
+            {/* مصاريف التسويق */}
+            <div className="flex justify-between w-2/3  items-center">
+              <div className="flex gap-2 items-center">
+                <div className="rounded-full bg-[#58D764] w-2 h-2" />
+                <p className="font-bold">مصاريف التسويق</p>
+              </div>
+              <div className="flex items-center ">
+                <p className="text-3xl font-bold bg-gradient-to-r from-[#FBE947] to-[#58D764] bg-clip-text text-transparent">
+                  34
+                </p>
+                <SmallSRYellow />
+              </div>
+            </div>
+
+            {/* مصاريف الرواتب */}
+            <div className="flex justify-between w-2/3  items-center">
+              <div className="flex gap-2 items-center">
+                <div className="rounded-full bg-[#F9A000] w-2 h-2" />
+                <p className="font-bold">مصاريف الرواتب</p>
+              </div>
+              <div className="flex items-center ">
+                <p className="text-3xl font-bold bg-gradient-to-r from-[#F9A000] to-[#FBE947] bg-clip-text text-transparent">
+                  34
+                </p>
+                <SmallSROrange />
+              </div>
+            </div>
+
+            {/* أخرى */}
+            <div className="flex justify-between w-2/3  items-center">
+              <div className="flex gap-2 items-center">
+                <div className="rounded-full bg-[#c25502] w-2 h-2" />
+                <p className="font-bold">أخرى</p>
+              </div>
+              <div className="flex items-center ">
+                <p className="text-3xl font-bold bg-gradient-to-r from-[#ff7300] to-[#c25502] bg-clip-text text-transparent">
+                  34
+                </p>
+                <SmallSRBrown />
               </div>
             </div>
           </div>
+        </div>
+
+        {/* third column */}
+        <div className={cn(
+          "flex flex-col gap-6 border rounded-xl h-auto ",
+          isExpanded ? "xl:w-1/4 2xl:w-1/5" : "xl:w-1/4 2xl:w-1/5"
+        )}>
+        
+          <div className="flex flex-col items-center gap-4 p-5 border-2 border-[#9C9C9C] rounded-xl">
+            <div className="flex self-end h-fit w-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
+              آخر ثلاث شهور{" "}
+              <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
+            </div>
+            <p className="font-bold">مساهمة المتطوعين في تنفيذ المشاريع</p>
+            <p className="font-bold text-5xl bg-gradient-to-r from-[#FBE947] to-[#58D764] bg-clip-text text-transparent">34%</p>
+          </div>
+
+          <div className="flex flex-col items-center gap-4 p-5 border-2 border-[#9C9C9C] rounded-xl">
+            <div className="flex self-end h-fit w-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
+              آخر ثلاث شهور{" "}
+              <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
+            </div>
+            <p className="font-bold">نسبة استدامة المتطوعين</p>
+            <p className="font-bold text-5xl bg-gradient-to-r from-[#F7E706] to-[#F7E706] bg-clip-text text-transparent">34%</p>
+          </div>
+
+          <div className="flex flex-col items-center gap-4 p-5 border-2 border-[#9C9C9C] rounded-xl">
+            <div className="flex self-end h-fit w-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
+              آخر ثلاث شهور{" "}
+              <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
+            </div>
+            <p className="font-bold">معدل النمو الربعي للمتطوعين</p>
+            <p className="font-bold text-5xl bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">34%</p>
+          </div>
+
+          <div className="flex flex-col items-center gap-4 p-5 border-2 border-[#9C9C9C] rounded-xl">
+            <div className="flex self-end h-fit w-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
+              آخر ثلاث شهور{" "}
+              <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
+            </div>
+            <p className="font-bold">نسبة الوصول للفئة المستهدفة</p>
+            <p className="font-bold text-5xl bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">34%</p>
+          </div>
+
         </div>
       </div>
-       
-
-      {/* كفاءة العمليات الداخلية */}
-      {/* <div className=" flex gap-16 h-full w-full">
-        <div className="flex flex-col w-4/12">
-          <div className="rounded-lg w-full bg-[#13161B] p-1.5">
-            <h4 className="w-full text-xl xl:text-2xl">
-              {"كفاءة العمليات الداخلية"}
-            </h4>
-          </div>
-          <div className="h-full w-full flex flex-col gap-3 justify-center">
-            <div className="flex gap-2 items-center">
-              <div className="bg-gradient-to-t from-green-400 to-green-300 w-[10px] h-[10px] rounded-xs"></div>
-              <p className="text-[#94979C] text-xl">تنفيذ البرامج والمشاريع</p>
-            </div>
-            <div className="flex gap-2 items-center">
-              <div className="bg-gradient-to-t from-orange-400 to-orange-300 w-[10px] h-[10px] rounded-xs"></div>
-              <p className="text-[#94979C] text-xl">تحقيق الأهداف التشغيلية</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="w-8/12 h-60">
-          <ResponsiveContainer width="100%" height="100%">
-            <AreaChart
-              width={500}
-              height={400}
-              data={areaChartData}
-              margin={{
-                top: 10,
-                right: 0,
-                left: 0,
-                bottom: 0,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis type="number" domain={[0,100]}  width={35} textAnchor="left" orientation="left"/>
-              <Tooltip
-                cursor={{ fill: "transparent" }}
-                content={<CustomTooltip />}
-              />
-
-              <Area
-                type="linear"
-                dataKey="OPS_GOALS_ACH_PERC"
-                stroke="#8884d8"
-                fill="#ff9b00"
-              />
-              <Area
-                type="linear"
-                dataKey="PGRM_PRJKS_EXEC_PERC"
-                stroke="#8884d8"
-                fill="#00c800"
-              />
-            </AreaChart>
-          </ResponsiveContainer>
-        </div>
-      </div> */}
     </section>
-    // <>
-    //   <div className="h-full w-full  gap-8 flex flex-col">
-
-    //     <div className="w-full flex gap-3">
-    //       <div className=" p-5 flex flex-col w-3/5  rounded-lg">
-    //         <h5 className="mb-4"> تنفيذ الخطة التشغيلية</h5>
-    //         <div className="flex flex-col justify-between p-2 gap-4">
-    //           <div className="relative flex flex-col p-5 border bg-[#13161B] border-[#5C626D] rounded-lg min-w-64 h-44 gap-5 shadow-custom">
-    //             <h6 className="text-[16px]">
-    //               {indicatorsLabels.OPERATIONAL["PGRM_PRJKS_EXEC_PERC"]}
-    //             </h6>
-    //             <h4 className="text-">
-    //               {Number(indicators["PGRM_PRJKS_EXEC_PERC"]).toFixed(2) + "%"}
-    //             </h4>
-    //             <Progress
-    //               className="[&>div]:bg-gradient-to-r [&>div]:from-green-400 [&>div]:to-yellow-400 w-full h-2.5 bg-gray-700"
-    //               value={Math.round(indicators["PGRM_PRJKS_EXEC_PERC"])}
-    //             />
-    //           </div>
-    //           <div className="relative flex flex-col p-5 bg-[#13161B] border border-[#5C626D] rounded-lg min-w-64 h-44 gap-5 shadow-custom">
-    //             <h6 className="text-[16px]">
-    //               {indicatorsLabels.OPERATIONAL["OPS_GOALS_ACH_PERC"]}
-    //             </h6>
-    //             <h4 className="text-">
-    //               {Number(indicators["OPS_GOALS_ACH_PERC"]).toFixed(2) + "%"}
-    //             </h4>
-    //             <Progress
-    //               className="[&>div]:bg-gradient-to-r [&>div]:from-green-400 [&>div]:to-yellow-400 w-full h-2.5 bg-gray-700"
-    //               value={Math.round(indicators["OPS_GOALS_ACH_PERC"])}
-    //             />
-    //           </div>
-    //         </div>
-    //       </div>
-    //       <div className="w-2/5 p-5 rounded-lg flex flex-col h-44">
-    //         <h5 className="mb-4"> إدارة البرامج و المشاريع</h5>
-    //         <div className="flex flex-col justify-between p-2 gap-4">
-    //           <div>
-    //             <div className="relative flex  p-5 bg-[#13161B] border border-[#5C626D] rounded-lg min-w-64  gap-5 shadow-custom">
-    //               <div>
-    //                 <h6 className=" text-nowrap text-[16px]">
-    //                   {indicatorsLabels.OPERATIONAL["EFFIC_PRJKS_EXEC"]}
-    //                 </h6>
-    //                 <h4 className="text-">
-    //                   {Number(indicators["EFFIC_PRJKS_EXEC"]).toFixed(2) + "%"}
-    //                 </h4>
-    //               </div>
-
-    //               <CircularProgressBar
-    //                 gradientStart="#EF7BE3" // green-500
-    //                 gradientEnd="#FF5A5A" // green-600
-    //                 gradientId={"EFFIC_PRJKS_EXEC"}
-    //                 size="md"
-    //                 progress={Number(indicators["EFFIC_PRJKS_EXEC"])}
-    //               />
-    //             </div>
-    //           </div>
-
-    //           <div className="relative flex  p-5 bg-[#13161B] border border-[#5C626D] rounded-lg min-w-64  gap-5 shadow-custom">
-    //             <div>
-    //               <h6 className="text-[16px] text-nowrap">
-    //                 {indicatorsLabels.OPERATIONAL["EFFITV_PRJKS_PGRM"]}
-    //               </h6>
-    //               <h4 className="text-">
-    //                 {Number(indicators["EFFITV_PRJKS_PGRM"]).toFixed(2) + "%"}
-    //               </h4>
-    //             </div>
-
-    //             <CircularProgressBar
-    //               gradientStart="#1882FF" // green-500
-    //               gradientEnd="#36EBCA" // green-600
-    //               size="md"
-    //               gradientId={"EFFITV_PRJKS_PGRM"}
-    //               progress={Number(indicators["EFFITV_PRJKS_PGRM"])}
-    //             />
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </div>
-
-    //     <div>
-    //       <h5 className="my-5">إدارة التطوع</h5>
-
-    //       <div className="flex  gap-8">
-    //         <div className="flex flex-col  p-5 bg-[#13161B] border border-[#5C626D] rounded-lg min-w-64  gap-5 shadow-custom">
-
-    //             <h6 className=" text-nowrap text-[16px]">
-    //               {indicatorsLabels.OPERATIONAL["VOLUN_GROWTH_RATE_QUAR"]}
-    //             </h6>
-    //             <h4 className="text-">
-    //               {Number(indicators["VOLUN_GROWTH_RATE_QUAR"]).toFixed(2) +
-    //                 "%"}
-    //             </h4>
-    //             {Number(indicators["VOLUN_GROWTH_RATE_QUAR"]) < 0 ? (
-    //               <ChartNegative />
-    //             ) : (
-    //               <ChartPositive />
-    //             )}
-
-    //         </div>
-    //       <div className="flex flex-col  p-5 bg-[#13161B] border border-[#5C626D] rounded-lg min-w-64  gap-5 shadow-custom">
-
-    //           <h6 className=" text-nowrap text-[16px]">
-    //             {indicatorsLabels.OPERATIONAL["VOLUN_SUST_PERC"]}
-    //           </h6>
-    //           <h4 className="text-">
-    //             {Number(indicators["VOLUN_SUST_PERC"]).toFixed(2) + "%"}
-    //           </h4>
-    //           {Number(indicators["VOLUN_SUST_PERC"]) < 0 ? (
-    //             <ChartNegative />
-    //           ) : (
-    //             <ChartPositive />
-    //           )}
-
-    //       </div>
-    //     </div>
-    //     </div>
-
-    //     <div className="rounded-lg p-8 flex-wrap gap-5  bg-[#13161B]  h-[550px] w-full my-5">
-    //       <h5 className="my-5">كفاءة العمليات الداخلية</h5>
-
-    //           <ResponsiveContainer width="100%" height="80%">
-    //                   <BarChart
-    //                     width={800}
-    //                     height={400}
-    //                     data={barInds}
-    //                     margin={{
-    //                       top: 5,
-    //                       right: 30,
-    //                       left: 20,
-    //                       bottom: 5,
-    //                     }}
-    //                   >
-    //                     <defs>
-    //                       <linearGradient
-    //                         id="paint0_linear_857_15912"
-    //                         x1="19.4768"
-    //                         y1="144"
-    //                         x2="19.4768"
-    //                         y2="90"
-    //                         gradientUnits="userSpaceOnUse"
-    //                       >
-    //                         <stop stop-color="#1882FF" />
-    //                         <stop offset="1" stop-color="#36EBCA" />
-    //                       </linearGradient>
-
-    //                       <linearGradient
-    //                         id="paint0_linear_857_15917"
-    //                         x1="32"
-    //                         y1="97.2632"
-    //                         x2="8.34548"
-    //                         y2="97.2632"
-    //                         gradientUnits="userSpaceOnUse"
-    //                       >
-    //                         <stop stop-color="#36F097" />
-    //                         <stop offset="1" stop-color="#36F097" stop-opacity="0.2" />
-    //                       </linearGradient>
-
-    //                       <linearGradient
-    //                         id="paint0_linear_857_15907"
-    //                         x1="19.4768"
-    //                         y1="144"
-    //                         x2="19.4768"
-    //                         y2="90"
-    //                         gradientUnits="userSpaceOnUse"
-    //                       >
-    //                         <stop stop-color="#EF7BE3" />
-    //                         <stop offset="1" stop-color="#FF5A5A" />
-    //                       </linearGradient>
-
-    //                       <linearGradient
-    //                         id="paint0_linear_857_15897"
-    //                         x1="16.6957"
-    //                         y1="88"
-    //                         x2="16.6957"
-    //                         y2="55"
-    //                         gradientUnits="userSpaceOnUse"
-    //                       >
-    //                         <stop stop-color="#FBE947" />
-    //                         <stop offset="1" stop-color="#58D764" />
-    //                       </linearGradient>
-
-    //                       <linearGradient
-    //                         id="paint0_linear_857_15892"
-    //                         x1="0.5"
-    //                         y1="123.5"
-    //                         x2="32.5"
-    //                         y2="123.5"
-    //                         gradientUnits="userSpaceOnUse"
-    //                       >
-    //                         <stop stop-color="#725CFA" />
-    //                         <stop offset="1" stop-color="#EF7BE3" />
-    //                       </linearGradient>
-    //                     </defs>
-    //                     <CartesianGrid strokeDasharray="3 3" />
-    //                     <XAxis dataKey="name" />
-    //                     <YAxis />
-    //                     <Tooltip
-    //                       label={"القيمة"}
-    //                       wrapperStyle={{ width: 100, backgroundColor: "#ccc" }}
-    //                       formatter={function (total) {
-    //                         return `${total}`;
-    //                       }}
-    //                     />
-
-    //                     <Bar barSize={20} dataKey="value" width={5} radius={[10, 10, 0, 0]} />
-    //                   </BarChart>
-    //                 </ResponsiveContainer>
-    //     </div>
-    //   </div>
-    // </>
   );
 }
 
