@@ -245,10 +245,10 @@ export default function OperationalIndicator({
     <section
       className={cn(
         "py-20 w-full h-full flex flex-col gap-16",
-        isExpanded ? "xl:px-10 2xl:px-14" : " xl:px-20 2xl:px-28"
+        isExpanded ? " px-10 2xl:px-14" : " px-20 2xl:px-28"
       )}
     >
-      <div className="w-full h-full flex items-center">
+      <div className="w-full h-full flex items-center justify-center">
         <img src={TestingIcon} className="" alt="organization icon" />
         <div className="flex-1 text-center font-bold text-4xl">
           لوحة المؤشر التشغيلي
@@ -260,7 +260,7 @@ export default function OperationalIndicator({
         {/* first column */}
         <div className={cn(
           "p-5 h-auto flex flex-col gap-11 border-2 border-[#9C9C9C] rounded-xl",
-          isExpanded ? "xl:w-1/3 2xl:w-[29%]" : "xl:w-1/3 2xl:w-[29%]"
+          isExpanded ? "w-1/3 2xl:w-[29%]" : "w-1/3 2xl:w-[29%]"
         )}>
           <div className="flex w-full justify-center">
             <div className="relative  w-[300px] h-[300px] ">
@@ -498,7 +498,7 @@ export default function OperationalIndicator({
         {/* second column */}
         <div className={cn(
           "p-5 h-auto flex flex-col gap-11 border-2 border-[#9C9C9C] rounded-xl",
-          isExpanded ? "xl:w-1/3 2xl:w-[29%]" : "xl:w-1/3 2xl:w-[29%]"
+          isExpanded ? "w-1/3 2xl:w-[29%]" : "w-1/3 2xl:w-[29%]"
         )}>
           <div className="flex w-full justify-center">
             <div className="relative  w-[300px] h-[300px] ">
@@ -736,7 +736,7 @@ export default function OperationalIndicator({
         {/* third column */}
         <div className={cn(
           "flex flex-col gap-6 border rounded-xl h-auto ",
-          isExpanded ? "xl:w-1/4 2xl:w-1/5" : "xl:w-1/4 2xl:w-1/5"
+          isExpanded ? "w-1/4 2xl:w-1/5" : "w-1/4 2xl:w-1/5"
         )}>
         
           <div className="flex flex-col items-center gap-4 p-5 border-2 border-[#9C9C9C] rounded-xl">

@@ -644,6 +644,8 @@ console.log("save entries::",data);
           throw new Error(message || `HTTP error! status: ${response.status}`);
         }
         const rawResponse = (await response.json()) as any;
+        console.log(`${type}::`,rawResponse);
+        
         return rawResponse?.data as any[];
       } catch (e) {
         if (e instanceof z.ZodError) {
