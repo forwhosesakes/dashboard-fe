@@ -20,7 +20,10 @@ export type ApiResponse<T> = {
     node: EntryNode;
     level: number;
     path: string[];
-    onUpdate: (updatedNode: Node, path: string[]) => void;
+    onUpdate: (updatedNode: EntryNode, path: string[]) => void;
+    onEntryChange:(key:string,value:any)=>void,
+    rawEntries:any
+
   }
   export interface EntryNode {
     key: string;
@@ -43,5 +46,6 @@ export type ApiResponse<T> = {
   export interface HierarchicalDataEntryProps {
     data: RootNode;
     onUpdate: (updatedData: RootNode) => void;
-    entries: any
+    rawEntries: any;
+    onEntryChange:(key:string,value:any)
   }

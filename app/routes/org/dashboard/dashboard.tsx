@@ -156,6 +156,7 @@ const Dashbaord = () => {
                 ref={containerRef}
                 >
               <DashboardIndicators
+              isFullscreen={isFullscreen}
                 indicators={{...entries,...indicators}}
                 type={currentDashboard}
               />

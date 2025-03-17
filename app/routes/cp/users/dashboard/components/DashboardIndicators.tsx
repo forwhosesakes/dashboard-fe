@@ -7,20 +7,21 @@ import GeneralDashboard from "./GeneralDashboard";
 interface IProps {
   indicators: any;
   type: DashboardType;
+  isFullscreen:boolean
 }
 
 const DashboardIndicators = (props: IProps) => {
   switch (props.type) {
     case "OPERATIONAL":
-      return  <OperationalIndicator indicators={props.indicators}/>
+      return  <OperationalIndicator   indicators={props.indicators}/>
 
     case "GENERAL":
-      return <GeneralDashboard indicators={props.indicators} category={""}/>
+      return <GeneralDashboard  indicators={props.indicators} category={""}/>
     case "FINANCIAL":
       return <FinancialDashboard indicators={props.indicators} />
     case "CORPORATE":
       return (
-        <CorporateDashboard indicators={props.indicators}>
+        <CorporateDashboard isFullscreen={props.isFullscreen} indicators={props.indicators}>
           {" "}
           CORPORATE dashboard indicators{" "}
         </CorporateDashboard>

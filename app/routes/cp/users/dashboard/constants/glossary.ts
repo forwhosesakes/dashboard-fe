@@ -223,7 +223,7 @@ SUST_TO_TOTAL_EXPENSES: "نسبة مصاريف الاستدامة إلى إجم�
     DIRECT_MANAGER_EVALUATION:"تقييم المدير المباشر",
 
     SATIS_MEASURMENT: "قياس الرضا",
-    CEO_PERFORMANCE: "أداء المديرالتنفيذي ",
+    CEO_PERFORMANCE: "أداء المدير التنفيذي ",
     COMPLIANCE_ADHERENCE_PRACTICES: "معيار الامتثال و الالتزام",
     TRANSPARENCY_DISCLOSURE_PRACTICES: "معيار الشفافية و الإفصاح",
     FINANCIAL_SAFETY_PRACTICES: "معيار السلامة المالية",

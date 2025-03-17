@@ -396,6 +396,7 @@ export type OperationalDashboardEntriesType = {
   APPROVED_MISCELLANEOUS_EXPENSES: number|null,
   APPROVED_MARKETING_EXPENSES: number|null,
   APPROVED_OTHER_EXPENSES: number|null,
+  MARKETING_EXPENSES:number|null
 
 };
 
@@ -556,7 +557,7 @@ console.log("save entries::",data);
     getEntries: async <T extends DashboardType>(
       id: string,
       type: T
-    ): Promise<DashboardTypeMap[T][]> => {
+    ): Promise<{entriesMap?:DashboardTypeMap[T][], rawEntries:any}> => {
       try {
         const response = await fetch(`${url}/dashboard/entries/${type}/${id}`);
     
@@ -573,25 +574,25 @@ console.log("save entries::",data);
         
         const schema: DashboardSchemaType<T> = DashboardSchemaMap[type];
         const parsedData = schema.parse(rawResponse);
+        let entriesMap={}
        
         
         if (type === "FINANCIAL" && ReturnedEntriesMap[type]) {
-          console.log("is this good??",ReturnedEntriesMap[type](parsedData.data));
-          
-          return ReturnedEntriesMap[type](parsedData.data) as DashboardTypeMap[T][];
+          entriesMap= ReturnedEntriesMap[type](parsedData.data) as DashboardTypeMap[T][];
         } else if (type === "OPERATIONAL" && ReturnedEntriesMap[type]) {
-
-          console.log("operational data is2 ::",ReturnedEntriesMap[type](parsedData.data));
-          
-          return ReturnedEntriesMap[type](parsedData.data) as DashboardTypeMap[T][];
+          entriesMap= ReturnedEntriesMap[type](parsedData.data) as DashboardTypeMap[T][];
         } else if (type === "CORPORATE" && ReturnedEntriesMap[type]) {
 
-          return ReturnedEntriesMap[type](parsedData.data) as DashboardTypeMap[T][];
+          entriesMap= ReturnedEntriesMap[type](parsedData.data) as DashboardTypeMap[T][];
         } else if (type === "GENERAL" && ReturnedEntriesMap[type]) {
-          return ReturnedEntriesMap[type](parsedData.data) as DashboardTypeMap[T][];
+          entriesMap= ReturnedEntriesMap[type](parsedData.data) as DashboardTypeMap[T][];
         }
+
+        console.log("rawEntries::", parsedData.data);
+        console.log("entriesMap::", entriesMap);
         
-        return parsedData.data as unknown as DashboardTypeMap[T][];
+        
+        return {rawEntries:parsedData.data as unknown as DashboardTypeMap[T][], entriesMap:entriesMap as DashboardTypeMap[T][]};
       } catch (e) {
         if (e instanceof z.ZodError) {
           console.error("Validation error:", e.errors);
