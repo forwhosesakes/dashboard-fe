@@ -14,7 +14,7 @@ const RatingIndicatorChip = ({ value }:{value:number}) => {
       icon: <TrendingDown className="text-red-700 h-4 w-4" />
     },
     {
-      threshold: 40,
+      threshold: 50,
       label: "ضعيف",
       textColor: "text-red-300",
       borderColor: "border-red-500",
@@ -22,7 +22,7 @@ const RatingIndicatorChip = ({ value }:{value:number}) => {
       icon: <TrendingDown className="text-red-600 h-4 w-4" />
     },
     {
-      threshold: 60,
+      threshold: 70,
       label: "متوسط",
       textColor: "text-yellow-500",
       borderColor: "border-yellow-500",
@@ -32,6 +32,14 @@ const RatingIndicatorChip = ({ value }:{value:number}) => {
     {
       threshold: 80,
       label: "جيد",
+      textColor: "text-green-400",
+      borderColor: "border-green-500",
+      bgColor: "bg-green-50",
+      icon: <TrendingUp className="text-green-600 h-4 w-4" />
+    },
+    {
+      threshold: 90,
+      label: "جيد جدا",
       textColor: "text-green-400",
       borderColor: "border-green-500",
       bgColor: "bg-green-50",
@@ -50,7 +58,7 @@ const RatingIndicatorChip = ({ value }:{value:number}) => {
   const rating = ratings.find(r => safeValue < r.threshold) as any;
   
   return (
-    <div className={`pl-2 pr-2 py-0.5 h-fit border-2 rounded-xl gap-1 flex justify-center items-center ${rating.borderColor} ${rating.bgColor}`}>
+    <div className={`pl-2 pr-2 py-0.5 h-fit border-2 rounded-xl gap-1 flex justify-center items-center ${rating.borderColor}`}>
       <p className={`${rating.textColor} text-xs`}>{rating.label}</p>
       {rating.icon}
     </div>

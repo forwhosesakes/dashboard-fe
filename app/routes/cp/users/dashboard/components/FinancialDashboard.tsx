@@ -26,6 +26,7 @@ import { useSidebarStore } from "~/lib/store/sidebar-store";
 import { cn } from "~/lib/tw-merge";
 import GradientText from "~/components/gardient-text";
 import RatingIndicatorChip from "~/components/rating-indicator-chip";
+import { isNumeric } from "~/lib/utils/indicators";
 interface IProps {
   indicators: any;
 }
@@ -85,9 +86,11 @@ const FinancialDashboard = (props: IProps) => {
             </div>
             <div className="flex flex-col gap-3 md:gap-6 items-center md:items-start">
               <p className="text-base font-bold">الأداء المالي الكلي</p>
-              <p className="text-[#D9B456] font-bold text-3xl md:text-4xl lg:text-5xl">
+              {isNumeric(props.indicators["FINANCIAL_PERF"])?      <p className="text-[#D9B456] font-bold text-3xl md:text-4xl lg:text-5xl">
             {  Math.round(props.indicators?.FINANCIAL_PERF)}%
               </p>
+:<UnderConstructionCard/>}
+            
             </div>
             <div className="mt-4 md:mt-0 min-w-32">
               <CircularProgressBar
@@ -110,9 +113,12 @@ const FinancialDashboard = (props: IProps) => {
               <p className="text-base font-bold text-center md:text-right">
                 النقد وما في حكمه إلى صافي الأصول والالتزامات
               </p>
-              <p className="text-[#FF0080] font-bold text-3xl md:text-4xl lg:text-5xl">
+              {isNumeric(props.indicators["CACHE_RELATED_TO_NET_ASSETS_AND_AWQAF"])?    <p className="text-[#FF0080] font-bold text-3xl md:text-4xl lg:text-5xl">
+                
                 {props.indicators["CACHE_RELATED_TO_NET_ASSETS_AND_AWQAF"]}%
               </p>
+:<UnderConstructionCard/>}
+             
             </div>
             <div className="mt-4 md:mt-0 mx-auto md:mx-0 md:min-w-32">
               <CircularProgressBar
@@ -147,9 +153,12 @@ const FinancialDashboard = (props: IProps) => {
               <p className="text-base font-bold text-center md:text-right">
                {indicatorsLabels.FINANCIAL.NET_CACHE_INVEST_ADMIN_EXPENSES}
               </p>
-              <p className="text-[#FF0080] font-bold text-3xl md:text-4xl lg:text-5xl">
-                {Math.round(props.indicators["NET_CACHE_INVEST_ADMIN_EXPENSES"])}%
-              </p>
+              {isNumeric(props.indicators["NET_CACHE_INVEST_ADMIN_EXPENSES"])?   <p className="text-[#FF0080] font-bold text-3xl md:text-4xl lg:text-5xl">
+
+{Math.round(props.indicators["NET_CACHE_INVEST_ADMIN_EXPENSES"])}%
+</p>
+:<UnderConstructionCard/>}
+            
             </div>
             <div className="mt-4 md:mt-0 mx-auto md:mx-0 md:min-w-32">
               <CircularProgressBar
@@ -186,7 +195,7 @@ const FinancialDashboard = (props: IProps) => {
             <p className="font-bold text-center">
               {indicatorsLabels.FINANCIAL.ADMIN_TO_TOTAL_EXPENSES}
             </p>
-            <SemiCircleProgress
+            {isNumeric(props.indicators["ADMIN_TO_TOTAL_EXPENSES"])?     <SemiCircleProgress
               percentage={Number(props.indicators["ADMIN_TO_TOTAL_EXPENSES"])}
               size={180}
               useGradient={true}
@@ -195,6 +204,10 @@ const FinancialDashboard = (props: IProps) => {
               gradientEnd="#FF5A5A"
               textSize="4xl"
             />
+:<UnderConstructionCard/>}
+             
+            
+           
           </div>
 
           <div className="flex flex-col justify-center w-[25%] items-center p-5 gap-2 border-2 rounded-xl border-[#9C9C9C] shadow-[0px_1px_2px_0px_rgba(255,255,255,0.00)] ">
@@ -206,7 +219,7 @@ const FinancialDashboard = (props: IProps) => {
             <p className="font-bold text-center">
               {indicatorsLabels.FINANCIAL.ABL_COVER_OBLIG}
             </p>
-            <SemiCircleProgress
+            {isNumeric(props.indicators["ABL_COVER_OBLIG"])?      <SemiCircleProgress
               percentage={Number(props.indicators["ABL_COVER_OBLIG"])}
               size={180}
               useGradient={true}
@@ -215,6 +228,8 @@ const FinancialDashboard = (props: IProps) => {
               gradientEnd="#58D764"
               textSize="4xl"
             />
+:<UnderConstructionCard/>}
+           
           </div>
 
           <div className="flex flex-col justify-center w-[25%] items-center p-5 gap-2 border-2 rounded-xl border-[#9C9C9C] shadow-[0px_1px_2px_0px_rgba(255,255,255,0.00)] ">
@@ -226,7 +241,7 @@ const FinancialDashboard = (props: IProps) => {
             <p className="font-bold text-center">
               {indicatorsLabels.FINANCIAL.FUND_RAISING_TO_TOTAL_EXPENSES}
             </p>
-            <SemiCircleProgress
+            {isNumeric(props.indicators["FUND_RAISING_TO_TOTAL_EXPENSES"])?      <SemiCircleProgress
               percentage={props.indicators["FUND_RAISING_TO_TOTAL_EXPENSES"]}
               size={180}
               useGradient={true}
@@ -235,6 +250,8 @@ const FinancialDashboard = (props: IProps) => {
               gradientEnd="#58D764"
               textSize="4xl"
             />
+:<UnderConstructionCard/>}
+           
           </div>
 
           <div className="flex flex-col justify-center  w-[21.5%] items-center p-5 gap-5 border-2 rounded-xl border-[#9C9C9C] shadow-[0px_1px_2px_0px_rgba(255,255,255,0.00)]">
@@ -263,9 +280,12 @@ const FinancialDashboard = (props: IProps) => {
               <p className="font-bold ">الاستدامة المالية (أوقاف واستثمارات)</p>
 
               <div className="flex gap-4 justify-between items-center">
-                <p className="font-bold text-5xl bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">
-                  {props.indicators["FINANCIAL_SUSTAIN"]}%
-                </p>
+              {isNumeric(props.indicators["FINANCIAL_SUSTAIN"])?    <p className="font-bold text-5xl bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">
+                
+                {props.indicators["FINANCIAL_SUSTAIN"]}%
+              </p>:<UnderConstructionCard/>}
+
+              
 
                 <div className="flex h-fit justify-center text-center items-center text-[#CECFD2] text-sm py-[2px] pl-[6px] pr-2 border border-[#373A41] bg-[#0C0E12] rounded-lg gap-1">
                   0.2%
@@ -278,10 +298,11 @@ const FinancialDashboard = (props: IProps) => {
               <p className="font-bold ">المصاريف الإدارية والعمومية</p>
 
               <div className="flex gap-4 justify-between items-center">
-                <p className="font-bold text-5xl bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
+              {isNumeric(props.indicators["ADMIN_EXPENSES"])?        <p className="font-bold text-5xl bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
                   {props.indicators["ADMIN_EXPENSES"]}%
                 </p>
-
+:<UnderConstructionCard/>}
+            
                 <div className="flex h-fit justify-center text-center items-center text-[#CECFD2] text-sm py-[2px] pl-[6px] pr-2 border border-[#373A41] bg-[#0C0E12] rounded-lg gap-1">
                   0.2%
                   <TrendingUp className="w-4 h-4 text-accent" />
@@ -293,9 +314,12 @@ const FinancialDashboard = (props: IProps) => {
               <p className="font-bold ">مصاريف البرامج والأنشطة</p>
 
               <div className="flex gap-4 justify-between items-center">
-                <p className="font-bold text-5xl bg-gradient-to-r from-[#FBE947] to-[#58D764] bg-clip-text text-transparent">
+              {isNumeric(props.indicators["PRGRMS_EXPENSES"])?          <p className="font-bold text-5xl bg-gradient-to-r from-[#FBE947] to-[#58D764] bg-clip-text text-transparent">
                   {props.indicators["PRGRMS_EXPENSES"]}%
                 </p>
+:<UnderConstructionCard/>}
+
+            
 
                 <div className="flex h-fit justify-center text-center items-center text-[#CECFD2] text-sm py-[2px] pl-[6px] pr-2 border border-[#373A41] bg-[#0C0E12] rounded-lg gap-1">
                   0.2%
@@ -308,7 +332,9 @@ const FinancialDashboard = (props: IProps) => {
           <div className="w-[21.5%] flex flex-col justify-center items-center p-5 gap-5 border-2 rounded-xl border-[#9C9C9C] shadow-[0px_1px_2px_0px_rgba(255,255,255,0.00)]">
             <img src={SRIcon} alt="" />
             <div className="text-center">
-              <p className="font-bold text-5xl">{props.indicators["FUND_RAISING_TO_TOTAL_DONAT"]}%</p>
+            {isNumeric(props.indicators["FUND_RAISING_TO_TOTAL_DONAT"])? <p className="font-bold text-5xl">{props.indicators["FUND_RAISING_TO_TOTAL_DONAT"]}%</p>
+
+:<UnderConstructionCard/>}
               <p className="font-bold">
                 {" "}
                 مصاريف جمع الأموال إلى إجمالي التبرعات
@@ -328,7 +354,10 @@ const FinancialDashboard = (props: IProps) => {
             <div className="flex pb-6 min-w-fit items-center justify-between border-b-4 gap-4 border-accent">
               <p className="font-bold text-3xl ">
                 الاستدامة المالية
-                <span className="font-bold text-5xl"> {props.indicators["FINANCIAL_SUSTAIN"]}%</span>
+
+
+                {isNumeric(props.indicators["FINANCIAL_SUSTAIN"])?  <span className="font-bold text-5xl"> {props.indicators["FINANCIAL_SUSTAIN"]}%</span>:<UnderConstructionCard/>}
+               
               </p>
 
            <RatingIndicatorChip value={Number(props.indicators["FINANCIAL_SUSTAIN"])}/>
@@ -340,13 +369,16 @@ const FinancialDashboard = (props: IProps) => {
                 <span className="text-bold">
                   {indicatorsLabels.FINANCIAL.SUST_TO_TOTAL_EXPENSES}
 
-                  <GradientText
+                {isNumeric(props.indicators["SUST_TO_TOTAL_EXPENSES"])?   <GradientText
                 gradientStart={"#36F097"}
                 gradientEnd={"rgba(54,240,151,0.2)"}
                 className="mr-2 "
               
                 text={`${Math.round(props.indicators.SUST_TO_TOTAL_EXPENSES)}%`}                
-                />
+                />:<UnderConstructionCard/>}
+
+
+                
                 </span>
               </div>
 
@@ -354,13 +386,15 @@ const FinancialDashboard = (props: IProps) => {
                 <div className="w-2 h-2 rounded-full bg-gradient-to-l from-[#1882FF] to-[#36EBCA]" />
                 <span className="text-bold">
                   {indicatorsLabels.FINANCIAL.REV_FIN_SUST_TO_TOTAL_EXPENSES}
-                <GradientText
+                  {isNumeric(props.indicators["REV_FIN_SUST_TO_TOTAL_EXPENSES"])?    <GradientText
                 gradientStart={"#1882FF"}
                 gradientEnd={"#36EBCA"}
                 className="mr-2 "
               
                 text={`${Math.round(props.indicators.REV_FIN_SUST_TO_TOTAL_EXPENSES)}%`}                
-                />
+                />:<UnderConstructionCard/>}
+
+               
 
                 </span>
 
@@ -371,13 +405,15 @@ const FinancialDashboard = (props: IProps) => {
                 <span className="text-bold">
                   {indicatorsLabels.FINANCIAL.SUST_EXPENSEES_TO_REV}
 
-                <GradientText
+                  {isNumeric(props.indicators["SUST_EXPENSEES_TO_REV"])?<GradientText
                 gradientStart={"#FBE947"}
                 gradientEnd={"#58D764"}
                 className="mr-2 "
               
                 text={`${Math.round(props.indicators.SUST_EXPENSEES_TO_REV)}%`}                
-                />
+                />:<UnderConstructionCard/>}
+
+               
 
                 </span>
               </div>
@@ -405,26 +441,22 @@ const FinancialDashboard = (props: IProps) => {
                   itemStyle={{ color: '#fff' }}
                 /> */}
                 <defs>
-                  <linearGradient id="barGradient1" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#FF5A5A" />
-                    <stop offset="100%" stopColor="#EF7BE3" />
-                  </linearGradient>
+               
                   <linearGradient id="barGradient2" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stopColor="#36EBCA" />
                     <stop offset="100%" stopColor="#1882FF" />
                   </linearGradient>
-                  <linearGradient id="barGradient3" x1="0" y1="0" x2="0" y2="1">
+                  <linearGradient id="barGradient1" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stopColor="#58D764" />
                     <stop offset="100%" stopColor="#FBE947" />
                   </linearGradient>
-                  <linearGradient id="barGradient4" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#EF7BE3" />
-                    <stop offset="100%" stopColor="#725CFA" />
-                  </linearGradient>
-                  <linearGradient id="barGradient5" x1="0" y1="0" x2="0" y2="1">
+                  <linearGradient id="barGradient3" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stopColor="rgba(54,240,151,0.2)" />
                     <stop offset="100%" stopColor="#36F097" />
                   </linearGradient>
+          
+           
+         
                 </defs>
                 <Bar dataKey="value" radius={[8, 8, 0, 0]} barSize={40}>
                   {
