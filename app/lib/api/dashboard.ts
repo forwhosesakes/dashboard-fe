@@ -518,7 +518,6 @@ export const dashboardApi = (url: string) => {
         if (!/^\d+$/.test(id) || parseInt(id) <= 0) {
           throw new Error("ID must be a positive number");
         }
-        console.log("entries in api [saveEntries]", entries);
         
         const formData = new FormData();
         Object.entries(entries).forEach(([key, value]) => {
@@ -542,7 +541,6 @@ export const dashboardApi = (url: string) => {
         }
 
         const data = await response.json();
-console.log("save entries::",data);
 
         const validatedData = SaveEntriesResponseSchema.parse(data);
         return validatedData;
@@ -570,7 +568,6 @@ console.log("save entries::",data);
         }
         
         const rawResponse = await response.json();
-        console.log("data:::",rawResponse);
         
         const schema: DashboardSchemaType<T> = DashboardSchemaMap[type];
         const parsedData = schema.parse(rawResponse);
@@ -588,8 +585,7 @@ console.log("save entries::",data);
           entriesMap= ReturnedEntriesMap[type](parsedData.data) as DashboardTypeMap[T][];
         }
 
-        console.log("rawEntries::", parsedData.data);
-        console.log("entriesMap::", entriesMap);
+
         
         
         return {rawEntries:parsedData.data as unknown as DashboardTypeMap[T][], entriesMap:entriesMap as DashboardTypeMap[T][]};

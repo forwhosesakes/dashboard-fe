@@ -305,7 +305,7 @@ const MembersTable = ({
 
 const Members = () => {
   const { users, serverUrl, isAdmin } = useLoaderData<{isAdmin:boolean, serverUrl:string, users:MemberType[]}>();
-  console.log("users:", users, "serverUrl:", serverUrl);
+  // console.log("users:", users, "serverUrl:", serverUrl);
   const [admins, setAdmins]=useState<MemberType[]>([]);
   const [dataEntries, setDataEntries]=useState<MemberType[]>([]);
   const [showInviteDialog, setShowInviteDialog] = useState(false);

@@ -42,7 +42,6 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
 
   if (session && user && user.role === "user"){
     const org = await orgApi(serverUrl).getOrgByUserId(user.id)
-    console.log("org is ::",org);
     // if(!org)return redirect("/login")
     return redirect(`/org/${org.id}`)
   } else if(session && user && user.role === "admin"){
@@ -81,7 +80,7 @@ const Login = () => {
       fetchOptions: {
         
         onSuccess: (data) => {
-          console.log("success yaaaaay", data);
+          // console.log("success yaaaaay", data);
         },
         onError: (e) => {
           console.log("error", e);

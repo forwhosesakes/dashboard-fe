@@ -140,7 +140,7 @@ const CorporateDashboard = (props: IProps) => {
     <section className="px-24">
       <div className="flex flex-col gap-y-8">
      
-        <div className="flex gap-10">
+        <div className="flex mt-12 gap-10">
           <div className="w-full flex items-center flex-col">
             <div className="flex mb-12">
               <h4>الأداء المؤسسي </h4>

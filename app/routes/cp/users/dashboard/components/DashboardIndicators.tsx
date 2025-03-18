@@ -21,7 +21,7 @@ const DashboardIndicators = (props: IProps) => {
       return <FinancialDashboard indicators={props.indicators} />
     case "CORPORATE":
       return (
-        <CorporateDashboard isFullscreen={props.isFullscreen} indicators={props.indicators}>
+        <CorporateDashboard  indicators={props.indicators}>
           {" "}
           CORPORATE dashboard indicators{" "}
         </CorporateDashboard>

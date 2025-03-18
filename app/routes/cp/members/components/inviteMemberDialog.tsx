@@ -93,7 +93,7 @@ const InviteMemberDialog = ({
         });
 
 
-        console.log("cookie is :: ",document.cookie);
+        // console.log("cookie is :: ",document.cookie);
         
         const response = await fetch(`${serverUrl}/users/send-welcome-email`, {
             method: "POST",

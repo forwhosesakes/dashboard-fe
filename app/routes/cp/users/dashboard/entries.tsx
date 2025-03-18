@@ -26,6 +26,7 @@ import {
   createFinancialTemplate,
   createOperationalTemplate,
 } from "./initialTemplates";
+import { useSidebarStore } from "~/lib/store/sidebar-store";
 
 export const loader = async ({ context, params }: LoaderFunctionArgs) => {
   let { id, dashboardType } = params;
@@ -83,7 +84,7 @@ const Entries = ({
   },[rawEntries])
 
   useEffect(() => {
-    console.log("indicators",indicators);
+    // console.log("indicators",indicators);
     
     if (indicators === null) {
       setView("entries");
@@ -145,7 +146,7 @@ const Entries = ({
     try {
       setLoading(true);
 
-      console.log(currentEntries);
+      // console.log(currentEntries);
       
       // const checkedData = propagateNullValuesUpTree(currentEntries.children);
       // const requestBody = flattenNodeStructure(currentEntries.children);
@@ -181,18 +182,35 @@ const Entries = ({
     }
   };
 
+  const { isExpanded, toggleSidebar, setSidebarState } = useSidebarStore();
   const [isFullscreen, setIsFullscreen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      if (!document.fullscreenElement && isFullscreen) {
+        setIsFullscreen(false);
+        toggleSidebar();
+      }
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    };
+  }, [isFullscreen, toggleSidebar]);
+  
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
       containerRef.current
         ?.requestFullscreen()
-        .then(() => setIsFullscreen(true))
+        .then(() => {setIsFullscreen(true); toggleSidebar(); })
         .catch((err) => console.error("Error entering fullscreen"));
     } else {
       document
         .exitFullscreen()
-        .then(() => setIsFullscreen(false))
+        .then(() => {setIsFullscreen(false); toggleSidebar();})
         .catch((err) => console.error("Error exiting fullscreen"));
     }
   };
@@ -250,7 +268,7 @@ const Entries = ({
 
           <TabsContent value={currentDashboard}>
             <div
-              className={`p-4 overflow-auto ${
+              className={` overflow-y-auto overflow-x-hidden ${
                 theme.includes("dark") && "bg-[#0A0E12]"
               }`}
               ref={containerRef}
