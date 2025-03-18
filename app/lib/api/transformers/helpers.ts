@@ -1,14 +1,9 @@
-export type EntryNode = {
-    key: string;
-    value: number | null;
-    isExpanded?: boolean;
-    isParent?: boolean;
-    totalChildren?: number;
-    completedChildren?: number;
-    children?: Record<string, EntryNode>;
-  }
+
 
     // helper function to create a leaf node
+
+import type { EntryNode } from "~/types/api.types";
+
    
    export function createNode(key: string, value: number | null): EntryNode {
         return {
@@ -23,6 +18,7 @@ export type EntryNode = {
        export  function createParentNode(
         key: string, 
         value: number | null, 
+        isAggregated:boolean,
         children: Record<string, EntryNode>
       ): EntryNode {
         const childrenValues = Object.values(children);
@@ -35,6 +31,7 @@ export type EntryNode = {
           value,
           isParent: true,
           isExpanded: false,
+          isAggregated:isAggregated,
           totalChildren: childrenValues.length,
           completedChildren: completedChildrenCount,
           children

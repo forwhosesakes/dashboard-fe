@@ -1,5 +1,5 @@
 import type { CorporateDashboardEntriesType } from "../dashboard";
-import { createNode, createParentNode, type EntryNode } from "./helpers";
+import { createNode, type EntryNode } from "./helpers";
 
 export function transformCorporateEntries(
     entries: CorporateDashboardEntriesType[]
@@ -36,6 +36,7 @@ export function transformCorporateEntries(
               const TOTAL_ACHIEVED_PROGRAMS= createNode("TOTAL_ACHIEVED_PROGRAMS",entry.TOTAL_ACHIEVED_PROGRAMS)
               const EMP_PERF_EVALUATION_AVG= createNode("EMP_PERF_EVALUATION_AVG",entry.EMP_PERF_EVALUATION_AVG)
               const BOARD_OF_DIRECTORS_EVALUATION_PERCENTAGE= createNode("BOARD_OF_DIRECTORS_EVALUATION_PERCENTAGE",entry.BOARD_OF_DIRECTORS_EVALUATION_PERCENTAGE)
+              const DIRECT_MANAGER_EVALUATION = createNode("DIRECT_MANAGER_EVALUATION",entry.DIRECT_MANAGER_EVALUATION)
 
 
 
@@ -70,7 +71,8 @@ export function transformCorporateEntries(
                         TOTAL_PLANNED_PROGRAMS,
                         TOTAL_ACHIEVED_PROGRAMS,
                         EMP_PERF_EVALUATION_AVG,
-                        BOARD_OF_DIRECTORS_EVALUATION_PERCENTAGE
+                        BOARD_OF_DIRECTORS_EVALUATION_PERCENTAGE,
+                        DIRECT_MANAGER_EVALUATION
                       }
                     };
     })

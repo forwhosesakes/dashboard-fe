@@ -17,16 +17,21 @@ export type ApiResponse<T> = {
     pagination?: PaginationData;
   };
   interface NodeRowProps {
-    node: Node;
+    node: EntryNode;
     level: number;
     path: string[];
-    onUpdate: (updatedNode: Node, path: string[]) => void;
+    onUpdate: (updatedNode: EntryNode, path: string[]) => void;
+    onEntryChange:(key:string,value:any)=>void,
+    rawEntries:any
+
   }
   export interface EntryNode {
     key: string;
     value: number | null;
     isExpanded?: boolean;
     isParent?: boolean;
+    isAggregated?:boolean;
+    isHidden?:boolean;
     totalChildren?: number;
     completedChildren?: number;
     children?: Record<string, EntryNode>;
@@ -41,4 +46,6 @@ export type ApiResponse<T> = {
   export interface HierarchicalDataEntryProps {
     data: RootNode;
     onUpdate: (updatedData: RootNode) => void;
+    rawEntries: any;
+    onEntryChange:(key:string,value:any)
   }

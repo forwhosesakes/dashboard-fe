@@ -11,6 +11,8 @@ const CircularProgressBar = ({
   trackColor="#E5E7EB"
 }) => {
   const sizes = {
+    xs: { width: 80, strokeWidth: 12 },
+
     sm: { width: 120, strokeWidth: 16 },
     md: { width: 160, strokeWidth: 20 },
     lg: { width: 300, strokeWidth: 32 }

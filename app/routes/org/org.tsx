@@ -61,9 +61,7 @@ const Org = () => {
   const { dashboardsOverview, org } = useLoaderData<any>();
   const { setDarkTheme } = useThemeStore()
 
-  useEffect(() => {
-    console.log(dashboardsOverview);
-  }, []);
+
   const newDashboardsTitles = {
     NEW_CORPORATE_INDICATORS:"اللوحة المؤسسية",
     NEW_FINANCIAL_INDICATORS:"اللوحة المالية",

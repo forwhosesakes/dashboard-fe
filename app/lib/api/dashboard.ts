@@ -352,6 +352,7 @@ const OperationalDashboardEntriesSchema = z.object({
   SERVICE_EXPENSES: z.coerce.number().nullable(),
   SALARY_EXPENSES: z.coerce.number().nullable(),
   MISCELLANEOUS_EXPENSES: z.coerce.number().nullable(),
+  MARKETING_EXPENSES:z.coerce.number().nullable(),
   OTHER_EXPENSES: z.coerce.number().nullable(),
   APPROVED_AMOUNTS_QUARTERLY: z.coerce.number().nullable(),
   APPROVED_ACTIVITY_EXPENSES: z.coerce.number().nullable(),
@@ -395,6 +396,7 @@ export type OperationalDashboardEntriesType = {
   APPROVED_MISCELLANEOUS_EXPENSES: number|null,
   APPROVED_MARKETING_EXPENSES: number|null,
   APPROVED_OTHER_EXPENSES: number|null,
+  MARKETING_EXPENSES:number|null
 
 };
 
@@ -516,7 +518,6 @@ export const dashboardApi = (url: string) => {
         if (!/^\d+$/.test(id) || parseInt(id) <= 0) {
           throw new Error("ID must be a positive number");
         }
-        console.log("entries in api [saveEntries]", entries);
         
         const formData = new FormData();
         Object.entries(entries).forEach(([key, value]) => {
@@ -540,7 +541,6 @@ export const dashboardApi = (url: string) => {
         }
 
         const data = await response.json();
-console.log("save entries::",data);
 
         const validatedData = SaveEntriesResponseSchema.parse(data);
         return validatedData;
@@ -555,7 +555,7 @@ console.log("save entries::",data);
     getEntries: async <T extends DashboardType>(
       id: string,
       type: T
-    ): Promise<DashboardTypeMap[T][]> => {
+    ): Promise<{entriesMap?:DashboardTypeMap[T][], rawEntries:any}> => {
       try {
         const response = await fetch(`${url}/dashboard/entries/${type}/${id}`);
     
@@ -568,29 +568,27 @@ console.log("save entries::",data);
         }
         
         const rawResponse = await response.json();
-        console.log("data:::",rawResponse);
         
         const schema: DashboardSchemaType<T> = DashboardSchemaMap[type];
         const parsedData = schema.parse(rawResponse);
+        let entriesMap={}
        
         
         if (type === "FINANCIAL" && ReturnedEntriesMap[type]) {
-          console.log("is this good??",ReturnedEntriesMap[type](parsedData.data));
-          
-          return ReturnedEntriesMap[type](parsedData.data) as DashboardTypeMap[T][];
+          entriesMap= ReturnedEntriesMap[type](parsedData.data) as DashboardTypeMap[T][];
         } else if (type === "OPERATIONAL" && ReturnedEntriesMap[type]) {
-
-          console.log("operational data is2 ::",ReturnedEntriesMap[type](parsedData.data));
-          
-          return ReturnedEntriesMap[type](parsedData.data) as DashboardTypeMap[T][];
+          entriesMap= ReturnedEntriesMap[type](parsedData.data) as DashboardTypeMap[T][];
         } else if (type === "CORPORATE" && ReturnedEntriesMap[type]) {
 
-          return ReturnedEntriesMap[type](parsedData.data) as DashboardTypeMap[T][];
+          entriesMap= ReturnedEntriesMap[type](parsedData.data) as DashboardTypeMap[T][];
         } else if (type === "GENERAL" && ReturnedEntriesMap[type]) {
-          return ReturnedEntriesMap[type](parsedData.data) as DashboardTypeMap[T][];
+          entriesMap= ReturnedEntriesMap[type](parsedData.data) as DashboardTypeMap[T][];
         }
+
+
         
-        return parsedData.data as unknown as DashboardTypeMap[T][];
+        
+        return {rawEntries:parsedData.data as unknown as DashboardTypeMap[T][], entriesMap:entriesMap as DashboardTypeMap[T][]};
       } catch (e) {
         if (e instanceof z.ZodError) {
           console.error("Validation error:", e.errors);

@@ -6,7 +6,7 @@ import {
   type LoaderFunctionArgs,
 } from "react-router";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { dashboardApi } from "~/lib/api/dashboard";
+import { dashboardApi, type DashboardType } from "~/lib/api/dashboard";
 import { useThemeStore } from "~/lib/store/theme-store";
 import DashboardIndicators from "~/routes/cp/users/dashboard/components/DashboardIndicators";
 import { tabsNames } from "./constants/glossary";
@@ -17,8 +17,6 @@ import { Breadcrumbs } from "~/components/app-breadcrumbs";
 
 export const loader = async ({ context, params }: LoaderFunctionArgs) => {
   const { id, dashboardType } = params;
-
-  console.log("from loader:: ", id, dashboardType);
 
   const entries = await dashboardApi(
     context.cloudflare.env.BASE_URL
@@ -38,6 +36,7 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
 
 const Dashbaord = () => {
   const { id, currentDashboard, indicators, entries } = useLoaderData();
+  
   const locationData = useLocation();
   const { setLightTheme, setDarkTheme, theme } = useThemeStore();
 
@@ -156,6 +155,7 @@ const Dashbaord = () => {
                 ref={containerRef}
                 >
               <DashboardIndicators
+              isFullscreen={isFullscreen}
                 indicators={{...entries,...indicators}}
                 type={currentDashboard}
               />

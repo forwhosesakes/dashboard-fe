@@ -5,7 +5,8 @@ import HierarchicalDataEntry from "./HierarchicalDataEntry";
 
 interface DashboardEntriesProps {
   dashboardType: DashboardType;
-  entries: Array<{ name: string; label: string; value: any}>;
+  entries: any;
+  rawEntries:any;
   onEntryChange: (name: string, value: any) => void;
   status: "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED";
 }
@@ -14,6 +15,7 @@ const DashboardEntries = ({
   entries,
   onEntryChange,
   dashboardType,
+  rawEntries,
 }: DashboardEntriesProps) => {
   const [entryToEdit, setEntryToEdit] = useState<{
     name: string;
@@ -24,6 +26,13 @@ const DashboardEntries = ({
   useEffect(()=>{
     setData(entries)
   },[entries])
+
+  useEffect(()=>{
+
+console.log("raw entries in DashboardEntries ::",rawEntries );
+
+
+  },[rawEntries])
   const [data,setData]=useState({
     key:"Root",
     value:null,
@@ -114,7 +123,7 @@ const DashboardEntries = ({
             )}
           </div>
         ))}
-        <HierarchicalDataEntry data={data} onUpdate={handleDataUpdate} />
+        <HierarchicalDataEntry onEntryChange={onEntryChange} rawEntries={rawEntries} data={data} onUpdate={handleDataUpdate} />
       </div>
     </div>
   );

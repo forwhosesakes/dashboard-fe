@@ -25,14 +25,13 @@ import {
   createCorporateTemplate,
   createFinancialTemplate,
   createOperationalTemplate,
-  flattenNodeStructure,
-  propagateNullValuesUpTree,
 } from "./initialTemplates";
+import { useSidebarStore } from "~/lib/store/sidebar-store";
 
 export const loader = async ({ context, params }: LoaderFunctionArgs) => {
   let { id, dashboardType } = params;
 
-  const entries = await dashboardApi(
+  const {entriesMap,rawEntries} = await dashboardApi(
     context.cloudflare.env.BASE_URL
   ).getEntries(`${id}`, (dashboardType as DashboardType) ?? "GENERAL");
 
@@ -41,7 +40,8 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
   ).getIndicators(`${id}`, (dashboardType as DashboardType) ?? "GENERAL");
 
   return {
-    entries: entries?.length ? entries[0] : null,
+    entriesMap: entriesMap?.length ? entriesMap[0] : null,
+    rawEntries: rawEntries?.length ? rawEntries[0] : null,
     indicators: indicators?.length ? indicators[0] : null,
     currentDashboard: dashboardType,
     baseUrl: context.cloudflare.env.BASE_URL,
@@ -54,13 +54,16 @@ const Entries = ({
 }: {
   currentIndicator: { name: string };
 }) => {
-  const { entries, indicators, currentDashboard, baseUrl, id } = useLoaderData<{
+  const { rawEntries,entriesMap, indicators, currentDashboard, baseUrl, id } = useLoaderData<{
     currentDashboard: DashboardType;
     baseUrl: string;
     id: string;
     indicators: any[];
-    entries: any[];
+    rawEntries: any;
+    entriesMap:any
   }>();
+
+  
 
   const locationData = useLocation();
   const [view, setView] = useState<"entries" | "indicators">("entries");
@@ -73,8 +76,15 @@ const Entries = ({
     children: [],
   });
 
+  const [rawEntriesState,setRawEntriesState]= useState<any>(rawEntries)
+
+
+  useEffect(()=>{
+    setRawEntriesState(rawEntries)
+  },[rawEntries])
+
   useEffect(() => {
-    console.log("indicators",indicators);
+    // console.log("indicators",indicators);
     
     if (indicators === null) {
       setView("entries");
@@ -88,7 +98,7 @@ const Entries = ({
         dashboard.title.includes(currentDashboard)
       );
       if (currentDasboardData) {
-        if (currentDasboardData.status === "NOT_STARTED" || entries === null) {
+        if (currentDasboardData.status === "NOT_STARTED" || entriesMap === null) {
           let initialEntries;
           try {
             if (currentDashboard === "FINANCIAL") {
@@ -113,7 +123,7 @@ const Entries = ({
             setCurrentEntries({ key: "ROOT", value: null, children: {} });
           }
         } else {
-          setCurrentEntries(entries);
+          setCurrentEntries(entriesMap);
         }
       }
     }
@@ -136,15 +146,16 @@ const Entries = ({
     try {
       setLoading(true);
 
-      console.log(currentEntries);
+      // console.log(currentEntries);
       
       // const checkedData = propagateNullValuesUpTree(currentEntries.children);
-      const requestBody = flattenNodeStructure(currentEntries.children);
+      // const requestBody = flattenNodeStructure(currentEntries.children);
+      const {dashbaordId, id:_, createdAt, updatedAt, ...body} = rawEntriesState
 
-      const result = await dashboardApi(baseUrl).saveEntries({
+      await dashboardApi(baseUrl).saveEntries({
         id,
         type: currentDashboard,
-        entries: requestBody,
+        entries: body,
       });
       
       toasts.success({ message: "تم حفظ المدخلات بنجاح" });
@@ -171,18 +182,35 @@ const Entries = ({
     }
   };
 
+  const { isExpanded, toggleSidebar, setSidebarState } = useSidebarStore();
   const [isFullscreen, setIsFullscreen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      if (!document.fullscreenElement && isFullscreen) {
+        setIsFullscreen(false);
+        toggleSidebar();
+      }
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    };
+  }, [isFullscreen, toggleSidebar]);
+  
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
       containerRef.current
         ?.requestFullscreen()
-        .then(() => setIsFullscreen(true))
+        .then(() => {setIsFullscreen(true); toggleSidebar(); })
         .catch((err) => console.error("Error entering fullscreen"));
     } else {
       document
         .exitFullscreen()
-        .then(() => setIsFullscreen(false))
+        .then(() => {setIsFullscreen(false); toggleSidebar();})
         .catch((err) => console.error("Error exiting fullscreen"));
     }
   };
@@ -240,32 +268,23 @@ const Entries = ({
 
           <TabsContent value={currentDashboard}>
             <div
-              className={`p-4 overflow-auto ${
+              className={` overflow-y-auto overflow-x-hidden ${
                 theme.includes("dark") && "bg-[#0A0E12]"
               }`}
               ref={containerRef}
             >
               {view === "entries" ? (
                 <>
-                  {/* <div className="flex flex-col justify-center items-center">
-                    <SemiCircleProgress percentage={86} />
-                    <p className="font-semibold text-primary-foreground/50">
-                      نسبة إكمال البيانات
-                    </p>
-                  </div> */}
                   {
                     <DashboardEntries
+                      key={currentDashboard}
+              
                       dashboardType={currentDashboard}
+                      rawEntries={rawEntriesState}
                       entries={currentEntries}
                       onEntryChange={(name, value) => {
-                        const updatedEntries = Object.entries(
-                          currentEntries.children
-                        ).map(([key, entry]) =>
-                          key === name
-                            ? { ...(entry as EntryNode), value }
-                            : entry
-                        );
-                        setCurrentEntries(updatedEntries);
+                        
+                        setRawEntriesState((prev:any)=>({...prev, [name]:value}));
                       }}
                       status={"COMPLETED"}
                     />
@@ -273,7 +292,7 @@ const Entries = ({
                 </>
               ) : (
                 <DashboardIndicators
-                  indicators={{ ...entries, ...indicators }}
+                  indicators={{ ...entriesMap, ...indicators }}
                   type={currentDashboard}
                 />
               )}
