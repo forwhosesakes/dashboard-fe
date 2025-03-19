@@ -84,7 +84,7 @@ const FinancialDashboard = (props: IProps) => {
             </div>
               {isNumeric(props.indicators["FINANCIAL_PERF"]) ? (
                 <p className="text-[#D9B456] font-bold text-3xl md:text-4xl lg:text-5xl">
-                  {Math.round(props.indicators?.FINANCIAL_PERF)}%
+                  {Math.round(Number(props.indicators?.FINANCIAL_PERF))}%
                 </p>
               ) : (
                 <UnderConstructionCard />
@@ -117,7 +117,7 @@ const FinancialDashboard = (props: IProps) => {
                 props.indicators["CACHE_RELATED_TO_NET_ASSETS_AND_AWQAF"]
               ) ? (
                 <p className="text-[#FF0080] font-bold text-3xl md:text-4xl lg:text-5xl">
-                  {props.indicators["CACHE_RELATED_TO_NET_ASSETS_AND_AWQAF"]}%
+                  {Math.round(Number(props.indicators["CACHE_RELATED_TO_NET_ASSETS_AND_AWQAF"]))}%
                 </p>
               ) : (
                 <UnderConstructionCard />
@@ -153,7 +153,7 @@ const FinancialDashboard = (props: IProps) => {
               ) ? (
                 <p className="text-[#FF0080] font-bold text-3xl md:text-4xl lg:text-5xl">
                   {Math.round(
-                    props.indicators["NET_CACHE_INVEST_ADMIN_EXPENSES"]
+                    Number(props.indicators["NET_CACHE_INVEST_ADMIN_EXPENSES"])
                   )}
                   %
                 </p>
@@ -263,7 +263,7 @@ const FinancialDashboard = (props: IProps) => {
             <img src={SRIcon} alt="" />
             <div className="text-center">
               <p className="font-bold text-5xl">
-                {props.indicators["DONAT_MONEY_RAISING"]}%
+                {Math.round(Number(props.indicators["DONAT_MONEY_RAISING"]))}%
               </p>
               <p className="font-bold">جمع الأموال والتبرعات</p>
             </div>
@@ -295,7 +295,7 @@ const FinancialDashboard = (props: IProps) => {
               <div className="flex gap-4 justify-between items-center">
                 {isNumeric(props.indicators["FINANCIAL_SUSTAIN"]) ? (
                   <p className="font-bold text-5xl bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">
-                    {props.indicators["FINANCIAL_SUSTAIN"]}%
+                    {Math.round(Number(props.indicators["FINANCIAL_SUSTAIN"]))}%
                   </p>
                 ) : (
                   <UnderConstructionCard />
@@ -314,7 +314,7 @@ const FinancialDashboard = (props: IProps) => {
               <div className="flex gap-4 justify-between items-center">
                 {isNumeric(props.indicators["ADMIN_EXPENSES"]) ? (
                   <p className="font-bold text-5xl bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
-                    {props.indicators["ADMIN_EXPENSES"]}%
+                    {Math.round(Number(props.indicators["ADMIN_EXPENSES"]))}%
                   </p>
                 ) : (
                   <UnderConstructionCard />
@@ -333,7 +333,7 @@ const FinancialDashboard = (props: IProps) => {
               <div className="flex gap-4 justify-between items-center">
                 {isNumeric(props.indicators["PRGRMS_EXPENSES"]) ? (
                   <p className="font-bold text-5xl bg-gradient-to-r from-[#FBE947] to-[#58D764] bg-clip-text text-transparent">
-                    {props.indicators["PRGRMS_EXPENSES"]}%
+                    {Math.round(Number(props.indicators["PRGRMS_EXPENSES"]))}%
                   </p>
                 ) : (
                   <UnderConstructionCard />
@@ -352,7 +352,7 @@ const FinancialDashboard = (props: IProps) => {
             <div className="text-center">
               {isNumeric(props.indicators["FUND_RAISING_TO_TOTAL_DONAT"]) ? (
                 <p className="font-bold text-5xl">
-                  {props.indicators["FUND_RAISING_TO_TOTAL_DONAT"]}%
+                  {Math.round(Number(props.indicators["FUND_RAISING_TO_TOTAL_DONAT"]))}%
                 </p>
               ) : (
                 <UnderConstructionCard />
@@ -383,7 +383,7 @@ const FinancialDashboard = (props: IProps) => {
                 {isNumeric(props.indicators["FINANCIAL_SUSTAIN"]) ? (
                   <span className="font-bold text-5xl">
                     {" "}
-                    {props.indicators["FINANCIAL_SUSTAIN"]}%
+                    {Math.round(Number(props.indicators["FINANCIAL_SUSTAIN"]))}%
                   </span>
                 ) : (
                   <UnderConstructionCard />
@@ -406,7 +406,7 @@ const FinancialDashboard = (props: IProps) => {
                       gradientEnd={"rgba(54,240,151,0.2)"}
                       className="mr-2 "
                       text={`${Math.round(
-                        props.indicators.SUST_TO_TOTAL_EXPENSES
+                        Number(props.indicators.SUST_TO_TOTAL_EXPENSES)
                       )}%`}
                     />
                   ) : (
@@ -427,7 +427,7 @@ const FinancialDashboard = (props: IProps) => {
                       gradientEnd={"#36EBCA"}
                       className="mr-2 "
                       text={`${Math.round(
-                        props.indicators.REV_FIN_SUST_TO_TOTAL_EXPENSES
+                        Number(props.indicators.REV_FIN_SUST_TO_TOTAL_EXPENSES)
                       )}%`}
                     />
                   ) : (
@@ -447,7 +447,7 @@ const FinancialDashboard = (props: IProps) => {
                       gradientEnd={"#58D764"}
                       className="mr-2 "
                       text={`${Math.round(
-                        props.indicators.SUST_EXPENSEES_TO_REV
+                        Number(props.indicators.SUST_EXPENSEES_TO_REV)
                       )}%`}
                     />
                   ) : (

@@ -17,11 +17,10 @@ import { useEffect } from "react";
 interface IProps {
   indicators: any;
   category: string;
-  role:string
-  logoUrl:string;
+  role: string;
+  logoUrl: string;
 }
 const GeneralDashboard = ({ indicators, role, logoUrl }: IProps) => {
- 
   const cards = [
     // {
     //   label: "GENERAL_PERFORMANCE",
@@ -117,23 +116,26 @@ const GeneralDashboard = ({ indicators, role, logoUrl }: IProps) => {
         isExpanded ? "xl:px-0" : "xl:px-[50px]"
       )}
     >
-      {role !== "admin" || !isExpanded && (
-        <div className="w-full h-full flex items-center justify-center">
-        <img src={logoUrl??TestingIcon} className="" alt="organization icon" />
-        <div className="flex-1 text-center font-bold text-4xl">
-          لوحة الأداء العام
-        </div>
-      </div>
-      )}
-      
+      {role !== "admin" ||
+        (!isExpanded && (
+          <div className="w-full h-full flex items-center justify-center">
+            <div>
+              <img
+                src={logoUrl ?? TestingIcon}
+                className=""
+                alt="organization icon"
+              />
+            </div>
+            <div className="flex-1 text-center font-bold text-4xl">
+              لوحة الأداء العام
+            </div>
+          </div>
+        ))}
 
       {/* section has everything except the chart */}
       <div className="flex gap-7">
         {/* right side */}
-        <div className={cn(
-          "flex flex-col gap-7",
-          isExpanded?"w-10/12":""
-        )}>
+        <div className={cn("flex flex-col gap-7", isExpanded ? "w-10/12" : "")}>
           {/* right-side first row */}
           <div className="flex gap-11 justify-between">
             <div className="flex flex-col justify-between max-w-[137px] gap-3 pb-4 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#FBE947] after:to-[#58D764]">
@@ -326,18 +328,13 @@ const GeneralDashboard = ({ indicators, role, logoUrl }: IProps) => {
 
         {/* left side */}
         <div className="flex flex-col justify-between gap-6">
-
           <div className="flex flex-col gap-4 p-5 border-2 border-[#9C9C9C] rounded-xl">
             <div className="flex self-end h-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
               آخر ثلاث شهور{" "}
               <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
             </div>
-            <p className="text-base font-bold">
-              نسبة استدامة المتطوعين
-            </p>
-            <p className="font-bold text-5xl text-[#F7E706]">
-              34%
-            </p>
+            <p className="text-base font-bold">نسبة استدامة المتطوعين</p>
+            <p className="font-bold text-5xl text-[#F7E706]">34%</p>
           </div>
 
           <div className="flex flex-col gap-4 p-5 border-2 border-[#9C9C9C] rounded-xl">
@@ -345,9 +342,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl }: IProps) => {
               آخر ثلاث شهور{" "}
               <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
             </div>
-            <p className="text-base font-bold">
-              نسبة استدامة المتطوعين
-            </p>
+            <p className="text-base font-bold">نسبة استدامة المتطوعين</p>
             <p className="font-bold text-5xl bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">
               34%
             </p>
@@ -358,16 +353,11 @@ const GeneralDashboard = ({ indicators, role, logoUrl }: IProps) => {
               آخر ثلاث شهور{" "}
               <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
             </div>
-            <p className="text-base font-bold">
-              نسبة استدامة المتطوعين
-            </p>
+            <p className="text-base font-bold">نسبة استدامة المتطوعين</p>
             <p className="font-bold text-5xl bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
               34%
             </p>
           </div>
-
-
-
         </div>
       </div>
 

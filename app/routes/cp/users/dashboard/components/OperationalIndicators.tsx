@@ -18,11 +18,11 @@ import { isNumeric } from "~/lib/utils/indicators";
 export default function OperationalIndicator({
   indicators,
   role,
-  logoUrl
+  logoUrl,
 }: {
   indicators: any;
   role: string;
-  logoUrl:string
+  logoUrl: string;
 }) {
   const { isExpanded } = useSidebarStore();
 
@@ -105,15 +105,21 @@ export default function OperationalIndicator({
         isExpanded ? " px-10 2xl:px-14" : " px-20 2xl:px-28"
       )}
     >
-      
-      {role !== "admin" || !isExpanded && (
-        <div className="w-full h-full flex items-center justify-center">
-          <img src={logoUrl??TestingIcon} className="" alt="organization icon" />
-          <div className="flex-1 text-center font-bold text-4xl">
-            لوحة المؤشر التشغيلي
+      {role !== "admin" ||
+        (!isExpanded && (
+          <div className="w-full h-full flex items-center justify-center">
+            <div>
+              <img
+                src={logoUrl ?? TestingIcon}
+                className=""
+                alt="organization icon"
+              />
+            </div>
+            <div className="flex-1 text-center font-bold text-4xl">
+              لوحة المؤشر التشغيلي
+            </div>
           </div>
-        </div>
-      )}
+        ))}
 
       {/* indicators */}
       <div id="main-container" className="flex justify-center  h-full gap-11">
