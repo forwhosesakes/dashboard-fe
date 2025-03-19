@@ -11,11 +11,11 @@ import {
   type DashboardOverviewType,
   type DashboardType,
 } from "~/lib/api/dashboard";
-import { entriesLabels, tabsNames } from "./constants/glossary";
+import {  tabsNames } from "./constants/glossary";
 import DashboardEntries from "./components/DashboardEntries";
 import DashboardHeader from "./components/DashboardHeader";
 import ViewSwitch from "./components/ViewSwitch";
-import { initialValues } from "./constants/initialValues";
+import {  initialValues } from "./constants/initialValues";
 import DashboardIndicators from "./components/DashboardIndicators";
 import { toasts } from "~/lib/utils/toast";
 import { useThemeStore } from "~/lib/store/theme-store";
@@ -89,11 +89,11 @@ const Entries = ({
     children: [],
   });
 
-  const [rawEntriesState,setRawEntriesState]= useState<any>(rawEntries)
+  const [rawEntriesState,setRawEntriesState]= useState<any>(rawEntries??initialValues[currentDashboard])
 
 
   useEffect(()=>{
-    setRawEntriesState(rawEntries)
+    setRawEntriesState(rawEntries??initialValues[currentDashboard])
   },[rawEntries])
 
   useEffect(() => {
@@ -305,11 +305,10 @@ const Entries = ({
                 </>
               ) : (
                 <DashboardIndicators
-                  indicators={{ ...entriesMap, ...indicators }}
-                  type={currentDashboard}
-                  role={"admin"}
-                  logoUrl={logoUrl}
-                />
+                    indicators={{ ...entriesMap, ...indicators }}
+                    type={currentDashboard}
+                    role={"admin"}
+                    logoUrl={logoUrl} isFullscreen={false}                />
               )}
             </div>
           </TabsContent>
