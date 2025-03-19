@@ -82,8 +82,8 @@ const dashboardStatusMap = {
       OPERATIONAL_PERF: "القيادة التنفيذية ",
       ENTERPRISE_COMMUN: "القيادة التنفيذية ",
       FOLLOWUP_BOARD_DECISION: "متابعة تنفيذ قرارات مجلس الإدارة",
-      OPERATIONAL_PLAN_ACHIVMENT_GOALS: "تحقيق المستهدفات",
-      DAILY_OPS_MGMT: "إدارة العمليات اليومية",
+      OPERATIONAL_PLAN_ACHIVMENT_GOALS: " تحقيق المستهدفات التشغيلية",
+      DAILY_OPS_MGMT: "تقييم مجلس الإدارة للمدير التنفيذي",
       FOLLOWUP_EMPS_PERF: "متابعة أداء الموظفين",
     },
     OPERATIONAL: {

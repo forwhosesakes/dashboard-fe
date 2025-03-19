@@ -248,7 +248,8 @@ SUST_TO_TOTAL_EXPENSES:   "تكلفة الاستدامة من إ.المصاري�
     ENTERPRISE_COMMUN: "التواصل المؤسسي",
     FOLLOWUP_BOARD_DECISION: "متابعة تنفيذ قرارات مجلس الإدارة",
     OPERATIONAL_PLAN_ACHIVMENT_GOALS: "تحقيق المستهدفات",
-    DAILY_OPS_MGMT: "إدارة العمليات اليومية",
+    //TODO: ITS THE BOARD STUFF CHANGE IIT LATER
+    DAILY_OPS_MGMT: "تقييم مجلس الإدارة للمدير التنفيذي",
     FOLLOWUP_EMPS_PERF: "متابعة أداء الموظفين",
   },
   OPERATIONAL: {
