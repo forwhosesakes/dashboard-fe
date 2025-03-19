@@ -925,7 +925,7 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
       {
         label: "HAS_ACTIVITIES_OUTSIDE_ADMINISTRATIVE_SCOPE",
         options: [
-          { label: "لا توجد.", weight: 0.5 },
+          { label: "لا توجد.", weight: 0 },
           { label: "نعم", weight: 0, moveToNext: true },
         ],
         isDependantOnPrev: false,
@@ -1227,7 +1227,7 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
           { label: "لا يرأس المشرف المالي اللجنة.", weight: 1 },
           { label: "يرأس المشرف المالي اللجنة.", weight: 0 },
         ],
-        isDependantOnPrev: false,
+        isDependantOnPrev: true,
       },
     ],
   },
