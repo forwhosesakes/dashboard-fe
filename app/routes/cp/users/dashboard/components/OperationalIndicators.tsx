@@ -108,7 +108,7 @@ export default function OperationalIndicator({
       {role !== "admin" ||
         (!isExpanded && (
           <div className="w-full h-full flex items-center justify-center">
-            <div>
+            <div className="max-w-[180px]">
               <img
                 src={logoUrl ?? TestingIcon}
                 className=""
