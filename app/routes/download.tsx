@@ -18,6 +18,7 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
     }
 
     const filename = decodedKey.split("-").slice(1).join("-") || decodedKey;
+    
     const content = await object.blob();
 
     const encodedFilename = encodeURIComponent(filename).replace(/['()]/g, escape);

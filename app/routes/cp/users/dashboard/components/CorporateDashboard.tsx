@@ -6,10 +6,13 @@ import UnderConstructionCard from "~/components/ui/under-construction";
 import GradientText from "~/components/gardient-text";
 import { TrendingUp } from "lucide-react";
 import RatingsGraph from "~/components/ratings-graph";
+import { useSidebarStore } from "~/lib/store/sidebar-store";
 
 interface IProps {
   indicators: any;
   children: React.ReactNode;
+  role: string;
+  logoUrl:string;
 }
 
 const CorporateDashboard = (props: IProps) => {
@@ -96,55 +99,51 @@ const CorporateDashboard = (props: IProps) => {
       id: "BENEF_SATIS_MEASURMENT",
       percentage: Math.round(props.indicators.BENEF_SATIS_MEASURMENT),
       label: indicatorsLabels.CORPORATE.BENEF_SATIS_MEASURMENT,
-   
     },
     {
       id: "EMP_SATIS_MEASURMENT",
       percentage: Math.round(props.indicators.EMP_SATIS_MEASURMENT),
       label: indicatorsLabels.CORPORATE.EMP_SATIS_MEASURMENT,
-  
     },
     {
       id: "PARTENERS_SATIS_MEASURMENT",
-      percentage:99,
+      percentage: 99,
       label: indicatorsLabels.CORPORATE.PARTENERS_SATIS_MEASURMENT,
-
     },
     {
       id: "VOLUN_SATIS_MEASURMENT",
       percentage: 40,
       label: indicatorsLabels.CORPORATE.VOLUN_SATIS_MEASURMENT,
-   
     },
     {
       id: "DONATORS_SATIS_MEASURMENT",
       percentage: Math.round(props.indicators.DONATORS_SATIS_MEASURMENT),
       label: indicatorsLabels.CORPORATE.DONATORS_SATIS_MEASURMENT,
-    
     },
     {
       id: "ADMIN_ORG_SATIS_MEASURMENT",
       percentage: Math.round(props.indicators.ADMIN_ORG_SATIS_MEASURMENT),
       label: indicatorsLabels.CORPORATE.ADMIN_ORG_SATIS_MEASURMENT,
-   
     },
     {
       id: "COMMUNITY_SATIS_MEASURMENT",
-      percentage:  Math.round(props.indicators.COMMUNITY_SATIS_MEASURMENT),
+      percentage: Math.round(props.indicators.COMMUNITY_SATIS_MEASURMENT),
       label: indicatorsLabels.CORPORATE.COMMUNITY_SATIS_MEASURMENT,
-  
     },
   ];
 
+  const { isExpanded } = useSidebarStore();
   return (
     <section className="px-24">
       <div className="flex flex-col gap-y-8">
-     
         <div className="flex mt-12 gap-10">
           <div className="w-full flex items-center flex-col">
-            <div className="flex mb-12">
-              <h4>الأداء المؤسسي </h4>
-            </div>
+            {props.role !== "admin" ||
+              (!isExpanded && (
+                <div className="flex mb-12">
+                  <h4>الأداء المؤسسي </h4>
+                </div>
+              ))}
 
             <div className="flex flex-wrap gap-5 w-full justify-between rounded-lg mb-12">
               {firstRowMainIndicators.map((indicator) => (
@@ -176,49 +175,47 @@ const CorporateDashboard = (props: IProps) => {
             </div>
 
             <div className="flex flex-wrap items-center gap-5 w-full">
-  {empPerformance.map((card) => (
-    <div 
-      key={card.key}
-      className="border-2 border-[#9C9C9C] flex flex-col items-end rounded-xl p-3 gap-2"
-      style={{ width: 'calc(33.333% - 1.25rem)' }} 
-    >
-      {props.indicators[card.key] == null ||
-      props.indicators[card.key] == "NaN" ? (
-        <UnderConstructionCard />
-      ) : (
-        <>
-          <div className="border w-fit p-1 mb-5 flex justify-center items-center gap-1 text-xs rounded-lg">
-            {" "}
-            {"آخر ثلاث شهور"}
-            <TrendingUp className="w-4 text-green-600" />{" "}
-          </div>
-          {" "}
-          <h5 className="text-sm 2xl:text-lg w-full text-center font-bold text-white">
-            {
-              indicatorsLabels.CORPORATE[
-                card.key as keyof typeof indicatorsLabels.CORPORATE
-              ]
-            }
-          </h5>
-          <GradientText
-          gradientStart={card.gradientStart}
-          gradientEnd={card.gradientEnd}
-            text={`${Number(props.indicators[card.key]).toFixed(1)}%`}
-            className="text-5xl 2xl:text-5xl w-full text-center font-bold"
-          />
-        </>
-      )}
-    </div>
-  ))}
-</div>
+              {empPerformance.map((card) => (
+                <div
+                  key={card.key}
+                  className="border-2 border-[#9C9C9C] flex flex-col items-end rounded-xl p-3 gap-2"
+                  style={{ width: "calc(33.333% - 1.25rem)" }}
+                >
+                  {props.indicators[card.key] == null ||
+                  props.indicators[card.key] == "NaN" ? (
+                    <UnderConstructionCard />
+                  ) : (
+                    <>
+                      <div className="border w-fit p-1 mb-5 flex justify-center items-center gap-1 text-xs rounded-lg">
+                        {" "}
+                        {"آخر ثلاث شهور"}
+                        <TrendingUp className="w-4 text-green-600" />{" "}
+                      </div>{" "}
+                      <h5 className="text-sm 2xl:text-lg w-full text-center font-bold text-white">
+                        {
+                          indicatorsLabels.CORPORATE[
+                            card.key as keyof typeof indicatorsLabels.CORPORATE
+                          ]
+                        }
+                      </h5>
+                      <GradientText
+                        gradientStart={card.gradientStart}
+                        gradientEnd={card.gradientEnd}
+                        text={`${Number(props.indicators[card.key]).toFixed(
+                          1
+                        )}%`}
+                        className="text-5xl 2xl:text-5xl w-full text-center font-bold"
+                      />
+                    </>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
- 
-
         <div className="pl-4">
-
-          <RatingsGraph ratings={satisInds}/>
+          <RatingsGraph ratings={satisInds} />
         </div>
       </div>
     </section>

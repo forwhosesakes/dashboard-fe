@@ -27,16 +27,27 @@ import {
   createOperationalTemplate,
 } from "./initialTemplates";
 import { useSidebarStore } from "~/lib/store/sidebar-store";
+import { OrganizationsAPI } from "~/services/org";
+import type { TOrganization } from "~/types/users.types";
+
 
 export const loader = async ({ context, params }: LoaderFunctionArgs) => {
   let { id, dashboardType } = params;
+const serverUrl = context.cloudflare.env.BASE_URL
+ const response = await OrganizationsAPI.getById(Number(id),serverUrl)
+ if (response.status !== "success") {
+  throw new Error(response.message);
+}
+const responseData = response.data as TOrganization;
+const logoName =JSON.parse(responseData["logo"])[0]
+const publicLogoUrl = `https://pub-78d8970765b1464a831d610935e4371c.r2.dev/${logoName}` 
 
   const {entriesMap,rawEntries} = await dashboardApi(
-    context.cloudflare.env.BASE_URL
+    serverUrl
   ).getEntries(`${id}`, (dashboardType as DashboardType) ?? "GENERAL");
 
   const indicators = await dashboardApi(
-    context.cloudflare.env.BASE_URL
+    serverUrl
   ).getIndicators(`${id}`, (dashboardType as DashboardType) ?? "GENERAL");
 
   return {
@@ -44,8 +55,9 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
     rawEntries: rawEntries?.length ? rawEntries[0] : null,
     indicators: indicators?.length ? indicators[0] : null,
     currentDashboard: dashboardType,
-    baseUrl: context.cloudflare.env.BASE_URL,
+    baseUrl: serverUrl,
     id,
+    logoUrl:publicLogoUrl
   };
 };
 
@@ -54,13 +66,14 @@ const Entries = ({
 }: {
   currentIndicator: { name: string };
 }) => {
-  const { rawEntries,entriesMap, indicators, currentDashboard, baseUrl, id } = useLoaderData<{
+  const { rawEntries,entriesMap, indicators, currentDashboard, logoUrl, baseUrl, id } = useLoaderData<{
     currentDashboard: DashboardType;
     baseUrl: string;
     id: string;
     indicators: any[];
     rawEntries: any;
-    entriesMap:any
+    entriesMap:any;
+    logoUrl:string
   }>();
 
   
@@ -294,6 +307,8 @@ const Entries = ({
                 <DashboardIndicators
                   indicators={{ ...entriesMap, ...indicators }}
                   type={currentDashboard}
+                  role={"admin"}
+                  logoUrl={logoUrl}
                 />
               )}
             </div>

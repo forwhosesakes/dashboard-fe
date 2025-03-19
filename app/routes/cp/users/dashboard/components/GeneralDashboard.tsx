@@ -17,8 +17,10 @@ import { useEffect } from "react";
 interface IProps {
   indicators: any;
   category: string;
+  role:string
+  logoUrl:string;
 }
-const GeneralDashboard = ({ indicators }: IProps) => {
+const GeneralDashboard = ({ indicators, role, logoUrl }: IProps) => {
  
   const cards = [
     // {
@@ -115,12 +117,15 @@ const GeneralDashboard = ({ indicators }: IProps) => {
         isExpanded ? "xl:px-0" : "xl:px-[50px]"
       )}
     >
-      <div className="w-full h-full flex items-center justify-center">
-        <img src={TestingIcon} className="" alt="organization icon" />
+      {role !== "admin" || !isExpanded && (
+        <div className="w-full h-full flex items-center justify-center">
+        <img src={logoUrl??TestingIcon} className="" alt="organization icon" />
         <div className="flex-1 text-center font-bold text-4xl">
           لوحة الأداء العام
         </div>
       </div>
+      )}
+      
 
       {/* section has everything except the chart */}
       <div className="flex gap-7">
