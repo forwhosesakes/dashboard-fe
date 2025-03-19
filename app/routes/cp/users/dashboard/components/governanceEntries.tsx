@@ -40,8 +40,6 @@ const GovernanceEntries = () => {
   const [responses, setResponses] = useState<Record<string, any>>({});
   const [isFormMode, triggerFormMode] = useReducer((st) => !st, false);
   const [isLoading, setIsLoading] = useState(false);
-  const [showValidation, setShowValidation] = useState(false);
-  // State to track expanded/collapsed state of each indicator and question
   const [expandedIndicators, setExpandedIndicators] = useState<Record<number, boolean>>({});
   const [expandedQuestions, setExpandedQuestions] = useState<Record<string, boolean>>({});
 
@@ -72,6 +70,8 @@ const GovernanceEntries = () => {
   };
 
   const handleResponse = (sectionId: any, questionLabel: any, value: any) => {
+    console.log("handle response", responses);
+    
     setResponses((prev: any) => ({
       ...prev,
       [questionLabel]: value,
@@ -197,14 +197,18 @@ const GovernanceEntries = () => {
 
 
   useEffect(()=>{
+    setResponses({})
     dashboardApi(baseUrl).getGovernanceEntries(id,govTab).then((res)=>{
       if(res){
       const {records, total}= res
       if(records){
+
         setResponses(JSON.parse(records))
       }
       }
-    }).catch(()=>{})
+    }).catch(()=>{
+      setResponses({})
+    })
   },[govTab])
 
   return (
