@@ -119,10 +119,10 @@ const GeneralDashboard = ({ indicators, role, logoUrl }: IProps) => {
       {role !== "admin" ||
         (!isExpanded && (
           <div className="w-full h-full flex items-center justify-center">
-            <div className="max-w-[180px]">
+            <div className="max-w-[180px] w-full">
               <img
                 src={logoUrl ?? TestingIcon}
-                className=""
+                className="w-full h-auto object-contain"
                 alt="organization icon"
               />
             </div>
