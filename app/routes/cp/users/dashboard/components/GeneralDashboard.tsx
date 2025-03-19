@@ -35,12 +35,14 @@ const GeneralDashboard = ({ indicators, role, logoUrl }: IProps) => {
       },
       {
         id: "PARTENERS_SATIS_MEASURMENT",
-        percentage: 99,
+        percentage: Math.round(indicators.PARTENERS_SATIS_MEASURMENT),
+
         label: indicatorsLabels.CORPORATE.PARTENERS_SATIS_MEASURMENT,
       },
       {
         id: "VOLUN_SATIS_MEASURMENT",
-        percentage: 40,
+        percentage: Math.round(indicators.VOLUN_SATIS_MEASURMENT),
+
         label: indicatorsLabels.CORPORATE.VOLUN_SATIS_MEASURMENT,
       },
       {

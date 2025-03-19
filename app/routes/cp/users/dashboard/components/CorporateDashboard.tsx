@@ -107,12 +107,14 @@ const CorporateDashboard = (props: IProps) => {
     },
     {
       id: "PARTENERS_SATIS_MEASURMENT",
-      percentage: 99,
+      percentage: Math.round(props.indicators.PARTENERS_SATIS_MEASURMENT),
+
       label: indicatorsLabels.CORPORATE.PARTENERS_SATIS_MEASURMENT,
     },
     {
       id: "VOLUN_SATIS_MEASURMENT",
-      percentage: 40,
+      percentage: Math.round(props.indicators.VOLUN_SATIS_MEASURMENT),
+
       label: indicatorsLabels.CORPORATE.VOLUN_SATIS_MEASURMENT,
     },
     {
