@@ -13,6 +13,7 @@ import SemiCircleProgress from "~/components/ui/semi-circle-progress";
 import SRIcon from "~/assets/icons/SR.svg";
 import { Progress } from "~/components/ui/progress";
 import { useEffect } from "react";
+import RatingsGraph from "~/components/ratings-graph";
 
 interface IProps {
   indicators: any;
@@ -21,6 +22,43 @@ interface IProps {
   logoUrl: string;
 }
 const GeneralDashboard = ({ indicators, role, logoUrl }: IProps) => {
+    const satisInds = [
+      {
+        id: "BENEF_SATIS_MEASURMENT",
+        percentage: Math.round(indicators.BENEF_SATIS_MEASURMENT),
+        label: indicatorsLabels.CORPORATE.BENEF_SATIS_MEASURMENT,
+      },
+      {
+        id: "EMP_SATIS_MEASURMENT",
+        percentage: Math.round(indicators.EMP_SATIS_MEASURMENT),
+        label: indicatorsLabels.CORPORATE.EMP_SATIS_MEASURMENT,
+      },
+      {
+        id: "PARTENERS_SATIS_MEASURMENT",
+        percentage: 99,
+        label: indicatorsLabels.CORPORATE.PARTENERS_SATIS_MEASURMENT,
+      },
+      {
+        id: "VOLUN_SATIS_MEASURMENT",
+        percentage: 40,
+        label: indicatorsLabels.CORPORATE.VOLUN_SATIS_MEASURMENT,
+      },
+      {
+        id: "DONATORS_SATIS_MEASURMENT",
+        percentage: Math.round(indicators.DONATORS_SATIS_MEASURMENT),
+        label: indicatorsLabels.CORPORATE.DONATORS_SATIS_MEASURMENT,
+      },
+      {
+        id: "ADMIN_ORG_SATIS_MEASURMENT",
+        percentage: Math.round(indicators.ADMIN_ORG_SATIS_MEASURMENT),
+        label: indicatorsLabels.CORPORATE.ADMIN_ORG_SATIS_MEASURMENT,
+      },
+      {
+        id: "COMMUNITY_SATIS_MEASURMENT",
+        percentage: Math.round(indicators.COMMUNITY_SATIS_MEASURMENT),
+        label: indicatorsLabels.CORPORATE.COMMUNITY_SATIS_MEASURMENT,
+      },
+    ];
   const cards = [
     // {
     //   label: "GENERAL_PERFORMANCE",
@@ -139,16 +177,17 @@ const GeneralDashboard = ({ indicators, role, logoUrl }: IProps) => {
           {/* right-side first row */}
           <div className="flex gap-11 justify-between">
             <div className="flex flex-col justify-between max-w-[137px] gap-3 pb-4 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#FBE947] after:to-[#58D764]">
-              <p className="font-bold text-base">فياس رضا المستفيدين</p>
+              <p className="font-bold text-base">متوسط قياس رضا</p>
               <p className="font-bold text-5xl bg-gradient-to-r from-[#FBE947] to-[#58D764] bg-clip-text text-transparent">
-                12%
+               {Math.round(indicators.AVG_SATIS_MEASURMENT)}%
               </p>
             </div>
 
             <div className="flex flex-col justify-between max-w-[137px] gap-3 pb-4 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#1882FF] after:to-[#36EBCA]">
               <p className="font-bold text-base">أداء المدير التنفيذي</p>
               <p className="font-bold text-5xl bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
-                12%
+              {Math.round(indicators.CEO_PERFORMANCE)}%
+
               </p>
             </div>
 
@@ -157,28 +196,32 @@ const GeneralDashboard = ({ indicators, role, logoUrl }: IProps) => {
                 الاستدامة المالية وقف استثمار
               </p>
               <p className="font-bold text-5xl bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">
-                12%
+              {Math.round(indicators.FINANCIAL_SUSTAIN)}%
+             
               </p>
             </div>
 
             <div className="flex flex-col justify-between max-w-[137px] gap-3 pb-4 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#1882FF] after:to-[#36EBCA]">
               <p className="font-bold text-base">المصاريف الإدارية والعمومية</p>
               <p className="font-bold text-5xl bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
-                12%
+              {Math.round(indicators.ADMIN_EXPENSES)}%
+
               </p>
             </div>
 
             <div className="flex flex-col justify-between max-w-[137px] gap-3 pb-4 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#FBE947] after:to-[#58D764]">
               <p className="font-bold text-base">مصاريف البرامج والأنشطة</p>
               <p className="font-bold text-5xl bg-gradient-to-r from-[#FBE947] to-[#58D764] bg-clip-text text-transparent">
-                12%
+              {Math.round(indicators.PRGRMS_EXPENSES)}%
+
               </p>
             </div>
 
             <div className="flex flex-col justify-between max-w-[137px] gap-3 pb-4 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#EF7BE3] after:to-[#FF5A5A]">
-              <p className="font-bold text-base">مؤشر الأداء الوظيفي</p>
+              <p className="font-bold text-base"> العائد الاقتصادي للتطوع </p>
               <p className="font-bold text-5xl bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">
-                12%
+              {Math.round(indicators.ECONOMIC_RETURN_OF_VOLUNTEERING)}%
+
               </p>
             </div>
           </div>
@@ -193,13 +236,17 @@ const GeneralDashboard = ({ indicators, role, logoUrl }: IProps) => {
 
               <div className="flex flex-col gap-6 max-w-[176px] text-start min-w-[132px]">
                 <p className="font-bold text-base">الأداء المالي الكلي</p>
-                <p className="text-5xl font-bold text-[#D9B456]">45%</p>
+                <p className="text-5xl font-bold text-[#D9B456]">
+                {Math.round(indicators.FINANCIAL_PERF)}%
+
+
+                </p>
               </div>
 
               <div>
                 <CircularProgressBar
                   gradientId="1"
-                  progress={45}
+                  progress={Math.round(indicators.FINANCIAL_PERF)}
                   size="sm"
                   gradientStart="#D9B456"
                   gradientEnd="#D9B456"
@@ -217,15 +264,19 @@ const GeneralDashboard = ({ indicators, role, logoUrl }: IProps) => {
 
               <div className="flex flex-col gap-6 text-start max-w-[176px] min-w-[132px]">
                 <p className="font-bold text-base">
-                  النقد وما في حكمه إلى صافي الأصول والالتزامات
+الحوكمة
                 </p>
-                <p className="text-5xl font-bold text-[#FF0080]">45%</p>
+                <p className="text-5xl font-bold text-[#FF0080]">
+
+                {Math.round(indicators.GOVERENCE)}%
+
+                </p>
               </div>
 
               <div>
                 <CircularProgressBar
                   gradientId="2"
-                  progress={45}
+                  progress={Math.round(indicators.GOVERENCE)}
                   size="sm"
                   gradientStart="#FF0080"
                   gradientEnd="#FF0080"
@@ -238,7 +289,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl }: IProps) => {
 
           {/* right-side third row */}
           <div className="flex gap-4 w-full">
-            <div className=" flex flex-col min-w-[232px] items-center justify-center gap-2 p-5 border-2 border-[#9C9C9C] rounded-xl">
+            {/* <div className=" flex flex-col min-w-[232px] items-center justify-center gap-2 p-5 border-2 border-[#9C9C9C] rounded-xl">
               <div className="flex w-fit h-fit self-end justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
                 آخر ثلاث شهور{" "}
                 <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
@@ -258,7 +309,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl }: IProps) => {
                   textSize="4xl"
                 />
               </div>
-            </div>
+            </div> */}
 
             <div className=" flex flex-col min-w-[232px] items-center justify-center gap-2 p-5 border-2 border-[#9C9C9C] rounded-xl">
               <div className="flex w-fit h-fit self-end justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
@@ -271,7 +322,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl }: IProps) => {
 
               <div>
                 <SemiCircleProgress
-                  percentage={80}
+                  percentage={Math.round(indicators.ABL_COVER_OBLIG)}
                   size={180}
                   useGradient={true}
                   gradientId="4"
@@ -288,12 +339,13 @@ const GeneralDashboard = ({ indicators, role, logoUrl }: IProps) => {
                 <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
               </div>
               <p className="text-base font-bold">
-                المصاريف الإدارية والعمومية والحوكمة
+نسبة تنفيذ البرامج والمشاريع
               </p>
 
               <div>
                 <SemiCircleProgress
-                  percentage={80}
+                 percentage={Math.round(indicators.PGRM_PRJKS_EXEC_PERC)}
+
                   size={180}
                   useGradient={true}
                   gradientId="5"
@@ -304,13 +356,13 @@ const GeneralDashboard = ({ indicators, role, logoUrl }: IProps) => {
               </div>
             </div>
 
-            <div className="flex flex-col w-1/5 justify-center items-center gap-6 p-5 border-2 border-[#9C9C9C] rounded-xl">
+            <div className="flex flex-col  w-full justify-center items-center gap-6 p-5 border-2 border-[#9C9C9C] rounded-xl">
               <div className="flex justify-center">
                 <img src={SRIcon} alt="" />
               </div>
               <div className="text-center">
-                <p className="font-bold text-5xl">50%</p>
-                <p className="font-bold">جمع الأموال والتبرعات</p>
+                <p className="font-bold text-5xl">{Math.round(indicators.FUND_RAISING_TO_TOTAL_DONAT)}%</p>
+                <p className="font-bold"> مصاريف جمع الأموال إلى اجمالي التبرعات</p>
               </div>
               <Progress
                 value={50}
@@ -334,7 +386,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl }: IProps) => {
               <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
             </div>
             <p className="text-base font-bold">نسبة استدامة المتطوعين</p>
-            <p className="font-bold text-5xl text-[#F7E706]">34%</p>
+            <p className="font-bold text-5xl text-[#F7E706]">{Math.round(indicators.VOLUN_SUST_PERC)}%</p>
           </div>
 
           <div className="flex flex-col gap-4 p-5 border-2 border-[#9C9C9C] rounded-xl">
@@ -342,9 +394,9 @@ const GeneralDashboard = ({ indicators, role, logoUrl }: IProps) => {
               آخر ثلاث شهور{" "}
               <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
             </div>
-            <p className="text-base font-bold">نسبة استدامة المتطوعين</p>
+            <p className="text-base font-bold">معدل النمو الربعي للمتطوعين  </p>
             <p className="font-bold text-5xl bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">
-              34%
+            {Math.round(indicators.VOLUN_GROWTH_RATE_QUAR)}%
             </p>
           </div>
 
@@ -353,16 +405,19 @@ const GeneralDashboard = ({ indicators, role, logoUrl }: IProps) => {
               آخر ثلاث شهور{" "}
               <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
             </div>
-            <p className="text-base font-bold">نسبة استدامة المتطوعين</p>
+            <p className="text-base font-bold"> نسبة الوصول للفئة المستهدفة </p>
             <p className="font-bold text-5xl bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
-              34%
+            {Math.round(indicators.REACH_TARGET_AUD_PERC)}%
+            
             </p>
           </div>
         </div>
       </div>
 
       {/* TODO: chart section */}
-      <div></div>
+      <div className="pl-4">
+          <RatingsGraph ratings={satisInds} />
+        </div>
     </section>
   );
 };
