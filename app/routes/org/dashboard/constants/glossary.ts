@@ -85,6 +85,8 @@ const dashboardStatusMap = {
       OPERATIONAL_PLAN_ACHIVMENT_GOALS: " تحقيق المستهدفات التشغيلية",
       DAILY_OPS_MGMT: "تقييم مجلس الإدارة للمدير التنفيذي",
       FOLLOWUP_EMPS_PERF: "متابعة أداء الموظفين",
+    EMP_TRAINING_INDICATOR:"مؤشر تدريب الموظفين",
+
     },
     OPERATIONAL: {
   

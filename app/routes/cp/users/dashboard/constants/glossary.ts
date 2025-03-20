@@ -244,6 +244,8 @@ SUST_TO_TOTAL_EXPENSES:   "تكلفة الاستدامة من المصاريف",
     ADMIN_ORG_SATIS_MEASURMENT: "رضا الجمعية العمومية ومجلس الإدارة ",
     COMMUNITY_SATIS_MEASURMENT: "رضا المجتمع والصورة الذهنية",
     EXEC_LEADERSHIP: "القيادة التنفيذية ",
+    EMP_TRAINING_INDICATOR:"مؤشر تدريب الموظفين",
+
     OPERATIONAL_PERF: "الأداء التشغيلي",
     ENTERPRISE_COMMUN: "التواصل المؤسسي",
     FOLLOWUP_BOARD_DECISION: "متابعة تنفيذ قرارات مجلس الإدارة",

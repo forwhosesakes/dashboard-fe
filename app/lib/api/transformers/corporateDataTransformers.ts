@@ -46,13 +46,35 @@ export function transformCorporateEntries(
                       value: null,
                       children: {
                         TOTAL_FORMS_GRADES,
+
                         NO_GRADES_BENEFITS_SATISF,
+                        NO_RESPONSES_SATIS_FORM,
+
+
                         TOTAL_GRADES_EMP_SATIS,
+                        NO_RESPONSES_EMP_SATIS,
+
+
                         TOTAL_GEADES_PARTENERS_SATIS,
+                        NO_RESPONSES_PARTERS_FORM,
+
+
                         TOTAL_GRADES_VOL_SATIS,
+                        NO_RESPOSES_VOL_SATIS_FORM,
+
                         TOTAL_GRADES_DONAT_STATIS,
+                        NO_RESPONSES_DONAT_SATIS_FORM,
+
+
                         TOTAL_SATIS_GRADES_ORG,
+                        NO_ORG_MEMBERS,
+
+
                         TOTAL_GRADES_COM,
+                        NO_RESPONSES_COM_SATIS,
+
+
+
                         TOTAL_ASSIGNED_TASKS_DURING_PERIOD,
                         TOTAL_COMPLETED_TASKS_DURING_PERIOD,
                         TOTAL_WORKING_DAYS,
@@ -60,12 +82,6 @@ export function transformCorporateEntries(
                         PERC_COMMIT_WORK_HOURS,
                         NO_PLANNED_PRACTICES,
                         NO_EXE_PRACTICES,
-                        NO_RESPONSES_SATIS_FORM,
-                        NO_RESPONSES_EMP_SATIS,
-                        NO_RESPONSES_PARTERS_FORM,
-                        NO_RESPOSES_VOL_SATIS_FORM,
-                        NO_RESPONSES_DONAT_SATIS_FORM,
-                        NO_ORG_MEMBERS,NO_RESPONSES_COM_SATIS,
                         TOTAL_DECISIONS_BY_CEO,
                         TOTAL_EXECUTED_DECISIONS,
                         TOTAL_PLANNED_PROGRAMS,
