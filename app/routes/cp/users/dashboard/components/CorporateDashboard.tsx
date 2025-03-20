@@ -157,7 +157,7 @@ const CorporateDashboard = (props: IProps) => {
             <div className="flex flex-wrap gap-5 w-full justify-between rounded-lg mb-12">
               {firstRowMainIndicators.map((indicator) => (
                 <div className="flex-1" key={indicator.key}>
-                  <p className="text-md font-bold mb-2">
+                  <p className="text-base font-bold mb-2">
                     {
                       //@ts-ignore
                       indicatorsLabels.CORPORATE[indicator.key]
@@ -165,7 +165,7 @@ const CorporateDashboard = (props: IProps) => {
                   </p>
 
                   <GradientText
-                    className="text-4xl"
+                    className="text-5xl"
                     text={`${Number(props.indicators[indicator.key]).toFixed(
                       2
                     )}%`}
@@ -203,7 +203,7 @@ const CorporateDashboard = (props: IProps) => {
               {"آخر ثلاث شهور"}
               <TrendingUp className="w-4 text-green-600" />{" "}
             </div>{" "}
-            <h5 className="text-sm 2xl:text-lg w-full text-center font-bold text-white">
+            <h5 className="text-base w-full text-center font-bold text-white">
               {
                 indicatorsLabels.CORPORATE[
                   card.key as keyof typeof indicatorsLabels.CORPORATE
@@ -216,7 +216,7 @@ const CorporateDashboard = (props: IProps) => {
               text={`${Number(props.indicators[card.key]).toFixed(
                 1
               )}%`}
-              className="text-5xl 2xl:text-5xl w-full text-center font-bold"
+              className="text-5xl w-full text-center font-bold"
             />
           </>
         )}
@@ -242,7 +242,7 @@ const CorporateDashboard = (props: IProps) => {
               {"آخر ثلاث شهور"}
               <TrendingUp className="w-4 text-green-600" />{" "}
             </div>{" "}
-            <h5 className="text-sm 2xl:text-lg w-full text-center font-bold text-white">
+            <h5 className="text-base w-full text-center font-bold text-white">
               {
                 indicatorsLabels.CORPORATE[
                   card.key as keyof typeof indicatorsLabels.CORPORATE
@@ -255,7 +255,7 @@ const CorporateDashboard = (props: IProps) => {
               text={`${Number(props.indicators[card.key]).toFixed(
                 1
               )}%`}
-              className="text-5xl 2xl:text-5xl w-full text-center font-bold"
+              className="text-5xl w-full text-center font-bold"
             />
           </>
         )}

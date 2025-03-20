@@ -110,7 +110,6 @@ const Org = () => {
       <div className="flex justify-between p-5">
         <div>
           <h5>{`المؤشرات`}</h5>
-          <p className="text-primary-foreground/75">{`اختر خطة حساب تناسب سير عملك.`}</p>
         </div>
       </div>
 

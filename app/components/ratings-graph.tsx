@@ -153,7 +153,7 @@ const RatingsGraph = (props: IProps) => {
   }, [props.ratings]); 
 
   return (
-    <div className="border-[#9C9C9C] cursor-pointer border-2 rounded-lg p-5 pt-16 relative overflow-hidden">
+    <div className="border-[#9C9C9C] w-full cursor-pointer border-2 rounded-lg p-5 pt-16 relative overflow-hidden">
       <style>{`
         @keyframes fadeInScale {
           0% { opacity: 0; transform: scale(0); }
@@ -242,7 +242,7 @@ const RatingsGraph = (props: IProps) => {
             return (
               <div
                 key={`cell-${rowIndex}-${colIndex}-${animationKey}`}
-                className="flex flex-col justify-center items-center h-8 indicator-container"
+                className="flex flex-col justify-center items-center pt-8 h-8 indicator-container"
                 style={{ gridRow: rowIndex + 1, gridColumn: colIndex + 1 }}
               >
                 {cell && <IndicatorIcon key={`icon-${animationKey}`} rating={cell.rating} delay={iconDelay} />}
@@ -257,7 +257,7 @@ const RatingsGraph = (props: IProps) => {
                 {cell?.label && (
                   <div 
                     key={`label-${animationKey}`}
-                    className="font-medium text-center mb-8 text-sm w-32 opacity-0 indicator-label"
+                    className="font-medium text-center mb-8 text-base w-32 opacity-0 indicator-label"
                     style={{
                       animation: `fadeIn 0.5s ease-out ${labelDelay}s forwards`,
                       transition: "all 0.3s ease",
