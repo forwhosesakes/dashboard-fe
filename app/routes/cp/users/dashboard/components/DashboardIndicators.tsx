@@ -15,15 +15,15 @@ interface IProps {
 const DashboardIndicators = (props: IProps) => {
   switch (props.type) {
     case "OPERATIONAL":
-      return  <OperationalIndicator logoUrl={props.logoUrl}  role={props.role} indicators={props.indicators}/>
+      return  <OperationalIndicator isFullscreen={props.isFullscreen} logoUrl={props.logoUrl}  role={props.role} indicators={props.indicators}/>
 
     case "GENERAL":
-      return <GeneralDashboard logoUrl={props.logoUrl} role={props.role}  indicators={props.indicators} category={""}/>
+      return <GeneralDashboard isFullscreen={props.isFullscreen} logoUrl={props.logoUrl} role={props.role}  indicators={props.indicators} category={""}/>
     case "FINANCIAL":
-      return <FinancialDashboard logoUrl={props.logoUrl} role={props.role} indicators={props.indicators} />
+      return <FinancialDashboard isFullscreen={props.isFullscreen} logoUrl={props.logoUrl} role={props.role} indicators={props.indicators} />
     case "CORPORATE":
       return (
-        <CorporateDashboard logoUrl={props.logoUrl} role={props.role}  indicators={props.indicators}>
+        <CorporateDashboard isFullscreen={props.isFullscreen} logoUrl={props.logoUrl} role={props.role}  indicators={props.indicators}>
           {" "}
           CORPORATE dashboard indicators{" "}
         </CorporateDashboard>

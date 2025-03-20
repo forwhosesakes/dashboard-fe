@@ -195,35 +195,36 @@ const Entries = ({
     }
   };
 
-  const { isExpanded, toggleSidebar, setSidebarState } = useSidebarStore();
   const [isFullscreen, setIsFullscreen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   useEffect(() => {
     const handleFullscreenChange = () => {
-      if (!document.fullscreenElement && isFullscreen) {
-        setIsFullscreen(false);
-        toggleSidebar();
+      if (!document.fullscreenElement ) {
+        setIsFullscreen(false)
+        
+      }else{
+        setIsFullscreen(true)
+        
       }
     };
-
     document.addEventListener('fullscreenchange', handleFullscreenChange);
     
     return () => {
       document.removeEventListener('fullscreenchange', handleFullscreenChange);
     };
-  }, [isFullscreen, toggleSidebar]);
+  }, []);
   
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
       containerRef.current
         ?.requestFullscreen()
-        .then(() => {setIsFullscreen(true); toggleSidebar(); })
+        .then(() => {setIsFullscreen(true);})
         .catch((err) => console.error("Error entering fullscreen"));
     } else {
       document
         .exitFullscreen()
-        .then(() => {setIsFullscreen(false); toggleSidebar();})
+        .then(() => {setIsFullscreen(false);})
         .catch((err) => console.error("Error exiting fullscreen"));
     }
   };
@@ -308,7 +309,9 @@ const Entries = ({
                     indicators={{ ...entriesMap, ...indicators }}
                     type={currentDashboard}
                     role={"admin"}
-                    logoUrl={logoUrl} isFullscreen={false}                />
+                    logoUrl={logoUrl} 
+                    isFullscreen={isFullscreen}
+                    />
               )}
             </div>
           </TabsContent>

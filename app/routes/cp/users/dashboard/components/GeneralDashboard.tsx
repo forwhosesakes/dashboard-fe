@@ -20,8 +20,9 @@ interface IProps {
   category: string;
   role: string;
   logoUrl: string;
+  isFullscreen:boolean;
 }
-const GeneralDashboard = ({ indicators, role, logoUrl }: IProps) => {
+const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) => {
     const satisInds = [
       {
         id: "BENEF_SATIS_MEASURMENT",
@@ -156,8 +157,8 @@ const GeneralDashboard = ({ indicators, role, logoUrl }: IProps) => {
         isExpanded ? "xl:px-0" : "xl:px-[50px]"
       )}
     >
-      {role !== "admin" ||
-        (!isExpanded && (
+      {(role !== "admin" || isFullscreen||!isExpanded) &&
+         (
           <div className="w-full h-full flex items-center justify-center">
             <div className="max-w-[180px] w-full">
               <img
@@ -170,7 +171,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl }: IProps) => {
               لوحة الأداء العام
             </div>
           </div>
-        ))}
+        )}
 
       {/* section has everything except the chart */}
       <div className="flex gap-7">

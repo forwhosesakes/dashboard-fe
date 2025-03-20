@@ -19,10 +19,12 @@ export default function OperationalIndicator({
   indicators,
   role,
   logoUrl,
+  isFullscreen
 }: {
   indicators: any;
   role: string;
   logoUrl: string;
+  isFullscreen:boolean
 }) {
   const { isExpanded } = useSidebarStore();
 
@@ -105,8 +107,8 @@ export default function OperationalIndicator({
         isExpanded ? " px-10 2xl:px-14" : " px-20 2xl:px-28"
       )}
     >
-      {role !== "admin" ||
-        (!isExpanded && (
+      {(role !== "admin" || isFullscreen || !isExpanded)
+         && (
           <div className="w-full h-full flex items-center justify-center">
             <div className="max-w-[180px] w-full">
               <img
@@ -119,7 +121,7 @@ export default function OperationalIndicator({
               لوحة المؤشر التشغيلي
             </div>
           </div>
-        ))}
+        )}
 
       {/* indicators */}
       <div id="main-container" className="flex justify-center  h-full gap-11">

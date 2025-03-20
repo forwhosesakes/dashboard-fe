@@ -36,6 +36,7 @@ interface IProps {
   indicators: any;
   role: string;
   logoUrl:string;
+  isFullscreen:boolean;
 }
 
 const FinancialDashboard = (props: IProps) => {
@@ -50,7 +51,7 @@ const FinancialDashboard = (props: IProps) => {
           : "gap-8 xl:pl-16 xl:pr-24 2xl:pr-32"
       )}
     >
-      {props.role !== "admin" || !isExpanded && (
+      {(props.role !== "admin" || !isExpanded || props.isFullscreen) && (
         <div className="w-full lg:w-60 flex flex-col">
           <div className="">
             {/* https://pub-78d8970765b1464a831d610935e4371c.r2.dev/1740233226681-2e73150c0ab935904bcecca40118e54e%20(1).jpeg */}

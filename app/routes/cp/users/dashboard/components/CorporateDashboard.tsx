@@ -13,6 +13,7 @@ interface IProps {
   children: React.ReactNode;
   role: string;
   logoUrl:string;
+  isFullscreen:boolean;
 }
 
 const CorporateDashboard = (props: IProps) => {
@@ -146,12 +147,12 @@ const CorporateDashboard = (props: IProps) => {
       <div className="flex flex-col gap-y-8">
         <div className="flex mt-12 gap-10">
           <div className="w-full flex items-center flex-col">
-            {props.role !== "admin" ||
-              (!isExpanded && (
+            {(props.role !== "admin" ||props.isFullscreen||!isExpanded )&&
+               (
                 <div className="flex mb-12">
                   <h4>الأداء المؤسسي </h4>
                 </div>
-              ))}
+              )}
 
             <div className="flex flex-wrap gap-5 w-full justify-between rounded-lg mb-12">
               {firstRowMainIndicators.map((indicator) => (
