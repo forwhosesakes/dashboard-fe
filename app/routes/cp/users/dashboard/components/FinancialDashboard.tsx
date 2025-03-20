@@ -51,7 +51,7 @@ const FinancialDashboard = (props: IProps) => {
           : "gap-8 xl:pl-16 xl:pr-24 2xl:pr-32"
       )}
     >
-      {(props.role !== "admin" || !isExpanded || props.isFullscreen) && (
+      {(props.role !== "admin" || props.isFullscreen) && (
         <div className="w-full lg:w-60 flex flex-col">
           <div className="">
             {/* https://pub-78d8970765b1464a831d610935e4371c.r2.dev/1740233226681-2e73150c0ab935904bcecca40118e54e%20(1).jpeg */}
@@ -263,9 +263,16 @@ const FinancialDashboard = (props: IProps) => {
           <div className="flex flex-col justify-center  w-[21.5%] items-center p-5 gap-5 border-2 rounded-xl border-[#9C9C9C] shadow-[0px_1px_2px_0px_rgba(255,255,255,0.00)]">
             <img src={SRIcon} alt="" />
             <div className="text-center">
-              <p className="font-bold text-5xl">
-                {Math.round(Number(props.indicators["DONAT_MONEY_RAISING"]))}%
-              </p>
+
+            {isNumeric(props.indicators["DONAT_MONEY_RAISING"]) ? (
+                    <p className="font-bold text-5xl">
+                    {Math.round(Number(props.indicators["DONAT_MONEY_RAISING"]))}%
+                  </p>
+              ) : (
+                <UnderConstructionCard />
+              )}
+
+              
               <p className="font-bold">جمع الأموال والتبرعات</p>
             </div>
             <Progress

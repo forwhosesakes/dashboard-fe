@@ -14,6 +14,7 @@ import SRIcon from "~/assets/icons/SR.svg";
 import { Progress } from "~/components/ui/progress";
 import { useEffect } from "react";
 import RatingsGraph from "~/components/ratings-graph";
+import { isNumeric } from "~/lib/utils/indicators";
 
 interface IProps {
   indicators: any;
@@ -155,10 +156,10 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
     id="parent"
       className={cn(
         "flex flex-col  gap-7 pt-12 pb-20 2xl:px-[80px] justify-center items-center",
-        isExpanded ? "xl:px-0" : "xl:px-[50px]"
+        isExpanded ? "xl:px-[25px]" : "xl:px-[50px]"
       )}
     >
-      {(role !== "admin" || isFullscreen||!isExpanded) &&
+      {(role !== "admin" || isFullscreen) &&
          (
           <div className="w-full h-full flex items-center justify-center">
             <div className="max-w-[180px] w-full">
@@ -180,53 +181,93 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
         <div className={cn("flex flex-col gap-7", isExpanded ? "w-10/12" : "w-full")}>
           {/* right-side first row */}
           <div className="flex gap-11 justify-between">
-            <div className="flex flex-col justify-between max-w-[137px] gap-3 pb-4 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#FBE947] after:to-[#58D764]">
+            <div className="flex w-full flex-col justify-between gap-3 pb-4 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#FBE947] after:to-[#58D764]">
               <p className="font-bold text-base 2xl:text-lg">متوسط قياس رضا</p>
-              <p className="font-bold text-5xl bg-gradient-to-r from-[#FBE947] to-[#58D764] bg-clip-text text-transparent">
-               {Math.round(indicators.AVG_SATIS_MEASURMENT)}%
-              </p>
+
+              {isNumeric(indicators["AVG_SATIS_MEASURMENT"]) ? (
+                   <p className="font-bold text-5xl bg-gradient-to-r from-[#FBE947] to-[#58D764] bg-clip-text text-transparent">
+                   {Math.round(indicators.AVG_SATIS_MEASURMENT)}%
+                  </p>
+              ) : (
+                <UnderConstructionCard />
+              )}
+
+              
             </div>
 
-            <div className="flex flex-col justify-between max-w-[137px] gap-3 pb-4 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#1882FF] after:to-[#36EBCA]">
+            <div className="flex flex-col justify-between w-full gap-3 pb-4 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#1882FF] after:to-[#36EBCA]">
               <p className="font-bold text-base 2xl:text-lg">أداء المدير التنفيذي</p>
-              <p className="font-bold text-5xl bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
-              {Math.round(indicators.CEO_PERFORMANCE)}%
 
-              </p>
+              {isNumeric(indicators["CEO_PERFORMANCE"]) ? (
+                    <p className="font-bold text-5xl bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
+                    {Math.round(indicators.CEO_PERFORMANCE)}%
+      
+                    </p>
+              ) : (
+                <UnderConstructionCard />
+              )}
+
+              
             </div>
 
-            <div className="flex flex-col justify-between max-w-[137px] gap-3 pb-4 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#EF7BE3] after:to-[#FF5A5A]">
+            <div className="flex flex-col justify-between w-full gap-3 pb-4 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#EF7BE3] after:to-[#FF5A5A]">
               <p className="font-bold text-base 2xl:text-lg">
                 الاستدامة المالية وقف استثمار
               </p>
-              <p className="font-bold text-5xl bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">
-              {Math.round(indicators.FINANCIAL_SUSTAIN)}%
+
+
+              {isNumeric(indicators["FINANCIAL_SUSTAIN"]) ? (
+                    <p className="font-bold text-5xl bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">
+                    {Math.round(indicators.FINANCIAL_SUSTAIN)}%
+                   
+                    </p>
+              ) : (
+                <UnderConstructionCard />
+              )}
+
              
-              </p>
             </div>
 
-            <div className="flex flex-col justify-between max-w-[137px] gap-3 pb-4 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#1882FF] after:to-[#36EBCA]">
+            <div className="flex flex-col justify-between w-full gap-3 pb-4 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#1882FF] after:to-[#36EBCA]">
               <p className="font-bold text-base 2xl:text-lg">المصاريف الإدارية والعمومية</p>
-              <p className="font-bold text-5xl bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
-              {Math.round(indicators.ADMIN_EXPENSES)}%
 
-              </p>
+              {isNumeric(indicators["ADMIN_EXPENSES"]) ? (
+                   <p className="font-bold text-5xl bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
+                   {Math.round(indicators.ADMIN_EXPENSES)}%
+     
+                   </p>
+              ) : (
+                <UnderConstructionCard />
+              )}
+
+             
             </div>
 
-            <div className="flex flex-col justify-between max-w-[137px] gap-3 pb-4 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#FBE947] after:to-[#58D764]">
+            <div className="flex flex-col justify-between w-full gap-3 pb-4 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#FBE947] after:to-[#58D764]">
               <p className="font-bold text-base 2xl:text-lg">مصاريف البرامج والأنشطة</p>
-              <p className="font-bold text-5xl bg-gradient-to-r from-[#FBE947] to-[#58D764] bg-clip-text text-transparent">
-              {Math.round(indicators.PRGRMS_EXPENSES)}%
 
-              </p>
+              {isNumeric(indicators["PRGRMS_EXPENSES"]) ? (
+                  <p className="font-bold text-5xl bg-gradient-to-r from-[#FBE947] to-[#58D764] bg-clip-text text-transparent">
+                  {Math.round(indicators.PRGRMS_EXPENSES)}%
+    
+                  </p>
+              ) : (
+                <UnderConstructionCard />
+              )}
+
+             
             </div>
 
-            <div className="flex flex-col justify-between max-w-[137px] gap-3 pb-4 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#EF7BE3] after:to-[#FF5A5A]">
+            <div className="flex flex-col justify-between w-full gap-3 pb-4 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#EF7BE3] after:to-[#FF5A5A]">
               <p className="font-bold text-base 2xl:text-lg"> العائد الاقتصادي للتطوع </p>
-              <p className="font-bold text-5xl bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">
-              {Math.round(indicators.ECONOMIC_RETURN_OF_VOLUNTEERING)}%
 
-              </p>
+              {isNumeric(indicators["ECONOMIC_RETURN_OF_VOLUNTEERING"]) ? (
+                  <p className="font-bold text-5xl bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">
+                  {Math.round(Number(indicators.ECONOMIC_RETURN_OF_VOLUNTEERING))}%
+                  </p>
+              ) : (
+                <UnderConstructionCard />
+              )}
             </div>
           </div>
 
@@ -240,11 +281,17 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
 
               <div className="flex flex-col gap-6 max-w-[176px] text-start min-w-[132px]">
                 <p className="font-bold text-base 2xl:text-lg">الأداء المالي الكلي</p>
+                  
+                {isNumeric(indicators["FINANCIAL_PERF"]) ? (
                 <p className="text-5xl font-bold text-[#D9B456]">
-                {Math.round(indicators.FINANCIAL_PERF)}%
-
-
+                  {Math.round(Number(indicators.FINANCIAL_PERF))}%
                 </p>
+              ) : (
+                <UnderConstructionCard />
+              )}
+              
+
+
               </div>
 
               <div>
@@ -270,11 +317,15 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
                 <p className="font-bold text-base 2xl:text-lg">
 الحوكمة
                 </p>
+                {isNumeric(indicators["GOVERENCE"]) ? (
                 <p className="text-5xl font-bold text-[#FF0080]">
-
-                {Math.round(indicators.GOVERENCE)}%
-
+                  {Math.round(Number(indicators.GOVERENCE))}%
                 </p>
+              ) : (
+                <UnderConstructionCard />
+              )}
+                
+
               </div>
 
               <div>
@@ -365,11 +416,15 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
                 <img src={SRIcon} alt="" />
               </div>
               <div className="text-center">
-                <p className="font-bold text-5xl">{Math.round(indicators.FUND_RAISING_TO_TOTAL_DONAT)}%</p>
+              {isNumeric(indicators["FUND_RAISING_TO_TOTAL_DONAT"]) ? (
+                    <p className="font-bold text-5xl">{Math.round(indicators.FUND_RAISING_TO_TOTAL_DONAT)}%</p>
+              ) : (
+                <UnderConstructionCard />
+              )}
                 <p className="font-bold"> مصاريف جمع الأموال إلى اجمالي التبرعات</p>
               </div>
               <Progress
-                value={50}
+                value={indicators.FUND_RAISING_TO_TOTAL_DONAT}
                 className="bg-[#373A41]"
                 indicatorClassName="bg-accent"
               />
@@ -390,7 +445,15 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
               <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
             </div>
             <p className="text-base 2xl:text-lg font-bold">نسبة استدامة المتطوعين</p>
-            <p className="font-bold text-5xl text-[#F7E706]">{Math.round(indicators.VOLUN_SUST_PERC)}%</p>
+
+            {isNumeric(indicators["VOLUN_SUST_PERC"]) ? (
+                     <p className="font-bold text-5xl text-[#F7E706]">{Math.round(indicators.VOLUN_SUST_PERC)}%</p>
+              ) : (
+                <UnderConstructionCard />
+              )}
+
+
+           
           </div>
 
           <div className="flex flex-col gap-4 p-5 border-2 border-[#9C9C9C] rounded-xl">
@@ -399,9 +462,16 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
               <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
             </div>
             <p className="text-base 2xl:text-lg font-bold">معدل النمو الربعي للمتطوعين  </p>
-            <p className="font-bold text-5xl bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">
-            {Math.round(indicators.VOLUN_GROWTH_RATE_QUAR)}%
-            </p>
+
+            {isNumeric(indicators["VOLUN_GROWTH_RATE_QUAR"]) ? (
+                    <p className="font-bold text-5xl bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">
+                    {Math.round(indicators.VOLUN_GROWTH_RATE_QUAR)}%
+                    </p>
+              ) : (
+                <UnderConstructionCard />
+              )}
+
+            
           </div>
 
           <div className="flex flex-col gap-4 p-5 border-2 border-[#9C9C9C] rounded-xl">
@@ -410,10 +480,16 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
               <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
             </div>
             <p className="text-base 2xl:text-lg font-bold"> نسبة الوصول للفئة المستهدفة </p>
-            <p className="font-bold text-5xl bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
-            {Math.round(indicators.REACH_TARGET_AUD_PERC)}%
-            
-            </p>
+
+            {isNumeric(indicators["REACH_TARGET_AUD_PERC"]) ? (
+                     <p className="font-bold text-5xl bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
+                     {Math.round(indicators.REACH_TARGET_AUD_PERC)}%
+                     
+                     </p>
+              ) : (
+                <UnderConstructionCard />
+              )}
+           
           </div>
         </div>
       </div>

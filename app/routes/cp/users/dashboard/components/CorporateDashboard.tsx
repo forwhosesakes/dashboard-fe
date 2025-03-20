@@ -147,7 +147,7 @@ const CorporateDashboard = (props: IProps) => {
       <div className="flex flex-col gap-y-8">
         <div className="flex mt-12 gap-10">
           <div className="w-full flex items-center flex-col">
-            {(props.role !== "admin" ||props.isFullscreen||!isExpanded )&&
+            {(props.role !== "admin" ||props.isFullscreen ) &&
                (
                 <div className="flex mb-12">
                   <h4>الأداء المؤسسي </h4>

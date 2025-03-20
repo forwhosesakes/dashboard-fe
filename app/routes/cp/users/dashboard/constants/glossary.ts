@@ -210,7 +210,7 @@ PRGRMS_TO_TOTAL_EXPENSES: "تكلفة البرامج والانشطة من إ.ا
 REV_FIN_SUST_TO_TOTAL_EXPENSES: "التكلفة الإدارية من العوائد",	
 SUST_EXPENSEES_TO_REV: "تكلفة الاستدامة من عوائد الاستدامة",
 SUST_RETURN_TO_ASSETS: "نسبة عوائد الاستدامة إلى إجمالي أصول"	,
-SUST_TO_TOTAL_EXPENSES:   "تكلفة الاستدامة من إ.المصاريف",	
+SUST_TO_TOTAL_EXPENSES:   "تكلفة الاستدامة من المصاريف",	
   },
   CORPORATE: {
     CORORATE_PERFORMANCE: "الأداء المؤسسي ",

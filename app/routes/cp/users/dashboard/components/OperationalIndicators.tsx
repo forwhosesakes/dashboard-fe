@@ -19,12 +19,12 @@ export default function OperationalIndicator({
   indicators,
   role,
   logoUrl,
-  isFullscreen
+  isFullscreen,
 }: {
   indicators: any;
   role: string;
   logoUrl: string;
-  isFullscreen:boolean
+  isFullscreen: boolean;
 }) {
   const { isExpanded } = useSidebarStore();
 
@@ -107,21 +107,20 @@ export default function OperationalIndicator({
         isExpanded ? " px-10 2xl:px-14" : " px-20 2xl:px-28"
       )}
     >
-      {(role !== "admin" || isFullscreen || !isExpanded)
-         && (
-          <div className="w-full h-full flex items-center justify-center">
-            <div className="max-w-[180px] w-full">
-              <img
-                src={logoUrl ?? TestingIcon}
-                className="w-full h-auto object-contain"
-                alt="organization icon"
-              />
-            </div>
-            <div className="flex-1 text-center font-bold text-4xl">
-              لوحة المؤشر التشغيلي
-            </div>
+      {(role !== "admin" || isFullscreen) && (
+        <div className="w-full h-full flex items-center justify-center">
+          <div className="max-w-[180px] w-full">
+            <img
+              src={logoUrl ?? TestingIcon}
+              className="w-full h-auto object-contain"
+              alt="organization icon"
+            />
           </div>
-        )}
+          <div className="flex-1 text-center font-bold text-4xl">
+            لوحة المؤشر التشغيلي
+          </div>
+        </div>
+      )}
 
       {/* indicators */}
       <div id="main-container" className="flex justify-center  h-full gap-11">
@@ -359,12 +358,22 @@ export default function OperationalIndicator({
                 </p>
               </div>
               <div className="flex items-center ">
-                <p className="text-3xl font-bold bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">
-                  {Number(
-                    indicators.children?.APPROVED_AMOUNTS_QUARTERLY?.children
-                      ?.APPROVED_ACTIVITY_EXPENSES?.value
-                  )}
-                </p>
+                {isNumeric(
+                  indicators.children?.APPROVED_AMOUNTS_QUARTERLY?.children
+                    ?.APPROVED_ACTIVITY_EXPENSES?.value
+                ) ? (
+                  <p className="text-3xl font-bold bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">
+                    {Math.round(
+                      Number(
+                        indicators.children?.APPROVED_AMOUNTS_QUARTERLY
+                          ?.children?.APPROVED_ACTIVITY_EXPENSES?.value
+                      )
+                    )}
+                  </p>
+                ) : (
+                  <UnderConstructionCard mode="iconOnly" />
+                )}
+
                 <SmallSRPink />
               </div>
             </div>
@@ -381,13 +390,25 @@ export default function OperationalIndicator({
                 </p>
               </div>
               <div className="flex items-center ">
-                <p className="text-3xl font-bold bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
-                  {Number(
-                    indicators.children?.APPROVED_AMOUNTS_QUARTERLY?.children
-                      ?.APPROVED_ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES
-                      ?.value
-                  )}
-                </p>
+                {isNumeric(
+                  indicators.children?.APPROVED_AMOUNTS_QUARTERLY?.children
+                    ?.APPROVED_ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES
+                    ?.value
+                ) ? (
+                  <p className="text-3xl font-bold bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
+                    {Math.round(
+                      Number(
+                        indicators.children?.APPROVED_AMOUNTS_QUARTERLY
+                          ?.children
+                          ?.APPROVED_ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES
+                          ?.value
+                      )
+                    )}
+                  </p>
+                ) : (
+                  <UnderConstructionCard mode="iconOnly" />
+                )}
+
                 <SmallSRBlue />
               </div>
             </div>
@@ -401,12 +422,22 @@ export default function OperationalIndicator({
                 </p>
               </div>
               <div className="flex items-center ">
-                <p className="text-3xl font-bold bg-gradient-to-r from-[#36F097] to-[#3a9c5c] bg-clip-text text-transparent">
-                  {Number(
-                    indicators.children?.APPROVED_AMOUNTS_QUARTERLY?.children
-                      ?.APPROVED_MISCELLANEOUS_EXPENSES?.value
-                  )}
-                </p>
+                {isNumeric(
+                  indicators.children?.APPROVED_AMOUNTS_QUARTERLY?.children
+                    ?.APPROVED_MISCELLANEOUS_EXPENSES?.value
+                ) ? (
+                  <p className="text-3xl font-bold bg-gradient-to-r from-[#36F097] to-[#3a9c5c] bg-clip-text text-transparent">
+                    {Math.round(
+                      Number(
+                        indicators.children?.APPROVED_AMOUNTS_QUARTERLY
+                          ?.children?.APPROVED_MISCELLANEOUS_EXPENSES?.value
+                      )
+                    )}
+                  </p>
+                ) : (
+                  <UnderConstructionCard mode="iconOnly" />
+                )}
+
                 <SmallSRGreen />
               </div>
             </div>
@@ -420,12 +451,22 @@ export default function OperationalIndicator({
                 </p>
               </div>
               <div className="flex items-center ">
-                <p className="text-3xl font-bold bg-gradient-to-r from-[#725CFA] to-[#EF7BE3] bg-clip-text text-transparent">
-                  {Number(
-                    indicators.children?.APPROVED_AMOUNTS_QUARTERLY?.children
-                      ?.APPROVED_SERVICE_EXPENSES?.value
-                  )}
-                </p>
+                {isNumeric(
+                  indicators.children?.APPROVED_AMOUNTS_QUARTERLY?.children
+                    ?.APPROVED_SERVICE_EXPENSES?.value
+                ) ? (
+                  <p className="text-3xl font-bold bg-gradient-to-r from-[#725CFA] to-[#EF7BE3] bg-clip-text text-transparent">
+                    {Math.round(
+                      Number(
+                        indicators.children?.APPROVED_AMOUNTS_QUARTERLY
+                          ?.children?.APPROVED_SERVICE_EXPENSES?.value
+                      )
+                    )}
+                  </p>
+                ) : (
+                  <UnderConstructionCard mode="iconOnly" />
+                )}
+
                 <SmallSRPurple />
               </div>
             </div>
@@ -439,12 +480,22 @@ export default function OperationalIndicator({
                 </p>
               </div>
               <div className="flex items-center ">
-                <p className="text-3xl font-bold bg-gradient-to-r from-[#FBE947] to-[#58D764] bg-clip-text text-transparent">
-                  {Number(
-                    indicators.children?.APPROVED_AMOUNTS_QUARTERLY?.children
-                      ?.APPROVED_MARKETING_EXPENSES?.value
-                  )}
-                </p>
+                {isNumeric(
+                  indicators.children?.APPROVED_AMOUNTS_QUARTERLY?.children
+                    ?.APPROVED_MARKETING_EXPENSES?.value
+                ) ? (
+                  <p className="text-3xl font-bold bg-gradient-to-r from-[#FBE947] to-[#58D764] bg-clip-text text-transparent">
+                    {Math.round(
+                      Number(
+                        indicators.children?.APPROVED_AMOUNTS_QUARTERLY
+                          ?.children?.APPROVED_MARKETING_EXPENSES?.value
+                      )
+                    )}
+                  </p>
+                ) : (
+                  <UnderConstructionCard mode="iconOnly" />
+                )}
+
                 <SmallSRYellow />
               </div>
             </div>
@@ -458,12 +509,22 @@ export default function OperationalIndicator({
                 </p>
               </div>
               <div className="flex items-center ">
-                <p className="text-3xl font-bold bg-gradient-to-r from-[#F9A000] to-[#FBE947] bg-clip-text text-transparent">
-                  {Number(
-                    indicators.children?.APPROVED_AMOUNTS_QUARTERLY?.children
-                      ?.APPROVED_SALARY_EXPENSES?.value
-                  )}
-                </p>
+                {isNumeric(
+                  indicators.children?.APPROVED_AMOUNTS_QUARTERLY?.children
+                    ?.APPROVED_SALARY_EXPENSES?.value
+                ) ? (
+                  <p className="text-3xl font-bold bg-gradient-to-r from-[#F9A000] to-[#FBE947] bg-clip-text text-transparent">
+                    {Math.round(
+                      Number(
+                        indicators.children?.APPROVED_AMOUNTS_QUARTERLY
+                          ?.children?.APPROVED_SALARY_EXPENSES?.value
+                      )
+                    )}
+                  </p>
+                ) : (
+                  <UnderConstructionCard mode="iconOnly" />
+                )}
+
                 <SmallSROrange />
               </div>
             </div>
@@ -477,12 +538,22 @@ export default function OperationalIndicator({
                 </p>
               </div>
               <div className="flex items-center ">
-                <p className="text-3xl font-bold bg-gradient-to-r from-[#ff7300] to-[#c25502] bg-clip-text text-transparent">
-                  {Number(
-                    indicators.children?.APPROVED_AMOUNTS_QUARTERLY?.children
-                      ?.APPROVED_OTHER_EXPENSES?.value
-                  )}
-                </p>
+                {isNumeric(
+                  indicators.children?.APPROVED_AMOUNTS_QUARTERLY?.children
+                    ?.APPROVED_OTHER_EXPENSES?.value
+                ) ? (
+                  <p className="text-3xl font-bold bg-gradient-to-r from-[#ff7300] to-[#c25502] bg-clip-text text-transparent">
+                    {Math.round(
+                      Number(
+                        indicators.children?.APPROVED_AMOUNTS_QUARTERLY
+                          ?.children?.APPROVED_OTHER_EXPENSES?.value
+                      )
+                    )}
+                  </p>
+                ) : (
+                  <UnderConstructionCard mode="iconOnly" />
+                )}
+
                 <SmallSRBrown />
               </div>
             </div>
@@ -717,12 +788,22 @@ export default function OperationalIndicator({
                 </p>
               </div>
               <div className="flex items-center ">
-                <p className="text-3xl font-bold bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">
-                  {Number(
-                    indicators.children?.DISBURSED_AMOUNTS_QUARTERLY?.children
-                      .ACTIVITY_EXPENSES.value
-                  )}
-                </p>
+                {isNumeric(
+                  indicators.children?.DISBURSED_AMOUNTS_QUARTERLY?.children
+                    .ACTIVITY_EXPENSES.value
+                ) ? (
+                  <p className="text-3xl font-bold bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">
+                    {Math.round(
+                      Number(
+                        indicators.children?.DISBURSED_AMOUNTS_QUARTERLY
+                          ?.children.ACTIVITY_EXPENSES.value
+                      )
+                    )}
+                  </p>
+                ) : (
+                  <UnderConstructionCard mode="iconOnly" />
+                )}
+
                 <SmallSRPink />
               </div>
             </div>
@@ -738,12 +819,23 @@ export default function OperationalIndicator({
                 </p>
               </div>
               <div className="flex items-center ">
-                <p className="text-3xl font-bold bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
-                  {Number(
-                    indicators.children?.DISBURSED_AMOUNTS_QUARTERLY?.children
-                      .ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES.value
-                  )}
-                </p>
+                {isNumeric(
+                  indicators.children?.DISBURSED_AMOUNTS_QUARTERLY?.children
+                    .ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES.value
+                ) ? (
+                  <p className="text-3xl font-bold bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
+                    {Math.round(
+                      Number(
+                        indicators.children?.DISBURSED_AMOUNTS_QUARTERLY
+                          ?.children
+                          .ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES.value
+                      )
+                    )}
+                  </p>
+                ) : (
+                  <UnderConstructionCard mode="iconOnly" />
+                )}
+
                 <SmallSRBlue />
               </div>
             </div>
@@ -757,12 +849,22 @@ export default function OperationalIndicator({
                 </p>
               </div>
               <div className="flex items-center ">
-                <p className="text-3xl font-bold bg-gradient-to-r from-[#36F097] to-[#3a9c5c] bg-clip-text text-transparent">
-                  {Number(
-                    indicators.children?.DISBURSED_AMOUNTS_QUARTERLY?.children
-                      .MISCELLANEOUS_EXPENSES.value
-                  )}
-                </p>
+                {isNumeric(
+                  indicators.children?.DISBURSED_AMOUNTS_QUARTERLY?.children
+                    .MISCELLANEOUS_EXPENSES.value
+                ) ? (
+                  <p className="text-3xl font-bold bg-gradient-to-r from-[#36F097] to-[#3a9c5c] bg-clip-text text-transparent">
+                    {Math.round(
+                      Number(
+                        indicators.children?.DISBURSED_AMOUNTS_QUARTERLY
+                          ?.children.MISCELLANEOUS_EXPENSES.value
+                      )
+                    )}
+                  </p>
+                ) : (
+                  <UnderConstructionCard mode="iconOnly" />
+                )}
+
                 <SmallSRGreen />
               </div>
             </div>
@@ -776,12 +878,22 @@ export default function OperationalIndicator({
                 </p>
               </div>
               <div className="flex items-center ">
-                <p className="text-3xl font-bold bg-gradient-to-r from-[#725CFA] to-[#EF7BE3] bg-clip-text text-transparent">
-                  {Number(
-                    indicators.children?.DISBURSED_AMOUNTS_QUARTERLY?.children
-                      .SERVICE_EXPENSES.value
-                  )}
-                </p>
+                {isNumeric(
+                  indicators.children?.DISBURSED_AMOUNTS_QUARTERLY?.children
+                    .SERVICE_EXPENSES.value
+                ) ? (
+                  <p className="text-3xl font-bold bg-gradient-to-r from-[#725CFA] to-[#EF7BE3] bg-clip-text text-transparent">
+                    {Math.round(
+                      Number(
+                        indicators.children?.DISBURSED_AMOUNTS_QUARTERLY
+                          ?.children.SERVICE_EXPENSES.value
+                      )
+                    )}
+                  </p>
+                ) : (
+                  <UnderConstructionCard mode="iconOnly" />
+                )}
+
                 <SmallSRPurple />
               </div>
             </div>
@@ -795,12 +907,22 @@ export default function OperationalIndicator({
                 </p>
               </div>
               <div className="flex items-center ">
-                <p className="text-3xl font-bold bg-gradient-to-r from-[#FBE947] to-[#58D764] bg-clip-text text-transparent">
-                  {Number(
-                    indicators.children?.DISBURSED_AMOUNTS_QUARTERLY?.children
-                      .MARKETING_EXPENSES.value
-                  )}
-                </p>
+                {isNumeric(
+                  indicators.children?.DISBURSED_AMOUNTS_QUARTERLY?.children
+                    .MARKETING_EXPENSES.value
+                ) ? (
+                  <p className="text-3xl font-bold bg-gradient-to-r from-[#FBE947] to-[#58D764] bg-clip-text text-transparent">
+                    {Math.round(
+                      Number(
+                        indicators.children?.DISBURSED_AMOUNTS_QUARTERLY
+                          ?.children.MARKETING_EXPENSES.value
+                      )
+                    )}
+                  </p>
+                ) : (
+                  <UnderConstructionCard mode="iconOnly"   />
+                )}
+
                 <SmallSRYellow />
               </div>
             </div>
@@ -814,12 +936,22 @@ export default function OperationalIndicator({
                 </p>
               </div>
               <div className="flex items-center ">
-                <p className="text-3xl font-bold bg-gradient-to-r from-[#F9A000] to-[#FBE947] bg-clip-text text-transparent">
-                  {Number(
-                    indicators.children?.DISBURSED_AMOUNTS_QUARTERLY?.children
-                      .SALARY_EXPENSES.value
-                  )}
-                </p>
+                {isNumeric(
+                  indicators.children?.DISBURSED_AMOUNTS_QUARTERLY?.children
+                    .SALARY_EXPENSES.value
+                ) ? (
+                  <p className="text-3xl font-bold bg-gradient-to-r from-[#F9A000] to-[#FBE947] bg-clip-text text-transparent">
+                    {Math.round(
+                      Number(
+                        indicators.children?.DISBURSED_AMOUNTS_QUARTERLY
+                          ?.children.SALARY_EXPENSES.value
+                      )
+                    )}
+                  </p>
+                ) : (
+                  <UnderConstructionCard mode="iconOnly" />
+                )}
+
                 <SmallSROrange />
               </div>
             </div>
@@ -833,12 +965,22 @@ export default function OperationalIndicator({
                 </p>
               </div>
               <div className="flex items-center ">
-                <p className="text-3xl font-bold bg-gradient-to-r from-[#ff7300] to-[#c25502] bg-clip-text text-transparent">
-                  {Number(
-                    indicators.children?.DISBURSED_AMOUNTS_QUARTERLY?.children
-                      .OTHER_EXPENSES.value
-                  )}
-                </p>
+                {isNumeric(
+                  indicators.children?.DISBURSED_AMOUNTS_QUARTERLY?.children
+                    .OTHER_EXPENSES.value
+                ) ? (
+                  <p className="text-3xl font-bold bg-gradient-to-r from-[#ff7300] to-[#c25502] bg-clip-text text-transparent">
+                    {Math.round(
+                      Number(
+                        indicators.children?.DISBURSED_AMOUNTS_QUARTERLY
+                          ?.children.OTHER_EXPENSES.value
+                      )
+                    )}
+                  </p>
+                ) : (
+                  <UnderConstructionCard mode="iconOnly" />
+                )}
+
                 <SmallSRBrown />
               </div>
             </div>
