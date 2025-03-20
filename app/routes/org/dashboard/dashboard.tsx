@@ -158,6 +158,7 @@ const Dashbaord = () => {
               isFullscreen={isFullscreen}
                 indicators={{...entries,...indicators}}
                 type={currentDashboard}
+                logoUrl={locationData.state.logoUrl}
               />
             </div>
           </TabsContent>

@@ -22,6 +22,7 @@ export const loader = async ({
   context,
   params,
 }: LoaderFunctionArgs) => {
+  
   const serverUrl = context.cloudflare.env.BASE_URL;
   const { id } = params;
 
@@ -41,9 +42,12 @@ export const loader = async ({
   const user = res.data?.user;
   let org;
   if (session && user && user.role === "user") {
+    
     org = await orgApi(serverUrl).getOrgByUserId(
       user.id
     );
+    console.log("org1::",org.logo);
+    
 
     if (Number(id) !== org.id) {
       return redirect(`/org/${org.id}`);
@@ -55,10 +59,10 @@ export const loader = async ({
   //   const org = orgApi(serverUrl).getOrgByUserId(user.id)
 
   const dashboardsOverview = await dashboardApi(serverUrl).getOrgDashboards(id);
-  return { dashboardsOverview, org };
+  return { dashboardsOverview, org, logoUrl:`https://pub-78d8970765b1464a831d610935e4371c.r2.dev/${JSON.parse(org.logo)[0]}` };
 };
 const Org = () => {
-  const { dashboardsOverview, org } = useLoaderData<any>();
+  const { dashboardsOverview, org, logoUrl } = useLoaderData<any>();
   const { setDarkTheme } = useThemeStore()
 
 
@@ -117,7 +121,7 @@ const Org = () => {
               return (
                 <NavLink
                   key={dashboard.title}
-                  state={{ dashboardsOverview }}
+                  state={{ dashboardsOverview,logoUrl}}
                   to={dashboard.title.split("_")[1]}
                   className="w-5/12 border h-44 hover:border-accent rounded-lg group"
                   
