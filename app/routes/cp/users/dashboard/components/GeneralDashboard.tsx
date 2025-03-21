@@ -27,39 +27,39 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
     const satisInds = [
       {
         id: "BENEF_SATIS_MEASURMENT",
-        percentage: Math.round(indicators.BENEF_SATIS_MEASURMENT),
+        percentage: Math.ceil(indicators.BENEF_SATIS_MEASURMENT),
         label: indicatorsLabels.CORPORATE.BENEF_SATIS_MEASURMENT,
       },
       {
         id: "EMP_SATIS_MEASURMENT",
-        percentage: Math.round(indicators.EMP_SATIS_MEASURMENT),
+        percentage: Math.ceil(indicators.EMP_SATIS_MEASURMENT),
         label: indicatorsLabels.CORPORATE.EMP_SATIS_MEASURMENT,
       },
       {
         id: "PARTENERS_SATIS_MEASURMENT",
-        percentage: Math.round(indicators.PARTENERS_SATIS_MEASURMENT),
+        percentage: Math.ceil(indicators.PARTENERS_SATIS_MEASURMENT),
 
         label: indicatorsLabels.CORPORATE.PARTENERS_SATIS_MEASURMENT,
       },
       {
         id: "VOLUN_SATIS_MEASURMENT",
-        percentage: Math.round(indicators.VOLUN_SATIS_MEASURMENT),
+        percentage: Math.ceil(indicators.VOLUN_SATIS_MEASURMENT),
 
         label: indicatorsLabels.CORPORATE.VOLUN_SATIS_MEASURMENT,
       },
       {
         id: "DONATORS_SATIS_MEASURMENT",
-        percentage: Math.round(indicators.DONATORS_SATIS_MEASURMENT),
+        percentage: Math.ceil(indicators.DONATORS_SATIS_MEASURMENT),
         label: indicatorsLabels.CORPORATE.DONATORS_SATIS_MEASURMENT,
       },
       {
         id: "ADMIN_ORG_SATIS_MEASURMENT",
-        percentage: Math.round(indicators.ADMIN_ORG_SATIS_MEASURMENT),
+        percentage: Math.ceil(indicators.ADMIN_ORG_SATIS_MEASURMENT),
         label: indicatorsLabels.CORPORATE.ADMIN_ORG_SATIS_MEASURMENT,
       },
       {
         id: "COMMUNITY_SATIS_MEASURMENT",
-        percentage: Math.round(indicators.COMMUNITY_SATIS_MEASURMENT),
+        percentage: Math.ceil(indicators.COMMUNITY_SATIS_MEASURMENT),
         label: indicatorsLabels.CORPORATE.COMMUNITY_SATIS_MEASURMENT,
       },
     ];
@@ -182,11 +182,11 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
           {/* right-side first row */}
           <div className="flex gap-11 justify-between">
             <div className="flex w-full flex-col justify-between gap-3 pb-4 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#FBE947] after:to-[#58D764]">
-              <p className="font-bold text-base 2xl:text-lg">متوسط قياس رضا</p>
+              <p className="font-bold text-base 2xl:text-lg">متوسط قياس الرضا</p>
 
               {isNumeric(indicators["AVG_SATIS_MEASURMENT"]) ? (
                    <p className="font-bold text-5xl bg-gradient-to-r from-[#FBE947] to-[#58D764] bg-clip-text text-transparent">
-                   {Math.round(indicators.AVG_SATIS_MEASURMENT)}%
+                   {Math.ceil(indicators.AVG_SATIS_MEASURMENT)}%
                   </p>
               ) : (
                 <UnderConstructionCard />
@@ -200,7 +200,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
 
               {isNumeric(indicators["CEO_PERFORMANCE"]) ? (
                     <p className="font-bold text-5xl bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
-                    {Math.round(indicators.CEO_PERFORMANCE)}%
+                    {Math.ceil(indicators.CEO_PERFORMANCE)}%
       
                     </p>
               ) : (
@@ -218,7 +218,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
 
               {isNumeric(indicators["FINANCIAL_SUSTAIN"]) ? (
                     <p className="font-bold text-5xl bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">
-                    {Math.round(indicators.FINANCIAL_SUSTAIN)}%
+                    {Math.ceil(indicators.FINANCIAL_SUSTAIN)}%
                    
                     </p>
               ) : (
@@ -233,7 +233,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
 
               {isNumeric(indicators["ADMIN_EXPENSES"]) ? (
                    <p className="font-bold text-5xl bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
-                   {Math.round(indicators.ADMIN_EXPENSES)}%
+                   {Math.ceil(indicators.ADMIN_EXPENSES)}%
      
                    </p>
               ) : (
@@ -248,7 +248,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
 
               {isNumeric(indicators["PRGRMS_EXPENSES"]) ? (
                   <p className="font-bold text-5xl bg-gradient-to-r from-[#FBE947] to-[#58D764] bg-clip-text text-transparent">
-                  {Math.round(indicators.PRGRMS_EXPENSES)}%
+                  {Math.ceil(indicators.PRGRMS_EXPENSES)}%
     
                   </p>
               ) : (
@@ -258,17 +258,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
              
             </div>
 
-            <div className="flex flex-col justify-between w-full gap-3 pb-4 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#EF7BE3] after:to-[#FF5A5A]">
-              <p className="font-bold text-base 2xl:text-lg"> العائد الاقتصادي للتطوع </p>
-
-              {isNumeric(indicators["ECONOMIC_RETURN_OF_VOLUNTEERING"]) ? (
-                  <p className="font-bold text-5xl bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">
-                  {Math.round(Number(indicators.ECONOMIC_RETURN_OF_VOLUNTEERING))}%
-                  </p>
-              ) : (
-                <UnderConstructionCard />
-              )}
-            </div>
+          
           </div>
 
           {/* right-side second row */}
@@ -284,7 +274,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
                   
                 {isNumeric(indicators["FINANCIAL_PERF"]) ? (
                 <p className="text-5xl font-bold text-[#D9B456]">
-                  {Math.round(Number(indicators.FINANCIAL_PERF))}%
+                  {Math.ceil(Number(indicators.FINANCIAL_PERF))}%
                 </p>
               ) : (
                 <UnderConstructionCard />
@@ -297,7 +287,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
               <div>
                 <CircularProgressBar
                   gradientId="1"
-                  progress={Math.round(indicators.FINANCIAL_PERF)}
+                  progress={Math.ceil(indicators.FINANCIAL_PERF)}
                   size="sm"
                   gradientStart="#D9B456"
                   gradientEnd="#D9B456"
@@ -319,7 +309,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
                 </p>
                 {isNumeric(indicators["GOVERENCE"]) ? (
                 <p className="text-5xl font-bold text-[#FF0080]">
-                  {Math.round(Number(indicators.GOVERENCE))}%
+                  {Math.ceil(Number(indicators.GOVERENCE))}%
                 </p>
               ) : (
                 <UnderConstructionCard />
@@ -331,7 +321,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
               <div>
                 <CircularProgressBar
                   gradientId="2"
-                  progress={Math.round(indicators.GOVERENCE)}
+                  progress={Math.ceil(indicators.GOVERENCE)}
                   size="sm"
                   gradientStart="#FF0080"
                   gradientEnd="#FF0080"
@@ -372,12 +362,12 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
                 <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
               </div>
               <p className="text-base 2xl:text-lg font-bold">
-                قدرة الجمعية على تغطية التزاماتها المستقبلية
+              نسبة الالتزام بالميزانية
               </p>
 
               <div>
                 <SemiCircleProgress
-                  percentage={Math.round(indicators.ABL_COVER_OBLIG)}
+                  percentage={Math.ceil(indicators.BUDGET_COMMIT_PERC)}
                   size={180}
                   useGradient={true}
                   gradientId="4"
@@ -399,7 +389,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
 
               <div>
                 <SemiCircleProgress
-                 percentage={Math.round(indicators.PGRM_PRJKS_EXEC_PERC)}
+                 percentage={Math.ceil(indicators.PGRM_PRJKS_EXEC_PERC)}
 
                   size={180}
                   useGradient={true}
@@ -417,14 +407,14 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
               </div>
               <div className="text-center">
               {isNumeric(indicators["FUND_RAISING_TO_TOTAL_DONAT"]) ? (
-                    <p className="font-bold text-5xl">{Math.round(indicators.FUND_RAISING_TO_TOTAL_DONAT)}%</p>
+                    <p className="font-bold text-5xl">{Math.ceil(indicators.ECONOMIC_RETURN_OF_VOLUNTEERING)}%</p>
               ) : (
                 <UnderConstructionCard />
               )}
-                <p className="font-bold"> مصاريف جمع الأموال إلى اجمالي التبرعات</p>
+                <p className="font-bold"> العائد الاقتصادي للتطوع     </p>
               </div>
               <Progress
-                value={indicators.FUND_RAISING_TO_TOTAL_DONAT}
+                value={indicators.ECONOMIC_RETURN_OF_VOLUNTEERING}
                 className="bg-[#373A41]"
                 indicatorClassName="bg-accent"
               />
@@ -444,10 +434,10 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
               آخر ثلاث شهور{" "}
               <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
             </div>
-            <p className="text-base 2xl:text-lg font-bold">نسبة استدامة المتطوعين</p>
+            <p className="text-base text-center 2xl:text-lg font-bold"> عدد المستفيدين </p>
 
             {isNumeric(indicators["VOLUN_SUST_PERC"]) ? (
-                     <p className="font-bold text-5xl text-[#F7E706]">{Math.round(indicators.VOLUN_SUST_PERC)}%</p>
+                     <p className="font-bold text-center text-5xl text-[#F7E706]">{Math.ceil(indicators.NO_RESPONSES_SATIS_FORM)}</p>
               ) : (
                 <UnderConstructionCard />
               )}
@@ -461,11 +451,11 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
               آخر ثلاث شهور{" "}
               <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
             </div>
-            <p className="text-base 2xl:text-lg font-bold">معدل النمو الربعي للمتطوعين  </p>
+            <p className="text-base text-center 2xl:text-lg font-bold">  عدد المتطوعين   </p>
 
             {isNumeric(indicators["VOLUN_GROWTH_RATE_QUAR"]) ? (
-                    <p className="font-bold text-5xl bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">
-                    {Math.round(indicators.VOLUN_GROWTH_RATE_QUAR)}%
+                    <p className="font-bold text-center text-5xl bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">
+                    {Math.ceil(indicators.NO_RESPOSES_VOL_SATIS_FORM)}
                     </p>
               ) : (
                 <UnderConstructionCard />
@@ -479,11 +469,11 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
               آخر ثلاث شهور{" "}
               <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
             </div>
-            <p className="text-base 2xl:text-lg font-bold"> نسبة الوصول للفئة المستهدفة </p>
+            <p className="text-base text-center 2xl:text-lg font-bold"> نسبة الوصول للفئة المستهدفة </p>
 
             {isNumeric(indicators["REACH_TARGET_AUD_PERC"]) ? (
-                     <p className="font-bold text-5xl bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
-                     {Math.round(indicators.REACH_TARGET_AUD_PERC)}%
+                     <p className="font-bold text-center  text-5xl bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
+                     {Math.ceil(indicators.REACH_TARGET_AUD_PERC)}%
                      
                      </p>
               ) : (

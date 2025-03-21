@@ -200,15 +200,15 @@ const RatingsGraph = (props: IProps) => {
       
       <div className="relative mx-auto">
         <svg
-          className="absolute w-[85%] h-full z-0 top-4 left-1/2 -translate-x-1/2"
+          className="absolute w-[85%] h-full z-0  left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2"
           viewBox="0 0 100 100"
           preserveAspectRatio="none"
         >
           <polyline
             points={reversedIndicators
               .map((indicator, i) => {
-                const xPercent = (i / (props.ratings.length - 1)) * 100;
-                const yPixel = indicator.rating.rowIndex * 25 -4;
+                const xPercent = ((i) / (props.ratings.length - 1)) * 100;
+                const yPixel = indicator.rating.rowIndex * 25 ;
                 return `${xPercent},${yPixel}`;
               })
               .join(" ")}
