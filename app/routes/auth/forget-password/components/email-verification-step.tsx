@@ -27,7 +27,7 @@ const EmailVerification = (props: IProps) => {
         })
       : authClient(baseUrl).forgetPassword({
           email: props.email,
-          redirectTo: "reset-password",
+          redirectTo: "/reset-password",
         });
   };
   return (
