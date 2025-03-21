@@ -54,15 +54,12 @@ useEffect(()=>{
       </div>
 
       <div id="overview" className={`w-full h-full border-t pt-2 `}>
-        <div className="w-10/12 h-1/3 mt-8 mx-auto grid grid-cols-2 auto-rows-auto gap-4">
+        <div className="w-10/12 h-1/3 mt-8  mx-auto flex flex-wrap items-center justify-start gap-4">
           {dashboardsOverview && dashboardsOverview.filter((dashboard)=>!dashboard.title.includes("GENERAL")).map((dashboard) => {
             return (
               <NavLink
-                key={dashboard.title}
-                state={{dashboardsOverview}} 
-                to={dashboard.title.split("_")[1]} 
-                className="border h-44 hover:border-accent rounded-lg group last:odd:col-span-2"
-              >
+              
+              state={{dashboardsOverview}} to={dashboard.title.split("_")[1]} className="w-5/12 border h-44 hover:border-accent rounded-lg group">
                 <div className="w-full flex m-2 items-center gap-3 h-1/6">
                   <div className="border p-2 rounded-lg">
                     <Layers className="h-5 w-5"/>
@@ -89,6 +86,7 @@ useEffect(()=>{
                
                 </div>
               </NavLink>
+              
             );
           })}
         </div>

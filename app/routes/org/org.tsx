@@ -114,9 +114,9 @@ const Org = () => {
       </div>
 
       <div id="overview" className={`w-full h-full border-t pt-2 `}>
-        <div className="w-10/12 h-1/3 mt-8  mx-auto flex flex-wrap items-center  justify-center gap-4">
+        <div className="w-10/12 h-1/3 mt-8  mx-auto flex flex-wrap items-center justify-start gap-4">
           {dashboardsOverview &&
-            dashboardsOverview.map((dashboard) => {
+            dashboardsOverview.filter((dashboard)=>!dashboard.title.includes("GENERAL")).map((dashboard) => {
               return (
                 <NavLink
                   key={dashboard.title}
