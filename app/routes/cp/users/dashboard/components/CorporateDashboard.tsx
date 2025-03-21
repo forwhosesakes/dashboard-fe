@@ -85,49 +85,48 @@ const CorporateDashboard = (props: IProps) => {
   const satisInds = [
     {
       id: "BENEF_SATIS_MEASURMENT",
-      percentage: Math.round(props.indicators.BENEF_SATIS_MEASURMENT),
+      percentage: Math.ceil(props.indicators.BENEF_SATIS_MEASURMENT),
       label: indicatorsLabels.CORPORATE.BENEF_SATIS_MEASURMENT,
     },
     {
       id: "EMP_SATIS_MEASURMENT",
-      percentage: Math.round(props.indicators.EMP_SATIS_MEASURMENT),
+      percentage: Math.ceil(props.indicators.EMP_SATIS_MEASURMENT),
       label: indicatorsLabels.CORPORATE.EMP_SATIS_MEASURMENT,
     },
     {
       id: "PARTENERS_SATIS_MEASURMENT",
-      percentage: Math.round(props.indicators.PARTENERS_SATIS_MEASURMENT),
+      percentage: Math.ceil(props.indicators.PARTENERS_SATIS_MEASURMENT),
 
       label: indicatorsLabels.CORPORATE.PARTENERS_SATIS_MEASURMENT,
     },
     {
       id: "VOLUN_SATIS_MEASURMENT",
-      percentage: Math.round(props.indicators.VOLUN_SATIS_MEASURMENT),
+      percentage: Math.ceil(props.indicators.VOLUN_SATIS_MEASURMENT),
 
       label: indicatorsLabels.CORPORATE.VOLUN_SATIS_MEASURMENT,
     },
     {
       id: "DONATORS_SATIS_MEASURMENT",
-      percentage: Math.round(props.indicators.DONATORS_SATIS_MEASURMENT),
+      percentage: Math.ceil(props.indicators.DONATORS_SATIS_MEASURMENT),
       label: indicatorsLabels.CORPORATE.DONATORS_SATIS_MEASURMENT,
     },
     {
       id: "ADMIN_ORG_SATIS_MEASURMENT",
-      percentage: Math.round(props.indicators.ADMIN_ORG_SATIS_MEASURMENT),
+      percentage: Math.ceil(props.indicators.ADMIN_ORG_SATIS_MEASURMENT),
       label: indicatorsLabels.CORPORATE.ADMIN_ORG_SATIS_MEASURMENT,
     },
     {
       id: "COMMUNITY_SATIS_MEASURMENT",
-      percentage: Math.round(props.indicators.COMMUNITY_SATIS_MEASURMENT),
+      percentage: Math.ceil(props.indicators.COMMUNITY_SATIS_MEASURMENT),
       label: indicatorsLabels.CORPORATE.COMMUNITY_SATIS_MEASURMENT,
     },
   ];
 
-  const { isExpanded } = useSidebarStore();
   return (
     <section className="px-24">
       <div className="flex flex-col gap-y-8">
         <div className="flex mt-12 gap-10">
-          <div className="w-full flex items-center flex-col">
+          <div className="w-full flex items-center  flex-col">
             {(props.role !== "admin" ||props.isFullscreen ) &&
                (
                 <div className="flex mb-12">
@@ -135,7 +134,7 @@ const CorporateDashboard = (props: IProps) => {
                 </div>
               )}
 
-            <div className="flex flex-wrap gap-5 w-full justify-between rounded-lg mb-12">
+            <div className="flex flex-wrap pl-5 gap-5 w-full justify-between rounded-lg mb-12">
               {firstRowMainIndicators.map((indicator) => (
                 <div className="flex-1" key={indicator.key}>
                   <p className="text-base font-bold mb-2">
@@ -158,14 +157,12 @@ const CorporateDashboard = (props: IProps) => {
                     className=" w-full h-2.5 bg-gray-700"
                     gradientStart={indicator.gradientStart}
                     gradientEnd={indicator.gradientEnd}
-                    value={Math.round(Number(props.indicators[indicator.key]))} indicatorClassName={""}                  />
+                    value={Math.ceil(Number(props.indicators[indicator.key]))} indicatorClassName={""}                  />
                 </div>
               ))}
             </div>
 
-        {/* First, let's split the empPerformance array into two rows */}
-<div className="flex flex-col gap-5 w-full">
-  {/* First row with 3 cards */}
+<div className="flex  flex-col gap-5 w-full">
   <div className="flex flex-wrap items-center gap-5 w-full">
     {empPerformance.map((card) => (
       <div
