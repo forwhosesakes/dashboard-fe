@@ -42,6 +42,7 @@ const GovernanceEntries = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [expandedIndicators, setExpandedIndicators] = useState<Record<number, boolean>>({});
   const [expandedQuestions, setExpandedQuestions] = useState<Record<string, boolean>>({});
+  const [total,setTotal]=useState(0)
 
   useEffect(() => {
     const initialIndicatorState = TABS_QUESTIONS[govTab].indicators.reduce((acc, _, index) => {
@@ -54,6 +55,10 @@ const GovernanceEntries = () => {
     }, {});
     setExpandedQuestions(initialQuestionState);
   }, [govTab]);
+  
+  useEffect(()=>{
+    setTotal(getGeneralTotalForOneTab())
+  },[responses])
 
   const toggleIndicator = (index: number) => {
     setExpandedIndicators(prev => ({
@@ -70,8 +75,8 @@ const GovernanceEntries = () => {
   };
 
   const handleResponse = (sectionId: any, questionLabel: any, value: any) => {
-    console.log("handle response", responses);
-    
+  
+  
     setResponses((prev: any) => ({
       ...prev,
       [questionLabel]: value,
@@ -82,16 +87,19 @@ const GovernanceEntries = () => {
     question: any,
     sectionQuestions: any[],
     index: number
-  ) => {
+  ):boolean => {
     if (index === 0) return true;
     if (!question.isDependantOnPrev) return true;
 
     const previousQuestion = sectionQuestions[index - 1];
     const previousResponse = responses[previousQuestion.label];
+ 
+    const shouldshowPrev=previousQuestion.isDependantOnPrev?shouldShowQuestion(previousQuestion,sectionQuestions,index-1):true
     return (
       previousResponse &&
       previousQuestion.options[Number(previousResponse.split("-").pop())]
-        ?.moveToNext
+        ?.moveToNext 
+        &&  shouldshowPrev
     );
   };
 
@@ -145,22 +153,53 @@ const GovernanceEntries = () => {
 
   const subTotalForOneIndicator = (indicatorIndex:number)=>{
     const practices = TABS_QUESTIONS[govTab].indicators[indicatorIndex].questions // e.g ["Q1","Q2","Q3"]
-    const total = practices.reduce((acc,practice)=>{
-      // @ts-ignore
-      const practiceQuestions = TABS_QUESTIONS[govTab].questions[practice].questions
-      const subTotal= Array.from(practiceQuestions).reduce((acc:number, q:any) => {
-        if(responses[q.label] || responses[q.label]===0)
-          return acc + Number(responses[q.label].split("-")[0])
-        return acc
+    const total = practices.reduce((acc,practice,index)=>{
+      return acc+getSubtotalForPractice(practice,index)
       },0)
     
-      return subTotal+acc
-    },0) 
+  
 
     return total
   }
 
 
+  const fullTotalForOneIndicator = (indicatorIndex:number)=>{
+    const practices = TABS_QUESTIONS[govTab].indicators[indicatorIndex].questions // e.g ["Q1","Q2","Q3"]
+    const total = practices.reduce((acc,practice)=>{
+    
+  //@ts-ignore
+        return acc+TABS_QUESTIONS[govTab].questions[practice].weight
+      },0)
+    
+  
+
+    return total
+  }
+
+  const getSubtotalForPractice =(practice:string,qIndex:number)=>{
+    const   questions = TABS_QUESTIONS[govTab].questions[practice as "Q1"] .questions
+    const total = questions.reduce((acc:number,q:any,i:number)=>{
+      
+    const isQuestionVisible =!!shouldShowQuestion( q,TABS_QUESTIONS[govTab].questions[practice as "Q1"].questions, i )
+    
+      //@ts-ignore
+      if((responses[q.label] || responses[q.label]===0) &&  isQuestionVisible)
+        return acc + Number(responses[q.label].split("-")[0])
+      return acc
+          },0)
+
+          return total
+
+  }
+
+
+  const getGeneralTotalForOneTab= ()=>{
+    
+  return  TABS_QUESTIONS[govTab].indicators.reduce((acc:number,val:any, index:number)=>{
+    return acc+subTotalForOneIndicator(index)
+   },0)
+
+  }
   const handleSubmit = async () => {
 
     setIsLoading(true);
@@ -177,7 +216,8 @@ const GovernanceEntries = () => {
         await dashboardApi(baseUrl).saveGovernanceEntries(
           id,
           govTab,
-          transformedResponses
+          transformedResponses,
+        total
         );
       else throw new Error("no is for orginization");
 
@@ -202,8 +242,10 @@ const GovernanceEntries = () => {
       if(res){
       const {records, total}= res
       if(records){
+        setTotal(total)
 
         setResponses(JSON.parse(records))
+
       }
       }
     }).catch(()=>{
@@ -230,7 +272,10 @@ const GovernanceEntries = () => {
         >
           <TabsList className="w-full justify-start bg-transparent">
             {tabs.map((tab) => (
-              <TabsTrigger value={tab}>{GOVERANCE_TABS[tab]}</TabsTrigger>
+              <TabsTrigger value={tab} key={tab}>{
+                GOVERANCE_TABS[tab]  }
+                {govTab===tab && ` (${total})`}
+                </TabsTrigger>
             ))}
           </TabsList>
 
@@ -246,7 +291,7 @@ const GovernanceEntries = () => {
                     <div className="flex items-center gap-4">
                       <div className="flex flex-col justify-center items-end">
                         <span className="text-gray-600 text-xs">{countEvaluatedPracticesForOneIndicator(index)}</span>
-                        <span className="text-secondary-700 font-semibold text-xs">{`المحصلة: ${subTotalForOneIndicator(index)}`}</span>
+                        <span className="text-secondary-700 font-semibold text-xs">{`المحصلة: ${subTotalForOneIndicator(index)} من أصل ${fullTotalForOneIndicator(index)}`}</span>
                       </div>
                       {expandedIndicators[index] ? 
                         <ChevronUp className="h-4 w-4 text-secondary-700" /> : 
@@ -267,7 +312,16 @@ const GovernanceEntries = () => {
                           </h2>
                           <span className="text-sm text-muted-foreground">
                             {/* @ts-ignore */}
-                            (الدرجة: {TABS_QUESTIONS[govTab].questions[question].weight})
+
+                           ( الدرجة :{"  "}
+                             {getSubtotalForPractice(question,i)}
+{" "}
+
+                            {/* @ts-ignore */}
+                          
+                          من اصل {" "} {TABS_QUESTIONS[govTab].questions[question].weight})
+
+
                           </span>
                         </div>
                         <div className="flex items-center gap-2">

@@ -654,7 +654,8 @@ export const dashboardApi = (url: string) => {
     saveGovernanceEntries: async (
       orgId: string,
       type: TGovernanceEntries,
-      responses: Record<string, number>
+      responses: Record<string, number>,
+      total:number
     ): Promise<any> => {
       try {
         if (!/^\d+$/.test(orgId) || parseInt(orgId) <= 0) {
@@ -668,7 +669,10 @@ export const dashboardApi = (url: string) => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ responses }),
+            body: JSON.stringify({
+               responses,
+           total
+            })
           }
         );
 

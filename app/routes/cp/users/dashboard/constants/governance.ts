@@ -465,7 +465,7 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
         label: "HAS_DETAILED_AUTHORITY_DELEGATION_LIST",
         options: [
           { label: "  لا توجد .", weight: 0 },
-          { label: "لا توجد علاقة تعاقدية.", weight: 2 },
+          { label: " توجد بشكل كامل .", weight: 2 },
         ],
         isDependantOnPrev: true,
       },
@@ -561,8 +561,8 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
       {
         label: "BOARD_MEMBER_FROM_JUDICIARY",
         options: [
-          { label: "لا يوجد.", weight: 1 },
-          { label: "يوجد .", weight: 0 },
+          { label: "لا يوجد.", weight: 0},
+          { label: "يوجد .", weight: 1 },
         ],
         isDependantOnPrev: false,
       },
@@ -744,7 +744,7 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
       {
         label: "BRANCHES_APPROVED_BY_CENTER_AND_SUPERVISOR",
         options: [
-          { label: "لا توجد موافقة.", weight: 3 },
+          { label: "لا توجد موافقة.", weight: 0 },
           { label: "توجد موافقة من المركز والجهة المشرفة.", weight: 3 },
         ],
         isDependantOnPrev: true,
@@ -824,7 +824,7 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
   },
 
   Q19: {
-    weight: 1,
+    weight: 3,
     questions: [
       {
         label: "USES_CASH_TRANSACTIONS_FOR_DONATIONS",
@@ -1162,7 +1162,7 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
       {
         label: "HAS_PERMANENT_OR_TEMPORARY_COMMITTEES_WITH_SPECIFIC_TASKS",
         options: [
-          { label: "لا توجد.", weight: 0 },
+          { label: "لا توجد.", weight: 1 },
           { label: " نعم", weight: 0, moveToNext: true },
         ],
         isDependantOnPrev: false,
@@ -1198,7 +1198,7 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
       {
         label: "HAS_EXECUTIVE_COMMITTEE",
         options: [
-          { label: "لا توجد لجنة تنفيذية.", weight: 0 },
+          { label: "لا توجد لجنة تنفيذية.", weight: 0.5 },
           { label: " نعم", weight: 0, moveToNext: true },
         ],
         isDependantOnPrev: false,
@@ -1569,7 +1569,7 @@ export const TRANSPARENCY_DISCLOSURE_PRACTICES_QUESTIONS ={
           {
             label: "لا توجد لجان دائمة.",
 
-            weight: 2,
+            weight: 1,
           },
           {
             label: "توجد لجان دائمة.",
@@ -1590,12 +1590,12 @@ export const TRANSPARENCY_DISCLOSURE_PRACTICES_QUESTIONS ={
           },
           {
             label: "تم الإفصاح بشكل جزئي.",
-            weight: 1,
+            weight: 0.5,
           
           },
           {
             label: "تم الإفصاح بشكل متكامل.",
-            weight: 2,
+            weight: 1,
           
           }
         ],
@@ -2627,7 +2627,7 @@ export const FINANCIAL_SAFETY_PRACTICES_QUESTIONS={
 
         options: [
           {
-            label: "لا توجد.",
+            label: " لا توجد سياسة.",
 
             weight: 0,
           },
@@ -3113,7 +3113,7 @@ export const FINANCIAL_SAFETY_PRACTICES_QUESTIONS={
               }   ,
 
               {
-                label: "CHART_OF_ACCOUNTS_IMPLEMENTED",
+                label: "CHART_OF_ACCOUNTS_IMPLEMENTED_2",
                 isDependantOnPrev: true,
         
                 options: [

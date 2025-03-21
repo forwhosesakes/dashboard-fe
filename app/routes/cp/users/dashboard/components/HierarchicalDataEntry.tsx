@@ -86,7 +86,7 @@ const HierarchicalDataEntry: React.FC<HierarchicalDataEntryProps> = ({
 
   return (
     <div className="w-full overflow-x-auto rounded-lg">
-      <table className="min-w-full table-fixed rounded-lg border-collapse">
+      {Object.keys(rawEntries).length?<table className="min-w-full table-fixed rounded-lg border-collapse">
         <thead>
           <tr className="bg-gray-100">
             <th className="py-2 px-4 text-center border w-[40%]">الإسم</th>
@@ -109,7 +109,7 @@ const HierarchicalDataEntry: React.FC<HierarchicalDataEntryProps> = ({
             ))
           )}
         </tbody>
-      </table>
+      </table>:<h6 className="flex w-full items-center justify-center opacity-75  h-[50vh]">لا تتوفر مدخلات لهذه اللوحة </h6>}
     </div>
   );
 };
