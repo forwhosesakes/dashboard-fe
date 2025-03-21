@@ -283,7 +283,7 @@ const Entries = ({
           <TabsContent value={currentDashboard}>
             <div
               className={` overflow-y-auto overflow-x-hidden ${
-                theme.includes("dark") && "bg-[#0A0E12]"
+                theme.includes("dark") && "bg-[#000]"
               }`}
               ref={containerRef}
             >

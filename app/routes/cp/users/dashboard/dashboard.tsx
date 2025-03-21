@@ -35,7 +35,6 @@ useEffect(()=>{
       <div className="flex justify-between p-5">
         <div>
           <h5>{`المؤشرات`}</h5>
-          <p className="text-primary-foreground/75">{`اختر خطة حساب تناسب سير عملك.`}</p>
           <div className="mt-2">
           <Breadcrumbs items={[
             {label:"الرئيسية", href:"/"},
@@ -55,8 +54,8 @@ useEffect(()=>{
       </div>
 
       <div id="overview" className={`w-full h-full border-t pt-2 `}>
-        <div className="w-10/12 h-1/3 mt-8  mx-auto flex flex-wrap items-center  justify-center gap-4">
-          {dashboardsOverview && dashboardsOverview.map((dashboard) => {
+        <div className="w-10/12 h-1/3 mt-8  mx-auto flex flex-wrap items-center justify-start gap-4">
+          {dashboardsOverview && dashboardsOverview.filter((dashboard)=>!dashboard.title.includes("GENERAL")).map((dashboard) => {
             return (
               <NavLink
               

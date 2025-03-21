@@ -147,7 +147,7 @@ body {
 
   .dark {
     /* Dark mode */
-    --background: 220 20% 6%; /* Dark-ish gray background */
+    --background: 0 0% 0%; /* Dark-ish gray background */
     --foreground: 0 0% 100%; /* White text as primary text color */
 
     /* Primary Colors (Dark mode) */
