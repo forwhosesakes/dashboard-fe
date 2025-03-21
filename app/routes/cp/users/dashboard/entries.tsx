@@ -81,7 +81,7 @@ const Entries = ({
   const locationData = useLocation();
   const [view, setView] = useState<"entries" | "indicators">("entries");
   const [loading, setLoading] = useState(false);
-  const { setLightTheme, theme } = useThemeStore();
+  const { setLightTheme, setDarkTheme, theme } = useThemeStore();
 
   const [currentEntries, setCurrentEntries] = useState<RootNode | any>({
     key: "ROOT",
@@ -147,6 +147,14 @@ const Entries = ({
       setLightTheme();
     };
   }, []);
+
+  useEffect(() => {
+    if (view === "entries") {
+      setLightTheme();
+    } else if (view === "indicators") {
+      setDarkTheme();
+    }
+  }, [view, setLightTheme, setDarkTheme]);
 
   const navigate = useNavigate();
   const handleTabChange = (value: string) => {
