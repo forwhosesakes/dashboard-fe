@@ -1262,7 +1262,7 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_INDICATORS = [
     questions:["Q18","Q19","Q20","Q21"]
   },
   {
-    label:"المؤشر السابع: الأنشطة والفعاليات والتعقادات",
+    label:"المؤشر السابع: الأنشطة والفعاليات والتعاقدات",
     questions:["Q22","Q23"]
   },
   {
