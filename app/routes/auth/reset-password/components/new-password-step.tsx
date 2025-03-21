@@ -58,18 +58,32 @@ const NewPasswordStep = (props: IProps) => {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
 
     setLoading(true);
+    let message = "حدث خطأ أثناء إعادة تعيين كلمة المرور"
 
     resetPassword(data)
-      .then(() => {
-        setLoading(false);
-        props.handleStepChange("")
+      .then((res) => {
+        if(res.error) {
+          setLoading(false);
+
+          if(res.error.code==="INVALID_OTP")
+         message="رقم التحقق خاطئ٫ فشلت إعادة تعيين كلمة المرور"
+        else if (res.error.code==="OTP_EXPIRED")
+         message=" انتهت صلاحية رقم التحقق ٫ فشلت إعادة تعيين كلمة المرور "
+      toasts.error({message})
+        }
+        else {
+          setLoading(false);
+          props.handleStepChange("")
+        }
       })
       .catch((e) => {
         setLoading(false);
         console.log("error happen when resetting password::", e)
-        toasts.error({message:"حدث خطأ أثناء إعادة تعيين كلمة المرور"})
+      
 
-        //todo: handle error in here
+      toasts.error({message})
+
+
       });
   };
 

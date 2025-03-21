@@ -14,11 +14,21 @@ const Passcode = (props: IProps) => {
   const [passcode, setPasscode] = useState<string[]>(
     new Array(props.noDigits).fill("")
   );
+  // Add a ref to track if we've already called onFinishTyping
+  const hasCalledFinish = useRef(false);
 
   useEffect(() => {
     const fullPasscode = passcode.join("");
-    if (fullPasscode.length === props.noDigits) {
+    if (fullPasscode.length === props.noDigits && 
+        !hasCalledFinish.current && 
+        !passcode.includes("")) {
+      console.log("on finish typing - calling once");
+      hasCalledFinish.current = true;
       props.onFinishTyping(fullPasscode);
+    }
+    
+    if (fullPasscode.length !== props.noDigits || passcode.includes("")) {
+      hasCalledFinish.current = false;
     }
   }, [passcode, props.noDigits, props.onFinishTyping]);
 
@@ -30,6 +40,12 @@ const Passcode = (props: IProps) => {
 
     if (event.key === "Backspace" || event.key === "Delete") {
       event.preventDefault();
+      // Clear the current input
+      setPasscode((prev) => {
+        const newPasscode = [...prev];
+        newPasscode[index] = "";
+        return newPasscode;
+      });
       if (index > 0) {
         itemsRef.current[index - 1]?.focus();
       }
@@ -59,6 +75,7 @@ const Passcode = (props: IProps) => {
       )}
       {Array.from({ length: props.noDigits }, (_, i) => (
         <Input
+          key={i} // Important! Add a key to prevent React rendering issues
           className="w-16 h-16 px-4 my-1 !text-4xl text-secondary font-bold text-center"
           value={passcode[i]}
           onKeyDown={(e) => handleKeyDownChange(e, i)}

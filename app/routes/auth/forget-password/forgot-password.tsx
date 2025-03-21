@@ -20,7 +20,7 @@ const ForgotPassword = ({ loaderData:baseUrl }: Route.ComponentProps) => {
   const navigate = useNavigate();
 
   const handlePasscodeCheck = (otp: string) => {
-    navigate("reset-password", {state:{otp,email}});
+    navigate("/reset-password", {state:{otp, email},replace:true});
   };
 
   const flowSteps = [
