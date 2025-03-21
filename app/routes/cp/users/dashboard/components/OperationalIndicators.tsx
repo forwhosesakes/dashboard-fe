@@ -226,7 +226,7 @@ export default function OperationalIndicator({
                       {
                         name: indicatorsLabels.OPERATIONAL
                           .APPROVED_ACTIVITY_EXPENSES,
-                        value: Math.round(
+                        value: Math.ceil(
                           (Number(
                             indicators.children?.APPROVED_AMOUNTS_QUARTERLY
                               ?.children?.APPROVED_ACTIVITY_EXPENSES?.value
@@ -242,7 +242,7 @@ export default function OperationalIndicator({
                       {
                         name: indicatorsLabels.OPERATIONAL
                           .APPROVED_ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES,
-                        value: Math.round(
+                        value: Math.ceil(
                           (Number(
                             indicators.children?.APPROVED_AMOUNTS_QUARTERLY
                               ?.children
@@ -260,7 +260,7 @@ export default function OperationalIndicator({
                       {
                         name: indicatorsLabels.OPERATIONAL
                           .APPROVED_MISCELLANEOUS_EXPENSES,
-                        value: Math.round(
+                        value: Math.ceil(
                           (Number(
                             indicators.children?.APPROVED_AMOUNTS_QUARTERLY
                               ?.children?.APPROVED_MISCELLANEOUS_EXPENSES?.value
@@ -276,7 +276,7 @@ export default function OperationalIndicator({
                       {
                         name: indicatorsLabels.OPERATIONAL
                           .APPROVED_SERVICE_EXPENSES,
-                        value: Math.round(
+                        value: Math.ceil(
                           (Number(
                             indicators.children?.APPROVED_AMOUNTS_QUARTERLY
                               ?.children?.APPROVED_SERVICE_EXPENSES?.value
@@ -292,7 +292,7 @@ export default function OperationalIndicator({
                       {
                         name: indicatorsLabels.OPERATIONAL
                           .APPROVED_MARKETING_EXPENSES,
-                        value: Math.round(
+                        value: Math.ceil(
                           (Number(
                             indicators.children?.APPROVED_AMOUNTS_QUARTERLY
                               ?.children?.APPROVED_MARKETING_EXPENSES?.value
@@ -308,7 +308,7 @@ export default function OperationalIndicator({
                       {
                         name: indicatorsLabels.OPERATIONAL
                           .APPROVED_SALARY_EXPENSES,
-                        value: Math.round(
+                        value: Math.ceil(
                           (Number(
                             indicators.children?.APPROVED_AMOUNTS_QUARTERLY
                               ?.children?.APPROVED_SALARY_EXPENSES?.value
@@ -324,7 +324,7 @@ export default function OperationalIndicator({
                       {
                         name: indicatorsLabels.OPERATIONAL
                           .APPROVED_OTHER_EXPENSES,
-                        value: Math.round(
+                        value: Math.ceil(
                           (Number(
                             indicators.children?.APPROVED_AMOUNTS_QUARTERLY
                               ?.children?.APPROVED_OTHER_EXPENSES?.value
@@ -363,7 +363,7 @@ export default function OperationalIndicator({
                     ?.APPROVED_ACTIVITY_EXPENSES?.value
                 ) ? (
                   <p className="text-3xl font-bold bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">
-                    {Math.round(
+                    {Math.ceil(
                       Number(
                         indicators.children?.APPROVED_AMOUNTS_QUARTERLY
                           ?.children?.APPROVED_ACTIVITY_EXPENSES?.value
@@ -396,7 +396,7 @@ export default function OperationalIndicator({
                     ?.value
                 ) ? (
                   <p className="text-3xl font-bold bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
-                    {Math.round(
+                    {Math.ceil(
                       Number(
                         indicators.children?.APPROVED_AMOUNTS_QUARTERLY
                           ?.children
@@ -427,7 +427,7 @@ export default function OperationalIndicator({
                     ?.APPROVED_MISCELLANEOUS_EXPENSES?.value
                 ) ? (
                   <p className="text-3xl font-bold bg-gradient-to-r from-[#36F097] to-[#3a9c5c] bg-clip-text text-transparent">
-                    {Math.round(
+                    {Math.ceil(
                       Number(
                         indicators.children?.APPROVED_AMOUNTS_QUARTERLY
                           ?.children?.APPROVED_MISCELLANEOUS_EXPENSES?.value
@@ -456,7 +456,7 @@ export default function OperationalIndicator({
                     ?.APPROVED_SERVICE_EXPENSES?.value
                 ) ? (
                   <p className="text-3xl font-bold bg-gradient-to-r from-[#725CFA] to-[#EF7BE3] bg-clip-text text-transparent">
-                    {Math.round(
+                    {Math.ceil(
                       Number(
                         indicators.children?.APPROVED_AMOUNTS_QUARTERLY
                           ?.children?.APPROVED_SERVICE_EXPENSES?.value
@@ -485,7 +485,7 @@ export default function OperationalIndicator({
                     ?.APPROVED_MARKETING_EXPENSES?.value
                 ) ? (
                   <p className="text-3xl font-bold bg-gradient-to-r from-[#FBE947] to-[#58D764] bg-clip-text text-transparent">
-                    {Math.round(
+                    {Math.ceil(
                       Number(
                         indicators.children?.APPROVED_AMOUNTS_QUARTERLY
                           ?.children?.APPROVED_MARKETING_EXPENSES?.value
@@ -514,7 +514,7 @@ export default function OperationalIndicator({
                     ?.APPROVED_SALARY_EXPENSES?.value
                 ) ? (
                   <p className="text-3xl font-bold bg-gradient-to-r from-[#F9A000] to-[#FBE947] bg-clip-text text-transparent">
-                    {Math.round(
+                    {Math.ceil(
                       Number(
                         indicators.children?.APPROVED_AMOUNTS_QUARTERLY
                           ?.children?.APPROVED_SALARY_EXPENSES?.value
@@ -543,7 +543,7 @@ export default function OperationalIndicator({
                     ?.APPROVED_OTHER_EXPENSES?.value
                 ) ? (
                   <p className="text-3xl font-bold bg-gradient-to-r from-[#ff7300] to-[#c25502] bg-clip-text text-transparent">
-                    {Math.round(
+                    {Math.ceil(
                       Number(
                         indicators.children?.APPROVED_AMOUNTS_QUARTERLY
                           ?.children?.APPROVED_OTHER_EXPENSES?.value
@@ -661,7 +661,7 @@ export default function OperationalIndicator({
                     data={[
                       {
                         name: indicatorsLabels.OPERATIONAL.ACTIVITY_EXPENSES,
-                        value: Math.round(
+                        value: Math.ceil(
                           (Number(
                             indicators.children?.DISBURSED_AMOUNTS_QUARTERLY
                               .children?.ACTIVITY_EXPENSES?.value
@@ -677,7 +677,7 @@ export default function OperationalIndicator({
                       {
                         name: indicatorsLabels.OPERATIONAL
                           .ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES,
-                        value: Math.round(
+                        value: Math.ceil(
                           (Number(
                             indicators.children?.DISBURSED_AMOUNTS_QUARTERLY
                               .children
@@ -695,7 +695,7 @@ export default function OperationalIndicator({
                       {
                         name: indicatorsLabels.OPERATIONAL
                           .MISCELLANEOUS_EXPENSES,
-                        value: Math.round(
+                        value: Math.ceil(
                           (Number(
                             indicators.children?.DISBURSED_AMOUNTS_QUARTERLY
                               .children?.MISCELLANEOUS_EXPENSES?.value
@@ -710,7 +710,7 @@ export default function OperationalIndicator({
                       },
                       {
                         name: indicatorsLabels.OPERATIONAL.SERVICE_EXPENSES,
-                        value: Math.round(
+                        value: Math.ceil(
                           (Number(
                             indicators.children?.DISBURSED_AMOUNTS_QUARTERLY
                               .children?.SERVICE_EXPENSES?.value
@@ -725,7 +725,7 @@ export default function OperationalIndicator({
                       },
                       {
                         name: indicatorsLabels.OPERATIONAL.MARKETING_EXPENSES,
-                        value: Math.round(
+                        value: Math.ceil(
                           (Number(
                             indicators.children?.DISBURSED_AMOUNTS_QUARTERLY
                               .children?.MARKETING_EXPENSES?.value
@@ -740,7 +740,7 @@ export default function OperationalIndicator({
                       },
                       {
                         name: indicatorsLabels.OPERATIONAL.SALARY_EXPENSES,
-                        value: Math.round(
+                        value: Math.ceil(
                           (Number(
                             indicators.children?.DISBURSED_AMOUNTS_QUARTERLY
                               .children?.SALARY_EXPENSES?.value
@@ -755,7 +755,7 @@ export default function OperationalIndicator({
                       },
                       {
                         name: indicatorsLabels.OPERATIONAL.OTHER_EXPENSES,
-                        value: Math.round(
+                        value: Math.ceil(
                           (Number(
                             indicators.children?.DISBURSED_AMOUNTS_QUARTERLY
                               .children?.OTHER_EXPENSES?.value
@@ -793,7 +793,7 @@ export default function OperationalIndicator({
                     .ACTIVITY_EXPENSES.value
                 ) ? (
                   <p className="text-3xl font-bold bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">
-                    {Math.round(
+                    {Math.ceil(
                       Number(
                         indicators.children?.DISBURSED_AMOUNTS_QUARTERLY
                           ?.children.ACTIVITY_EXPENSES.value
@@ -824,7 +824,7 @@ export default function OperationalIndicator({
                     .ADMINISTRATIVE_EXPENSES_ALLOCATED_TO_ACTIVITIES.value
                 ) ? (
                   <p className="text-3xl font-bold bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
-                    {Math.round(
+                    {Math.ceil(
                       Number(
                         indicators.children?.DISBURSED_AMOUNTS_QUARTERLY
                           ?.children
@@ -854,7 +854,7 @@ export default function OperationalIndicator({
                     .MISCELLANEOUS_EXPENSES.value
                 ) ? (
                   <p className="text-3xl font-bold bg-gradient-to-r from-[#36F097] to-[#3a9c5c] bg-clip-text text-transparent">
-                    {Math.round(
+                    {Math.ceil(
                       Number(
                         indicators.children?.DISBURSED_AMOUNTS_QUARTERLY
                           ?.children.MISCELLANEOUS_EXPENSES.value
@@ -883,7 +883,7 @@ export default function OperationalIndicator({
                     .SERVICE_EXPENSES.value
                 ) ? (
                   <p className="text-3xl font-bold bg-gradient-to-r from-[#725CFA] to-[#EF7BE3] bg-clip-text text-transparent">
-                    {Math.round(
+                    {Math.ceil(
                       Number(
                         indicators.children?.DISBURSED_AMOUNTS_QUARTERLY
                           ?.children.SERVICE_EXPENSES.value
@@ -912,7 +912,7 @@ export default function OperationalIndicator({
                     .MARKETING_EXPENSES.value
                 ) ? (
                   <p className="text-3xl font-bold bg-gradient-to-r from-[#FBE947] to-[#58D764] bg-clip-text text-transparent">
-                    {Math.round(
+                    {Math.ceil(
                       Number(
                         indicators.children?.DISBURSED_AMOUNTS_QUARTERLY
                           ?.children.MARKETING_EXPENSES.value
@@ -941,7 +941,7 @@ export default function OperationalIndicator({
                     .SALARY_EXPENSES.value
                 ) ? (
                   <p className="text-3xl font-bold bg-gradient-to-r from-[#F9A000] to-[#FBE947] bg-clip-text text-transparent">
-                    {Math.round(
+                    {Math.ceil(
                       Number(
                         indicators.children?.DISBURSED_AMOUNTS_QUARTERLY
                           ?.children.SALARY_EXPENSES.value
@@ -970,7 +970,7 @@ export default function OperationalIndicator({
                     .OTHER_EXPENSES.value
                 ) ? (
                   <p className="text-3xl font-bold bg-gradient-to-r from-[#ff7300] to-[#c25502] bg-clip-text text-transparent">
-                    {Math.round(
+                    {Math.ceil(
                       Number(
                         indicators.children?.DISBURSED_AMOUNTS_QUARTERLY
                           ?.children.OTHER_EXPENSES.value
