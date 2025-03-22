@@ -83,6 +83,7 @@ const Entries = ({
   const [loading, setLoading] = useState(false);
   const { setLightTheme, setDarkTheme, theme } = useThemeStore();
 
+  const [currentIndicators, setCurrentIndicators]=useState<any[]|null>(indicators)
   const [currentEntries, setCurrentEntries] = useState<RootNode | any>({
     key: "ROOT",
     value: null,
@@ -110,6 +111,8 @@ const Entries = ({
       const currentDasboardData = dashboardsOverview.find((dashboard: any) =>
         dashboard.title.includes(currentDashboard)
       );
+      setCurrentIndicators(indicators)
+
       if (currentDasboardData) {
         if (currentDasboardData.status === "NOT_STARTED" || entriesMap === null) {
           let initialEntries;
@@ -126,7 +129,6 @@ const Entries = ({
                 `No template available for dashboard: ${currentDashboard}`
               );
             }
-            
             setCurrentEntries(initialEntries ?? null);
           } catch (e) {
             console.error(
@@ -173,11 +175,15 @@ const Entries = ({
       // const requestBody = flattenNodeStructure(currentEntries.children);
       const {dashbaordId, id:_, createdAt, updatedAt, ...body} = rawEntriesState
 
-      await dashboardApi(baseUrl).saveEntries({
+      const response = await dashboardApi(baseUrl).saveEntries({
         id,
         type: currentDashboard,
         entries: body,
       });
+
+      const newIndicators = response.indicators.data[0]
+      setCurrentIndicators(newIndicators)
+
       
       toasts.success({ message: "تم حفظ المدخلات بنجاح" });
       setLoading(false);
@@ -300,7 +306,6 @@ const Entries = ({
                   {
                     <DashboardEntries
                       key={currentDashboard}
-              
                       dashboardType={currentDashboard}
                       rawEntries={rawEntriesState}
                       entries={currentEntries}
@@ -314,7 +319,7 @@ const Entries = ({
                 </>
               ) : (
                 <DashboardIndicators
-                    indicators={{ ...entriesMap, ...indicators }}
+                    indicators={{ ...entriesMap, ...currentIndicators }}
                     type={currentDashboard}
                     role={"admin"}
                     logoUrl={logoUrl} 
