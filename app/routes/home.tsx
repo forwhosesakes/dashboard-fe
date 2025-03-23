@@ -513,9 +513,9 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           </p>
           <div className="my-1 flex flex-col gap-2">
             {latestOrgs.map((charity) => (
-              <div key={charity?.name} className="flex flex-wrap gap-2">
+              <div key={charity?.name} className="flex gap-2">
                 <img className="w-10 h-10" src={DefaultUserImg} alt="" />
-                <div className="flex flex-col">
+                <div className="flex flex-col text-pretty">
                   <p>{charity?.name}</p>
                   <p className="text-primary-foreground/60">
                     عضو منذ {charity?.month} {charity?.year}
