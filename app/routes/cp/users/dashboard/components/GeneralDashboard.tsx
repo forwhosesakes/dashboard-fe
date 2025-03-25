@@ -205,7 +205,10 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
             </div>
 
             <div className="flex flex-col justify-between w-full gap-3 pb-4 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#EF7BE3] after:to-[#FF5A5A]">
-إجمالي الإيرادات لهذا العام              <p className="font-bold text-base 2xl:text-lg">
+
+   <p className="font-bold text-base 2xl:text-lg">
+إجمالي الإيرادات لهذا العام           
+
               </p>
 
 
@@ -237,11 +240,11 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
             </div>
 
             <div className="flex flex-col justify-between w-full gap-3 pb-4 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#FBE947] after:to-[#58D764]">
-              <p className="font-bold text-base 2xl:text-lg">مصاريف البرامج والأنشطة</p>
+              <p className="font-bold text-base 2xl:text-lg">  {indicatorsLabels.GENERAL.RETURNS_FROM_TARGET}</p>
 
-              {isNumeric(indicators["PRGRMS_EXPENSES"]) ? (
+              {isNumeric(indicators["RETURNS_FROM_TARGET"]) ? (
                   <p className="font-bold text-5xl bg-gradient-to-r from-[#FBE947] to-[#58D764] bg-clip-text text-transparent">
-                  {Math.ceil(indicators.PRGRMS_EXPENSES)}%
+                  {Math.ceil(indicators.RETURNS_FROM_TARGET)}%
     
                   </p>
               ) : (
