@@ -29,11 +29,7 @@ const CorporateDashboard = (props: IProps) => {
       gradientStart: "#1882FF",
       gradientEnd: "#36EBCA",
     },
-    {
-      key: "BENEF_SATIS_MEASURMENT",
-      gradientStart: "#FBE947",
-      gradientEnd: "#58D764",
-    },
+
   ];
 
 
