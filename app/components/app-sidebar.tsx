@@ -142,7 +142,7 @@ export function AppLayout({ children, user, serverUrl }: AppLayoutProps) {
               </SidebarMenu>
             </SidebarGroup>
 
-            <SidebarGroup>
+            {/* <SidebarGroup>
               <SidebarGroupLabel> التصنيفات </SidebarGroupLabel>
               <SidebarMenu>
                 {categories.map((item) => (
@@ -150,11 +150,11 @@ export function AppLayout({ children, user, serverUrl }: AppLayoutProps) {
                     key={item.name}
                     className="flex hover:bg-secondary/10 rounded-lg justify-center items-center"
                   >
-                    {/* <div
+                    <div
                       className={`${
                         location.pathname === item.href ? "" : "hidden"
                       } min-w-2 min-h-2 h-2 w-2 flex-shrink-0 rounded-full border bg-green-600`}
-                    ></div>    */}
+                    ></div>   
                     <SidebarMenuButton className="" asChild tooltip={item.name}>
                       <Link to={"/"}>
                         {item.icon ? (
@@ -167,17 +167,17 @@ export function AppLayout({ children, user, serverUrl }: AppLayoutProps) {
                       </Link>
                     </SidebarMenuButton>
 
-                    {/* {item.stat && (
+                    {item.stat && (
                       <div className="border flex gap-[2px] text-xs py-[4px] px-[7px] rounded-2xl text-primary-foreground mx-2">
                         <p className="text-xs ">{item.stat}</p>
                         <Command className="w-3 h-3 my-auto " />
                       </div>
-                    )} */}
+                    )}
                  {isExpanded&&   <ChevronLeft className="min-w-4 min-h-4 h-4 w-4 text-primary-foreground/60" />}
                   </SidebarMenuItem>
                 ))}
               </SidebarMenu>
-            </SidebarGroup>
+            </SidebarGroup> */}
           </SidebarContent>
 
           <SidebarFooter>

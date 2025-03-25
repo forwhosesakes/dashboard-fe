@@ -19,19 +19,19 @@ export const clientFormDataSchema = z.object({
       required_error: "يجب اختيار تصنيف الجمعية",
     }),
   
-    category: z.string({
-      required_error: "تخصص الجمعية مطلوب"
-    })
-      .min(3, "يجب أن يحتوي تخصص الجمعية على 3 أحرف على الأقل")
-      .max(50, "يجب أن لا يتجاوز تخصص الجمعية 50 حرف"),
+    // category: z.string({
+    //   required_error: "تخصص الجمعية مطلوب"
+    // })
+    //   .min(3, "يجب أن يحتوي تخصص الجمعية على 3 أحرف على الأقل")
+    //   .max(50, "يجب أن لا يتجاوز تخصص الجمعية 50 حرف"),
 
   licenseNumber: z.string().min(1, "يرجى إدخال رقم الرخصة"),
 website: z.string() .optional(),
   address: z.string().min(1, "يرجى إدخال الموقع"),
   city: z.string().min(1, "يرجى إدخال المدينة"),
-  neighbor: z.string().min(1, "يرجى إدخال الحي"),
-  street: z.string().min(1,  "يرجى إدخال الشارع"),
-  map: z.string().optional(),
+  // neighbor: z.string().min(1, "يرجى إدخال الحي"),
+  // street: z.string().min(1,  "يرجى إدخال الشارع"),
+  // map: z.string().optional(),
   repName: z.string().min(1,  "يرجى إدخال اسم الممثل"),
   repPhoneNumber: z.string().min(1,  "يرجى إدخال رقم جوال الممثل"),
   repEmail: z.string({

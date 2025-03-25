@@ -47,7 +47,7 @@ export const STEPS: TSteps = {
           { label: "phoneNumber", type: "TEXT",placeholder:"+966 (555) 000-0000" },
           { label: "email", type: "EMAIL",placeholder:"Kmsalms@gmail.com" },
           { label: "type", type: "DROPDOWN",placeholder:"اختر تصنيف الجمعية", options:["technical","waqfi"] },
-          { label: "category", type: "DROPDOWN",placeholder:"اختر تخصص الجمعية" , options:["mosques","orphans", "none"]},
+        //   { label: "category", type: "DROPDOWN",placeholder:"اختر تخصص الجمعية" , options:["mosques","orphans", "none"]},
 
           { label: "licenseNumber", type: "TEXT",placeholder:"رقم الترخيص" },
           { label: "website", type: "TEXT" ,placeholder:"www.untitledui.com"},
@@ -61,9 +61,9 @@ export const STEPS: TSteps = {
       fields: [
           { label: "address", type: "TEXT" ,placeholder:"العنوان الوطني"},
           { label: "city", type: "DROPDOWN" ,placeholder:"اختار المدينة", options:REGIONS},
-          { label: "neighbor", type: "TEXT" ,placeholder:"الحي"},
-          { label: "street", type: "TEXT" ,placeholder:"الشارع"},
-          { label: "map", type: "TEXT",placeholder:"خارطة الجمعية" },
+        //   { label: "neighbor", type: "TEXT" ,placeholder:"الحي"},
+        //   { label: "street", type: "TEXT" ,placeholder:"الشارع"},
+        //   { label: "map", type: "TEXT",placeholder:"خارطة الجمعية" },
       ],
       title: "موقع الجمعية",
       description: "البيانات الديموغرافية  ",
