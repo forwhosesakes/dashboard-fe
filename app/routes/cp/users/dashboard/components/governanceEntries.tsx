@@ -43,18 +43,19 @@ const GovernanceEntries = () => {
   const [expandedIndicators, setExpandedIndicators] = useState<Record<number, boolean>>({});
   const [expandedQuestions, setExpandedQuestions] = useState<Record<string, boolean>>({});
   const [total,setTotal]=useState(0)
+  const [formKey, setFormKey] = useState(0);
 
-  useEffect(() => {
-    const initialIndicatorState = TABS_QUESTIONS[govTab].indicators.reduce((acc, _, index) => {
-      return { ...acc, [index]: true };
-    }, {});
-    setExpandedIndicators(initialIndicatorState);
+  // useEffect(() => {
+  //   const initialIndicatorState = TABS_QUESTIONS[govTab].indicators.reduce((acc, _, index) => {
+  //     return { ...acc, [index]: true };
+  //   }, {});
+  //   setExpandedIndicators(initialIndicatorState);
 
-    const initialQuestionState = Object.keys(TABS_QUESTIONS[govTab].questions).reduce((acc, key) => {
-      return { ...acc, [key]: true };
-    }, {});
-    setExpandedQuestions(initialQuestionState);
-  }, [govTab]);
+  //   const initialQuestionState = Object.keys(TABS_QUESTIONS[govTab].questions).reduce((acc, key) => {
+  //     return { ...acc, [key]: true };
+  //   }, {});
+  //   setExpandedQuestions(initialQuestionState);
+  // }, [govTab]);
   
   useEffect(()=>{
     setTotal(getGeneralTotalForOneTab())
@@ -82,6 +83,21 @@ const GovernanceEntries = () => {
       [questionLabel]: value,
     }));
   };
+
+
+  const resetTabResponses = ()=>{
+    setResponses({})
+    setFormKey(prevKey => prevKey + 1);
+  }
+
+  const resetAnswer = (label:string)=>{
+    setResponses(prev=>{
+      const newData = {...prev}
+  delete newData[label]
+  return newData;
+    })
+    setFormKey(prevKey => prevKey + 1);
+  }
 
   const shouldShowQuestion = (
     question: any,
@@ -255,13 +271,19 @@ const GovernanceEntries = () => {
 
   return (
     <>
-      <div className="flex mb-8 gap-x-2 text-gray-500">
-        <Switch
+      <div className="flex justify-between mb-8 px-6 gap-x-2 text-gray-500">
+    <div className="flex  gap-x-2 ">
+    <Switch
           dir="ltr"
           checked={!!isFormMode}
           onCheckedChange={triggerFormMode}
         />
-        {"اظهار استبيانات الحوكمة"}
+        {"اظهار استبيانات الحوكمة " }
+
+    </div>
+  
+
+{   !!isFormMode&&     <Button className="w-fit"  onClick={resetTabResponses} variant={"destructive"} >إعادة تعيين الاستبيان</Button>}
       </div>
       {isFormMode && (
         <Tabs
@@ -291,7 +313,7 @@ const GovernanceEntries = () => {
                     <div className="flex items-center gap-4">
                       <div className="flex flex-col justify-center items-end">
                         <span className="text-gray-600 text-xs">{countEvaluatedPracticesForOneIndicator(index)}</span>
-                        <span className="text-secondary-700 font-semibold text-xs">{`المحصلة: ${subTotalForOneIndicator(index)} من أصل ${fullTotalForOneIndicator(index)}`}</span>
+                        <span className="text-secondary-700 font-semibold text-xs">{`الدرجة: ${subTotalForOneIndicator(index)} من أصل ${fullTotalForOneIndicator(index)}`}</span>
                       </div>
                       {expandedIndicators[index] ? 
                         <ChevronUp className="h-4 w-4 text-secondary-700" /> : 
@@ -351,9 +373,10 @@ const GovernanceEntries = () => {
                                   qIndex
                                 ) && (
                                   <div
-                                    key={q.label}
+                                  key={`${q.label}-${formKey}`}
                                     className="p-4 border rounded-lg"
                                   >
+                                    <div className="flex justify-between">
                                     <p className="text-sm font-medium mb-4">
                                       {qIndex + 1}.{" "}
                                       {
@@ -361,6 +384,9 @@ const GovernanceEntries = () => {
                                         governanceLabels[govTab][q.label]
                                       }
                                     </p>
+                                    <Button className="w-fit" onClick={()=>resetAnswer(q.label)} variant={"outline"}>مسح الإجابة</Button>
+                                      </div>
+                                
                                     <RadioGroup
                                       dir="rtl"
                                       onValueChange={(value) =>
@@ -371,13 +397,13 @@ const GovernanceEntries = () => {
                                     >
                                       {q.options.map((option, index) => (
                                         <div
-                                          key={index}
+                                          key={`${q.label}-${index}`}
                                           className="flex items-center space-x-2"
                                         >
                                           <RadioGroupItem
                                             dir="rtl"
                                             value={`${option.weight.toString()}-${index}`}
-                                            id={`${q.label}-${index}`}
+                                            id={`${q.label}-${index}-${formKey}`}
                                           />
                                           <p>{option.label}</p>
                                           <span className="text-xs text-gray-400">

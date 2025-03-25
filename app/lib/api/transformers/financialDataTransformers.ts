@@ -94,7 +94,11 @@ export function transformFinancialEntries(
           ECONOMIC_RETURN_OF_VOLUNTEERING:createNode("ECONOMIC_RETURN_OF_VOLUNTEERING", entry.ECONOMIC_RETURN_OF_VOLUNTEERING),
           PROGRAM_AND_ACTIVITY_REVENUES: programActivityRevenues,
           GENERAL_ASSEMBLY_MEMBERS_SUBSCRIPTION_TOTAL: createNode("GENERAL_ASSEMBLY_MEMBERS_SUBSCRIPTION_TOTAL", 
-            entry.GENERAL_ASSEMBLY_MEMBERS_SUBSCRIPTION_TOTAL)
+            entry.GENERAL_ASSEMBLY_MEMBERS_SUBSCRIPTION_TOTAL),
+            ACTUAL_RETURNS: createNode("ACTUAL_RETURNS", 
+              entry.ACTUAL_RETURNS),
+            EXPECTED_RETURNS:createNode("EXPECTED_RETURNS", 
+              entry.EXPECTED_RETURNS)
       });
       
       // root node with all sections

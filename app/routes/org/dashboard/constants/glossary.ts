@@ -85,7 +85,8 @@ const dashboardStatusMap = {
       OPERATIONAL_PLAN_ACHIVMENT_GOALS: " تحقيق المستهدفات التشغيلية",
       DAILY_OPS_MGMT: "تقييم مجلس الإدارة للمدير التنفيذي",
       FOLLOWUP_EMPS_PERF: "متابعة أداء الموظفين",
-    EMP_TRAINING_INDICATOR:"مؤشر تدريب الموظفين",
+      EMP_TRAINING_INDICATOR:"مؤشر تدريب الموظفين",
+
 
     },
     OPERATIONAL: {
@@ -122,7 +123,9 @@ const dashboardStatusMap = {
       OPS_PLAN_EXEC: "تنفيذ الخطة التشغيلية",
       PRJKT_PRGM_MGMT: "إدارة المشاريع والبرامج",
       EFFIC_INTERNAL_OPS: "كفاءة العمليات الداخلية",
-      VOLN_MGMT: "إدارة التطوع"
+      VOLN_MGMT: "إدارة التطوع",
+RETURNS_FROM_TARGET:"نسبة الإيرادات المحققة من المستهدف العام",
+
     
     },
   };

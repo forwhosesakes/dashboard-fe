@@ -27,12 +27,7 @@ const DashboardEntries = ({
     setData(entries)
   },[entries])
 
-  useEffect(()=>{
 
-console.log("raw entries in DashboardEntries ::",rawEntries );
-
-
-  },[rawEntries])
   const [data,setData]=useState({
     key:"Root",
     value:null,

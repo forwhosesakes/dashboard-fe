@@ -75,14 +75,14 @@ const FinancialDashboard = (props: IProps) => {
             
             <div className="flex flex-col gap-3  items-center md:items-start">
               <p className="text-base font-bold">الأداء المالي الكلي</p>
-              <div className="flex h-fit text-nowrap justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
+              {/* <div className="flex h-fit text-nowrap justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
               آخر ثلاث شهور{" "}
               {Number(props.indicators?.FINANCIAL_PERF) < 0 ? (
                 <ArrowDownLeft className="text-red-500 font-bold w-4 h-4 min-w-4 min-h-4" />
               ) : (
                 <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
               )}
-            </div>
+            </div> */}
               {isNumeric(props.indicators["FINANCIAL_PERF"]) ? (
                 <p className="text-[#D9B456] font-bold text-3xl md:text-4xl lg:text-5xl">
                   {Math.ceil(Number(props.indicators?.FINANCIAL_PERF))}%
@@ -180,14 +180,14 @@ const FinancialDashboard = (props: IProps) => {
           className={cn("flex", isExpanded ? "xl:gap-3 2xl:gap-4" : "gap-4")}
         >
           <div className="flex flex-col justify-center w-[25%] items-center p-5 gap-2 border-2 rounded-xl border-[#9C9C9C] shadow-[0px_1px_2px_0px_rgba(255,255,255,0.00)] ">
-            <div className="flex h-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
+            {/* <div className="flex h-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
               آخر ثلاث شهور{" "}
               {Number(props.indicators?.ADMIN_TO_TOTAL_EXPENSES) < 0 ? (
                 <ArrowDownLeft className="text-red-500 font-bold w-4 h-4 min-w-4 min-h-4" />
               ) : (
                 <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
               )}
-            </div>
+            </div> */}
             <p className="font-bold text-center">
               {indicatorsLabels.FINANCIAL.ADMIN_TO_TOTAL_EXPENSES}
             </p>
@@ -207,14 +207,14 @@ const FinancialDashboard = (props: IProps) => {
           </div>
 
           <div className="flex flex-col justify-center w-[25%] items-center p-5 gap-2 border-2 rounded-xl border-[#9C9C9C] shadow-[0px_1px_2px_0px_rgba(255,255,255,0.00)] ">
-            <div className="flex h-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
+            {/* <div className="flex h-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
               آخر ثلاث شهور{" "}
               {Number(props.indicators?.ABL_COVER_OBLIG) < 0 ? (
                 <ArrowDownLeft className="text-red-500 font-bold w-4 h-4 min-w-4 min-h-4" />
               ) : (
                 <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
               )}
-            </div>
+            </div> */}
             <p className="font-bold text-center">
               {indicatorsLabels.FINANCIAL.ABL_COVER_OBLIG}
             </p>
@@ -234,14 +234,14 @@ const FinancialDashboard = (props: IProps) => {
           </div>
 
           <div className="flex flex-col justify-center w-[25%] items-center p-5 gap-2 border-2 rounded-xl border-[#9C9C9C] shadow-[0px_1px_2px_0px_rgba(255,255,255,0.00)] ">
-            <div className="flex h-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
+            {/* <div className="flex h-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
               آخر ثلاث شهور{" "}
               {Number(props.indicators?.FUND_RAISING_TO_TOTAL_EXPENSES) < 0 ? (
                 <ArrowDownLeft className="text-red-500 font-bold w-4 h-4 min-w-4 min-h-4" />
               ) : (
                 <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
               )}
-            </div>
+            </div> */}
             <p className="font-bold text-center">
               {indicatorsLabels.FINANCIAL.FUND_RAISING_TO_TOTAL_EXPENSES}
             </p>
@@ -281,14 +281,14 @@ const FinancialDashboard = (props: IProps) => {
               indicatorClassName="bg-accent"
             />
 
-            <div className="flex h-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
+            {/* <div className="flex h-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
               آخر ثلاث شهور{" "}
               {Number(props.indicators?.DONAT_MONEY_RAISING) < 0 ? (
                 <ArrowDownLeft className="text-red-500 font-bold w-4 h-4 min-w-4 min-h-4" />
               ) : (
                 <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
               )}
-            </div>
+            </div> */}
           </div>
         </div>
 

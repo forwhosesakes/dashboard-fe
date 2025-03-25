@@ -167,16 +167,16 @@ const CorporateDashboard = (props: IProps) => {
     {empPerformance.map((card) => (
       <div
         key={card.key}
-        className="border-2 border-[#9C9C9C] flex flex-col items-end rounded-xl min-h-48 p-3 gap-2"
+        className="border-2 border-[#9C9C9C] flex flex-col justify-center items-center  rounded-xl min-h-48 p-3 gap-2"
         style={{ width: "calc(25% - 1.25rem)" }}
       >
       
           <>
-            <div className="border w-fit p-1 mb-5 flex justify-center items-center gap-1 text-xs rounded-lg">
+            {/* <div className="border w-fit p-1 mb-5 flex justify-center items-center gap-1 text-xs rounded-lg">
               {" "}
               {"آخر ثلاث شهور"}
               <TrendingUp className="w-4 text-green-600" />{" "}
-            </div>{" "}
+            </div>{" "} */}
             <h5 className="text-base w-full text-center font-bold text-white">
               {
                 indicatorsLabels.CORPORATE[
@@ -194,7 +194,7 @@ const CorporateDashboard = (props: IProps) => {
               text={`${Number(props.indicators[card.key]).toFixed(
                 1
               )}%`}
-              className="text-5xl w-full text-center font-bold"
+              className="text-5xl  w-full text-center font-bold"
             />}
           </>
         

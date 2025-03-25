@@ -61,6 +61,8 @@ const entriesLabels = {
     TOTAL_FINANCIAL_SUSTAINABILITY_EXPENSES: "اجمالي مصاريف الاستدامة المالية",
     TOTAL_SUSTAINABILITY_RETURNS: "اجمالي عوائد الاستدامة",
     TOTAL_DONATIONS: "اجمالي التبرعات",
+          ACTUAL_RETURNS:"العوائد الفعلية",
+      EXPECTED_RETURNS:"العوائد المتوقعة",
     IMPORTANT_VALUES_AND_PERCENTAGES_SUPPORTING_FINANCIAL_RESOURCES:"قيم ونسب هامة تدعم الموارد المالية",
   },
   CORPORATE: {
@@ -211,6 +213,7 @@ REV_FIN_SUST_TO_TOTAL_EXPENSES: "التكلفة الإدارية من العوا
 SUST_EXPENSEES_TO_REV: "تكلفة الاستدامة من عوائد الاستدامة",
 SUST_RETURN_TO_ASSETS: "نسبة عوائد الاستدامة إلى إجمالي أصول"	,
 SUST_TO_TOTAL_EXPENSES:   "تكلفة الاستدامة من المصاريف",	
+RETURNS_FROM_TARGET:"نسبة الإيرادات المحققة من المستهدف العام",
   },
   CORPORATE: {
     CORORATE_PERFORMANCE: "الأداء المؤسسي ",
@@ -253,6 +256,8 @@ SUST_TO_TOTAL_EXPENSES:   "تكلفة الاستدامة من المصاريف",
     //TODO: ITS THE BOARD STUFF CHANGE IIT LATER
     DAILY_OPS_MGMT: "تقييم مجلس الإدارة للمدير التنفيذي",
     FOLLOWUP_EMPS_PERF: "متابعة أداء الموظفين",
+    ACTUAL_RETURNS:"العوائد الفعلية",
+    EXPECTED_RETURNS:"الهوائد المتوقعة"
   },
   OPERATIONAL: {
 
@@ -319,7 +324,9 @@ SUST_TO_TOTAL_EXPENSES:   "تكلفة الاستدامة من المصاريف",
     OPS_PLAN_EXEC: "تنفيذ الخطة التشغيلية",
     PGRM_PRJKS_EXEC_PERC: "إدارة المشاريع والبرامج",
     EFFIC_INTERNAL_OPS: "كفاءة العمليات الداخلية",
-    VOLN_MGMT: "إدارة التطوع"
+    VOLN_MGMT: "إدارة التطوع",
+RETURNS_FROM_TARGET:"نسبة الإيرادات المحققة من المستهدف العام",
+
   },
 };
 

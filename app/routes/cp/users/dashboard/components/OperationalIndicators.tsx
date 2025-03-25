@@ -995,14 +995,14 @@ export default function OperationalIndicator({
           )}
         >
           <div className="flex flex-col items-center gap-4 p-5 border-2 border-[#9C9C9C] rounded-xl">
-            <div className="flex self-end h-fit w-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
+            {/* <div className="flex self-end h-fit w-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
               آخر ثلاث شهور{" "}
               {Number(indicators?.VOLN_CONTR_PRJKS_EXEC) < 0 ? (
                 <ArrowDownLeft className="text-red-500 font-bold w-4 h-4 min-w-4 min-h-4" />
               ) : (
                 <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
               )}
-            </div>
+            </div> */}
             <p className="font-bold">مساهمة المتطوعين في تنفيذ المشاريع</p>
             {isNumeric(indicators?.VOLN_CONTR_PRJKS_EXEC) ? (
               <p className="font-bold text-5xl bg-gradient-to-r from-[#FBE947] to-[#58D764] bg-clip-text text-transparent">
@@ -1014,14 +1014,14 @@ export default function OperationalIndicator({
           </div>
 
           <div className="flex flex-col items-center gap-4 p-5 border-2 border-[#9C9C9C] rounded-xl">
-            <div className="flex self-end h-fit w-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
+            {/* <div className="flex self-end h-fit w-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
               آخر ثلاث شهور{" "}
               {Number(indicators?.VOLUN_SUST_PERC) < 0 ? (
                 <ArrowDownLeft className="text-red-500 font-bold w-4 h-4 min-w-4 min-h-4" />
               ) : (
                 <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
               )}
-            </div>
+            </div> */}
             <p className="font-bold">نسبة استدامة المتطوعين</p>
             {isNumeric(indicators?.VOLUN_SUST_PERC) ? (
               <p className="font-bold text-5xl bg-gradient-to-r from-[#F7E706] to-[#F7E706] bg-clip-text text-transparent">
@@ -1033,14 +1033,14 @@ export default function OperationalIndicator({
           </div>
 
           <div className="flex flex-col items-center gap-4 p-5 border-2 border-[#9C9C9C] rounded-xl">
-            <div className="flex self-end h-fit w-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
+            {/* <div className="flex self-end h-fit w-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
               آخر ثلاث شهور{" "}
               {Number(indicators?.VOLUN_GROWTH_RATE_QUAR) < 0 ? (
                 <ArrowDownLeft className="text-red-500 font-bold w-4 h-4 min-w-4 min-h-4" />
               ) : (
                 <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
               )}
-            </div>
+            </div> */}
             <p className="font-bold">معدل النمو الربعي للمتطوعين</p>
             {isNumeric(indicators?.VOLUN_GROWTH_RATE_QUAR) ? (
               <p className="font-bold text-5xl bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">
@@ -1052,14 +1052,14 @@ export default function OperationalIndicator({
           </div>
 
           <div className="flex flex-col items-center gap-4 p-5 border-2 border-[#9C9C9C] rounded-xl">
-            <div className="flex self-end h-fit w-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
+            {/* <div className="flex self-end h-fit w-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
               آخر ثلاث شهور{" "}
               {Number(indicators?.REACH_TARGET_AUD_PERC) < 0 ? (
                 <ArrowDownLeft className="text-danger font-bold w-4 h-4 min-w-4 min-h-4" />
               ) : (
                 <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
               )}
-            </div>
+            </div> */}
             <p className="font-bold">نسبة الوصول للفئة المستهدفة</p>
             {isNumeric(indicators?.REACH_TARGET_AUD_PERC) ? (
               <p className="font-bold text-5xl bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">

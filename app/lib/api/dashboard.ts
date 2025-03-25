@@ -270,6 +270,8 @@ const FinancialDashboardEntriesSchema = z.object({
   TOTAL_FINANCIAL_SUSTAINABILITY_EXPENSES: z.coerce.number().nullable(),
   TOTAL_SUSTAINABILITY_RETURNS: z.coerce.number().nullable(),
   TOTAL_DONATIONS: z.coerce.number().nullable(),
+  ACTUAL_RETURNS: z.coerce.number().nullable(),
+  EXPECTED_RETURNS: z.coerce.number().nullable(),
   IMPORTANT_VALUES_AND_PERCENTAGES_SUPPORTING_FINANCIAL_RESOURCES: z.coerce
     .number()
     .nullable(),
@@ -320,6 +322,8 @@ export type FinancialDashboardEntriesType = {
   TOTAL_FINANCIAL_SUSTAINABILITY_EXPENSES: number | null;
   TOTAL_SUSTAINABILITY_RETURNS: number | null;
   TOTAL_DONATIONS: number | null;
+  ACTUAL_RETURNS: number | null;
+  EXPECTED_RETURNS: number | null;
   IMPORTANT_VALUES_AND_PERCENTAGES_SUPPORTING_FINANCIAL_RESOURCES:
     | number
     | null;

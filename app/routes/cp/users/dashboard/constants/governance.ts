@@ -125,8 +125,8 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
         label: "GENERAL_ASSEMBLY_REVIEWED_AUDITOR_REPORT",
         options: [
           { label: "لم يتم مناقشة التقرير.", weight: 0 },
-          { label: "تمت المناقشة من غير الاعتماد.", weight: 1 },
-          { label: "تم الاجتماع.", weight: 2 },
+          { label: "تمت المناقشة من غير الاعتماد.", weight: 2 },
+          { label: "تم الاجتماع.", weight: 4 },
         ],
         isDependantOnPrev: false,
       },
@@ -969,7 +969,7 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
       {
         label: "CONDUCTS_FUNDRAISING_CAMPAIGNS",
         options: [
-          { label: "لا يتم جمع التبرعات.", weight: 0 },
+          { label: "لا يتم جمع التبرعات.", weight: 1 },
           { label: "نعم", weight: 0, moveToNext: true },
         ],
         isDependantOnPrev: false,

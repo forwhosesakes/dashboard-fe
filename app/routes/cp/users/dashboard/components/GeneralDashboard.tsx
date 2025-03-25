@@ -1,18 +1,12 @@
 import { indicatorsLabels } from "../constants/glossary";
-import SemiCircleProgressBar from "~/components/ui/half-circular-progress";
-import SaudiArabiaSvg from "~/assets/images/saudi-arabia.svg?react";
-
-import PulseLocationSvg from "~/assets/images/pulse-location.svg?react";
 import UnderConstructionCard from "~/components/ui/under-construction";
 import { useSidebarStore } from "~/lib/store/sidebar-store";
 import { cn } from "~/lib/tw-merge";
 import TestingIcon from "~/assets/icons/Layer_1.webp";
-import { ArrowUpRight } from "lucide-react";
 import CircularProgressBar from "~/components/ui/circular-progress";
 import SemiCircleProgress from "~/components/ui/semi-circle-progress";
 import SRIcon from "~/assets/icons/SR.svg";
 import { Progress } from "~/components/ui/progress";
-import { useEffect } from "react";
 import RatingsGraph from "~/components/ratings-graph";
 import { isNumeric } from "~/lib/utils/indicators";
 
@@ -182,7 +176,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
           {/* right-side first row */}
           <div className="flex gap-11 justify-between">
             <div className="flex w-full flex-col justify-between gap-3 pb-4 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#FBE947] after:to-[#58D764]">
-              <p className="font-bold text-base 2xl:text-lg">متوسط قياس الرضا</p>
+              <p className="font-bold text-base 2xl:text-lg"> متوسط نسبة رضا أصحاب المصلحة </p>
 
               {isNumeric(indicators["AVG_SATIS_MEASURMENT"]) ? (
                    <p className="font-bold text-5xl bg-gradient-to-r from-[#FBE947] to-[#58D764] bg-clip-text text-transparent">
@@ -211,8 +205,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
             </div>
 
             <div className="flex flex-col justify-between w-full gap-3 pb-4 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#EF7BE3] after:to-[#FF5A5A]">
-              <p className="font-bold text-base 2xl:text-lg">
-                الاستدامة المالية وقف استثمار
+إجمالي الإيرادات لهذا العام              <p className="font-bold text-base 2xl:text-lg">
               </p>
 
 
@@ -264,10 +257,10 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
           {/* right-side second row */}
           <div className="flex gap-6 w-full">
             <div className="flex border-2 border-[#9C9C9C] rounded-xl w-1/2 gap-6 py-3 px-4 items-center justify-center">
-              <div className="flex h-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
+              {/* <div className="flex h-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
                 آخر ثلاث شهور{" "}
                 <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
-              </div>
+              </div> */}
 
               <div className="flex flex-col gap-6 max-w-[176px] text-start min-w-[132px]">
                 <p className="font-bold text-base 2xl:text-lg">الأداء المالي الكلي</p>
@@ -298,10 +291,10 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
             </div>
 
             <div className="flex border-2 border-[#9C9C9C] rounded-xl w-1/2 gap-6 py-3 px-4 items-center justify-center">
-              <div className="flex h-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
+              {/* <div className="flex h-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
                 آخر ثلاث شهور{" "}
                 <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
-              </div>
+              </div> */}
 
               <div className="flex flex-col gap-6 text-start max-w-[176px] min-w-[132px]">
                 <p className="font-bold text-base 2xl:text-lg">
@@ -357,16 +350,15 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
             </div> */}
 
             <div className=" flex flex-col w-full min-w-[232px] items-center justify-between gap-2 p-5 pb-6 border-2 border-[#9C9C9C] rounded-xl">
-              <div className="flex w-fit h-fit self-end justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
+              {/* <div className="flex w-fit h-fit self-end justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
                 آخر ثلاث شهور{" "}
                 <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
-              </div>
+              </div> */}
               <p className="text-base 2xl:text-lg font-bold">
               نسبة الالتزام بالميزانية
               </p>
-
-              <div>
-                <SemiCircleProgress
+              {isNumeric(indicators["BUDGET_COMMIT_PERC"]) ? (
+                  <SemiCircleProgress
                   percentage={Math.ceil(indicators.BUDGET_COMMIT_PERC)}
                   size={180}
                   useGradient={true}
@@ -375,29 +367,37 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
                   gradientEnd="#36EBCA"
                   textSize="4xl"
                 />
+              ) : (
+                <UnderConstructionCard />
+              )}
+              <div>
+              
               </div>
             </div>
 
             <div className=" flex flex-col w-full min-w-[232px] items-center justify-between gap-2 p-5 pb-6 border-2 border-[#9C9C9C] rounded-xl">
-              <div className="flex w-fit h-fit self-end justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
+              {/* <div className="flex w-fit h-fit self-end justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
                 آخر ثلاث شهور{" "}
                 <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
-              </div>
+              </div> */}
               <p className="text-base 2xl:text-lg font-bold">
 نسبة تنفيذ البرامج والمشاريع
               </p>
-
+         
               <div>
-                <SemiCircleProgress
-                 percentage={Math.ceil(indicators.PGRM_PRJKS_EXEC_PERC)}
-
+              {isNumeric(indicators["PGRM_PRJKS_EXEC_PERC"]) ? (
+                  <SemiCircleProgress
+                  percentage={Math.ceil(indicators.PGRM_PRJKS_EXEC_PERC)}
                   size={180}
                   useGradient={true}
-                  gradientId="5"
-                  gradientStart="#FBE947"
-                  gradientEnd="#58D764"
+                  gradientId="4"
+                  gradientStart="#1882FF"
+                  gradientEnd="#36EBCA"
                   textSize="4xl"
                 />
+              ) : (
+                <UnderConstructionCard />
+              )}
               </div>
             </div>
 
@@ -407,7 +407,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
               </div>
               <div className="text-center">
               {isNumeric(indicators["FUND_RAISING_TO_TOTAL_DONAT"]) ? (
-                    <p className="font-bold text-5xl">{Math.ceil(indicators.ECONOMIC_RETURN_OF_VOLUNTEERING)}%</p>
+                    <p className="font-bold text-5xl">{Math.ceil(indicators.ECONOMIC_RETURN_OF_VOLUNTEERING)}</p>
               ) : (
                 <UnderConstructionCard />
               )}
@@ -419,10 +419,10 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
                 indicatorClassName="bg-accent"
               />
 
-              <div className="flex h-fit w-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
+              {/* <div className="flex h-fit w-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
                 آخر ثلاث شهور{" "}
                 <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -430,10 +430,10 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
         {/* left side */}
         <div className="flex flex-col justify-between gap-6">
           <div className="flex flex-col gap-4 p-5 border-2 border-[#9C9C9C] rounded-xl">
-            <div className="flex self-end h-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
+            {/* <div className="flex self-end h-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
               آخر ثلاث شهور{" "}
               <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
-            </div>
+            </div> */}
             <p className="text-base text-center 2xl:text-lg font-bold"> عدد المستفيدين </p>
 
             {isNumeric(indicators["VOLUN_SUST_PERC"]) ? (
@@ -447,10 +447,10 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
           </div>
 
           <div className="flex flex-col gap-4 p-5 border-2 border-[#9C9C9C] rounded-xl">
-            <div className="flex self-end h-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
+            {/* <div className="flex self-end h-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
               آخر ثلاث شهور{" "}
               <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
-            </div>
+            </div> */}
             <p className="text-base text-center 2xl:text-lg font-bold">  عدد المتطوعين   </p>
 
             {isNumeric(indicators["VOLUN_GROWTH_RATE_QUAR"]) ? (
@@ -465,10 +465,10 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
           </div>
 
           <div className="flex flex-col gap-4 p-5 border-2 border-[#9C9C9C] rounded-xl">
-            <div className="flex self-end h-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
+            {/* <div className="flex self-end h-fit justify-center items-center text-[#CECFD2] py-[2px] gap-1 pl-[6px] pr-2 bg-[#0C0E12] border rounded-lg text-sm">
               آخر ثلاث شهور{" "}
               <ArrowUpRight className="text-accent font-bold w-4 h-4 min-w-4 min-h-4" />
-            </div>
+            </div> */}
             <p className="text-base text-center 2xl:text-lg font-bold"> نسبة الوصول للفئة المستهدفة </p>
 
             {isNumeric(indicators["REACH_TARGET_AUD_PERC"]) ? (
