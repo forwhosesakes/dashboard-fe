@@ -82,6 +82,7 @@ const NodeRow: React.FC<NodeRowProps> = ({
               value={currentValue === null ? "" : currentValue}
               onChange={handleValueChange}
               onClick={(e) => e.stopPropagation()} // Prevent row click from triggering
+              onFocus={(e) => e.target.select()}
               className="w-full p-1 border rounded-lg bg-white border-accent"
             />
           )}
