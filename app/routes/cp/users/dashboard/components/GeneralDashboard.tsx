@@ -57,92 +57,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
         label: indicatorsLabels.CORPORATE.COMMUNITY_SATIS_MEASURMENT,
       },
     ];
-  const cards = [
-    // {
-    //   label: "GENERAL_PERFORMANCE",
-    //   value: indicators.GENERAL_PERFORMANCE,
-    //   gradientStart: "#725CFA",
-    //   gradientEnd: "#EF7BE3",
-    // },
-    {
-      label: "GOVERENCE",
-      value: indicators.GOVERENCE,
-      gradientStart: "#FBE947",
-      gradientEnd: "#58D764",
-    },
 
-    {
-      label: "FINANCIAL_PERF",
-      value: indicators.FINANCIAL_PERF,
-      gradientStart: "#1882FF",
-      gradientEnd: "#36EBCA",
-    },
-    {
-      label: "AVG_SATIS_MEASURMENT",
-      value: indicators.AVG_SATIS_MEASURMENT,
-      gradientStart: "#FBE947",
-      gradientEnd: "#58D764",
-    },
-    {
-      label: "ECONOMIC_RETURN_OF_VOLUNTEERING",
-      value: indicators.ECONOMIC_RETURN_OF_VOLUNTEERING,
-      gradientStart: "#725CFA",
-      gradientEnd: "#EF7BE3",
-    },
-
-    // {
-    //   label: "COMPLIANCE_ADHERENCE_PRACTICES_TOTAL",
-    //   value: indicators.COMPLIANCE_ADHERENCE_PRACTICES_TOTAL,
-    //   gradientStart: "#725CFA",
-    //   gradientEnd: "#EF7BE3",
-    // },
-
-    // {
-    //   label: "NO_RESPOSES_VOL_SATIS_FORM",
-    //   value: indicators.NO_RESPOSES_VOL_SATIS_FORM,
-    //   gradientStart: "#725CFA",
-    //   gradientEnd: "#EF7BE3",
-    // },
-
-    {
-      label: "NO_RESPONSES_SATIS_FORM",
-      value: indicators.NO_RESPONSES_SATIS_FORM,
-      gradientStart: "#725CFA",
-      gradientEnd: "#EF7BE3",
-    },
-
-    {
-      label: "VOLUN_SATIS_MEASURMENT",
-      value: indicators.VOLUN_SATIS_MEASURMENT,
-      gradientStart: "#725CFA",
-      gradientEnd: "#EF7BE3",
-    },
-    {
-      label: "BENEF_SATIS_MEASURMENT",
-      value: indicators.BENEF_SATIS_MEASURMENT,
-      gradientStart: "#725CFA",
-      gradientEnd: "#EF7BE3",
-    },
-    // {
-    //   label: "ADMIN_ORG_SATIS_MEASURMENT",
-    //   value: indicators.ADMIN_ORG_SATIS_MEASURMENT,
-    //   gradientStart: "#725CFA",
-    //   gradientEnd: "#EF7BE3",
-    // },
-    {
-      label: "PGRM_PRJKS_EXEC_PERC",
-      value: indicators.PGRM_PRJKS_EXEC_PERC,
-      gradientStart: "#725CFA",
-      gradientEnd: "#EF7BE3",
-    },
-  ];
-
-  const progressCards = [
-    {
-      label: "GENERAL_PERFORMANCE",
-      value: indicators.GENERAL_PERFORMANCE,
-    },
-  ];
   const { isExpanded } = useSidebarStore();
 
   return (
@@ -190,11 +105,11 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
             </div>
 
             <div className="flex flex-col justify-between w-full gap-3 pb-4 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#1882FF] after:to-[#36EBCA]">
-              <p className="font-bold text-base 2xl:text-lg">أداء المدير التنفيذي</p>
+              <p className="font-bold text-base 2xl:text-lg"> {indicatorsLabels.GENERAL.COMPLIANCE_ADHERENCE_PRACTICES_TOTAL} </p>
 
-              {isNumeric(indicators["CEO_PERFORMANCE"]) ? (
+              {isNumeric(indicators["COMPLIANCE_ADHERENCE_PRACTICES_TOTAL"]) ? (
                     <p className="font-bold text-5xl bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
-                    {Math.ceil(indicators.CEO_PERFORMANCE)}%
+                    {Math.ceil(indicators.COMPLIANCE_ADHERENCE_PRACTICES_TOTAL)}%
       
                     </p>
               ) : (
@@ -207,14 +122,11 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
             <div className="flex flex-col justify-between w-full gap-3 pb-4 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#EF7BE3] after:to-[#FF5A5A]">
 
    <p className="font-bold text-base 2xl:text-lg">
-إجمالي الإيرادات لهذا العام           
-
+   {indicatorsLabels.GENERAL.FINANCIAL_SAFETY_PRACTICES_TOTAL}
               </p>
-
-
-              {isNumeric(indicators["FINANCIAL_SUSTAIN"]) ? (
+              {isNumeric(indicators["FINANCIAL_SAFETY_PRACTICES_TOTAL"]) ? (
                     <p className="font-bold text-5xl bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">
-                    {Math.ceil(indicators.FINANCIAL_SUSTAIN)}%
+                    {Math.ceil(indicators.FINANCIAL_SAFETY_PRACTICES_TOTAL)}%
                    
                     </p>
               ) : (
@@ -225,11 +137,12 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
             </div>
 
             <div className="flex flex-col justify-between w-full gap-3 pb-4 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-gradient-to-r after:from-[#1882FF] after:to-[#36EBCA]">
-              <p className="font-bold text-base 2xl:text-lg">المصاريف الإدارية والعمومية</p>
-
-              {isNumeric(indicators["ADMIN_EXPENSES"]) ? (
+            <p className="font-bold text-base 2xl:text-lg">
+   {indicatorsLabels.GENERAL.TRANSPARENCY_DISCLOSURE_PRACTICES_TOTAL}
+              </p>
+              {isNumeric(indicators["TRANSPARENCY_DISCLOSURE_PRACTICES_TOTAL"]) ? (
                    <p className="font-bold text-5xl bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
-                   {Math.ceil(indicators.ADMIN_EXPENSES)}%
+                   {Math.ceil(indicators.TRANSPARENCY_DISCLOSURE_PRACTICES_TOTAL)}%
      
                    </p>
               ) : (

@@ -2,6 +2,7 @@ import {
   useLoaderData,
   useLocation,
   useNavigate,
+  useNavigation,
   type LoaderFunctionArgs,
 } from "react-router";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
@@ -29,6 +30,7 @@ import {
 import { useSidebarStore } from "~/lib/store/sidebar-store";
 import { OrganizationsAPI } from "~/services/org";
 import type { TOrganization } from "~/types/users.types";
+import { Spinner } from "~/components/ui/spinner";
 
 
 export const loader = async ({ context, params }: LoaderFunctionArgs) => {
@@ -82,7 +84,6 @@ const Entries = ({
   const [view, setView] = useState<"entries" | "indicators">("entries");
   const [loading, setLoading] = useState(false);
   const { setLightTheme, setDarkTheme, theme } = useThemeStore();
-
   const [currentIndicators, setCurrentIndicators]=useState<any[]|null>(indicators)
   const [currentEntries, setCurrentEntries] = useState<RootNode | any>({
     key: "ROOT",
@@ -91,6 +92,12 @@ const Entries = ({
   });
 
   const [rawEntriesState,setRawEntriesState]= useState<any>(rawEntries??initialValues[currentDashboard])
+  const navigation = useNavigation();
+  const isNavigating = Boolean(navigation.location);
+
+  console.log("isNavigating:",isNavigating);
+  
+
 
 
   useEffect(()=>{
@@ -98,7 +105,6 @@ const Entries = ({
   },[rawEntries])
 
   useEffect(() => {
-    // console.log("indicators",indicators);
     
     if (indicators === null) {
       setView("entries");
@@ -294,11 +300,9 @@ const Entries = ({
             ))}
           </TabsList>
 
-          <TabsContent value={currentDashboard}>
-            <div
-              className={` overflow-y-auto overflow-x-hidden ${
-                theme.includes("dark") && "bg-[#000]"
-              }`}
+          {isNavigating?          <div className="flex w-full  h-[50vh] items-center justify-center"><Spinner className="text-secondary-700" size={"large"}/></div>:<TabsContent value={currentDashboard}>
+  <div
+              className={` overflow-y-auto overflow-x-hidden ${theme.includes("dark") && "bg-[#000]"}`}
               ref={containerRef}
             >
               {view === "entries" ? (
@@ -327,7 +331,7 @@ const Entries = ({
                     />
               )}
             </div>
-          </TabsContent>
+          </TabsContent>}
         </Tabs>
       </div>
     </>

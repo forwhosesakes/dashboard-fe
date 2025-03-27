@@ -316,6 +316,9 @@ RETURNS_FROM_TARGET:"نسبة الإيرادات المحققة من المست�
     OPERATIONAL_PERFORMANCE:"نسبة الأداء التشغيلي ",
     NO_RESPONSES_SATIS_FORM:"عدد المستفيدين ",
     AVG_SATIS_MEASURMENT:"متوسطة نسبة رضا أصحاب المصلحة",
+    COMPLIANCE_ADHERENCE_PRACTICES_TOTAL:"معيار الامتثال و الالتزام",
+    FINANCIAL_SAFETY_PRACTICES_TOTAL:"معيار السلامة المالية",
+    TRANSPARENCY_DISCLOSURE_PRACTICES_TOTAL:"معيار الشفافية والإفصاح",
 
     GOVERANCE:"نسبة الحوكمة العامة",
     GOVERENCE:"نسبة الحوكمة العامة",

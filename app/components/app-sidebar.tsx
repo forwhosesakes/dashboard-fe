@@ -14,20 +14,19 @@ import {
 import {
   Home,
   Users,
-  ChevronLeft,
   CopyCheck,
   Baby,
-  HandHelpingIcon
+  HandHelpingIcon,
 } from "lucide-react";
-import Mosque from "~/assets/icons/mosque.svg";
 import KidanLogo from "~/assets/images/logo.png";
 import KidanLogomark from "~/assets/images/Logomark.png";
-import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router";
+import { Link, NavLink, useLocation, useNavigate, useNavigation } from "react-router";
 import { UserSidebarCard } from "~/components/user-sidebar-card";
 import { authClient } from "~/lib/auth-client";
 import { toast } from "sonner";
 import { useSidebarStore } from "~/lib/store/sidebar-store";
+import LoadingOverlay from "./loading-overlay";
+import { Spinner } from "./ui/spinner";
 
 
 const generalNavigation = [
@@ -69,10 +68,13 @@ interface AppLayoutProps {
 }
 
 export function AppLayout({ children, user, serverUrl }: AppLayoutProps) {
-  const { isExpanded, toggleSidebar, setSidebarState } = useSidebarStore();
+  const { isExpanded, toggleSidebar } = useSidebarStore();
+
 
   const location = useLocation();
   const navigate = useNavigate();
+  const navigation = useNavigation();
+  const isNavigating = Boolean(navigation.location);
 
 
   const handleLogOut = async () => {
@@ -124,10 +126,18 @@ export function AppLayout({ children, user, serverUrl }: AppLayoutProps) {
                       } min-w-2 min-h-2 h-2 w-2 flex-shrink-0 rounded-full border bg-green-600`}
                     ></div>
                     <SidebarMenuButton className="" asChild tooltip={item.name}>
-                      <Link to={item.href}>
-                        <item.icon className="h-4 w-4" />
-                        <span>{item.name}</span>
-                      </Link>
+                      <NavLink
+                             style={({ isPending }) => ({
+                              color: isPending ? "red" : "black",
+                            })}
+                      to={item.href}>
+                        
+                  
+                        {({ isPending }) => (
+          <>     <item.icon className="h-4 w-4" />
+                        <span>{item.name}</span> {isPending && <Spinner className="text-secondary-700" size={"xsmall"} />}</>
+        )}
+                      </NavLink>
                     </SidebarMenuButton>
                     {/* {item.stat && (
                       <span className="border text-xs py-[4px] px-[7px] rounded-2xl text-primary-foreground mx-2">
