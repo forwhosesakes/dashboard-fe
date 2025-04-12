@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import type { DashboardType } from "~/lib/api/dashboard";
-import GovernanceEntries from "./governanceEntries";
 import HierarchicalDataEntry from "./HierarchicalDataEntry";
 
 interface DashboardEntriesProps {
@@ -67,7 +66,6 @@ const DashboardEntries = ({
 
   return (
     <div className="flex flex-col ">
-      {dashboardType === "CORPORATE" && <GovernanceEntries />}
       <p className="text-accent font-semibold p-1">
         {`بيانات مؤشر ${
           dashboardType === "FINANCIAL"
