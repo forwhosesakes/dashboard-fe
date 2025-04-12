@@ -218,7 +218,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
                 </p>
                 {isNumeric(indicators["GOVERENCE"]) ? (
                 <p className="text-5xl font-bold text-[#FF0080]">
-                  {Math.ceil(Number(indicators.GOVERENCE))}%
+                  {Math.ceil(Number(indicators?.GOVERENCE))}%
                 </p>
               ) : (
                 <UnderConstructionCard />
@@ -230,7 +230,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
               <div>
                 <CircularProgressBar
                   gradientId="2"
-                  progress={Math.ceil(indicators.GOVERENCE)}
+                  progress={Math.ceil(indicators?.GOVERENCE)}
                   size="sm"
                   gradientStart="#FF0080"
                   gradientEnd="#FF0080"

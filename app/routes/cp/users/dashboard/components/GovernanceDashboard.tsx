@@ -25,11 +25,12 @@ const GovernanceDashboard = (props: IProps) => {
   const { isExpanded } = useSidebarStore();
 //   console.log("indicators", props.indicators);
 
+
   let {
     COMPLIANCE_ADHERENCE_INDICATORS,
     FINANCIAL_SAFETY_INDICATORS,
     TRANSPARENCY_DISCLOSURE_INDICATORS,
-  } = props.indicators.governance;
+  } = props.indicators?.governance;
   try {
     COMPLIANCE_ADHERENCE_INDICATORS = JSON.parse(
       COMPLIANCE_ADHERENCE_INDICATORS
@@ -362,9 +363,9 @@ const GovernanceDashboard = (props: IProps) => {
 
 
   const financialPerf =  getNumericVal (props.indicators.financial[0]?.FINANCIAL_PERF) 
-  const complianceAdherenceTotal = getNumericVal(props.indicators.governance.COMPLIANCE_ADHERENCE_PRACTICES_TOTAL) 
-  const transparencyTotal = getNumericVal(props.indicators.governance.TRANSPARENCY_DISCLOSURE_PRACTICES_TOTAL)
-  const financialSafetyTotal = getNumericVal(props.indicators.governance.FINANCIAL_SAFETY_PRACTICES_TOTAL)
+  const complianceAdherenceTotal = getNumericVal(props.indicators?.governance?.COMPLIANCE_ADHERENCE_PRACTICES_TOTAL) 
+  const transparencyTotal = getNumericVal(props.indicators?.governance?.TRANSPARENCY_DISCLOSURE_PRACTICES_TOTAL)
+  const financialSafetyTotal = getNumericVal(props.indicators?.governance?.FINANCIAL_SAFETY_PRACTICES_TOTAL)
 
 
   const total = 0.2*financialPerf + 0.2*transparencyTotal +  0.2*financialSafetyTotal + 0.4* complianceAdherenceTotal

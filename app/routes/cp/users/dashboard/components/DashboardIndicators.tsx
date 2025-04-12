@@ -30,7 +30,7 @@ const DashboardIndicators = (props: IProps) => {
         </CorporateDashboard>
       );
       case "GOVERNANCE":
-        return <GovernanceDashboard isFullscreen={props.isFullscreen} logoUrl={props.logoUrl} role={props.role} indicators={props.indicators}/>
+        return props.indicators?.governance&& <GovernanceDashboard isFullscreen={props.isFullscreen} logoUrl={props.logoUrl} role={props.role} indicators={props.indicators}/>
 
     default:
       break;
