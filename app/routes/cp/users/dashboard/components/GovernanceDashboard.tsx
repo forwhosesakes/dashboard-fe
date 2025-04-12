@@ -450,7 +450,7 @@ const GovernanceDashboard = (props: IProps) => {
                   <p className="font-bold">{item.label}</p>
                   <GradientText
                     className="text-xl"
-                    text={item.value + "%"}
+                    text={item.value.toString() }
                     gradientEnd={item.gradientEnd}
                     gradientStart={item.gradientStart}
                   />
@@ -504,7 +504,7 @@ const GovernanceDashboard = (props: IProps) => {
 
                   <GradientText
                     className="text-xl"
-                    text={item.value + "%"}
+                    text={item.value.toString()}
                     gradientEnd={item.gradientEnd}
                     gradientStart={item.gradientStart}
                   />
@@ -555,7 +555,7 @@ const GovernanceDashboard = (props: IProps) => {
 
                   <GradientText
                     className="text-xl"
-                    text={(item.value) + "%"}
+                    text={(item.value).toString()}
                     gradientEnd={item.gradientEnd}
                     gradientStart={item.gradientStart}
                   />
@@ -604,7 +604,7 @@ const GovernanceDashboard = (props: IProps) => {
 
                   <GradientText
                     className="text-xl"
-                    text={(item.value) + "%"}
+                    text={(item.value).toString()}
                     gradientEnd={item.gradientEnd}
                     gradientStart={item.gradientStart}
                   />

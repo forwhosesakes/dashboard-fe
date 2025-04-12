@@ -63,8 +63,8 @@ const initialValues = {
   operationalIndicatorsSetting: 30,
   corporateIndicatorsSetting: 40,
   generalndicatorsSetting: 100,
-  governanceIndicatorsSetting:false,
-    allDashboardsSetting:false
+  governanceIndicatorsSetting:true,
+    allDashboardsSetting:true
 };
 
 export async function loader({ request, context, params }: LoaderFunctionArgs) {
