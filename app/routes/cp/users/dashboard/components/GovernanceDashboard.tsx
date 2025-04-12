@@ -412,7 +412,7 @@ const GovernanceDashboard = (props: IProps) => {
           className={cn("flex ", isExpanded ? "xl:gap-3 2xl:gap-4" : "gap-4")}
         >
           <div className="flex flex-col md:flex-row gap-4 md:gap-6 w-full  justify-center items-center px-4 py-3 border-2 rounded-xl border-[#9C9C9C] shadow-[0px_1px_2px_0px_rgba(255,255,255,0.00)]">
-            <div className={cn("relative border   w-3/5 ")}>
+            <div className={cn("relative    w-3/5 ")}>
               <div className="absolute  left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2  ">
 
               <div className="flex flex-col items-center justify-center">
