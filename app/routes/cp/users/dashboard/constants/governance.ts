@@ -925,7 +925,7 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
       {
         label: "HAS_ACTIVITIES_OUTSIDE_ADMINISTRATIVE_SCOPE",
         options: [
-          { label: "لا توجد.", weight: 0 },
+          { label: "لا توجد.", weight: 0.5 },
           { label: "نعم", weight: 0, moveToNext: true },
         ],
         isDependantOnPrev: false,

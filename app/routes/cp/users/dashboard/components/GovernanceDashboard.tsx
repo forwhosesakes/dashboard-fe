@@ -1,8 +1,7 @@
 import { useSidebarStore } from "~/lib/store/sidebar-store";
 import { cn } from "~/lib/tw-merge";
 import TestingIcon from "~/assets/icons/Layer_1.webp";
-import UnderConstructionCard from "~/components/ui/under-construction";
-import { isNumeric } from "~/lib/utils/indicators";
+import { getNumericVal } from "~/lib/utils/indicators";
 import GradientText from "~/components/gardient-text";
 import { Progress } from "~/components/ui/progress";
 import CircularProgressBar from "~/components/ui/circular-progress";
@@ -17,14 +16,8 @@ interface IProps {
 }
 
 
-const getNumericVal = (val:any)=>{
-   return  isNumeric(val)?parseFloat( Number(val ).toFixed(2)):0
-}
-
 const GovernanceDashboard = (props: IProps) => {
   const { isExpanded } = useSidebarStore();
-//   console.log("indicators", props.indicators);
-
 
   let {
     COMPLIANCE_ADHERENCE_INDICATORS,
@@ -418,10 +411,12 @@ const GovernanceDashboard = (props: IProps) => {
         <div
           className={cn("flex ", isExpanded ? "xl:gap-3 2xl:gap-4" : "gap-4")}
         >
-          <div className="flex flex-col md:flex-row gap-4 md:gap-6 w-full justify-center items-center px-4 py-3 border-2 rounded-xl border-[#9C9C9C] shadow-[0px_1px_2px_0px_rgba(255,255,255,0.00)]">
-            <div className={cn("relative w-1/2 ")}>
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2  ">
-                <p>معيـار الامتثال</p>
+          <div className="flex flex-col md:flex-row gap-4 md:gap-6 w-full  justify-center items-center px-4 py-3 border-2 rounded-xl border-[#9C9C9C] shadow-[0px_1px_2px_0px_rgba(255,255,255,0.00)]">
+            <div className={cn("relative border   w-3/5 ")}>
+              <div className="absolute  left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2  ">
+
+              <div className="flex flex-col items-center justify-center">
+              <p>معيـار الامتثال</p>
                 <GradientText
                   text={
                     complianceAdherenceTotal+ "%"
@@ -431,9 +426,12 @@ const GovernanceDashboard = (props: IProps) => {
                   gradientEnd="#FF5A5A"
                 />
               </div>
+             
+              </div>
 
               <CircularProgressBar
                 gradientId="1"
+                size="lg"
                 progress={complianceAdherenceTotal}
                 gradientStart="#EF7BE3"
                 gradientEnd="#FF5A5A"
@@ -468,7 +466,12 @@ const GovernanceDashboard = (props: IProps) => {
           <div className="flex flex-col  gap-4 md:gap-6 w-full justify-center items-center px-4 py-3 border-2 rounded-xl border-[#9C9C9C] shadow-[0px_1px_2px_0px_rgba(255,255,255,0.00)]">
             <div className={cn("relative  w-full ")}>
               <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2  ">
-               <p className="my-2 font-bold">
+
+
+              <div className="flex flex-col items-center justify-center">
+
+
+              <p className="my-2 font-bold">
                معيـار الشفافية
 
                </p>
@@ -480,6 +483,9 @@ const GovernanceDashboard = (props: IProps) => {
                    gradientStart="#1882FF"
                 gradientEnd="#36EBCA"
                 />
+
+                </div>
+         
               </div>
 
               <CircularProgressBar
@@ -519,7 +525,10 @@ const GovernanceDashboard = (props: IProps) => {
           <div className="flex flex-col  gap-4 md:gap-6 w-full justify-center items-center px-4 py-3 border-2 rounded-xl border-[#9C9C9C] shadow-[0px_1px_2px_0px_rgba(255,255,255,0.00)]">
             <div className={cn("relative  w-full ")}>
               <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2  ">
-               <p className="my-2 font-bold">
+
+              <div className="flex flex-col items-center justify-center">
+
+              <p className="my-2 font-bold">
 معيـار التنظيم المالي
                </p>
                 <GradientText
@@ -530,6 +539,9 @@ const GovernanceDashboard = (props: IProps) => {
                   gradientStart="#FBE947"
                   gradientEnd="#58D764"
                 />
+
+                </div>
+              
               </div>
 
               <CircularProgressBar
@@ -569,7 +581,9 @@ const GovernanceDashboard = (props: IProps) => {
           <div className="flex flex-col  gap-4 md:gap-6 w-full justify-center items-center px-4 py-3 border-2 rounded-xl border-[#9C9C9C] shadow-[0px_1px_2px_0px_rgba(255,255,255,0.00)]">
             <div className={cn("relative  w-full ")}>
               <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2  ">
-               <p className="my-2 font-bold">
+
+              <div className="flex flex-col items-center justify-center">
+              <p className="my-2 font-bold">
 الأداء المالي
                </p>
                 <GradientText
@@ -581,7 +595,7 @@ const GovernanceDashboard = (props: IProps) => {
                 gradientEnd= "#36F083"
                 />
               </div>
-
+              </div>
               <CircularProgressBar
                 gradientId="4"
                 progress={financialPerf}
@@ -591,6 +605,8 @@ const GovernanceDashboard = (props: IProps) => {
                 trackColor="#373A41"
                 showProgress={false}
               />
+        
+              
             </div>
             <div>
               {financialInds.map((item) => (

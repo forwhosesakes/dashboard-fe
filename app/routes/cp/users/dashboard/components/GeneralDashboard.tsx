@@ -8,7 +8,7 @@ import SemiCircleProgress from "~/components/ui/semi-circle-progress";
 import SRIcon from "~/assets/icons/SR.svg";
 import { Progress } from "~/components/ui/progress";
 import RatingsGraph from "~/components/ratings-graph";
-import { isNumeric } from "~/lib/utils/indicators";
+import { getNumericVal, isNumeric } from "~/lib/utils/indicators";
 
 interface IProps {
   indicators: any;
@@ -21,39 +21,39 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
     const satisInds = [
       {
         id: "BENEF_SATIS_MEASURMENT",
-        percentage: Math.ceil(indicators.BENEF_SATIS_MEASURMENT),
+        percentage: getNumericVal(indicators.BENEF_SATIS_MEASURMENT),
         label: indicatorsLabels.CORPORATE.BENEF_SATIS_MEASURMENT,
       },
       {
         id: "EMP_SATIS_MEASURMENT",
-        percentage: Math.ceil(indicators.EMP_SATIS_MEASURMENT),
+        percentage: getNumericVal(indicators.EMP_SATIS_MEASURMENT),
         label: indicatorsLabels.CORPORATE.EMP_SATIS_MEASURMENT,
       },
       {
         id: "PARTENERS_SATIS_MEASURMENT",
-        percentage: Math.ceil(indicators.PARTENERS_SATIS_MEASURMENT),
+        percentage: getNumericVal(indicators.PARTENERS_SATIS_MEASURMENT),
 
         label: indicatorsLabels.CORPORATE.PARTENERS_SATIS_MEASURMENT,
       },
       {
         id: "VOLUN_SATIS_MEASURMENT",
-        percentage: Math.ceil(indicators.VOLUN_SATIS_MEASURMENT),
+        percentage: getNumericVal(indicators.VOLUN_SATIS_MEASURMENT),
 
         label: indicatorsLabels.CORPORATE.VOLUN_SATIS_MEASURMENT,
       },
       {
         id: "DONATORS_SATIS_MEASURMENT",
-        percentage: Math.ceil(indicators.DONATORS_SATIS_MEASURMENT),
+        percentage: getNumericVal(indicators.DONATORS_SATIS_MEASURMENT),
         label: indicatorsLabels.CORPORATE.DONATORS_SATIS_MEASURMENT,
       },
       {
         id: "ADMIN_ORG_SATIS_MEASURMENT",
-        percentage: Math.ceil(indicators.ADMIN_ORG_SATIS_MEASURMENT),
+        percentage: getNumericVal(indicators.ADMIN_ORG_SATIS_MEASURMENT),
         label: indicatorsLabels.CORPORATE.ADMIN_ORG_SATIS_MEASURMENT,
       },
       {
         id: "COMMUNITY_SATIS_MEASURMENT",
-        percentage: Math.ceil(indicators.COMMUNITY_SATIS_MEASURMENT),
+        percentage: getNumericVal(indicators.COMMUNITY_SATIS_MEASURMENT),
         label: indicatorsLabels.CORPORATE.COMMUNITY_SATIS_MEASURMENT,
       },
     ];
@@ -95,7 +95,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
 
               {isNumeric(indicators["AVG_SATIS_MEASURMENT"]) ? (
                    <p className="font-bold text-5xl bg-gradient-to-r from-[#FBE947] to-[#58D764] bg-clip-text text-transparent">
-                   {Math.ceil(indicators.AVG_SATIS_MEASURMENT)}%
+                   {getNumericVal(indicators.AVG_SATIS_MEASURMENT)}%
                   </p>
               ) : (
                 <UnderConstructionCard />
@@ -109,7 +109,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
 
               {isNumeric(indicators["COMPLIANCE_ADHERENCE_PRACTICES_TOTAL"]) ? (
                     <p className="font-bold text-5xl bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
-                    {Math.ceil(indicators.COMPLIANCE_ADHERENCE_PRACTICES_TOTAL)}%
+                    {getNumericVal(indicators.COMPLIANCE_ADHERENCE_PRACTICES_TOTAL)}%
       
                     </p>
               ) : (
@@ -126,7 +126,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
               </p>
               {isNumeric(indicators["FINANCIAL_SAFETY_PRACTICES_TOTAL"]) ? (
                     <p className="font-bold text-5xl bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">
-                    {Math.ceil(indicators.FINANCIAL_SAFETY_PRACTICES_TOTAL)}%
+                    {getNumericVal(indicators.FINANCIAL_SAFETY_PRACTICES_TOTAL)}%
                    
                     </p>
               ) : (
@@ -142,7 +142,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
               </p>
               {isNumeric(indicators["TRANSPARENCY_DISCLOSURE_PRACTICES_TOTAL"]) ? (
                    <p className="font-bold text-5xl bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
-                   {Math.ceil(indicators.TRANSPARENCY_DISCLOSURE_PRACTICES_TOTAL)}%
+                   {getNumericVal(indicators.TRANSPARENCY_DISCLOSURE_PRACTICES_TOTAL)}%
      
                    </p>
               ) : (
@@ -157,7 +157,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
 
               {isNumeric(indicators["RETURNS_FROM_TARGET"]) ? (
                   <p className="font-bold text-5xl bg-gradient-to-r from-[#FBE947] to-[#58D764] bg-clip-text text-transparent">
-                  {Math.ceil(indicators.RETURNS_FROM_TARGET)}%
+                  {getNumericVal(indicators.RETURNS_FROM_TARGET)}%
     
                   </p>
               ) : (
@@ -183,7 +183,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
                   
                 {isNumeric(indicators["FINANCIAL_PERF"]) ? (
                 <p className="text-5xl font-bold text-[#D9B456]">
-                  {Math.ceil(Number(indicators.FINANCIAL_PERF))}%
+                  {getNumericVal(Number(indicators.FINANCIAL_PERF))}%
                 </p>
               ) : (
                 <UnderConstructionCard />
@@ -196,7 +196,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
               <div>
                 <CircularProgressBar
                   gradientId="1"
-                  progress={Math.ceil(indicators.FINANCIAL_PERF)}
+                  progress={getNumericVal(indicators.FINANCIAL_PERF)}
                   size="sm"
                   gradientStart="#D9B456"
                   gradientEnd="#D9B456"
@@ -218,7 +218,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
                 </p>
                 {isNumeric(indicators["GOVERENCE"]) ? (
                 <p className="text-5xl font-bold text-[#FF0080]">
-                  {Math.ceil(Number(indicators?.GOVERENCE))}%
+                  {getNumericVal(indicators?.GOVERENCE)}%
                 </p>
               ) : (
                 <UnderConstructionCard />
@@ -230,7 +230,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
               <div>
                 <CircularProgressBar
                   gradientId="2"
-                  progress={Math.ceil(indicators?.GOVERENCE)}
+                  progress={getNumericVal(indicators?.GOVERENCE)}
                   size="sm"
                   gradientStart="#FF0080"
                   gradientEnd="#FF0080"
@@ -275,7 +275,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
               </p>
               {isNumeric(indicators["BUDGET_COMMIT_PERC"]) ? (
                   <SemiCircleProgress
-                  percentage={Math.ceil(indicators.BUDGET_COMMIT_PERC)}
+                  percentage={getNumericVal(indicators.BUDGET_COMMIT_PERC)}
                   size={180}
                   useGradient={true}
                   gradientId="4"
@@ -303,7 +303,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
               <div>
               {isNumeric(indicators["PGRM_PRJKS_EXEC_PERC"]) ? (
                   <SemiCircleProgress
-                  percentage={Math.ceil(indicators.PGRM_PRJKS_EXEC_PERC)}
+                  percentage={getNumericVal(indicators.PGRM_PRJKS_EXEC_PERC)}
                   size={180}
                   useGradient={true}
                   gradientId="4"
@@ -323,7 +323,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
               </div>
               <div className="text-center">
               {isNumeric(indicators["FUND_RAISING_TO_TOTAL_DONAT"]) ? (
-                    <p className="font-bold text-5xl">{Math.ceil(indicators.ECONOMIC_RETURN_OF_VOLUNTEERING)}</p>
+                    <p className="font-bold text-5xl">{getNumericVal(indicators.ECONOMIC_RETURN_OF_VOLUNTEERING)}</p>
               ) : (
                 <UnderConstructionCard />
               )}
@@ -353,7 +353,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
             <p className="text-base text-center 2xl:text-lg font-bold"> عدد المستفيدين </p>
 
             {isNumeric(indicators["VOLUN_SUST_PERC"]) ? (
-                     <p className="font-bold text-center text-5xl text-[#F7E706]">{Math.ceil(indicators.NO_RESPONSES_SATIS_FORM)}</p>
+                     <p className="font-bold text-center text-5xl text-[#F7E706]">{getNumericVal(indicators.NO_RESPONSES_SATIS_FORM)}</p>
               ) : (
                 <UnderConstructionCard />
               )}
@@ -371,7 +371,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
 
             {isNumeric(indicators["VOLUN_GROWTH_RATE_QUAR"]) ? (
                     <p className="font-bold text-center text-5xl bg-gradient-to-r from-[#EF7BE3] to-[#FF5A5A] bg-clip-text text-transparent">
-                    {Math.ceil(indicators.NO_RESPOSES_VOL_SATIS_FORM)}
+                    {getNumericVal(indicators.NO_RESPOSES_VOL_SATIS_FORM)}
                     </p>
               ) : (
                 <UnderConstructionCard />
@@ -389,7 +389,7 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
 
             {isNumeric(indicators["REACH_TARGET_AUD_PERC"]) ? (
                      <p className="font-bold text-center  text-5xl bg-gradient-to-r from-[#1882FF] to-[#36EBCA] bg-clip-text text-transparent">
-                     {Math.ceil(indicators.REACH_TARGET_AUD_PERC)}%
+                     {getNumericVal(indicators.REACH_TARGET_AUD_PERC)}%
                      
                      </p>
               ) : (
