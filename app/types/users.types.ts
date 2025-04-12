@@ -34,6 +34,8 @@ export type TFormDataInput = {
   operationalIndicatorsSetting: number | false;
   corporateIndicatorsSetting: number | false;
   generalndicatorsSetting: number;
+  allDashboardsSetting:boolean;
+  governanceIndicatorsSetting: boolean
 };
 //todo: idk remove this?
 export type TOrganization = {
@@ -63,6 +65,7 @@ export type TOrganization = {
   operationalIndicatorsSetting: number;
   corporateIndicatorsSetting: number;
   generalndicatorsSetting: number;
+  governanceIndicatorsSetting:number;
 };
 
 export type FieldType =

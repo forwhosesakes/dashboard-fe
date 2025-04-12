@@ -131,17 +131,14 @@ export const STEPS: TSteps = {
   SETTINGS_ENTRIES: {
       fields: [
           {
-              label: "financialIndicatorsSetting",
+              label: "allDashboardsSetting",
               type: "TOGGLE_SLIDER"
           },
           {
-              label: "operationalIndicatorsSetting",
+              label: "governanceIndicatorsSetting",
               type: "TOGGLE_SLIDER"
           },
-          {
-              label: "corporateIndicatorsSetting",
-              type: "TOGGLE_SLIDER"
-          },
+    
        
       ],
       title: "الصلاحيات والخصائص",

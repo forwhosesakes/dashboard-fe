@@ -7,7 +7,7 @@ import EntriesSaveConfirmationDialoug from "./EntriesSaveConfirmationDialoug";
 import ResetEntriesConfirmationDialoug from "./ResetEntriesConfirmationDialoug";
 
 interface DashboardHeaderProps {
-  dashboardType: DashboardType;
+  dashboardType: DashboardType |"GOVERNANCE";
   onSave: () => void;
   onDelete: () => void;
   loading: boolean;
@@ -49,6 +49,7 @@ const DashboardHeader = ({
             ? "الأداء التشغيلي"
             : dashboardType === "CORPORATE"
             ? "الأداء المؤسسي"
+            : dashboardType==="GOVERNANCE"?"لوحة الحوكمة"
             : "العام"}
         </h5>
         <p className="text-primary-foreground/75">أدخل بيانات المؤشر.</p>

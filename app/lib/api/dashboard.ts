@@ -408,7 +408,9 @@ export type DashboardType =
   | "OPERATIONAL"
   | "FINANCIAL"
   | "CORPORATE"
-  | "GENERAL";
+  | "GENERAL"
+
+  ;
 
 const DashboardSchemaMap = {
   OPERATIONAL: DashboardResponseSchema(OperationalDashboardEntriesSchema),
@@ -659,6 +661,7 @@ export const dashboardApi = (url: string) => {
       orgId: string,
       type: TGovernanceEntries,
       responses: Record<string, number>,
+      indicators: Record<string, number>,
       total:number
     ): Promise<any> => {
       try {
@@ -675,6 +678,7 @@ export const dashboardApi = (url: string) => {
             },
             body: JSON.stringify({
                responses,
+               indicators,
            total
             })
           }
@@ -741,5 +745,45 @@ export const dashboardApi = (url: string) => {
         throw e;
       }
     },
+
+
+    getGovernanceIndicators :async (
+      orgId: string,
+
+    )=>{
+      try {
+        if (!/^\d+$/.test(orgId) || parseInt(orgId) <= 0) {
+          throw new Error("Organization ID must be a positive number");
+        }
+
+        const response = await fetch(
+          `${url}/dashboard/governance/indicators/${orgId}`
+        );
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => null);
+          const message = isErrorWithMessage(errorData)
+            ? errorData.message
+            : undefined;
+          throw new Error(message || `HTTP error! status: ${response.status}`);
+        }
+
+        const rawResponse: any = await response.json();
+// console.log("raw response for gov", rawResponse);
+
+        if (rawResponse.status === "success" && rawResponse.data.governance) {
+          return [rawResponse.data]
+        }
+
+        return null;
+      } catch (e) {
+        if (e instanceof z.ZodError) {
+          console.error("Validation error:", e.errors);
+          throw new Error(`Invalid governance data format`);
+        }
+        throw e;
+      }
+
+    }
   };
 };

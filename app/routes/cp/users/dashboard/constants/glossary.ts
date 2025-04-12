@@ -9,12 +9,13 @@ const tabsNames = {
   OPERATIONAL: "مؤشر الأداء التشغيلي",
   CORPORATE: "مؤشر الأداء المؤسسي",
   GENERAL: "اللوحة العامة",
+  GOVERNANCE:"لوحة الحوكمة"
 };
 
 const GOVERANCE_TABS= {
   COMPLIANCE_ADHERENCE_PRACTICES:"معيار الامتثال و الالتزام",
   TRANSPARENCY_DISCLOSURE_PRACTICES:"معيار الشفافية و الإفصاح",
-  FINANCIAL_SAFETY_PRACTICES:"معيار السلامة المالية"
+  FINANCIAL_SAFETY_PRACTICES:"معيار التنظيم المالي"
 
 }
 
@@ -84,7 +85,7 @@ const entriesLabels = {
     NO_RESPONSES_DONAT_SATIS_FORM:"عدد المتبرعين والداعمين للاستبيان",
     COMPLIANCE_ADHERENCE_PRACTICES: "معيار الامتثال و الالتزام",
     TRANSPARENCY_DISCLOSURE_PRACTICES: "معيار الشفافية و الإفصاح",
-    FINANCIAL_SAFETY_PRACTICES: "معيار السلامة المالية",
+    FINANCIAL_SAFETY_PRACTICES: "معيار  التنظيم المالي",
     NO_SUCCESSFUL_HIRES_POST_EXP:
       "عدد التعيينات الناجحة التي تجاوزت فترة التجربة",
     TOTAL_HIRES: "إجمالي التعيينات",
@@ -229,7 +230,7 @@ RETURNS_FROM_TARGET:"نسبة الإيرادات المحققة من المست�
     CEO_PERFORMANCE: "أداء المدير التنفيذي ",
     COMPLIANCE_ADHERENCE_PRACTICES: "معيار الامتثال و الالتزام",
     TRANSPARENCY_DISCLOSURE_PRACTICES: "معيار الشفافية و الإفصاح",
-    FINANCIAL_SAFETY_PRACTICES: "معيار السلامة المالية",
+    FINANCIAL_SAFETY_PRACTICES: "معيار التنظيم المالي",
     RECRUITMENT: "التوظيف والاستقطاب",
     EMP_PERF_PROD: "أداء وإنتاجية الموظفين",
     EMP_DEV_TRAIN: "تطوير وتدريب الموظفين",
@@ -317,7 +318,7 @@ RETURNS_FROM_TARGET:"نسبة الإيرادات المحققة من المست�
     NO_RESPONSES_SATIS_FORM:"عدد المستفيدين ",
     AVG_SATIS_MEASURMENT:"متوسطة نسبة رضا أصحاب المصلحة",
     COMPLIANCE_ADHERENCE_PRACTICES_TOTAL:"معيار الامتثال و الالتزام",
-    FINANCIAL_SAFETY_PRACTICES_TOTAL:"معيار السلامة المالية",
+    FINANCIAL_SAFETY_PRACTICES_TOTAL:"معيار التنظيم المالي ",
     TRANSPARENCY_DISCLOSURE_PRACTICES_TOTAL:"معيار الشفافية والإفصاح",
 
     GOVERANCE:"نسبة الحوكمة العامة",
@@ -532,6 +533,7 @@ const governanceLabels  = {
       HAS_PROGRAM_SPENDING_PROCEDURES: "هل توجد لدى الجمعية سياسات وإجراءات خاصة بعمليات الصرف للبرامج والأنشطة؟",
       HAS_REVENUE_HANDLING_PROCEDURES: "هل لدى الجمعية إجراءات ملائمة للتعامل مع المقبوضات في الجمعية؟",
       HAS_APPROVED_DONATION_POLICY: "هل توجد سياسة لجمع التبرعات معتمدة من مجلس الإدارة؟",
+      HAS_APPROVED_DONATION_POLICY_APPROVED:"هل هي مفعلة؟",
       POLICIES_APPROVED: "هل تم اعتماد السياسات من مجلس الإدارة؟",
       POLICIES_APPROVED_2: "هل تم اعتماد السياسات من مجلس الإدارة؟",
       POLICIES_APPROVED_3: "هل تم اعتماد السياسات من مجلس الإدارة؟",
@@ -556,7 +558,41 @@ const governanceLabels  = {
       FOREIGN_AID_CENTER_APPROVED: "هل تم أخذ الموافقة من المركز؟"
 
 
+    },
+    COMPLIANCE_ADHERENCE_INDICATORS:{
+      BASIC_BYLAWS_OF_THE_ASSOCIATION:"اللائحة الأساسية للجمعية",
+      GENERAL_ASSEMBLY:"الجمعية العمومية ",
+      BOARD_OF_DIRECTORSRetryY:"مجلس الإدارة",
+      BRANCHES_AND_OFFICES:"الفروع و المكاتب",
+      REPORTS:"التقارير",
+      REGULATIONS_IN_FORCE_IN_THE_KINGDOM:"الأنظمة السارية بالمملكة",
+      ACTIVITIES_EVENTS_AND_CONTRACTS:"الأنشطة والفعاليات والتعاقدات",
+      REVENUES_EXPENSES_AND_OWNERSHIP:"الإيرادات والمصروفات والتملك",
+      DOCUMENTS_AND_RECORDS:"الوثائق والسجلات",
+      FORMATION_OF_COMMITTEES:"تكوين اللجان ",
+    },
+    TRANSPARENCY_DISCLOSURE_INDICATORS:{
+      REGULATIONS_AND_BYLAWS:"اللوائح والأنظمة",
+      INFORMATION_OF_THOSE_IN_CHARGE_OF_THE_ASSOCIATION:"بيانات القائمين على الجمعية",
+      ASSOCIATION_INFORMATION:"بيانات الجمعية",
+      OBJECTIVES_AND_PROGRAMS_OF_THE_ASSOCIATION:"أهداف و برامج الجمعية",
+      FINANCIAL_STATEMENTS:"القوائم المالية",
+      DISCLOSURE_FORM: "نموذج الإفصاح"
+
+    },
+    FINANCIAL_SAFETY_INDICATORS:{
+      ORGANIZATIONAL_STRUCTURE:"الهيكل التنظيمي ",
+      ACTIVATION_OF_POLICIES_AND_PROCEDURES:"تفعيل السياسات والإجراءات",
+      RECORDS_AND_DOCUMENTS:"السجلات والمستندات",
+      REPORTS:"التقارير",
+      FINANCIAL_AND_ACCOUNTING_PROCEDURES:"الإجراءات المالية والمحاسبية"
     }
+
+
+
+
+
+
 
 
 }

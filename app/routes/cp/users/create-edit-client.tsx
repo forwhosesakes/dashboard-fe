@@ -58,12 +58,13 @@ const initialValues = {
   licenseImage: [],
   contractImage: [],
   additionalDocs: [],
-
   // Indicator settings - initialize with false or 0
   financialIndicatorsSetting: 30,
   operationalIndicatorsSetting: 30,
   corporateIndicatorsSetting: 40,
   generalndicatorsSetting: 100,
+  governanceIndicatorsSetting:false,
+    allDashboardsSetting:false
 };
 
 export async function loader({ request, context, params }: LoaderFunctionArgs) {

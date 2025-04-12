@@ -7,7 +7,8 @@ export const USER_MGMT = {
     FINANCIAL_DASHBOARD:"مالية",
     CORPORATE_DASHBOARD:"مؤسسية",
     OPERATIONAL_DASHBOARD:"تشغيلية",
-    GENERAL_DASHBOARD:"عامة"
+    GENERAL_DASHBOARD:"عامة",
+    GOVERNANCE_DASHBOARD:"حوكمة"
   },
   FORM_FIELDS: {
     name: "اسم الجمعية",
@@ -36,6 +37,8 @@ export const USER_MGMT = {
     operationalIndicatorsSetting: "مؤشر لوحة التشغيلي ",
     corporateIndicatorsSetting: "مؤشر لوحة حساب الأداء  المؤسسي ",
     generalndicatorsSetting: "مؤشر حساب اللوحة العامة",
+    governanceIndicatorsSetting:"مؤشر حساب لوحة الحوكمة",
+    allDashboardsSetting:"مؤشر حساب اللوحات"
   },
   OPTIONS:{
     technical:"تقني",

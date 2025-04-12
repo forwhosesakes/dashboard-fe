@@ -1,4 +1,4 @@
-const Badge = ({children,color }:{children?:React.ReactNode, color:"blue"|"mauv"|"red"|"green"},)=>{
+const Badge = ({children,color }:{children?:React.ReactNode, color:"blue"|"mauv"|"red"|"green"|"orange"},)=>{
 
     const bgColor = ()=>{
         switch (color){
@@ -10,6 +10,8 @@ const Badge = ({children,color }:{children?:React.ReactNode, color:"blue"|"mauv"
                     return "bg-[#EE46BC]"
                              case "mauv":
                     return "bg-[#7A5AF8]"
+                    case "orange":
+                      return "bg-[#ffa500]"
         }
     }
 

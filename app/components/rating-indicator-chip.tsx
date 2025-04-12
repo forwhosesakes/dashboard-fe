@@ -57,7 +57,7 @@ const RatingIndicatorChip = ({ value }:{value:number}) => {
   
   const rating = ratings.find(r => safeValue < r.threshold) as any;
   
-  return (
+  return rating&&(
     <div className={`pl-2 pr-2 py-0.5 h-fit border-2 rounded-xl gap-1 flex justify-center items-center ${rating?.borderColor}`}>
       <p className={`${rating.textColor} text-xs`}>{rating.label}</p>
       {rating.icon}

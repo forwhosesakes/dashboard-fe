@@ -34,7 +34,8 @@ const SliderFormField = ({
             (value as number) ?? 0
           );
           const [switchState, setSwitchState] = useState(
-            value && (value as number) > 0
+            /^true$/i.test(value?.toString())
+
           );
           const onValueChange = (n: number) => {
             setSliderValue(n);
@@ -49,7 +50,7 @@ const SliderFormField = ({
               {" "}
               <div className=" flex  items-start content-start gap-x-24 gap-y-4 self-stretch flex-nowrap  my-2 ">
                 <div className="flex-[1_0_0]">
-                  <label className="w-72 border  min-w-52 ">
+                  <label className="w-72   min-w-52 ">
                     *{USER_MGMT.FORM_FIELDS[field.label]}
                   </label>
                   {fieldState.error && (

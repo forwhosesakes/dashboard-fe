@@ -22,7 +22,7 @@ const Passcode = (props: IProps) => {
     if (fullPasscode.length === props.noDigits && 
         !hasCalledFinish.current && 
         !passcode.includes("")) {
-      console.log("on finish typing - calling once");
+      // console.log("on finish typing - calling once");
       hasCalledFinish.current = true;
       props.onFinishTyping(fullPasscode);
     }

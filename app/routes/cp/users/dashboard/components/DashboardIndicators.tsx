@@ -3,10 +3,11 @@ import CorporateDashboard from "./CorporateDashboard";
 import OperationalIndicator from "./OperationalIndicators"
 import FinancialDashboard from "./FinancialDashboard";
 import GeneralDashboard from "./GeneralDashboard";
+import GovernanceDashboard from "./GovernanceDashboard";
 
 interface IProps {
   indicators: any;
-  type: DashboardType;
+  type: DashboardType |"GOVERNANCE";
   isFullscreen:boolean;
   role:string;
   logoUrl:string;
@@ -28,6 +29,9 @@ const DashboardIndicators = (props: IProps) => {
           CORPORATE dashboard indicators{" "}
         </CorporateDashboard>
       );
+      case "GOVERNANCE":
+        return <GovernanceDashboard isFullscreen={props.isFullscreen} logoUrl={props.logoUrl} role={props.role} indicators={props.indicators}/>
+
     default:
       break;
   }

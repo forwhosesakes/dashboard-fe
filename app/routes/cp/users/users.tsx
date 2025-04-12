@@ -42,12 +42,13 @@ import { Breadcrumbs } from "~/components/app-breadcrumbs";
 
 
 const DashboardBadgeColor: {
-  [key in DashboardEnum]: "mauv" | "red" | "blue" | "green";
+  [key in DashboardEnum]: "mauv" | "red" | "blue" | "green" |"orange";
 } = {
   [DashboardEnum.CORPORATE_DASHBOARD]: "blue",
   [DashboardEnum.FINANCIAL_DASHBOARD]: "green",
   [DashboardEnum.OPERATIONAL_DASHBOARD]: "red",
   [DashboardEnum.GENERAL_DASHBOARD]: "mauv",
+  [DashboardEnum.GOVERNANCE_DASHBOARD]: "orange",
 };
 
 type LoaderData =

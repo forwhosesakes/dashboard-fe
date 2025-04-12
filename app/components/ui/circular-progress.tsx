@@ -1,6 +1,6 @@
-import React from 'react';
 
 const CircularProgressBar = ({ 
+  showProgress=true,
   progress = 50, 
   size = 'md',
   animate = true,
@@ -8,14 +8,18 @@ const CircularProgressBar = ({
   gradientEnd = '#2563EB',    // Default blue-600
   gradientId = 'progressGradient',
   textFillColor="fill-gray-700",
-  trackColor="#E5E7EB"
+  trackColor="#E5E7EB",
+  //@ts-ignore
+  children=null
+ 
 }) => {
   const sizes = {
     xs: { width: 80, strokeWidth: 12 },
 
     sm: { width: 120, strokeWidth: 16 },
     md: { width: 160, strokeWidth: 20 },
-    lg: { width: 300, strokeWidth: 32 }
+    lg: { width: 240, strokeWidth: 28 },
+    xl: { width: 300, strokeWidth: 32 }
   };
 //@ts-ignore
   const { width, strokeWidth } = sizes[size] || sizes.md;
@@ -76,15 +80,18 @@ const CircularProgressBar = ({
             />
 
             {/* Percentage text */}
-            <text
+         {showProgress&&   <text
               x="50%"
               y="-50%"
               textAnchor="middle"
               dy="0.3em"
               className={` rotate-90 text-2xl font-semibold ${textFillColor}`}
             >
+
               {progress}%
-            </text>
+
+            </text>}
+      
           </svg>
         </div>
       </div>

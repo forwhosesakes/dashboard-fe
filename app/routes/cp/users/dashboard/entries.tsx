@@ -21,16 +21,16 @@ import DashboardIndicators from "./components/DashboardIndicators";
 import { toasts } from "~/lib/utils/toast";
 import { useThemeStore } from "~/lib/store/theme-store";
 import { Breadcrumbs } from "~/components/app-breadcrumbs";
-import type { RootNode, EntryNode } from "~/types/api.types";
+import type { RootNode } from "~/types/api.types";
 import {
   createCorporateTemplate,
   createFinancialTemplate,
   createOperationalTemplate,
 } from "./initialTemplates";
-import { useSidebarStore } from "~/lib/store/sidebar-store";
 import { OrganizationsAPI } from "~/services/org";
 import type { TOrganization } from "~/types/users.types";
 import { Spinner } from "~/components/ui/spinner";
+import GovernanceEntries from "./components/governanceEntries";
 
 
 export const loader = async ({ context, params }: LoaderFunctionArgs) => {
@@ -43,14 +43,24 @@ const serverUrl = context.cloudflare.env.BASE_URL
 const responseData = response.data as TOrganization;
 const logoName =JSON.parse(responseData["logo"])[0]
 const publicLogoUrl = `https://pub-78d8970765b1464a831d610935e4371c.r2.dev/${logoName}` 
-
-  const {entriesMap,rawEntries} = await dashboardApi(
+let entriesMap=[];
+let rawEntries=[];
+if (dashboardType !== "GOVERNANCE") {
+  const result = await dashboardApi(
     serverUrl
   ).getEntries(`${id}`, (dashboardType as DashboardType) ?? "GENERAL");
+  
+  entriesMap = result.entriesMap as any[];
+  rawEntries = result.rawEntries;
+}
 
-  const indicators = await dashboardApi(
+  let indicators=dashboardType==="GOVERNANCE"?await dashboardApi(serverUrl).getGovernanceIndicators(`${id}`):
+  await dashboardApi(
     serverUrl
-  ).getIndicators(`${id}`, (dashboardType as DashboardType) ?? "GENERAL");
+  ).getIndicators(`${id}`, (dashboardType as DashboardType) ?? "GENERAL")
+
+
+
 
   return {
     entriesMap: entriesMap?.length ? entriesMap[0] : null,
@@ -63,13 +73,9 @@ const publicLogoUrl = `https://pub-78d8970765b1464a831d610935e4371c.r2.dev/${log
   };
 };
 
-const Entries = ({
-  currentIndicator,
-}: {
-  currentIndicator: { name: string };
-}) => {
+const Entries = () => {
   const { rawEntries,entriesMap, indicators, currentDashboard, logoUrl, baseUrl, id } = useLoaderData<{
-    currentDashboard: DashboardType;
+    currentDashboard: DashboardType |"GOVERNANCE";
     baseUrl: string;
     id: string;
     indicators: any[];
@@ -95,7 +101,6 @@ const Entries = ({
   const navigation = useNavigation();
   const isNavigating = Boolean(navigation.location);
 
-  console.log("isNavigating:",isNavigating);
   
 
 
@@ -270,6 +275,8 @@ const Entries = ({
                 ? "الأداء التشغيلي"
                 : currentDashboard === "CORPORATE"
                 ? "الأداء المؤسسي"
+                : currentDashboard === "GOVERNANCE"
+                ?" الحوكمة"
                 : "العام",
             href: `/cp/users/org/${id}/dashboard/${currentDashboard}`,
           },
@@ -305,8 +312,12 @@ const Entries = ({
               className={` overflow-y-auto overflow-x-hidden ${theme.includes("dark") && "bg-[#000]"}`}
               ref={containerRef}
             >
-              {view === "entries" ? (
+              {view === "entries" ?  currentDashboard==="GOVERNANCE"?<GovernanceEntries/>:(
+               
                 <>
+                {/* <p>{JSON.stringify(currentEntries)}</p>
+                <p className="text-red-800">{JSON.stringify(rawEntriesState)}</p> */}
+
                   {
                     <DashboardEntries
                       key={currentDashboard}
@@ -314,7 +325,6 @@ const Entries = ({
                       rawEntries={rawEntriesState}
                       entries={currentEntries}
                       onEntryChange={(name, value) => {
-                        
                         setRawEntriesState((prev:any)=>({...prev, [name]:value}));
                       }}
                       status={"COMPLETED"}

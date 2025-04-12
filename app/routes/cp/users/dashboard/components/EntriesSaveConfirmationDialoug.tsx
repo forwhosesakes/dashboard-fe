@@ -7,7 +7,7 @@ type TProps = {
   isOpen: boolean,
   onClose: any,
   onConfirm: any,
-  type:DashboardType;
+  type:DashboardType |"GOVERNANCE";
 }
 
 

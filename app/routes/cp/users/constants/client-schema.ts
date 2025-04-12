@@ -130,18 +130,29 @@ website: z.string() .optional(),
   ).optional(),
   
   // Indicators settings
-  financialIndicatorsSetting: z.union([
-    z.number().min(0, "Financial indicators setting must be a positive number"),
-    z.literal(false)
+  // financialIndicatorsSetting: z.union([
+  //   z.number().min(0, "Financial indicators setting must be a positive number"),
+  //   z.literal(false)
+  // ]),
+  // operationalIndicatorsSetting: z.union([
+  //   z.number().min(0, "Operational indicators setting must be a positive number"),
+  //   z.literal(false)
+  // ]),
+  // corporateIndicatorsSetting: z.union([
+  //   z.number().min(0, "Corporate indicators setting must be a positive number"),
+  //   z.literal(false)
+  // ]),
+  
+  allDashboardsSetting: z.union([
+    z.string(),
+    z.boolean()
   ]),
-  operationalIndicatorsSetting: z.union([
-    z.number().min(0, "Operational indicators setting must be a positive number"),
-    z.literal(false)
+  governanceIndicatorsSetting: z.union([
+    z.string(),
+    z.boolean()
   ]),
-  corporateIndicatorsSetting: z.union([
-    z.number().min(0, "Corporate indicators setting must be a positive number"),
-    z.literal(false)
-  ]),
+
+
 
 });
 

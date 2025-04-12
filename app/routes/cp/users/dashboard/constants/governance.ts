@@ -1162,7 +1162,7 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
       {
         label: "HAS_PERMANENT_OR_TEMPORARY_COMMITTEES_WITH_SPECIFIC_TASKS",
         options: [
-          { label: "لا توجد.", weight: 1 },
+          { label: "لا توجد.", weight: 2 },
           { label: " نعم", weight: 0, moveToNext: true },
         ],
         isDependantOnPrev: false,
@@ -1172,8 +1172,8 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
         label: "COMMITTEES_FORMATION_DECISIONS_EXIST",
         options: [
           { label: "لا توجد قرارات بتكوين هذه اللجان.", weight: 0 },
-          { label: "توجد قرارات لكن بشكل جزئي", weight: 0.5 },
-          { label: "توجد قرارات بشكل متكامل.", weight: 1 },
+          { label: "توجد قرارات لكن بشكل جزئي", weight: 0.5 ,moveToNext: true},
+          { label: "توجد قرارات بشكل متكامل.", weight: 1 ,moveToNext: true},
         ],
         isDependantOnPrev: true,
       },
@@ -1184,7 +1184,7 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
           { label: "اشتملت القرارات على ما هو محّدد بشكل جزئي.", weight: 0.5 },
           { label: "اشتملت القرارات على ما هو محّدد بشكل متكامل.", weight: 1 },
         ],
-        isDependantOnPrev: false,
+        isDependantOnPrev: true,
       },
       {
         label: "BOARD_MEMBERS_PRESENT_IN_COMMITTEES",
@@ -2633,11 +2633,39 @@ export const FINANCIAL_SAFETY_PRACTICES_QUESTIONS={
           },
           {
             label: "توجد بشكل جزئي",
-            weight: 1,
+            weight: 0.5,
+
           },
            {
             label: "توجد بشكل متكامل",
-            weight: 2,
+            weight: 1,
+
+          },
+  
+        ],
+      },
+
+
+
+      {
+        label: "HAS_APPROVED_DONATION_POLICY_APPROVED",
+        isDependantOnPrev: false,
+
+        options: [
+          {
+            label: " غير مفعلة  .",
+
+            weight: 0,
+          },
+          {
+            label: "مفعلة بشكل جزئي",
+            weight: 0.5,
+
+          },
+           {
+            label: "مفعلة بشكل متكامل",
+            weight: 1,
+
           },
   
         ],

@@ -9,6 +9,7 @@ const dashboardStatusMap = {
     OPERATIONAL: "مؤشر الأداء التشغيلي",
     CORPORATE: "مؤشر الأداء المؤسسي",
     GENERAL: "اللوحة العامة",
+    GOVERNANCE:"لوحة الحوكمة"
   };
 
 
@@ -16,7 +17,8 @@ const dashboardStatusMap = {
     NEW_CORPORATE_INDICATORS:"اللوحة المؤسسية",
     NEW_FINANCIAL_INDICATORS:"اللوحة المالية",
     NEW_OPERATIONAL_INDICATORS:"اللوحة التشغيلية",
-    NEW_GENERAL_INDICATORS:"اللوحة العامة"
+    NEW_GENERAL_INDICATORS:"اللوحة العامة",
+    NEW_GOVERNANCE_INDICATORS:"لوحة الحوكمة"
 
 
   }
@@ -61,7 +63,7 @@ const dashboardStatusMap = {
       CEO_PERFORMANCE: "أداء المدير التنفيذي ",
       COMPLIANCE_ADHERENCE_PRACTICES: "معيار الامتثال و الالتزام",
       TRANSPARENCY_DISCLOSURE_PRACTICES: "معيار الشفافية و الإفصاح",
-      FINANCIAL_SAFETY_PRACTICES: "معيار السلامة المالية",
+      FINANCIAL_SAFETY_PRACTICES: "معيار التنظيم المالي",
       RECRUITMENT: "التوظيف والاستقطاب",
       EMP_PERF_PROD: "أداء وإنتاجية الموظفين",
       EMP_DEV_TRAIN: "تطوير وتدريب الموظفين",
