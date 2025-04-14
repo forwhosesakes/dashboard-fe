@@ -63,14 +63,15 @@ export const loader = async ({
 };
 const Org = () => {
   const { dashboardsOverview, org, logoUrl } = useLoaderData<any>();
-  const { setDarkTheme } = useThemeStore()
 
 
   const newDashboardsTitles = {
     NEW_CORPORATE_INDICATORS:"اللوحة المؤسسية",
     NEW_FINANCIAL_INDICATORS:"اللوحة المالية",
     NEW_OPERATIONAL_INDICATORS:"اللوحة التشغيلية",
-    NEW_GENERAL_INDICATORS:"اللوحة العامة"
+    NEW_GENERAL_INDICATORS:"اللوحة العامة",
+    NEW_GOVERNANCE_INDICATORS:"لوحة الحوكمة"
+
   }
   return (
     <div className="w-full h-full">

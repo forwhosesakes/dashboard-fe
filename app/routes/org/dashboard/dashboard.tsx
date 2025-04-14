@@ -17,20 +17,34 @@ import { Breadcrumbs } from "~/components/app-breadcrumbs";
 
 export const loader = async ({ context, params }: LoaderFunctionArgs) => {
   const { id, dashboardType } = params;
+const serverUrl = context.cloudflare.env.BASE_URL
 
-  const entries = await dashboardApi(
-    context.cloudflare.env.BASE_URL
+let entriesMap=[];
+let rawEntries=[];
+if (dashboardType !== "GOVERNANCE") {
+  const result = await dashboardApi(
+    serverUrl
   ).getEntries(`${id}`, (dashboardType as DashboardType) ?? "GENERAL");
+  
+  entriesMap = result.entriesMap as any[];
+  rawEntries = result.rawEntries;
+}
 
-  const indicators = await dashboardApi(
-    context.cloudflare.env.BASE_URL
-  ).getIndicators(`${id}`, (dashboardType as DashboardType) ?? "GENERAL");
+  let indicators=dashboardType==="GOVERNANCE"?await dashboardApi(serverUrl).getGovernanceIndicators(`${id}`):
+  await dashboardApi(
+    serverUrl
+  ).getIndicators(`${id}`, (dashboardType as DashboardType) ?? "GENERAL")
+
+
+
 
   return {
-    id,
+    entriesMap: entriesMap?.length ? entriesMap[0] : null,
+    rawEntries: rawEntries?.length ? rawEntries[0] : null,
+    indicators: indicators?.length ? indicators[0] : null,
     currentDashboard: dashboardType,
-    indicators: indicators.length ? indicators[0] : null,
-    entries:entries.length? entries[0]:null
+    baseUrl: serverUrl,
+    id,
   };
 };
 
@@ -40,41 +54,7 @@ const Dashbaord = () => {
   const locationData = useLocation();
   const { setLightTheme, setDarkTheme, theme } = useThemeStore();
 
-  // useEffect(() => {
-
-  //     const dashboardsOverview = locationData.state?.dashboardsOverview;
-  //     if (dashboardsOverview) {
-
-  //       const currentDasboardData = dashboardsOverview.find((dashboard) =>
-  //         dashboard.title.includes(currentDashboard)
-  //       );
-
-  //       if (currentDasboardData) {
-
-  //         if (currentDasboardData.status === "NOT_STARTED") {
-  //           const initialEntries = Object.entries(
-  //             initialValues[currentDashboard]
-  //           ).map(([key, value]) => ({
-  //             name: key,
-  //             label: entriesLabels[currentDashboard][key] ?? key,
-  //             value,
-  //           }));
-  //           setCurrentEntries(initialEntries);
-  //         } else {
-  //           const excludedKeys = ["id", "dashbaordId", "createdAt", "updatedAt"];
-  //           const newEntries = Object.entries(entries)
-  //             .filter(([key]) => !excludedKeys.includes(key))
-  //             .map(([key, value], i) => ({
-  //               name: key,
-  //               label: entriesLabels[currentDashboard][key] ?? key,
-  //               value,
-  //             }));
-  //           setCurrentEntries(newEntries);
-  //         }
-  //       }
-  //     }
-  //   }, [currentDashboard]);
-
+  
   useEffect(() => {
     setDarkTheme();
     return () => {
