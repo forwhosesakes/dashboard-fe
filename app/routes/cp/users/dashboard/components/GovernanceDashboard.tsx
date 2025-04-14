@@ -395,7 +395,7 @@ const GovernanceDashboard = (props: IProps) => {
 
         <div className="flex gap-8 justify-around">
           {/* first column  */}
-          <div className="flex flex-col  gap-4 md:gap-6 w-full items-center px-4 py-3 ">
+          <div className="flex flex-col  gap-4 md:gap-6 w-full items-center ">
             {/* finperf  */}
             <div className="flex justify-between px-4 py-3 border-2 rounded-xl border-[#9C9C9C] shadow-[0px_1px_2px_0px_rgba(255,255,255,0.00)] w-full">
 
