@@ -135,11 +135,10 @@ const Dashbaord = () => {
                 ref={containerRef}
                 >
               <DashboardIndicators
-              isFullscreen={isFullscreen}
-                indicators={{...entries,...indicators}}
+                isFullscreen={isFullscreen}
+                indicators={{ ...entries, ...indicators }}
                 type={currentDashboard}
-                logoUrl={locationData.state.logoUrl}
-              />
+                logoUrl={locationData.state.logoUrl} role={"client"}              />
             </div>
           </TabsContent>
         </Tabs>
