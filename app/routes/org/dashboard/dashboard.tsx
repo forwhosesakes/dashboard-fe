@@ -160,7 +160,7 @@ const Dashbaord = () => {
           </TabsList>
 
           <TabsContent value={currentDashboard}>
-            <div className={`p-4  overflow-auto ${theme.includes("dark")&&"bg-[#0A0E12]"}`}
+            <div className={`p-4  overflow-auto ${theme.includes("dark")&&"bg-[#0000]"}`}
                 ref={containerRef}
                 >
               <DashboardIndicators
