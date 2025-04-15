@@ -560,14 +560,14 @@ const governanceLabels  = {
 
     },
     COMPLIANCE_ADHERENCE_INDICATORS:{
-      BASIC_BYLAWS_OF_THE_ASSOCIATION:"اللائحة الأساسية للجمعية",
+      BASIC_BYLAWS_OF_THE_ASSOCIATION:"اللائحة الأساسية ",
       GENERAL_ASSEMBLY:"الجمعية العمومية ",
       BOARD_OF_DIRECTORSRetryY:"مجلس الإدارة",
       BRANCHES_AND_OFFICES:"الفروع و المكاتب",
       REPORTS:"التقارير",
-      REGULATIONS_IN_FORCE_IN_THE_KINGDOM:"الأنظمة السارية بالمملكة",
-      ACTIVITIES_EVENTS_AND_CONTRACTS:"الأنشطة والفعاليات والتعاقدات",
-      REVENUES_EXPENSES_AND_OWNERSHIP:"الإيرادات والمصروفات والتملك",
+      REGULATIONS_IN_FORCE_IN_THE_KINGDOM:"الأنظمة السارية ",
+      ACTIVITIES_EVENTS_AND_CONTRACTS:"الأنشطة والفعاليات ",
+      REVENUES_EXPENSES_AND_OWNERSHIP:"الإيرادات والمصروفات ",
       DOCUMENTS_AND_RECORDS:"الوثائق والسجلات",
       FORMATION_OF_COMMITTEES:"تكوين اللجان ",
     },
@@ -582,10 +582,21 @@ const governanceLabels  = {
     },
     FINANCIAL_SAFETY_INDICATORS:{
       ORGANIZATIONAL_STRUCTURE:"الهيكل التنظيمي ",
-      ACTIVATION_OF_POLICIES_AND_PROCEDURES:"تفعيل السياسات والإجراءات",
+      ACTIVATION_OF_POLICIES_AND_PROCEDURES:"تفعيل السياسات ",
       RECORDS_AND_DOCUMENTS:"السجلات والمستندات",
       REPORTS:"التقارير",
-      FINANCIAL_AND_ACCOUNTING_PROCEDURES:"الإجراءات المالية والمحاسبية"
+      FINANCIAL_AND_ACCOUNTING_PROCEDURES:"الإجراءات المالية "
+    }
+
+    ,
+    FINANCIAL_PERFORMANCE:{
+
+      FINANCIAL_SUSTAIN:"الاستدامة المالية",
+      ADMIN_EXPENSES:"المصاريف الإدارية",
+      DONAT_MONEY_RAISING:" الأموال والتبرعات",
+      ABL_COVER_OBLIG:"قدرة الجمعية ",
+      PRGRMS_EXPENSES:"مصاريف البرامج"
+
     }
 
 

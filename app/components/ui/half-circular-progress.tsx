@@ -1,4 +1,5 @@
 import React from 'react';
+import { getNumericVal } from '~/lib/utils/indicators';
 
 const SemiCircleProgressBar = ({ 
   progress = 50, 
@@ -17,7 +18,7 @@ const SemiCircleProgressBar = ({
   const { width, height, strokeWidth } = sizes[size] || sizes.md;
   const radius = width / 2 - strokeWidth;
   const circumference = radius * Math.PI;
-  const progressStroke = ((100 - progress) / 100) * circumference;
+  const progressStroke = ((100 - getNumericVal(progress)) / 100) * circumference;
 
   return (
     <div className="flex flex-col items-center">
@@ -67,7 +68,7 @@ const SemiCircleProgressBar = ({
         {/* Percentage text */}
         <div className="absolute inset-0 flex items-center justify-center mt-4">
           <span className="text-2xl mt-8 font-semibold text-white">
-            {progress.toFixed(2)}%
+            {getNumericVal(progress)}%
           </span>
         </div>
       </div>
