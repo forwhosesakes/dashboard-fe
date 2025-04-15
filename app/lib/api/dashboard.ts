@@ -482,10 +482,13 @@ function isErrorWithMessage(obj: unknown): obj is { message: string } {
 export const dashboardApi = (url: string) => {
   return {
     getOrgDashboards: async (
-      orgId: string
+      orgId: string,
+      options?: { headers?: HeadersInit }
     ): Promise<DashboardOverviewType[]> => {
       try {
-        const response = await fetch(`${url}/dashboard/overview/${orgId}`);
+        const response = await fetch(`${url}/dashboard/overview/${orgId}`, {
+          headers: options?.headers,
+        });
         const result = await response.json();
 
         if (!response.ok)
@@ -560,10 +563,13 @@ export const dashboardApi = (url: string) => {
     },
     getEntries: async <T extends DashboardType>(
       id: string,
-      type: T
+      type: T,
+      options?: { headers?: HeadersInit }
     ): Promise<{entriesMap?:DashboardTypeMap[T][], rawEntries:any}> => {
       try {
-        const response = await fetch(`${url}/dashboard/entries/${type}/${id}`);
+        const response = await fetch(`${url}/dashboard/entries/${type}/${id}`, {
+          headers: options?.headers,
+        });
     
         if (!response.ok) {
           const errorData = await response.json().catch(() => null);
@@ -633,11 +639,15 @@ export const dashboardApi = (url: string) => {
 
     getIndicators: async <T extends DashboardType>(
       id: string,
-      type: T
+      type: T,
+      options?: { headers?: HeadersInit }
     ): Promise<any> => {
       try {
         const response = await fetch(
-          `${url}/dashboard/indicators/${type}/${id}`
+          `${url}/dashboard/indicators/${type}/${id}`,
+          {
+            headers: options?.headers,
+          }
         );
 
         if (!response.ok) {
@@ -747,17 +757,20 @@ export const dashboardApi = (url: string) => {
     },
 
 
-    getGovernanceIndicators :async (
+    getGovernanceIndicators: async (
       orgId: string,
-
-    )=>{
+      options?: { headers?: HeadersInit }
+    ) => {
       try {
         if (!/^\d+$/.test(orgId) || parseInt(orgId) <= 0) {
           throw new Error("Organization ID must be a positive number");
         }
 
         const response = await fetch(
-          `${url}/dashboard/governance/indicators/${orgId}`
+          `${url}/dashboard/governance/indicators/${orgId}`,
+          {
+            headers: options?.headers,
+          }
         );
 
         if (!response.ok) {
@@ -769,10 +782,9 @@ export const dashboardApi = (url: string) => {
         }
 
         const rawResponse: any = await response.json();
-// console.log("raw response for gov", rawResponse);
 
         if (rawResponse.status === "success" && rawResponse.data.governance) {
-          return [rawResponse.data]
+          return [rawResponse.data];
         }
 
         return null;
@@ -783,7 +795,6 @@ export const dashboardApi = (url: string) => {
         }
         throw e;
       }
-
     }
   };
 };

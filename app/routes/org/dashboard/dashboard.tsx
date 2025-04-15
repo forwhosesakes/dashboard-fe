@@ -13,30 +13,58 @@ import { tabsNames } from "./constants/glossary";
 import { Button } from "~/components/ui/button";
 import { Maximize2 } from "lucide-react";
 import { Breadcrumbs } from "~/components/app-breadcrumbs";
+import { authClient } from "~/lib/auth-client";
+import { orgApi } from "~/lib/api/org";
 
-
-export const loader = async ({ context, params }: LoaderFunctionArgs) => {
+export const loader = async ({ request, context, params }: LoaderFunctionArgs) => {
   const { id, dashboardType } = params;
-const serverUrl = context.cloudflare.env.BASE_URL
+  const serverUrl = context.cloudflare.env.BASE_URL;
+  const cookieHeader = request.headers.get("Cookie");
 
-let entriesMap=[];
-let rawEntries=[];
-if (dashboardType !== "GOVERNANCE") {
-  const result = await dashboardApi(
-    serverUrl
-  ).getEntries(`${id}`, (dashboardType as DashboardType) ?? "GENERAL");
   
-  entriesMap = result.entriesMap as any[];
-  rawEntries = result.rawEntries;
-}
+  const res = await authClient(serverUrl).getSession({
+    fetchOptions: {
+      headers: {
+        Cookie: cookieHeader || "",
+      },
+    },
+  });
 
-  let indicators=dashboardType==="GOVERNANCE"?await dashboardApi(serverUrl).getGovernanceIndicators(`${id}`):
-  await dashboardApi(
-    serverUrl
-  ).getIndicators(`${id}`, (dashboardType as DashboardType) ?? "GENERAL")
+  if (!res.data?.session) {
+    throw new Error("Unauthorized");
+  }
 
+ 
+  const org = await orgApi(serverUrl).getOrgByUserId(res.data.user.id, {
+    headers: {
+      Cookie: cookieHeader || "",
+    },
+  });
 
+  let entriesMap = [];
+  let rawEntries = [];
+  if (dashboardType !== "GOVERNANCE") {
+    const result = await dashboardApi(serverUrl).getEntries(`${id}`, (dashboardType as DashboardType) ?? "GENERAL", {
+      headers: {
+        Cookie: cookieHeader || "",
+      },
+    });
+    
+    entriesMap = result.entriesMap as any[];
+    rawEntries = result.rawEntries;
+  }
 
+  let indicators = dashboardType === "GOVERNANCE" 
+    ? await dashboardApi(serverUrl).getGovernanceIndicators(`${id}`, {
+        headers: {
+          Cookie: cookieHeader || "",
+        },
+      })
+    : await dashboardApi(serverUrl).getIndicators(`${id}`, (dashboardType as DashboardType) ?? "GENERAL", {
+        headers: {
+          Cookie: cookieHeader || "",
+        },
+      });
 
   return {
     entriesMap: entriesMap?.length ? entriesMap[0] : null,
@@ -45,16 +73,16 @@ if (dashboardType !== "GOVERNANCE") {
     currentDashboard: dashboardType,
     baseUrl: serverUrl,
     id,
+    logoUrl: org?.logo ? `https://pub-78d8970765b1464a831d610935e4371c.r2.dev/${JSON.parse(org.logo)[0]}` : null,
   };
 };
 
 const Dashbaord = () => {
-  const { id, currentDashboard, indicators, entries } = useLoaderData();
+  const { id, currentDashboard, indicators, entries, logoUrl } = useLoaderData();
   
   const locationData = useLocation();
   const { setLightTheme, setDarkTheme, theme } = useThemeStore();
 
-  
   useEffect(() => {
     setDarkTheme();
     return () => {
@@ -84,6 +112,7 @@ const Dashbaord = () => {
         .catch((err) => console.error("Error exiting fullscreen"));
     }
   };
+
   return (
     <div>
       <div className="flex justify-between p-5">
@@ -123,9 +152,9 @@ const Dashbaord = () => {
           onValueChange={handleTabChange}
         >
           <TabsList className="w-full justify-start bg-transparent">
-            {locationData.state?.dashboardsOverview.map((tab) => (
-              <TabsTrigger value={tab.title.split("_")[1]}>
-                {tabsNames[tab.title.split("_")[1]]}
+            {locationData.state?.dashboardsOverview?.map((tab: any) => (
+              <TabsTrigger key={tab.title} value={tab.title.split("_")[1]}>
+                {tabsNames[tab.title.split("_")[1] as keyof typeof tabsNames]}
               </TabsTrigger>
             ))}
           </TabsList>
@@ -135,10 +164,11 @@ const Dashbaord = () => {
                 ref={containerRef}
                 >
               <DashboardIndicators
-              isFullscreen={isFullscreen}
+                isFullscreen={isFullscreen}
                 indicators={{...entries,...indicators}}
                 type={currentDashboard}
-                logoUrl={locationData.state.logoUrl}
+                logoUrl={logoUrl}
+                role="user"
               />
             </div>
           </TabsContent>
