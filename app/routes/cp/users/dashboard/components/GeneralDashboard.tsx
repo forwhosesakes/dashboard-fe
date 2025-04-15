@@ -71,15 +71,15 @@ const GeneralDashboard = ({ indicators, role, logoUrl, isFullscreen }: IProps) =
       {(role !== "admin" || isFullscreen) &&
          (
           <div className="w-full h-full flex items-center justify-center">
-            <div className="max-w-[180px] w-full">
+            <div className="flex-1 text-center font-bold text-2xl">
+              لوحة الأداء العام
+            </div>
+            <div className="max-w-[141px]">
               <img
                 src={logoUrl ?? TestingIcon}
-                className="w-full h-auto object-contain"
+                className="w-full h-auto object-contain max-h-[48px]"
                 alt="organization icon"
               />
-            </div>
-            <div className="flex-1 text-center font-bold text-4xl">
-              لوحة الأداء العام
             </div>
           </div>
         )}

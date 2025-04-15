@@ -45,7 +45,7 @@ const FinancialDashboard = (props: IProps) => {
   return (
     <section
       className={cn(
-        " pt-12 w-full flex ",
+        " pt-12 w-full flex",
         isExpanded
           ? "xl:pl-5 xl:pr-1 xl:gap-4 2xl:gap-8 2xl:pr-32 2xl:pl-24"
           : "gap-8 xl:pl-16 xl:pr-24 2xl:pr-32"
@@ -53,14 +53,17 @@ const FinancialDashboard = (props: IProps) => {
     >
       {(props.role !== "admin" || props.isFullscreen) && (
         <div className="w-full lg:w-60 flex flex-col">
-          <div className="">
-            {/* https://pub-78d8970765b1464a831d610935e4371c.r2.dev/1740233226681-2e73150c0ab935904bcecca40118e54e%20(1).jpeg */}
-            <img src={props.logoUrl??TestingIcon} alt="organization icon" />
+          <div className="max-w-[141px]">
+            <img 
+              src={props.logoUrl??TestingIcon} 
+              alt="organization icon" 
+              className="w-full h-auto object-contain max-h-[48px]"
+            />
           </div>
-          <p className="font-bold text-white text-2xl md:text-3xl lg:text-4xl mt-8 md:mt-16 lg:mt-24 text-nowrap">
+          <p className="font-bold text-white text-2xl md:text-2xl lg:text-2xl mt-8 md:mt-16 lg:mt-24 text-nowrap">
             لوحــــــــة أداء
           </p>
-          <p className="font-bold text-white text-2xl md:text-3xl lg:text-4xl text-nowrap">
+          <p className="font-bold text-white text-2xl md:text-2xl lg:text-2xl text-nowrap">
             المؤشر المالي
           </p>
         </div>
@@ -383,7 +386,7 @@ const FinancialDashboard = (props: IProps) => {
         </div>
 
         {/* fourth row */}
-        <div className="flex justify-between w-full border-2 p-5 gap-4 rounded-xl border-[#9C9C9C] shadow-[0px_1px_2px_0px_rgba(255,255,255,0.00)]">
+        <div className="flex justify-between w-full  border-2 p-5 gap-4 rounded-xl border-[#9C9C9C] shadow-[0px_1px_2px_0px_rgba(255,255,255,0.00)]">
           <div className="flex flex-col gap-5 ">
             <div className="flex pb-6 min-w-fit items-center justify-between border-b-4 gap-4 border-accent">
               <p className="font-bold text-3xl ">

@@ -311,11 +311,12 @@ const GovernanceDashboard = (props: IProps) => {
       )}
     >
       {(props.role !== "admin" || props.isFullscreen) && (
-        <div className="w-full  md:w-3/5 flex items-center ">
-          <div className="ml-auto">
+        <div className="w-full flex items-center">
+          <div className="flex-1"></div>
+          <div className="max-w-[141px]">
             <img
               src={props.logoUrl ?? TestingIcon}
-              className="w-60 "
+              className="w-full h-auto object-contain max-h-[48px]"
               alt="organization icon"
             />
           </div>

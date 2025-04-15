@@ -125,8 +125,17 @@ const CorporateDashboard = (props: IProps) => {
           <div className="w-full flex items-center  flex-col">
             {(props.role !== "admin" ||props.isFullscreen ) &&
                (
-                <div className="flex mb-12">
-                  <h4>الأداء المؤسسي </h4>
+                <div className="flex mb-12 w-full items-center">
+                  <div className="flex-1 text-center">
+                    <h4 className="text-2xl">لوحة المؤشر المؤسسي</h4>
+                  </div>
+                  <div className="max-w-[141px]">
+                    <img
+                      src={props.logoUrl}
+                      className="w-full h-auto object-contain max-h-[48px]"
+                      alt="organization icon"
+                    />
+                  </div>
                 </div>
               )}
 
