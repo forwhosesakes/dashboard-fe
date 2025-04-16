@@ -18,7 +18,7 @@ const CircularProgressBar = ({
 
     sm: { width: 120, strokeWidth: 16 },
     md: { width: 160, strokeWidth: 20 },
-    lg: { width: 240, strokeWidth: 28 },
+    lg: { width: 200, strokeWidth: 24 },
     xl: { width: 300, strokeWidth: 32 }
   };
 //@ts-ignore

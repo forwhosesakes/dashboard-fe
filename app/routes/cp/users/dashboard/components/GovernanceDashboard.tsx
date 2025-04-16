@@ -245,7 +245,7 @@ const GovernanceDashboard = (props: IProps) => {
     {
       label: governanceLabels.FINANCIAL_PERFORMANCE.FINANCIAL_SUSTAIN,
 
-      value: getNumericVal(props.indicators?.financial?.FINANCIAL_SUSTAIN),
+      value: getNumericVal(props.indicators?.financial[0]?.FINANCIAL_SUSTAIN),
 
       gradientStart: "#1882FF",
       gradientEnd: "#36EBCA",
@@ -254,7 +254,7 @@ const GovernanceDashboard = (props: IProps) => {
     {
       label:governanceLabels.FINANCIAL_PERFORMANCE.ADMIN_EXPENSES,
 
-      value: getNumericVal(props.indicators?.financial?.ADMIN_EXPENSES),
+      value: getNumericVal(props.indicators?.financial[0]?.ADMIN_EXPENSES),
       gradientStart: "#EF7BE3",
       gradientEnd: "#FF5A5A",
     },
@@ -262,7 +262,7 @@ const GovernanceDashboard = (props: IProps) => {
     {
       label: governanceLabels.FINANCIAL_PERFORMANCE.DONAT_MONEY_RAISING,
 
-      value: getNumericVal(props.indicators?.financial?.DONAT_MONEY_RAISING),
+      value: getNumericVal(props.indicators?.financial[0]?.DONAT_MONEY_RAISING),
       gradientStart: "#36F097",
       gradientEnd: "#36F083",
     },
@@ -270,7 +270,7 @@ const GovernanceDashboard = (props: IProps) => {
     {
       label: governanceLabels.FINANCIAL_PERFORMANCE.ABL_COVER_OBLIG,
 
-      value: getNumericVal(props.indicators?.financial?.ABL_COVER_OBLIG),
+      value: getNumericVal(props.indicators?.financial[0]?.ABL_COVER_OBLIG),
       gradientStart: "#FBE947",
       gradientEnd: "#58D764",
     },
@@ -278,7 +278,7 @@ const GovernanceDashboard = (props: IProps) => {
     {
       label: governanceLabels.FINANCIAL_PERFORMANCE.PRGRMS_EXPENSES,
 
-      value: getNumericVal(props.indicators?.financial?.PRGRMS_EXPENSES),
+      value: getNumericVal(props.indicators?.financial[0]?.PRGRMS_EXPENSES),
       gradientStart: "#1882FF",
       gradientEnd: "#36EBCA",
     },
@@ -305,7 +305,7 @@ const GovernanceDashboard = (props: IProps) => {
   return (
     <section
       className={cn(
-        " pt-12 w-full flex flex-col ",
+        " w-full flex flex-col ",
 
         "gap-8 xl:pl-16 xl:pr-24 2xl:pr-32"
       )}
@@ -342,7 +342,7 @@ const GovernanceDashboard = (props: IProps) => {
             className=" w-full h-2.5 bg-gray-700"
             gradientStart={"#FBE947"}
             gradientEnd={"#58D764"}
-            value={Math.ceil(Number(33))}
+            value={Math.ceil(Number(total))}
             indicatorClassName={""}
           />
         </div>
@@ -351,7 +351,7 @@ const GovernanceDashboard = (props: IProps) => {
         <div
           className={cn("flex ", isExpanded ? "xl:gap-3 2xl:gap-4" : "gap-4")}
         >
-          <div className="flex flex-col md:flex-row gap-4 md:gap-6 w-full  justify-center items-center px-4 py-3 border-2 rounded-xl border-[#9C9C9C] shadow-[0px_1px_2px_0px_rgba(255,255,255,0.00)]">
+          <div className="flex flex-col my-1  md:flex-row gap-4 md:gap-6 w-full  justify-center items-center px-4 py-3 border-2 rounded-xl border-[#9C9C9C] shadow-[0px_1px_2px_0px_rgba(255,255,255,0.00)]">
             <div className={cn("relative    w-3/5 ")}>
               <div className="absolute  left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2  ">
                 <div className="flex flex-col items-center justify-center">
@@ -375,7 +375,7 @@ const GovernanceDashboard = (props: IProps) => {
                 showProgress={false}
               />
             </div>
-            <div className="flex flex-wrap gap-12">
+            <div className="flex flex-wrap gap-8">
               {complianceAdherenceIndicators.map((item,i) => (
                 <div className="flex flex-col justify-center items-center">
                   <p className="font-bold">{item.label}</p>
@@ -461,7 +461,7 @@ const GovernanceDashboard = (props: IProps) => {
     ))}
   </div>
 
-  <div className={cn("relative  w-80 ")}>
+  <div className={cn("relative my-1 w-80 ")}>
     <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2  ">
       <div className="flex flex-col items-center justify-center">
         <p className="my-2 font-bold">  الشفافية والإفصاح</p>
@@ -507,7 +507,7 @@ const GovernanceDashboard = (props: IProps) => {
               <CircularProgressBar
                 gradientId="49"
                 progress={financialSafetyTotal}
-                size="lg"
+                size="md"
                 gradientStart="#1882FF"
                 gradientEnd="#36EBCA"
                 trackColor="#373A41"
