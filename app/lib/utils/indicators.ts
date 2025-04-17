@@ -4,5 +4,5 @@ export function isNumeric(n:any) {
 
 
   export const getNumericVal = (val:any)=>{
-     return  isNumeric(val)?parseFloat( Number(val ).toFixed(1)):0
+     return  isNumeric(val)?parseFloat( Number(val ).toFixed(2)):0
   }
