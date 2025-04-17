@@ -68,7 +68,7 @@ const SemiCircleProgressBar = ({
         {/* Percentage text */}
         <div className="absolute inset-0 flex items-center justify-center mt-4">
           <span className="text-2xl mt-8 font-semibold text-white">
-            {getNumericVal(progress)}%
+            {getNumericVal(progress,1)}%
           </span>
         </div>
       </div>
