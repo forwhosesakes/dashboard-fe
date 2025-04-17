@@ -561,8 +561,8 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
       {
         label: "BOARD_MEMBER_FROM_JUDICIARY",
         options: [
-          { label: "لا يوجد.", weight: 0},
-          { label: "يوجد .", weight: 1 },
+          { label: "لا يوجد.", weight: 1},
+          { label: "يوجد .", weight: 0 },
         ],
         isDependantOnPrev: false,
       },
