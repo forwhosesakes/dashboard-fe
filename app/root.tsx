@@ -118,31 +118,32 @@ export function Layout({ children }: { children: React.ReactNode }) {
   
 
   return (
-    <html dir="rtl" lang="ar">
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Meta />
-        <Links />
-      </head>
-      <body>
-        {shouldShowSidebar && isAdmin ? <AppLayout serverUrl={serverUrl} user={user} >{children}</AppLayout> : !isAdmin && shouldShowSidebar ?
-        (
-          <main className="p-5 w-full h-full min-h-screen">
-            <div className="w-full h-full">
-            {children}
-            </div>
-          </main>
-):
-children
-}
+    null
+//     <html dir="rtl" lang="ar">
+//       <head>
+//         <meta charSet="utf-8" />
+//         <meta name="viewport" content="width=device-width, initial-scale=1" />
+//         <Meta />
+//         <Links />
+//       </head>
+//       <body>
+//         {shouldShowSidebar && isAdmin ? <AppLayout serverUrl={serverUrl} user={user} >{children}</AppLayout> : !isAdmin && shouldShowSidebar ?
+//         (
+//           <main className="p-5 w-full h-full min-h-screen">
+//             <div className="w-full h-full">
+//             {children}
+//             </div>
+//           </main>
+// ):
+// children
+// }
 
 
-        <Toaster richColors position="bottom-right" />
-        <ScrollRestoration />
-        <Scripts />
-      </body>
-    </html>
+//         <Toaster richColors position="bottom-right" />
+//         <ScrollRestoration />
+//         <Scripts />
+//       </body>
+//     </html>
   );
 }
 
