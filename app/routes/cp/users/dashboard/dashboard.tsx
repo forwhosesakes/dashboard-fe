@@ -1,16 +1,11 @@
 import { Layers } from "lucide-react";
 import { NavLink, useLoaderData, type LoaderFunctionArgs } from "react-router";
 import { Button } from "~/components/ui/button";
-import { dashboardApi, type DashboardOverviewType } from "~/lib/api/dashboard";
-import { dashboardStatusMap } from "./constants/glossary"
+import { dashboardApi } from "~/lib/api/dashboard";
 import { useEffect } from "react";
 import { newDashboardsTitles } from "~/routes/org/dashboard/constants/glossary";
 import { Breadcrumbs } from "~/components/app-breadcrumbs";
 
-type LoaderData = {
-    dashboardsOverview: DashboardOverviewType[];
-    error?: string;
-  };
 
 export const loader = async ({ context, params }: LoaderFunctionArgs) => {
   const serverUrl = context.cloudflare.env.BASE_URL;
@@ -71,17 +66,17 @@ useEffect(()=>{
                 <div id="bottom-section" className="border-t group-hover:border-accent flex flex-col py-5 px-5 h-5/6">
                   <div className="flex justify-between">
                     <div className="flex gap-2 items-end ">
-                      <h3 className="text-primary-foreground">{dashboard.title === "NEW_FINANCIAL_INDICATORS"?38: dashboard.title === "NEW_OPERATIONAL_INDICATORS"? 22 : dashboard.title === "NEW_GENERAL_INDICATORS" ? 0: 36}</h3>
+                      <h3 className="text-primary-foreground">{dashboard.title === "NEW_FINANCIAL_INDICATORS"?38: dashboard.title === "NEW_OPERATIONAL_INDICATORS"? 22 : dashboard.title === "NEW_GENERAL_INDICATORS" ? 0:  dashboard.title==="NEW_GOVERNANCE_INDICATORS"?189:36}</h3>
                       <p>مُدخل</p>
                     </div>
-                    <div className="flex border rounded-lg px-2 py-1 justify-center items-center gap-2">
+                    {/* <div className="flex border rounded-lg px-2 py-1 justify-center items-center gap-2">
                       <p>{dashboardStatusMap[dashboard.status]}</p>
                       <div className={`h-1.5 w-1.5 
                       ${dashboard.status === "COMPLETED" ? `bg-green-600`
                       : dashboard.status === "NOT_STARTED" ? `bg-red-600`
                       : `bg-orange-500`
                       } rounded-full`}></div>
-                    </div>
+                    </div> */}
                   </div>
                
                 </div>

@@ -467,7 +467,7 @@ const GovernanceDashboard = (props: IProps) => {
         <p className="my-2 font-bold">  الشفافية والإفصاح</p>
         <GradientText
           text={transparencyTotal + "%"}
-          className="text-5xl"
+          className="text-4xl"
           gradientStart="#FBE947"
           gradientEnd="#58D764"
         />
@@ -476,7 +476,7 @@ const GovernanceDashboard = (props: IProps) => {
 
     <CircularProgressBar
       gradientId="28"
-      progress={financialSafetyTotal}
+      progress={transparencyTotal}
       size="lg"
       gradientStart="#FBE947"
       gradientEnd="#58D764"

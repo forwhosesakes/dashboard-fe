@@ -126,7 +126,7 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
         options: [
           { label: "لم يتم مناقشة التقرير.", weight: 0 },
           { label: "تمت المناقشة من غير الاعتماد.", weight: 2 },
-          { label: "تم الاجتماع.", weight: 4 },
+          { label: "تمت المناقشة والاعتماد .", weight: 4 },
         ],
         isDependantOnPrev: false,
       },
@@ -1952,7 +1952,7 @@ export const TRANSPARENCY_DISCLOSURE_PRACTICES_QUESTIONS ={
      
   
           {
-            label: "يوجد تقرير.",
+            label: "يوجد تقريرلا .",
             weight: 0,
           },
 

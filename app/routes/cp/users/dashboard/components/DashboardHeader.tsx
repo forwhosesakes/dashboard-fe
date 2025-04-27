@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { NavLink } from "react-router";
 import { Button } from "~/components/ui/button";
 import CircularSpinner from "~/components/ui/circular-spinner";
 import type { DashboardType } from "~/lib/api/dashboard";
@@ -11,6 +10,7 @@ interface DashboardHeaderProps {
   onSave: () => void;
   onDelete: () => void;
   loading: boolean;
+  orgName:string
 }
 
 const DashboardHeader = ({
@@ -18,6 +18,7 @@ const DashboardHeader = ({
   onSave,
   onDelete,
   loading,
+  orgName
 }: DashboardHeaderProps) => {
   const [toSave, setToSave] = useState(false);
   const [toDelete, setToDelete] = useState(false);
@@ -51,6 +52,7 @@ const DashboardHeader = ({
             ? "الأداء المؤسسي"
             : dashboardType==="GOVERNANCE"?"لوحة الحوكمة"
             : "العام"}
+            {orgName && ` لجمعية  ${orgName}`}
         </h5>
         <p className="text-primary-foreground/75">أدخل بيانات المؤشر.</p>
       </div>

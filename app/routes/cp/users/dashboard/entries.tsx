@@ -42,6 +42,7 @@ const serverUrl = context.cloudflare.env.BASE_URL
 }
 const responseData = response.data as TOrganization;
 const logoName =JSON.parse(responseData["logo"])[0]
+const orgName= responseData["name"]
 const publicLogoUrl = `https://pub-78d8970765b1464a831d610935e4371c.r2.dev/${logoName}` 
 let entriesMap=[];
 let rawEntries=[];
@@ -63,6 +64,7 @@ if (dashboardType !== "GOVERNANCE") {
 
 
   return {
+    orgName,
     entriesMap: entriesMap?.length ? entriesMap[0] : null,
     rawEntries: rawEntries?.length ? rawEntries[0] : null,
     indicators: indicators?.length ? indicators[0] : null,
@@ -74,14 +76,15 @@ if (dashboardType !== "GOVERNANCE") {
 };
 
 const Entries = () => {
-  const { rawEntries,entriesMap, indicators, currentDashboard, logoUrl, baseUrl, id } = useLoaderData<{
+  const { rawEntries,entriesMap, indicators, currentDashboard, logoUrl, baseUrl, id ,orgName} = useLoaderData<{
     currentDashboard: DashboardType |"GOVERNANCE";
     baseUrl: string;
     id: string;
     indicators: any[];
     rawEntries: any;
     entriesMap:any;
-    logoUrl:string
+    logoUrl:string;
+    orgName:string
   }>();
 
   
@@ -257,6 +260,7 @@ const Entries = () => {
   return (
     <>
       <DashboardHeader
+      orgName={orgName}
         dashboardType={currentDashboard}
         onSave={saveEntries}
         loading={loading}
