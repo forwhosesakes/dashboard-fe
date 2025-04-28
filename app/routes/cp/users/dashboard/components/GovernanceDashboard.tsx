@@ -305,20 +305,25 @@ const GovernanceDashboard = (props: IProps) => {
   return (
     <section
       className={cn(
-        " w-full flex flex-col ",
+        " w-full flex flex-col  relative",
 
         "gap-8 xl:pl-16 xl:pr-24 2xl:pr-32"
       )}
     >
+<p className="text-nowrap -bottom-5 text-lg right-24 w-full text-right  opacity-60 absolute">خدمات مشتركة.. تكامل الأثر</p>
+
+
+
       {(props.role !== "admin" || props.isFullscreen) && (
         <div className="w-full flex items-center">
           <div className="flex-1"></div>
-          <div className="max-w-[141px]">
+          <div className="max-w-[141px] ">
             <img
               src={props.logoUrl ?? TestingIcon}
               className="w-full h-auto object-contain max-h-[48px]"
               alt="organization icon"
             />
+
           </div>
         </div>
       )}
@@ -358,7 +363,7 @@ const GovernanceDashboard = (props: IProps) => {
                   <p> الامتثال و الالتزام</p>
                   <GradientText
                     text={complianceAdherenceTotal + "%"}
-                    className="text-4xl"
+                    className="text-3xl"
                     gradientStart="#EF7BE3"
                     gradientEnd="#FF5A5A"
                   />
@@ -421,7 +426,7 @@ const GovernanceDashboard = (props: IProps) => {
                     <p className="my-2 font-bold"> الأداء المالي</p>
                     <GradientText
                       text={financialPerf + "%"}
-                      className="text-4xl"
+                      className="text-3xl"
                       gradientStart="#00AE84"
                       gradientEnd="#58D764"
                     />
@@ -467,7 +472,7 @@ const GovernanceDashboard = (props: IProps) => {
         <p className="my-2 font-bold">  الشفافية والإفصاح</p>
         <GradientText
           text={transparencyTotal + "%"}
-          className="text-4xl"
+          className="text-3xl"
           gradientStart="#FBE947"
           gradientEnd="#58D764"
         />
@@ -498,7 +503,7 @@ const GovernanceDashboard = (props: IProps) => {
                   <p className="my-2 font-bold">التنظيم المالي</p>
                   <GradientText
                     text={financialSafetyTotal + "%"}
-                    className="text-4xl"
+                    className="text-3xl"
                     gradientStart="#1882FF"
                     gradientEnd="#36EBCA"
                   />
