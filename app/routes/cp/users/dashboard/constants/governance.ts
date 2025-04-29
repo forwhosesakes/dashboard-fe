@@ -315,7 +315,7 @@ export const COMPLIANCE_ADHERENCE_PRACTICES_QUESTIONS = {
       {
         label: "HAS_RELATED_PARTY_TRANSACTIONS_BETWEEN_MEMBERS",
         options: [
-          { label: "يوجد توجد علاقة تعاقدية.", weight: 0 },
+          { label: " توجد علاقة تعاقدية.", weight: 0 },
           { label: "لا توجد علاقة تعاقدية.", weight: 1 },
         ],
         isDependantOnPrev: false,
@@ -1952,7 +1952,7 @@ export const TRANSPARENCY_DISCLOSURE_PRACTICES_QUESTIONS ={
      
   
           {
-            label: "يوجد تقريرلا .",
+            label: " لا يوجد تقرير .",
             weight: 0,
           },
 
