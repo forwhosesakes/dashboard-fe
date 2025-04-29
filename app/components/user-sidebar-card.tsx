@@ -1,5 +1,5 @@
 import * as React from "react"
-import { LogOut, User, UserCog, Users, ChevronUp, ChevronDown } from "lucide-react"
+import { LogOut, ChevronUp, ChevronDown } from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuContent,

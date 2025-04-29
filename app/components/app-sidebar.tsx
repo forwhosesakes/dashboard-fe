@@ -74,7 +74,7 @@ export function AppLayout({ children, user, serverUrl }: AppLayoutProps) {
   const location = useLocation();
   const navigate = useNavigate();
   const navigation = useNavigation();
-  const isNavigating = Boolean(navigation.location);
+
 
 
   const handleLogOut = async () => {
