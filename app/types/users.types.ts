@@ -90,6 +90,7 @@ export type TField = {
 export interface IStepComponentProps<T> {
   // stepData: StepData;
   additionalProps: T;
+  disabled:boolean
 }
 
 export interface IEntriesStepComponentProps<T> {

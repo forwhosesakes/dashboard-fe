@@ -21,6 +21,7 @@ interface IProps<T> {
   onStepChange: (prevStep: StepsEnum, currentStep: StepsEnum | null) => void;
   steps: TSteps;
   additionalProps: T;
+  disabledSteps:false | StepsEnum[]
 }
 export default function Stepper<T>(props: IProps<T>) {
   const [currentStep, setCurrentStep] = useState(0);
@@ -112,6 +113,7 @@ export default function Stepper<T>(props: IProps<T>) {
       {
         <CurrentComponent
           // stepData={props.steps[stepsIndex[currentStep]]}
+          disabled={!!(props.disabledSteps && props.disabledSteps.includes(stepsIndex[currentStep]))}
           additionalProps={props.additionalProps}
         />
       }

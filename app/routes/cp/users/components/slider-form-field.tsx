@@ -21,6 +21,7 @@ const SliderFormField = ({
   field,
   getFieldState,
   hasSlider,
+  disabled,
   control,
   ...rest
 }: IProps) => {
@@ -62,6 +63,7 @@ const SliderFormField = ({
 
                 <div className={"flex-[1_0_0"} dir="ltr">
                   <Switch
+                  disabled={disabled}
                     checked={!!switchState}
                     onCheckedChange={switchToggleChange}
                   />
@@ -78,7 +80,7 @@ const SliderFormField = ({
                         حدد قيمة المؤشر لحساب النسبة
                       </p>
                       <Slider
-                        disabled={!switchState}
+                        disabled={(!switchState) || disabled}
                         onValueChange={(v: number[]) => onValueChange(v[0])}
                         value={[sliderValue]}
                         max={100}

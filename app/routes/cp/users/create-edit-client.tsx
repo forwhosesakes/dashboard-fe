@@ -11,11 +11,11 @@ import { type FileUpload, parseFormData } from "@mjackson/form-data-parser";
 
 import { USER_MGMT } from "./glossary";
 import { useForm, type UseFormReturn } from "react-hook-form";
-import type {
-  LoaderData,
+import {
   StepsEnum,
-  TFormDataInput,
-  TOrganization,
+  type LoaderData,
+  type TFormDataInput,
+  type TOrganization,
 } from "~/types/users.types";
 import { STEPS } from "./constants/steps";
 import Stepper from "~/components/ui/stepper/stepper";
@@ -375,6 +375,7 @@ const CreateEditClient = () => {
           additionalProps={formHook}
           cancelStepper={() => navigate("/cp/users")}
           onStepChange={onStepChange}
+          disabledSteps={!!id&&[StepsEnum.SETTINGS_ENTRIES]}     
         />
       </form>
     </section>

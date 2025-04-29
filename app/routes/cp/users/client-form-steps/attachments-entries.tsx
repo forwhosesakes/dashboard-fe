@@ -2,7 +2,6 @@ import type { UseFormReturn } from "react-hook-form"
 import type { IStepComponentProps, TFormDataInput } from "~/types/users.types"
 import { STEPS } from "../constants/steps"
 import FileFormField from "../components/file-form-field"
-import { useEffect } from "react"
 
 
 const AttachmentsEntries = (props:IStepComponentProps<UseFormReturn<TFormDataInput, any, undefined>>)=>{
