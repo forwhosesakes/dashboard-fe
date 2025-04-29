@@ -311,7 +311,7 @@ const Entries = () => {
             ))}
           </TabsList>
 
-          {isNavigating?          <div className="flex w-full  h-[50vh] items-center justify-center"><Spinner className="text-secondary-700" size={"large"}/></div>:<TabsContent value={currentDashboard}>
+          {isNavigating? <div className="flex w-full  h-[50vh] items-center justify-center"><Spinner className="text-secondary-700" size={"large"}/></div>:<TabsContent value={currentDashboard}>
   <div
               className={` overflow-y-auto overflow-x-hidden ${theme.includes("dark") && "bg-[#000]"}`}
               ref={containerRef}

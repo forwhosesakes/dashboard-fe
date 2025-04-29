@@ -7,6 +7,7 @@ import { Progress } from "~/components/ui/progress";
 import CircularProgressBar from "~/components/ui/circular-progress";
 import { governanceLabels, indicatorsLabels } from "../constants/glossary";
 import SemiCircleProgressBar from "~/components/ui/half-circular-progress";
+import DashboardLogo from "./DashboardLogo";
 
 interface IProps {
   indicators: any;
@@ -315,16 +316,10 @@ const GovernanceDashboard = (props: IProps) => {
 
 
       {(props.role !== "admin" || props.isFullscreen) && (
-        <div className="w-full flex items-center">
+        <div className="w-full flex relative h-10 mb-2 items-center">
           <div className="flex-1"></div>
-          <div className="max-w-[141px] ">
-            <img
-              src={props.logoUrl ?? TestingIcon}
-              className="w-full h-auto object-contain max-h-[48px]"
-              alt="organization icon"
-            />
-
-          </div>
+          <DashboardLogo logoUrl={props.logoUrl ?? TestingIcon}/>
+      
         </div>
       )}
 
