@@ -113,7 +113,8 @@ export default function Stepper<T>(props: IProps<T>) {
       {
         <CurrentComponent
           // stepData={props.steps[stepsIndex[currentStep]]}
-          disabled={!!(props.disabledSteps && props.disabledSteps.includes(stepsIndex[currentStep]))}
+          // disabled={!!(props.disabledSteps && props.disabledSteps.includes(stepsIndex[currentStep]))}
+          disabled={false}
           additionalProps={props.additionalProps}
         />
       }
