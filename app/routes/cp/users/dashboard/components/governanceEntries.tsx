@@ -342,7 +342,7 @@ const GovernanceEntries = () => {
                             </h2>
                             <span className="text-sm text-muted-foreground">
                               {/* @ts-ignore */}( الدرجة :{"  "}
-                              {getSubtotalForPractice(question, i)}{" "}
+                              {getSubtotalForPractice(question, i).toLocaleString("en-US",{minimumFractionDigits:0,maximumFractionDigits:2})}{" "}
                               {/* @ts-ignore */}
                               من اصل{" "}        {     TABS_QUESTIONS[govTab].questions[question]
                                   .weight
